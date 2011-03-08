@@ -36,7 +36,8 @@ function finishPhysicalExam()
 function updateObservation()
 {
     sectionUUID = getAttrForElem(this,"sectionid");
-    window.alert(sectionUUID);
+    observationUUID=this.id;
+    radioValue = $(this).find("input:radio:checked").val();
 }
 
 function registerFormEvents()
