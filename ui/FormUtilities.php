@@ -19,6 +19,7 @@ function addObservation($DOM,$ELEMParent,$obs,$className)
     $tr = $DOM->createElement("TR");
     $ELEMParent->appendChild($tr);
     $tr->setAttribute("CLASS",$className);
+    $tr->setAttribute("ID",$obs->getUUID());
 
     $obsDesc = $DOM->createElement("TD",$obs->getText());
 
@@ -28,7 +29,7 @@ function addObservation($DOM,$ELEMParent,$obs,$className)
     $butYes->setAttribute("TYPE","RADIO");
     $butYes->setAttribute("NAME",htmlentities($obs->getText()));
     $butYes->setAttribute("VALUE","YES");
-    $butYes->setAttribute("CLASS",$obs->getClassification());
+    $butYes->setAttribute("CLASS",$obs->getClassification()." RB");
 
     $tdButYes->appendChild($butYes);
 
@@ -38,7 +39,7 @@ function addObservation($DOM,$ELEMParent,$obs,$className)
     $butNo->setAttribute("TYPE","RADIO");
     $butNo->setAttribute("NAME",  htmlentities($obs->getText()));
     $butNo->setAttribute("VALUE","NO");
-    $butNo->setAttribute("CLASS",$obs->getClassification());
+    $butNo->setAttribute("CLASS",$obs->getClassification()." RB");
 
     $tdButNo->appendChild($butNo);
 
@@ -67,7 +68,7 @@ function AddObsHeader($DOM,$ELEMParent,$header,$class)
     $tr->appendChild($thNo);
 
     $thYes->setAttribute("CLASS",$class);
-    $thHeader->setAttribute("CLASS",$class);
+    $thHeader->setAttribute("CLASS",$class." formHeader");
     $thNo->setAttribute("CLASS",$class);
 }
 function createObservationTable($em,$DOM,$ELEMParent,$header,$code,$code_type)
@@ -113,7 +114,9 @@ function createDocEntryTable($em,$DOM,$ELEMParent,$docEntry)
             }
         }
     }
-    else
+    $header = htmlentities($docEntry->getText());
+    $loc = strpos($header,":");
+    if( ($loc>0) && ($docEntry->getType()==="Section"))
     {
         $header = htmlentities($docEntry->getText());
         $loc = strpos($header,":");
@@ -125,6 +128,7 @@ function createDocEntryTable($em,$DOM,$ELEMParent,$docEntry)
         $code_type=$docEntry->getCode_type();
         $DIVSection = $DOM->createElement("DIV");
         $DIVSection->setAttribute("CLASS","FormSection");
+        $DIVSection->setAttribute("SectionID",$docEntry->getUUID());
         $ELEMParent->appendChild($DIVSection);
         createObservationTable($em,$DOM,$DIVSection,$header,$code,$code_type);
         // need to modify this to update the radio buttons to specify already selected values.

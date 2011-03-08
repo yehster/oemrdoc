@@ -94,11 +94,18 @@ include_once('DocumentUtilities.php');
             background-color: lightpink;
     }
 
+    th.formHeader{
+        width: 80%;
+    }
     .FormSection {
             float: left;
             width: 32%;
             margin: 1px;
     }
+    input.RB {
+        width: 100%;
+    }
+
 
 </style>
 
@@ -107,18 +114,7 @@ include_once('DocumentUtilities.php');
 <script src="/openemr/library/doctrine/ui/FormsScripts.js" type="text/javascript"></script>
 <script type="text/javascript">
 
-function getAttrForElem(elem,attrName)
-{
 
-    if($(elem).attr(attrName)!=undefined)
-    {
-        return($(elem).attr(attrName));
-    }
-    else
-    {
-        return getAttrForElem($(elem).parent(),attrName);
-    }
-}
 function clickDrug()
 {
     rxcui=$(this).attr("rxcui");
@@ -269,7 +265,7 @@ function addProblem() {
         $("#finishPE").live({click: finishPhysicalExam})
 
         $("#popupDiv").hide();
-
+        registerFormEvents();
     }
     window.onload= registerControlEvents;
 </script>

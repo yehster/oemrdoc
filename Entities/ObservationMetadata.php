@@ -23,8 +23,13 @@ class ObservationMetadata
 	 * @Id
 	 * @Column(type="string")
 	 */
-	private $uuid;
+	protected $uuid;
         
+        public function getUUID()
+        {
+            return $this->uuid;
+        }
+
 	/**
 	 * @Column(type="datetime")
 	 */

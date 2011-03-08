@@ -195,6 +195,9 @@ if($context=="code")
             addCodeResult($ResultsDom,$table,$codes[$cidx],$className);
         }
     }
+    echo $ResultsDom->saveXML();
+
+
 }
 if($context=="med")
 {
@@ -206,15 +209,16 @@ if($context=="med")
         $curMed = $medNames[$idx][0];
         addMedName($ResultsDom,$drugsTable,$curMed,$className);
     }
+    echo $ResultsDom->saveXML();
 }
 
 if($context=="medSemantic")
 {
     $medForms= lookupMedForms($em,"has_ingredient","'SCDF','SBDF'",$rxcui,$rxaui);
-    $drugsTable = $ResultsDom->createElement("TABLE");
-    $ResultsDom->appendChild($drugsTable);
     for($idx=0;$idx<count($medForms);$idx++)
     {
+        $drugsTable = $ResultsDom->createElement("TABLE");
+        $ResultsDom->appendChild($drugsTable);
         $curMed = $medForms[$idx];
         addMedName($ResultsDom,$drugsTable,$curMed,$className);
         $medSem = lookupMedForms($em,"isa","'SCD','SBD'",$curMed->getRXCUI(),$curMed->getRXAUI());
@@ -223,8 +227,8 @@ if($context=="medSemantic")
             $curSem = $medSem[$formIdx];
             addMedName($ResultsDom,$drugsTable,$curSem,"SpecifiedDrug");
         }
+        echo $ResultsDom->saveXML($drugsTable);
     }
 }
-    echo $ResultsDom->saveHTML();
 
 ?>
