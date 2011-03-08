@@ -97,7 +97,7 @@ include_once('DocumentUtilities.php');
     .FormSection {
             float: left;
             width: 32%;
-            margin: 2px;
+            margin: 1px;
     }
 
 </style>
@@ -109,6 +109,7 @@ include_once('DocumentUtilities.php');
 
 function getAttrForElem(elem,attrName)
 {
+
     if($(elem).attr(attrName)!=undefined)
     {
         return($(elem).attr(attrName));
@@ -200,7 +201,6 @@ function lookupProblem() {
                 $('#divProblemSuggestions').html(data);
             }
         });
-
     }
 }
 function keyupProblemEntry() {
@@ -283,7 +283,7 @@ function addProblem() {
     </head>
     <body>
         <div id="popupDiv"></div>
-        <?php echo $EditorDOM->saveXML();  ?>
+        <?php echo $EditorDOM->saveXML($EditorDOM);  ?>
 
         <div id="status"></div>
     </body>

@@ -20,6 +20,6 @@ $FormDOM->appendChild($closeDIV);
 $parentDiv = $FormDOM->createElement("DIV");
 $FormDOM->appendChild($parentDiv);
 createDocEntryTable($em, $FormDOM, $parentDiv, $docEntry);
-echo $FormDOM->saveXML();
+echo $FormDOM->saveXML($FormDOM);
 
 ?>
