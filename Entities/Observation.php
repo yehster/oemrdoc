@@ -11,5 +11,17 @@ namespace library\doctrine\Entities;
             return self::classtype;
         }
 
+        /** @Column(type="string",name="attr1") */
+        protected $value;
+ 
+        public function setValue($val)
+        {
+            $this->value=$val;
+        }
+        
+        public function getValue()
+        {
+            return $this->value;
+        }
  }
  ?>

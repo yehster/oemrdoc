@@ -35,11 +35,13 @@ function finishPhysicalExam()
 
 function updateObservation()
 {
-    sectionUUID = getAttrForElem(this,"sectionid");
+    parentEntryUUID = getAttrForElem(this,"sectionid");
     observationUUID=this.id;
     observationText=$(this).attr("ObsText");
     radioValue = $(this).find("input:radio:checked").val();
-
+    showStatus(radioValue);
+    $.post("/var/www/openemr/library/doctrine/interface/manageEntry.php",
+    {parentEntryUUID: ""+parentEntryUUID+"", });
 }
 
 function registerFormEvents()
