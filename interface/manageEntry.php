@@ -94,7 +94,15 @@ if($EntryType=="observation")
     {
         $val = $_REQUEST['val'];
     }
-    $obs = findObservationOrCreate($em,$parentEntry,$metadataUUID,$pat,$user);
+    if(isset($_REQUEST['observationUUID']))
+    {
+        $observationUUID=$_REQUEST['observationUUID'];
+    }
+    $obs=$em->getRepository('library\doctrine\Entities\Observation')->find($observationUUID);
+    if($obs===null)
+    {
+        $obs = findObservationOrCreate($em,$parentEntry,$metadataUUID,$pat,$user);
+    }
     $obs->setValue($val);
     $obs->setText($content,$auth);
     $em->persist($obs);

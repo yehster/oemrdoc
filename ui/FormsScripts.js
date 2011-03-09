@@ -36,6 +36,7 @@ function finishPhysicalExam()
 function updateObservation()
 {
     parentEntryUUID = getAttrForElem(this,"sectionid");
+    observationID = $(this).attr("observationid");
     observationMetaDataUUID=this.id;
     observationText=$(this).attr("ObsText");
     radioValue = $(this).find("input:radio:checked").val();
@@ -46,12 +47,13 @@ function updateObservation()
            {
                 parentEntryUUID: ""+parentEntryUUID+"",
                 metadataUUID: ""+observationMetaDataUUID+"",
+                observationUUID: ""+observationID+"",
                 EntryType: "observation",
                 task: "update",
                 val: ""+radioValue+"",
                 content: ""+observationText+""
             },
-            function(data) {refreshSection(""+parentEntryUUID+"")}
+            function(data) {refreshSection(""+parentEntryUUID+"");}
             
         )
     }

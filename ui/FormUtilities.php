@@ -128,6 +128,15 @@ function createDocEntryTable($em,$DOM,$ELEMParent,$docEntry)
         // Update the radio buttons based on the state of the observations
         $obsRow=$DOM->getElementById($docEntry->getMetadataUUID());
         $obsRow->setAttribute("ObservationID",$docEntry->getUUID());
+        $inputs=$obsRow->getElementsByTagName("INPUT");
+        for($inpIdx=0;$inpIdx<$inputs->length;$inpIdx++)
+        {
+            $inp=$inputs->item($inpIdx);
+            if($inp->getAttribute("VALUE")==$docEntry->getValue())
+            {
+                $inp->setAttribute("Checked","");
+            }
+        }
     }
 
     $childCount= $item->getItems()->count();
