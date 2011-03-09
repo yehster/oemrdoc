@@ -19,9 +19,11 @@ function addObservation($DOM,$ELEMParent,$obs,$className)
     $tr = $DOM->createElement("TR");
     $ELEMParent->appendChild($tr);
     $tr->setAttribute("CLASS",$className);
+    $obsText = htmlentities($obs->getText());
+    $tr->setAttribute("ObsText",$obsText);
     $tr->setAttribute("ID",$obs->getUUID());
 
-    $obsDesc = $DOM->createElement("TD",$obs->getText());
+    $obsDesc = $DOM->createElement("TD",$obsText);
 
     $tdButYes = $DOM->createElement("TD");
 
