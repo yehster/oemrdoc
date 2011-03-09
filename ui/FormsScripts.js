@@ -36,12 +36,25 @@ function finishPhysicalExam()
 function updateObservation()
 {
     parentEntryUUID = getAttrForElem(this,"sectionid");
-    observationUUID=this.id;
+    observationMetaDataUUID=this.id;
     observationText=$(this).attr("ObsText");
     radioValue = $(this).find("input:radio:checked").val();
-    showStatus(radioValue);
-    $.post("/var/www/openemr/library/doctrine/interface/manageEntry.php",
-    {parentEntryUUID: ""+parentEntryUUID+"", });
+
+    if(radioValue!=undefined)
+    {
+        showStatus(radioValue+" "+observationText);
+        $.post("/openemr/library/doctrine/interface/manageEntry.php",
+           {
+                parentEntryUUID: ""+parentEntryUUID+"",
+                metadataUUID: ""+observationMetaDataUUID+"",
+                EntryType: "observation",
+                task: "update",
+                val: ""+radioValue+"",
+                content: ""+observationText+""
+            }
+        );
+    }
+    refreshSection(parentEntryUUID);
 }
 
 function registerFormEvents()

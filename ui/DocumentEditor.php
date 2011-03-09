@@ -44,6 +44,10 @@ include_once('DocumentUtilities.php');
         font-family:sans-serif;
         font-size:x-small;
     }
+    .Observation
+    {
+        color: red;
+    }
     .Highlight {
         background-color: yellow;
         cursor: pointer;

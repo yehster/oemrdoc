@@ -1,6 +1,34 @@
 <?php
 include_once("/var/www/openemr/interface/globals.php");
 include_once('/var/www/openemr/library/doctrine/init-em.php');
+
+function findObservationOrCreate($em,$PE,$metadataUUID,$pat,$user)
+{
+    $parItem=$PE->getItem();
+    $qb = $em->createQueryBuilder()
+        ->select("obs")
+        ->from("library\doctrine\Entities\Observation","obs")
+        ->join("obs.item","i")
+        ->where("obs.metadataUUID=:mdu")
+        ->andwhere("i.parent=:par")    ;
+    $qb->setParameter("mdu",$metadataUUID);
+    $qb->setParameter("par",$parItem);
+
+    $qryRes=$qb->getQuery()->getResult();
+    if(count($qryRes)===0)
+    {
+        $res = new library\doctrine\Entities\Observation(null,$pat,$user);
+        $PE->getItem()->addEntry($res);
+        $res->setMetadataUUID($metadataUUID);
+    }
+    else
+    {
+        $res = $qryRes[0];
+    }
+    return $res;
+
+}
+
 $user = $_SESSION['authUser'];
 if(isset($_SESSION['pid']))
 {
@@ -24,8 +52,10 @@ if(isset($_REQUEST['content']))
 {
         $content = $_REQUEST['content'];
 }
-
-
+if(isset($_REQUEST['metadataUUID']))
+{
+    $metadataUUID = $_REQUEST['metadataUUID'];
+}
 /****************************************************
  * MedicationEntry
  */
@@ -58,6 +88,20 @@ if($EntryType=="med")
     }
     echo "error:".$task.":".$EntryType;
 }
+if($EntryType=="observation")
+{
+    if(isset($_REQUEST['val']))
+    {
+        $val = $_REQUEST['val'];
+    }
+    $obs = findObservationOrCreate($em,$parentEntry,$metadataUUID,$pat,$user);
+    $obs->setValue($val);
+    $obs->setText($content,$auth);
+    $em->persist($obs);
+    $em->flush();
+    echo $obs->getUUID();
+    return;
 
+}
 
 ?>

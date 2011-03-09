@@ -23,5 +23,21 @@ namespace library\doctrine\Entities;
         {
             return $this->value;
         }
+
+      /** @Column(type="string",name="attr2") */
+        protected $metadataUUID;
+
+        public function setMetadataUUID($val)
+        {
+            $this->metadataUUID=$val;
+        }
+
+        public function getMetadataUUID()
+        {
+            return $this->metadataUUID;
+        }
+
+
+
  }
  ?>

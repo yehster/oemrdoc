@@ -40,6 +40,11 @@ function generateDOM($DOMRoot,$DocItem,$parentDOMElem=null,$parentItem=null)
     {
         $DOMElem=$DOMRoot->createElement("DIV",htmlentities($DocEntry->getText()));
     }
+    elseif ($DocEntry->getType()=="Observation")
+    {
+        $DOMElem=$DOMRoot->createElement("DIV",htmlentities($DocEntry->getText())." ".$DocEntry->getValue());
+    }
+
     $DOMElem->setAttribute("CLASS",$DocEntry->getType());
     $DOMElem->setAttribute("ID",$DocEntry->getUUID());
 
