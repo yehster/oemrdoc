@@ -99,6 +99,33 @@ function createDocEntryTable($em,$DOM,$ELEMParent,$docEntry)
 {
     $item=$docEntry->getItem();
 
+    $header = htmlentities($docEntry->getText());
+    $loc = strpos($header,":");
+    if( ($loc>0) && ($docEntry->getType()==="Section"))
+    {
+        //TODO: fix hack to determine if section has form items.
+        $header = htmlentities($docEntry->getText());
+        $loc = strpos($header,":");
+        if($loc>0)
+        {
+            $header = substr($header,$loc+1);
+        }
+        $code = $docEntry->getCode();
+        $code_type=$docEntry->getCode_type();
+        $DIVSection = $DOM->createElement("DIV");
+        $DIVSection->setAttribute("CLASS","FormSection");
+        $DIVSection->setAttribute("SectionID",$docEntry->getUUID());
+        $ELEMParent->appendChild($DIVSection);
+        createObservationTable($em,$DOM,$DIVSection,$header,$code,$code_type);
+        // need to modify this to update the radio buttons to specify already selected values.
+        $ELEMParent=$DIVSection;
+    }
+
+    if($docEntry->getType()=="Observation")
+    {
+        // Update the radio buttons based on the state of the observations
+    }
+
     $childCount= $item->getItems()->count();
     if($childCount>0)
     {
@@ -114,24 +141,6 @@ function createDocEntryTable($em,$DOM,$ELEMParent,$docEntry)
             }
         }
     }
-    $header = htmlentities($docEntry->getText());
-    $loc = strpos($header,":");
-    if( ($loc>0) && ($docEntry->getType()==="Section"))
-    {
-        $header = htmlentities($docEntry->getText());
-        $loc = strpos($header,":");
-        if($loc>0)
-        {
-            $header = substr($header,$loc+1);
-        }
-        $code = $docEntry->getCode();
-        $code_type=$docEntry->getCode_type();
-        $DIVSection = $DOM->createElement("DIV");
-        $DIVSection->setAttribute("CLASS","FormSection");
-        $DIVSection->setAttribute("SectionID",$docEntry->getUUID());
-        $ELEMParent->appendChild($DIVSection);
-        createObservationTable($em,$DOM,$DIVSection,$header,$code,$code_type);
-        // need to modify this to update the radio buttons to specify already selected values.
-    }
+
 }
 ?>
