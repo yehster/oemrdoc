@@ -22,7 +22,7 @@ function addObservation($DOM,$ELEMParent,$obs,$className)
     $obsText = htmlentities($obs->getText());
     $tr->setAttribute("ObsText",$obsText);
     $tr->setAttribute("ID",$obs->getUUID());
-
+    $tr->setIdAttribute("ID",true);
     $obsDesc = $DOM->createElement("TD",$obsText);
 
     $tdButYes = $DOM->createElement("TD");
@@ -126,6 +126,8 @@ function createDocEntryTable($em,$DOM,$ELEMParent,$docEntry)
     if($docEntry->getType()=="Observation")
     {
         // Update the radio buttons based on the state of the observations
+        $obsRow=$DOM->getElementById($docEntry->getMetadataUUID());
+        $obsRow->setAttribute("ObservationID",$docEntry->getUUID());
     }
 
     $childCount= $item->getItems()->count();
@@ -137,10 +139,7 @@ function createDocEntryTable($em,$DOM,$ELEMParent,$docEntry)
             // modify this to spread sections into columns.
             $childItem = $item->getItems()->get($childIdx);
             $childEntry = $childItem->getEntry();
-            if($childEntry->getType()=="Section")
-            {
-                createDocEntryTable($em,$DOM,$ELEMParent,$childEntry);
-            }
+            createDocEntryTable($em,$DOM,$ELEMParent,$childEntry);
         }
     }
 
