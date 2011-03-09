@@ -42,7 +42,6 @@ function updateObservation()
 
     if(radioValue!=undefined)
     {
-        showStatus(radioValue+" "+observationText);
         $.post("/openemr/library/doctrine/interface/manageEntry.php",
            {
                 parentEntryUUID: ""+parentEntryUUID+"",
@@ -51,10 +50,12 @@ function updateObservation()
                 task: "update",
                 val: ""+radioValue+"",
                 content: ""+observationText+""
-            }
-        );
+            },
+            function(data) {refreshSection(""+parentEntryUUID+"")}
+            
+        )
     }
-    refreshSection(parentEntryUUID);
+
 }
 
 function registerFormEvents()
