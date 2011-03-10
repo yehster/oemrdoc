@@ -1,6 +1,6 @@
 <?php
 namespace library\doctrine\Entities;
-
+include_once('ObservationMetadata.php');
  /**
   * @Entity
   */
