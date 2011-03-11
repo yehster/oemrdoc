@@ -35,7 +35,7 @@ include_once('DocumentUtilities.php');
         position: relative;
         font-family:sans-serif;
         left: 5px;
-        font-size:x-small;
+        font-size:small;
         overflow: auto;
     }
     .Section {
@@ -43,7 +43,7 @@ include_once('DocumentUtilities.php');
         position: relative;
         left: 10px;
         font-family:sans-serif;
-        font-size:x-small;
+        font-size:small;
     }
     .Observation
     {
