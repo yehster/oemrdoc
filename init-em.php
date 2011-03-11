@@ -7,6 +7,13 @@ use Doctrine\ORM\EntityManager,
     Doctrine\ORM\Query\AST;
 set_include_path(get_include_path() . PATH_SEPARATOR . '/var/www/openemr');
 
+if(isset($_SESSION['em']))
+{
+    $em=$_SESSION['em'];
+}
+else
+{
+
 require_once 'Doctrine/Common/ClassLoader.php';
 require_once 'Doctrine/ORM/Query/AST/Node.php';
 require_once 'Doctrine/ORM/Query/AST/Functions/FunctionNode.php';
@@ -76,4 +83,6 @@ $connectionParams = array(
 );
 
 $em = EntityManager::create($connectionParams, $config);
+$SESSION['em']=$em;
+}
 ?>

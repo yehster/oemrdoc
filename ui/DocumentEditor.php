@@ -36,6 +36,7 @@ include_once('DocumentUtilities.php');
         font-family:sans-serif;
         left: 5px;
         font-size:x-small;
+        overflow: auto;
     }
     .Section {
         color: blue;
@@ -46,6 +47,8 @@ include_once('DocumentUtilities.php');
     }
     .Observation
     {
+        position: relative;
+        left: 5px;
         color: red;
     }
     .Highlight {
@@ -68,6 +71,7 @@ include_once('DocumentUtilities.php');
         height: 95%;
         background-color:#FFFFFF;
         border:1px solid #999999;
+        font-family: sans-serif;
         font-size:small;
         z-index: 1000;
         overflow: auto;
@@ -136,8 +140,8 @@ function clickDrug()
         function(data){
         if(data.indexOf("error:",0)==-1)
                     {
-                        $('#divMedSuggestion').hide();
-                        $('#divMedSuggestion').html("");
+                        $('#popupDiv').hide();
+                        $('#popupDiv').html("");
                         refreshSection(sourceSectionID)
                     }
                     else
@@ -156,9 +160,8 @@ function clickDrug()
         textArea.val(drugStr);
         $.post("/openemr/library/doctrine/ui/dictionaryLookup.php", {rxcui: ""+rxcui+"",rxaui: ""+rxaui+"",context: "medSemantic", className: "medList", maxRes: "20" }, function(data){
             if(data.length >0) {
-                $('#divMedSuggestion').css({ "position": "relative",   "top": -500,   "left": 500, "font-size":"small"  });
-                $('#divMedSuggestion').show();
-                $('#divMedSuggestion').html(data);
+                $('#popupDiv').show();
+                $('#popupDiv').html(data);
                 }});
     }
 }
@@ -192,13 +195,12 @@ function lookupProblem() {
       inputString=this.value;
     if(inputString.length == 0) {
         // Hide the suggestion box.
-        $('#divProblemSuggestions').hide();
+        $('#popupDiv').hide();
     } else {
         $.post("/openemr/library/doctrine/ui/dictionaryLookup.php", {searchString: ""+inputString+"",context: "code", className: "problemItem", maxRes: "5" }, function(data){
             if(data.length >0) {
-                $('#divProblemSuggestions').css({ "position": "relative",   "top": -500,   "left": 500, "font-size":"small"  })
-                $('#divProblemSuggestions').show();
-                $('#divProblemSuggestions').html(data);
+                $('#popupDiv').show();
+                $('#popupDiv').html(data);
             }
         });
     }
@@ -208,16 +210,15 @@ function keyupProblemEntry() {
     sectionID=$(this).attr("name");
     if(inputString.length==0)
     {
-     $('#divMedSuggestion').hide();
+     $('#popupDiv').hide();
     }
     else
     {
         $.post("/openemr/library/doctrine/ui/dictionaryLookup.php", {searchString: ""+inputString+"",context: "med", className: "medList", maxRes: "20" }, function(data){
             if(data.length >0) {
-                $('#divMedSuggestion').css({ "position": "relative",   "top": -500,   "left": 500, "font-size":"small"  });
-                $('#divMedSuggestion').show();
-                $('#divMedSuggestion').html(data);
-                $('#divMedSuggestion').attr("ProblemSection",sectionID);
+                $('#popupDiv').show();
+                $('#popupDiv').html(data);
+                $('#popupDiv').attr("ProblemSection",sectionID);
                 }
         })
     }
@@ -247,7 +248,8 @@ function addProblem() {
                     {
                         // successful
                         $("#txtNewProblem").val("");
-                        $('#divProblemSuggestions').html("");
+                        $('#popupDiv').html("");
+                        $('#popupDiv').hide();
                         appendToList(data,'<?php echo $problemSectionUUID?>');
                     }
                     else

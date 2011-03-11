@@ -67,8 +67,10 @@ $cvExamFindings = Array("Regular Rate and Rhythm",
                         "No Jugular Venous Distention");
 CreateFindings($em,'11421-5','LOINC',$cvExamFindings,"normal");
 
-$respExamFindings = Array("Regular Rate and Rhythm",
+$respExamFindings = Array("Normal Respiratory Effort","Clear to Auscultation Bilaterally"
                          );
+CreateFindings($em,'11412-4','LOINC',$respExamFindings,"normal");
+
 
 $em->flush();
 ?>
