@@ -51,9 +51,13 @@ function updateObservation()
                 EntryType: "observation",
                 task: "update",
                 val: ""+radioValue+"",
-                content: ""+observationText+""
+                content: ""+observationText+"",
+                refresh: "YES"
             },
-            function(data) {refreshSection(""+parentEntryUUID+"");}
+            function(data) {
+                    idText = "#" + parentEntryUUID;
+                    $(idText).replaceWith(data) ;
+            }
             
         )
     }

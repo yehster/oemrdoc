@@ -136,13 +136,14 @@ function clickDrug()
     if((tty=="SCD") || (tty=="SBD"))
     {
         $.post("/openemr/library/doctrine/interface/manageEntry.php",
-        {parentEntryUUID: ""+ sourceSectionID + "",rxcui: ""+rxcui+"",rxaui: ""+rxaui+"",content: ""+drugStr+"", task: 'create', EntryType: 'med'},
+        {parentEntryUUID: ""+ sourceSectionID + "",rxcui: ""+rxcui+"",rxaui: ""+rxaui+"",content: ""+drugStr+"", task: 'create', EntryType: 'med', refresh: 'YES'},
         function(data){
         if(data.indexOf("error:",0)==-1)
                     {
                         $('#popupDiv').hide();
                         $('#popupDiv').html("");
-                        refreshSection(sourceSectionID)
+                        idText = "#" + sourceSectionID;
+                        $(idText).replaceWith(data) ;
                     }
                     else
                     {
@@ -243,14 +244,22 @@ function addProblem() {
         code_text=$(this).find("td.problemItem").text();
         code = $(this).find("td.CODE").text();
         uuid = '<?php echo $problemSectionUUID?>';
-        $.post("/openemr/library/doctrine/interface/manageProblem.php",{sectionUUID: ""+ uuid + "",code: ""+code+"",content: ""+code_text+"", task: 'create'}, function(data){
+        $.post("/openemr/library/doctrine/interface/manageEntry.php",
+        {   parentEntryUUID: ""+ uuid + "",
+            EntryType: "problem",
+            code: ""+code+"",
+            content: ""+code_text+"",
+            task: 'create',
+            refresh: "YES"},
+        function(data){
         if(data.indexOf("error:",0)==-1)
                     {
                         // successful
                         $("#txtNewProblem").val("");
                         $('#popupDiv').html("");
                         $('#popupDiv').hide();
-                        appendToList(data,'<?php echo $problemSectionUUID?>');
+                        sectionID = "#" + uuid;
+                        $(sectionID).replaceWith(data) ;
                     }
                     else
                     {
@@ -263,7 +272,7 @@ function addProblem() {
     function registerControlEvents()
     {
         $(".Narrative").live({blur: saveNarrative});
-        $("#txtNewProblem").keyup(lookupProblem);
+        $("#txtNewProblem").live({keyup: lookupProblem});
         $("tr.problemItem").live({mouseover: function() {$(this).addClass('Highlight');} ,mouseout: function() {$(this).removeClass('Highlight');}, click: addProblem});
         $("TEXTAREA.ProblemEntry").live({keyup: keyupProblemEntry});
         $("td.medName").live({mouseover: function() {$(this).addClass('Highlight');} ,mouseout: function() {$(this).removeClass('Highlight');}, click: clickDrug});

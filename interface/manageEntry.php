@@ -1,6 +1,7 @@
 <?php
 include_once("/var/www/openemr/interface/globals.php");
 include_once('/var/www/openemr/library/doctrine/init-em.php');
+include_once('../ui/DocumentUtilities.php');
 
 function findObservationOrCreate($em,$PE,$metadataUUID,$pat,$user)
 {
@@ -56,6 +57,7 @@ if(isset($_REQUEST['metadataUUID']))
 {
     $metadataUUID = $_REQUEST['metadataUUID'];
 }
+
 /****************************************************
  * MedicationEntry
  */
@@ -74,20 +76,19 @@ if($EntryType=="med")
     }
     if($task=="create")
     {
+            $med = new library\doctrine\Entities\MedicationEntry(null,$pat,$user);
+            $med->setText($content,$user);
+            $med->setRXCUI($rxcui);
+            $med->setRXAUI($rxaui);
 
-        $med = new library\doctrine\Entities\MedicationEntry(null,$pat,$user);
-        $med->setText($content,$user);
-        $med->setRXCUI($rxcui);
-        $med->setRXAUI($rxaui);
-
-        $parentEntry->getItem()->addEntry($med);
-        $em->persist($med);
-        $em->flush();
-        echo $med->getUUID();
-        return;
+            $parentEntry->getItem()->addEntry($med);
+            $em->persist($med);
+            $em->flush();
+            $result = $med->getUUID();
     }
-    echo "error:".$task.":".$EntryType;
 }
+
+
 if($EntryType=="observation")
 {
     if(isset($_REQUEST['val']))
@@ -107,9 +108,57 @@ if($EntryType=="observation")
     $obs->setText($content,$auth);
     $em->persist($obs);
     $em->flush();
-    echo $obs->getUUID();
-    return;
-
+    $result = $obs->getUUID();
 }
+
+if($EntryType=="problem")
+{
+    if(isset($_REQUEST['code']))
+    {
+        $code = $_REQUEST['code'];
+    }
+    if($task=="create")
+    {
+        if($codeType==null)
+        {
+            $codeType = "ICD9";
+        }
+        if($pat!=null)
+        {
+            if($parentEntry!=null)
+            {
+                $prob = new library\doctrine\Entities\Problem(null,$pat,$user);
+                $prob->setCode($code,$codeType);
+                $prob->setText($content,$user);
+                $parentEntry->getItem()->addEntry($prob);
+                $em->persist($prob);
+                $em->flush();
+                $result = $prob->getUUID();
+                $newEntry = $prob;
+            }
+        }
+    }
+}
+
+if(isset($_REQUEST['refresh']))
+{
+    $request=$_REQUEST['refresh'];
+    if($request==="YES")
+    {
+        $docEntryDOM =  new DOMDocument("1.0","utf-8");
+        generateDOM($docEntryDOM,$parentEntry->getItem());
+        echo $docEntryDOM->saveXML();
+        return;
+    }
+    elseif($request==="ENTRY")
+    {
+        $docEntryDOM =  new DOMDocument("1.0","utf-8");
+        generateDOM($docEntryDOM,$newEntry->getItem());
+        echo $docEntryDOM->saveXML();
+        return;
+
+    }
+}
+echo $result;
 
 ?>
