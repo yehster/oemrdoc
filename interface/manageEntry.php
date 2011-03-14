@@ -146,15 +146,15 @@ if(isset($_REQUEST['refresh']))
     if($request==="YES")
     {
         $docEntryDOM =  new DOMDocument("1.0","utf-8");
-        generateDOM($docEntryDOM,$parentEntry->getItem());
-        echo $docEntryDOM->saveXML();
+        $DOMNode= generateDOM($docEntryDOM,$parentEntry->getItem());
+        echo $docEntryDOM->saveXML($DOMNode);
         return;
     }
     elseif($request==="ENTRY")
     {
         $docEntryDOM =  new DOMDocument("1.0","utf-8");
-        generateDOM($docEntryDOM,$newItem);
-        echo $docEntryDOM->saveXML();
+        $DOMNode=generateDOM($docEntryDOM,$newItem);
+        echo $docEntryDOM->saveXML($DOMNode);
         return;
 
     }

@@ -90,6 +90,7 @@ function generateDOM($DOMRoot,$DocItem,$parentDOMElem=null,$parentItem=null)
      {
                  addProblemInfoControls($DOMRoot, $DOMElem);
      }
+     return $DOMElem;
 }
 
 function addProblemSelector(DOMDocument $DOM,$ProblemListNode)
