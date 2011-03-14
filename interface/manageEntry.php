@@ -130,7 +130,7 @@ if($EntryType=="problem")
                 $prob = new library\doctrine\Entities\Problem(null,$pat,$user);
                 $prob->setCode($code,$codeType);
                 $prob->setText($content,$user);
-                $parentEntry->getItem()->addEntry($prob);
+                $newItem=$parentEntry->getItem()->addEntry($prob);
                 $em->persist($prob);
                 $em->flush();
                 $result = $prob->getUUID();
@@ -153,7 +153,7 @@ if(isset($_REQUEST['refresh']))
     elseif($request==="ENTRY")
     {
         $docEntryDOM =  new DOMDocument("1.0","utf-8");
-        generateDOM($docEntryDOM,$newEntry->getItem());
+        generateDOM($docEntryDOM,$newItem);
         echo $docEntryDOM->saveXML();
         return;
 

@@ -250,7 +250,7 @@ function addProblem() {
             code: ""+code+"",
             content: ""+code_text+"",
             task: 'create',
-            refresh: "YES"},
+            refresh: "ENTRY"},
         function(data){
         if(data.indexOf("error:",0)==-1)
                     {
@@ -259,7 +259,7 @@ function addProblem() {
                         $('#popupDiv').html("");
                         $('#popupDiv').hide();
                         sectionID = "#" + uuid;
-                        $(sectionID).replaceWith(data) ;
+                        $(sectionID).find("OL").append(data) ;
                     }
                     else
                     {

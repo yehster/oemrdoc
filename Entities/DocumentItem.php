@@ -95,6 +95,7 @@ namespace library\doctrine\Entities;
             $newItem = new DocumentItem($this->root,null,null,null);
             $newItem->setEntry ($entry);
             $this->addItem($newItem);
+            return $newItem;
         }
 
 	public function addItem($obj)
