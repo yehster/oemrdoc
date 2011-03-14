@@ -8,7 +8,7 @@ function findOrCreateSubsection($em,$sd,$ld,$par,$code="",$codeType="")
         $retval->setCode($code,$codeType);
     }
     findOrCreateMDCI($em,$retval,$par);
-    return $reval;
+    return $retval;
 
 }
 
