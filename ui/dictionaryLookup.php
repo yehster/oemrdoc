@@ -44,6 +44,19 @@ function addKeyword($DOM,$table,$keyword,$className)
 
 }
 
+function addKeywordContent($DOM,$table,$keyword,$className)
+{
+    $newRow = $DOM->createElement("TR");
+    $newRow->setAttribute("class",$className);
+    $table->appendChild($newRow);
+
+    $keywordTD = $DOM->createElement("TD",$keyword);
+    $newRow->setAttribute("CLASS","KEYWORD");
+    $newRow->appendChild($keywordTD);
+
+}
+
+
 function addMedName($DOM,$table,$mn,$className)
 {
     $newRow = $DOM->createElement("TR");
@@ -143,7 +156,7 @@ function findCodesForKwArr($em,$kwarr,$tok)
         $keywords=$kwarr[$tokIdx];
         $maxMatch=$keywords[0]['qual'];
         $minMatch=$keywords[count($keywords)-1]['qual'];
-        $tol=$minMatch + ($maxMatch-$minMatch)*0.1 ;
+        $tol=$minMatch + ($maxMatch-$minMatch)*0.05 ;
         for($kwIdx=0;$kwIdx<count($keywords) && ($keywords[$kwIdx]['qual']>=$tol) ;$kwIdx++)
         {
             $kwID=$keywords[$kwIdx][0]->getID();
@@ -155,7 +168,7 @@ function findCodesForKwArr($em,$kwarr,$tok)
     for($tokIdx=0;$tokIdx<$numTok;$tokIdx++)
     {
         $qualStr="MATCHQUALITY('".$tok[$tokIdx]."',kw".$tokIdx.".content) as qual".$tokIdx;
-        $quals=",".$qualStr;
+        $quals=$quals.",".$qualStr.",kw".$tokIdx.".content as content".$tokIdx;
     }
     $qb = $em->createQueryBuilder()
         ->select("cd".$quals);
@@ -241,8 +254,17 @@ if($context=="code")
                 $kwarr[$tokIdx] = findKeywords($em,$toks[$tokIdx]);
             }
             $codes=findCodesForKwArr($em,$kwarr,$toks);
+            $lastKW = array();
             for($cidx=0;$cidx<count($codes);$cidx++)
             {
+                for($tokIdx=0;$tokIdx<count($toks);$tokIdx++)
+                {
+                    if($lastKW[$tokIdx]!==$codes[$cidx]['content'.$tokIdx])
+                    {
+                        $lastKW[$tokIdx]=$codes[$cidx]['content'.$tokIdx];
+                        addKeywordContent($ResultsDom,$table,$lastKW[$tokIdx],"");
+                    }
+                }
                 $curCode=$codes[$cidx][0];
                 addCodeResult($ResultsDom,$table,$curCode,$className);
             }
