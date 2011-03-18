@@ -151,18 +151,31 @@ function findCodesForKwArr($em,$kwarr,$tok)
         }
         $kwinList[$tokIdx]="(". substr($kwinList[$tokIdx],1).")";
     }
+    $quals = "";
+    for($tokIdx=0;$tokIdx<$numTok;$tokIdx++)
+    {
+        $qualStr="MATCHQUALITY('".$tok[$tokIdx]."',kw".$tokIdx.".content) as qual".$tokIdx;
+        echo $qualStr;
+        $quals=",".$qualStr;
+    }
     $qb = $em->createQueryBuilder()
-        ->select("cd")
-        ->from("library\doctrine\Entities\Code", "cd");
+        ->select("cd".$quals);
+     $qb->from("library\doctrine\Entities\Code", "cd");
     for($tokIdx=0;$tokIdx<$numTok;$tokIdx++)
     {
         $qb->from("library\doctrine\Entities\KeywordCodeAssociation","kwc".$tokIdx);
+        $qb->from("library\doctrine\Entities\Keyword","kw".$tokIdx);
         $qb->andWhere("kwc".$tokIdx.".keyword in ".$kwinList[$tokIdx]);
         $qb->andWhere("kwc".$tokIdx.".code = cd");
+        $qb->andWhere("kwc".$tokIdx.".keyword = kw".$tokIdx);
+        $qb->orderBy("qual".$tokIdx,"DESC");
+        $qb->orderBy("kw".$tokIdx.".content","ASC");
 
-    }
+     }
+
     $qry=$qb->getQuery();
     $res=$qry->getResult();
+    echo count($res);
     return $res;
 }
 
@@ -232,7 +245,8 @@ if($context=="code")
             $codes=findCodesForKwArr($em,$kwarr,$toks);
             for($cidx=0;$cidx<count($codes);$cidx++)
             {
-                addCodeResult($ResultsDom,$table,$codes[$cidx],$className);
+                $curCode=$codes[$cidx][0];
+                addCodeResult($ResultsDom,$table,$curCode,$className);
             }
 
         }
