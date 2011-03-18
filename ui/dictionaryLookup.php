@@ -155,7 +155,6 @@ function findCodesForKwArr($em,$kwarr,$tok)
     for($tokIdx=0;$tokIdx<$numTok;$tokIdx++)
     {
         $qualStr="MATCHQUALITY('".$tok[$tokIdx]."',kw".$tokIdx.".content) as qual".$tokIdx;
-        echo $qualStr;
         $quals=",".$qualStr;
     }
     $qb = $em->createQueryBuilder()
@@ -175,7 +174,6 @@ function findCodesForKwArr($em,$kwarr,$tok)
 
     $qry=$qb->getQuery();
     $res=$qry->getResult();
-    echo count($res);
     return $res;
 }
 
