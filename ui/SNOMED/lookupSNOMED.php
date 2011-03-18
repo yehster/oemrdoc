@@ -60,5 +60,4 @@ for($idx=0;$idx<count($res);$idx++)
 }
 
 echo $DOM->saveXML();
-echo "yo";
 ?>

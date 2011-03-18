@@ -1,6 +1,20 @@
 <?php
 include('/var/www/openemr/library/doctrine/init-em.php');
 
+function tokenize($str)
+{
+    $tokens = array();
+    $idx=0;
+    $tok = strtok($str," ");
+    while($tok!==false)
+    {
+        $tokens[$idx]=$tok;
+        $idx++;
+        $tok=strtok(" ");
+    }
+    return $tokens;
+}
+
 function addCodeResult($DOM,$table,$code,$className)
 {
     $newRow=$DOM->createElement("TR");
@@ -60,34 +74,53 @@ function findKeywords($em,$searchString)
     return $qry->getResult();
 }
 
-function findCodes()
+
+function findKeywordsStartsWith($em,$searchString)
 {
-    $orderClause = "MATCHQUALITY('".$searchString."',code.code_text)";
     $qb = $em->createQueryBuilder()
-        ->select("code,".$orderClause." as qual")
-        ->where("code.code_text like :startsWith")
-        ->from("library\doctrine\Entities\Code","code")
-        ->orderBy("qual","DESC");
+        ->select("keyword")
+        ->where("keyword.content like :startsWith")
+        ->from("library\doctrine\Entities\Keyword","keyword");
 
     $qb->setParameter("startsWith",$searchString[0]."%");
     $qry=$qb->getQuery();
-    $codes = $qry->getResult();
-}
-
-
-function findCodesForKeywords($em,$arrKeywords)
-{
-   $qb = $em->createQueryBuilder()
-        ->select("code")
-        ->from("library\doctrine\Entities\Code","code")
-        ->from("library\doctrine\Entities\KeywordCodeAssociation", "kwa")
-        ->where("kwa.code = code");
-    $qb->andWhere($qb->expr()->in("kwa.keyword", $arrKeywords));
-//    $qb->setParameter("kw",$arrKeywords[0]);
-
-    $qry=$qb->getQuery();
     return $qry->getResult();
 }
+
+
+function findBestCodes($em,$kwInList)
+{
+   $countClause="COUNT(code) as cnt" ;
+   $qb = $em->createQueryBuilder()
+        ->select("code,".$countClause)
+        ->from("library\doctrine\Entities\Code","code")
+        ->from("library\doctrine\Entities\KeywordCodeAssociation", "kwa")
+        ->where("kwa.code = code AND kwa.keyword in ".$kwInList)
+        ->groupBy("kwa.code")
+        ->orderBy("cnt","DESC");
+//   $qb->setParameter("kwl",$kwInList);
+   $qry=$qb->getQuery();
+    return $qry->getResult();
+}
+
+function findCodesWithToks($em,$toks)
+{
+    $KW=array();
+    $kwInClause="";
+    for($ToksIdx=0;$ToksIdx<count($toks);$ToksIdx++)
+    {
+        $KW[$ToksIdx]=findKeywords($em,$toks[$ToksIdx]);
+        for($kwIdx=0;$kwIdx<count($KW[$ToksIdx]);$kwIdx++)
+        {
+            $kwInClause=$kwInClause.",".$KW[$ToksIdx][$kwIdx][0]->getID();
+        }
+    }
+    $kwInClause="(".substr($kwInClause,1).")";
+    echo $kwInClause;
+    $codes = findBestCodes($em,$kwInClause);
+    return $codes;
+}
+
 
 function findCodesForKeyword($em,$kw)
 {
@@ -183,16 +216,33 @@ if($context=="code")
 {
     $table = $ResultsDom->CreateElement("TABLE");
     $ResultsDom->appendChild($table);
-    $keywords = findKeywords($em,$searchString);
-    $arrKeywords = array();
-    for($idx=0;$idx<$maxRes and $idx<count($keywords);$idx++)
+    $toks = tokenize($searchString);
+    if(count($toks)==1)
     {
-        $curKW = $keywords[$idx][0];
-        addKeyword($ResultsDom,$table,$curKW,"");
-        $codes = findCodesForKeyword($em,$curKW);
-        for($cidx=0;$cidx<count($codes);$cidx++)
+        $keywords = findKeywords($em,$toks[0]);
+        $arrKeywords = array();
+        for($idx=0;$idx<count($keywords);$idx++)
         {
-            addCodeResult($ResultsDom,$table,$codes[$cidx],$className);
+            $curKW = $keywords[$idx][0];
+            addKeyword($ResultsDom,$table,$curKW,"");
+            $codes = findCodesForKeyword($em,$curKW);
+            for($cidx=0;$cidx<count($codes);$cidx++)
+            {
+                addCodeResult($ResultsDom,$table,$codes[$cidx],$className);
+            }
+        }
+    }
+    else
+    {
+        if(count($toks)>1)
+        {
+            $codes=findCodesWithToks($em,$toks);
+            for($cidx=0;$cidx<count($codes);$cidx++)
+            {
+                addCodeResult($ResultsDom,$table,$codes[$cidx][0],$className);
+                echo $codes[$cidx][1];
+            }
+            echo "yo";
         }
     }
     echo $ResultsDom->saveXML();
