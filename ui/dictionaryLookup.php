@@ -122,6 +122,8 @@ function findCodesWithToks($em,$toks)
 }
 
 
+
+
 function findCodesForKeyword($em,$kw)
 {
 
@@ -173,13 +175,45 @@ function lookupMedForms($em,$rel,$types,$rxcui,$rxaui=null)
     $res=$qry->getResult();
     if(count($res)==0)
     {
-
+        // If there are no results, then we need to check for synonyms
 
     }
     return $res;
 }
 
+function findCodesForKwArr($em,$kwarr,$tok)
+{
+    // need to fix scoring order
+    $kwinList=array();
+    $numTok=count($kwarr);
+    for($tokIdx=0;$tokIdx<$numTok;$tokIdx++)
+    {
+        $kwinList[$tokIdx]="";
+        $keywords=$kwarr[$tokIdx];
+        $maxMatch=$keywords[0]['qual'];
+        $minMatch=$keywords[count($keywords)-1]['qual'];
+        $tol=$minMatch + ($maxMatch-$minMatch) * 0.2;
+        for($kwIdx=0;$kwIdx<count($keywords) && ($keywords[$kwIdx]['qual']>=$tol) ;$kwIdx++)
+        {
+            $kwID=$keywords[$kwIdx][0]->getID();
+            $kwinList[$tokIdx]=$kwinList[$tokIdx].",".$kwID;
+        }
+        $kwinList[$tokIdx]="(". substr($kwinList[$tokIdx],1).")";
+    }
+    $qb = $em->createQueryBuilder()
+        ->select("cd")
+        ->from("library\doctrine\Entities\Code", "cd");
+    for($tokIdx=0;$tokIdx<$numTok;$tokIdx++)
+    {
+        $qb->from("library\doctrine\Entities\KeywordCodeAssociation","kwc".$tokIdx);
+        $qb->andWhere("kwc".$tokIdx.".keyword in ".$kwinList[$tokIdx]);
+        $qb->andWhere("kwc".$tokIdx.".code = cd");
 
+    }
+    $qry=$qb->getQuery();
+    $res=$qry->getResult();
+    return $res;
+}
 
 
 $ResultsDom = new DOMDocument("1.0","utf-8");
@@ -220,8 +254,10 @@ if($context=="code")
     if(count($toks)==1)
     {
         $keywords = findKeywords($em,$toks[0]);
-        $arrKeywords = array();
-        for($idx=0;$idx<count($keywords);$idx++)
+        $maxMatch=$keywords[0]['qual'];
+        $minMatch=$keywords[count($keywords)-1]['qual'];
+        $tol=($maxMatch-$minMatch) / 2;
+        for($idx=0;$idx<count($keywords) and (($keywords[$idx]['qual']) - $maxMatch + $tol) >= 0;$idx++)
         {
             $curKW = $keywords[$idx][0];
             addKeyword($ResultsDom,$table,$curKW,"");
@@ -231,23 +267,26 @@ if($context=="code")
                 addCodeResult($ResultsDom,$table,$codes[$cidx],$className);
             }
         }
+        echo $ResultsDom->saveXML();
     }
     else
     {
         if(count($toks)>1)
         {
-            $codes=findCodesWithToks($em,$toks);
+            $kwarr=array();
+            for($tokIdx=0;$tokIdx<count($toks);$tokIdx++)
+            {
+                $kwarr[$tokIdx] = findKeywords($em,$toks[$tokIdx]);
+            }
+            $codes=findCodesForKwArr($em,$kwarr,$toks);
             for($cidx=0;$cidx<count($codes);$cidx++)
             {
-                addCodeResult($ResultsDom,$table,$codes[$cidx][0],$className);
-                echo $codes[$cidx][1];
+                addCodeResult($ResultsDom,$table,$codes[$cidx],$className);
             }
-            echo "yo";
+
         }
+        echo $ResultsDom->saveXML();
     }
-    echo $ResultsDom->saveXML();
-
-
 }
 if($context=="med")
 {
