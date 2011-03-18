@@ -1,13 +1,20 @@
 <?php
 include('/var/www/openemr/library/doctrine/init-em.php');
-function lookupPreferredTerms($em,$searchStr)
+function lookupPreferredTerms($em,$toks)
 {
     $qb = $em->createQueryBuilder()
         ->select("pt")
-        ->where("pt.str like :str")
-        ->from("library\doctrine\Entities\SNOMED\PreferredTerm","pt");
+        ->where("pt.str like :str0");
+    for($idx=1;$idx<count($toks);$idx++)
+    {
+        $qb->andWhere("pt.str like :str".$idx);
+    }
+    $qb->from("library\doctrine\Entities\SNOMED\PreferredTerm","pt");
 
-    $qb->setParameter("str","%".$searchStr."%");
+    for($idx=0;$idx<count($toks);$idx++)
+    {
+        $qb->setParameter("str".$idx,"%".$toks[$idx]."%");
+    }
     $qry=$qb->getQuery();
     return $qry->getResult();
 }
@@ -19,6 +26,10 @@ function addPT($DOM,$ParentElement,$pt)
 
     $tdStr=$DOM->createElement("TD",htmlentities($pt->getSTR()));
     $newRow->appendChild($tdStr);
+
+    $tdAUI=$DOM->createElement("TD",htmlentities($pt->getAUI()));
+    $newRow->appendChild($tdAUI);
+
 }
 
 if(isset($_REQUEST['searchString']))
@@ -26,11 +37,21 @@ if(isset($_REQUEST['searchString']))
     $searchString = $_REQUEST['searchString'];
 }
 
+$tokens = array();
+$idx=0;
+$tok = strtok($searchString," ");
+while($tok!==false)
+{
+    $tokens[$idx]=$tok;
+    $idx++;
+    $tok=strtok(" ");
+}
+
 $DOM= new DOMDocument("1.0","utf-8");
 $table = $DOM->createElement("TABLE");
 $DOM->appendChild($table);
 
-$res = lookupPreferredTerms($em,$searchString);
+$res = lookupPreferredTerms($em,$tokens);
 
 for($idx=0;$idx<count($res);$idx++)
 {

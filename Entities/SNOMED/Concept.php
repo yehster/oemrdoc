@@ -15,6 +15,10 @@ class Concept {
      */
     protected $AUI;
 
+    public function getAUI()
+    {
+        return $this->AUI;
+    }
 
    /**
     * @Column(type="string")
