@@ -75,55 +75,6 @@ function findKeywords($em,$searchString)
 }
 
 
-function findKeywordsStartsWith($em,$searchString)
-{
-    $qb = $em->createQueryBuilder()
-        ->select("keyword")
-        ->where("keyword.content like :startsWith")
-        ->from("library\doctrine\Entities\Keyword","keyword");
-
-    $qb->setParameter("startsWith",$searchString[0]."%");
-    $qry=$qb->getQuery();
-    return $qry->getResult();
-}
-
-
-function findBestCodes($em,$kwInList)
-{
-   $countClause="COUNT(code) as cnt" ;
-   $qb = $em->createQueryBuilder()
-        ->select("code,".$countClause)
-        ->from("library\doctrine\Entities\Code","code")
-        ->from("library\doctrine\Entities\KeywordCodeAssociation", "kwa")
-        ->where("kwa.code = code AND kwa.keyword in ".$kwInList)
-        ->groupBy("kwa.code")
-        ->orderBy("cnt","DESC");
-//   $qb->setParameter("kwl",$kwInList);
-   $qry=$qb->getQuery();
-    return $qry->getResult();
-}
-
-function findCodesWithToks($em,$toks)
-{
-    $KW=array();
-    $kwInClause="";
-    for($ToksIdx=0;$ToksIdx<count($toks);$ToksIdx++)
-    {
-        $KW[$ToksIdx]=findKeywords($em,$toks[$ToksIdx]);
-        for($kwIdx=0;$kwIdx<count($KW[$ToksIdx]);$kwIdx++)
-        {
-            $kwInClause=$kwInClause.",".$KW[$ToksIdx][$kwIdx][0]->getID();
-        }
-    }
-    $kwInClause="(".substr($kwInClause,1).")";
-    echo $kwInClause;
-    $codes = findBestCodes($em,$kwInClause);
-    return $codes;
-}
-
-
-
-
 function findCodesForKeyword($em,$kw)
 {
 
@@ -192,7 +143,7 @@ function findCodesForKwArr($em,$kwarr,$tok)
         $keywords=$kwarr[$tokIdx];
         $maxMatch=$keywords[0]['qual'];
         $minMatch=$keywords[count($keywords)-1]['qual'];
-        $tol=$minMatch + ($maxMatch-$minMatch) * 0.2;
+        $tol=$minMatch + ($maxMatch-$minMatch)*0.1 ;
         for($kwIdx=0;$kwIdx<count($keywords) && ($keywords[$kwIdx]['qual']>=$tol) ;$kwIdx++)
         {
             $kwID=$keywords[$kwIdx][0]->getID();
