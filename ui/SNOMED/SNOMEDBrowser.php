@@ -58,20 +58,25 @@ include('/var/www/openemr/library/doctrine/init-em.php');
 
     function clickSnomed()
     {
-        aui=$(this).attr("aui");
-        targetCode=$("#code").text();
-        targetType=$("#codeType").text();
-        text=$(this).find("td.str").text();
-        $.post("/openemr/library/doctrine/ui/SNOMED/manageVocab.php",
-            {
-                aui: ""+aui+"",
-                targetCode: ""+targetCode+"",
-                targetType: ""+targetType+"",
-                text: ""+text+""
-            },
-            function(data) {
-                $("#status").text(data);
-            });
+        mode=$("#mode").find("input:radio:checked").val();
+        if((mode=="abnormal") || (mode=="normal"))
+        {
+            aui=$(this).attr("aui");
+            targetCode=$("#code").text();
+            targetType=$("#codeType").text();
+            text=$(this).find("td.str").text();
+            $.post("/openemr/library/doctrine/ui/SNOMED/manageVocab.php",
+                {
+                    aui: ""+aui+"",
+                    targetCode: ""+targetCode+"",
+                    targetType: ""+targetType+"",
+                    text: ""+text+"",
+                    classification: ""+mode+""
+                },
+                function(data) {
+                    $("#status").text(data);
+                });
+        }
     }
     function chooseSection()
     {
@@ -107,6 +112,14 @@ include('/var/www/openemr/library/doctrine/init-em.php');
 
 </DIV>
 <DIV ID="right">
+    <DIV ID="mode">
+    <span>normal
+        <input type="radio" name="mode" value="normal" checked/>
+    </span>
+    <span>abnormal
+        <input type="radio" name="mode" value="abnormal"/>
+    </span>
+    </DIV>
     <h1 id="code"></h1>
     <h1 id="codeType"></h1>
     <h1 id="status"></h1>

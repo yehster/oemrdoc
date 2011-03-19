@@ -19,7 +19,6 @@ function findOrCreateFormEntry($em,$text,$sourceType,$sourceCode,$targetType,$ta
     {
         $retVal=new library\doctrine\Entities\FormEntry($text,$sourceCode,$sourceType,$targetCode,$targetType);
         $em->persist($retVal);
-        $em->flush();
     }
     else
     {
@@ -60,11 +59,19 @@ if(isset($_REQUEST['text']))
 {
     $text=$_REQUEST['text'];
 }
-if(($text!==null) && ($targetCode!==null) && ($targetType!==null) && ($sourceType!==null) && ($sourceCode!==null))
+if(isset($_REQUEST['classification']))
 {
-    findOrCreateFormEntry($em,$text,$sourceType,$sourceCode,$targetType,$targetCode);
+    $classification=$_REQUEST['classification'];
 }
 
-echo $sourceType.":".$sourceCode.":".$targetType.":".$targetCode.":".$text;
+echo $sourceType.":".$sourceCode.":".$targetType.":".$targetCode.":".$text.":".$classification;
 
+if(($text!==null) && ($targetCode!==null) && ($targetType!==null) && ($sourceType!==null) && ($sourceCode!==null))
+{
+    $fe=findOrCreateFormEntry($em,$text,$sourceType,$sourceCode,$targetType,$targetCode);
+    $fe->setClassification($classification);
+    $em->flush();
+}
+
+echo "<BR>SUCCESS!";
 ?>

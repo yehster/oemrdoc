@@ -138,7 +138,7 @@ $peNER = findOrCreateSubsection($em,'PE:NER','Physical Exam:Nervous system',$pe,
 $peSKIN = findOrCreateSubsection($em,'PE:SKIN','Physical Exam:Skin',$pe,'10206-1','LOINC');
 
 // Physical findings of Lymph node 32450-9
-$peLYMPH = findOrCreateSubsection($em,'PE:LYMPH','Physical Exam:Lymphatics',$pe,'10206-1','LOINC');
+$peLYMPH = findOrCreateSubsection($em,'PE:LYMPH','Physical Exam:Lymphatics',$pe,'32450-9','LOINC');
 
 // Physical findings of Genitourinary tract 10198-0
 $peGU = findOrCreateSubsection($em,'PE:GU','Physical Exam:Genitourinary tract',$pe,'10198-0','LOINC');
