@@ -16,21 +16,6 @@ function getFormEntries($em,$c,$ct,$classification)
     return $qry->getResult();
 }
 
-function getObservations($em,$c, $ct,$classification)
-{
-    $qb = $em->createQueryBuilder()
-        ->select("ef")
-        ->from("library\doctrine\Entities\ExamFinding","ef")
-        ->where("ef.code=?1 and ef.code_type=?2 and ef.classification=?3")
-        ->orderBy("ef.modified","DESC");
-    $qb->setParameter(1,$c);
-    $qb->setParameter(2,$ct);
-    $qb->setParameter(3,$classification);
-
-    $qry=$qb->getQuery();
-    return $qry->getResult();
-}
-
 function addObservation($DOM,$ELEMParent,$obs,$className)
 {
     $tr = $DOM->createElement("TR");
@@ -143,7 +128,7 @@ function createDocEntryTable($em,$DOM,$ELEMParent,$docEntry)
     if($docEntry->getType()=="Observation")
     {
         // Update the radio buttons based on the state of the observations
-        $obsRow=$DOM->getElementById($docEntry->getMetadataID());
+        $obsRow=$DOM->getElementById($docEntry->getvocabID());
         if($obsRow!==null)
         {
             $obsRow->setAttribute("ObservationID",$docEntry->getUUID());

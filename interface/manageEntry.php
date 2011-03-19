@@ -3,16 +3,16 @@ include_once("/var/www/openemr/interface/globals.php");
 include_once('/var/www/openemr/library/doctrine/init-em.php');
 include_once('../ui/DocumentUtilities.php');
 
-function findObservationOrCreate($em,$PE,$metadataID,$pat,$user)
+function findObservationOrCreate($em,$PE,$vocabID,$pat,$user)
 {
     $parItem=$PE->getItem();
     $qb = $em->createQueryBuilder()
         ->select("obs")
         ->from("library\doctrine\Entities\Observation","obs")
         ->join("obs.item","i")
-        ->where("obs.metadataUUID=:mdu")
+        ->where("obs.vocabID=:voc")
         ->andwhere("i.parent=:par")    ;
-    $qb->setParameter("mdu",$metadataUUID);
+    $qb->setParameter("voc",$vocabID);
     $qb->setParameter("par",$parItem);
 
     $qryRes=$qb->getQuery()->getResult();
@@ -20,7 +20,7 @@ function findObservationOrCreate($em,$PE,$metadataID,$pat,$user)
     {
         $res = new library\doctrine\Entities\Observation(null,$pat,$user);
         $PE->getItem()->addEntry($res);
-        $res->setMetadataID($metadataID);
+        $res->setvocabID($vocabID);
     }
     else
     {
@@ -53,9 +53,9 @@ if(isset($_REQUEST['content']))
 {
         $content = $_REQUEST['content'];
 }
-if(isset($_REQUEST['metadataID']))
+if(isset($_REQUEST['vocabID']))
 {
-    $metadataID = $_REQUEST['metadataID'];
+    $vocabID = $_REQUEST['vocabID'];
 }
 
 /****************************************************
@@ -102,7 +102,7 @@ if($EntryType=="observation")
     $obs=$em->getRepository('library\doctrine\Entities\Observation')->find($observationUUID);
     if($obs===null)
     {
-        $obs = findObservationOrCreate($em,$parentEntry,$metadataUUID,$pat,$user);
+        $obs = findObservationOrCreate($em,$parentEntry,$vocabID,$pat,$user);
     }
     $obs->setValue($val);
     $obs->setText($content,$auth);

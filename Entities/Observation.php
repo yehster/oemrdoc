@@ -26,16 +26,16 @@ namespace library\doctrine\Entities;
         }
 
       /** @Column(type="string",name="attr2") */
-        protected $metadataID;
+        protected $vocabID;
 
-        public function setMetadataID($val)
+        public function setvocabID($val)
         {
-            $this->metadataID=$val;
+            $this->vocabID=$val;
         }
 
-        public function getMetadataID()
+        public function getvocabID()
         {
-            return $this->metadataID;
+            return $this->vocabID;
         }
 
 
