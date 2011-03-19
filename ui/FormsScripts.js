@@ -37,7 +37,7 @@ function updateObservation()
 {
     parentEntryUUID = getAttrForElem(this,"sectionid");
     observationID = $(this).attr("observationid");
-    observationMetaDataUUID=this.id;
+    observationMetaDataID=this.id;
     observationText=$(this).attr("ObsText");
     radioValue = $(this).find("input:radio:checked").val();
 
@@ -46,7 +46,7 @@ function updateObservation()
         $.post("/openemr/library/doctrine/interface/manageEntry.php",
            {
                 parentEntryUUID: ""+parentEntryUUID+"",
-                metadataUUID: ""+observationMetaDataUUID+"",
+                metadataID: ""+observationMetaDataID+"",
                 observationUUID: ""+observationID+"",
                 EntryType: "observation",
                 task: "update",

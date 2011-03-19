@@ -143,7 +143,7 @@ function createDocEntryTable($em,$DOM,$ELEMParent,$docEntry)
     if($docEntry->getType()=="Observation")
     {
         // Update the radio buttons based on the state of the observations
-        $obsRow=$DOM->getElementById($docEntry->getMetadataUUID());
+        $obsRow=$DOM->getElementById($docEntry->getMetadataID());
         if($obsRow!==null)
         {
             $obsRow->setAttribute("ObservationID",$docEntry->getUUID());

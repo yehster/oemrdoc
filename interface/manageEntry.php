@@ -3,7 +3,7 @@ include_once("/var/www/openemr/interface/globals.php");
 include_once('/var/www/openemr/library/doctrine/init-em.php');
 include_once('../ui/DocumentUtilities.php');
 
-function findObservationOrCreate($em,$PE,$metadataUUID,$pat,$user)
+function findObservationOrCreate($em,$PE,$metadataID,$pat,$user)
 {
     $parItem=$PE->getItem();
     $qb = $em->createQueryBuilder()
@@ -20,7 +20,7 @@ function findObservationOrCreate($em,$PE,$metadataUUID,$pat,$user)
     {
         $res = new library\doctrine\Entities\Observation(null,$pat,$user);
         $PE->getItem()->addEntry($res);
-        $res->setMetadataUUID($metadataUUID);
+        $res->setMetadataID($metadataID);
     }
     else
     {
@@ -53,9 +53,9 @@ if(isset($_REQUEST['content']))
 {
         $content = $_REQUEST['content'];
 }
-if(isset($_REQUEST['metadataUUID']))
+if(isset($_REQUEST['metadataID']))
 {
-    $metadataUUID = $_REQUEST['metadataUUID'];
+    $metadataID = $_REQUEST['metadataID'];
 }
 
 /****************************************************

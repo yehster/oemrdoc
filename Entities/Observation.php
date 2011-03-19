@@ -26,16 +26,16 @@ namespace library\doctrine\Entities;
         }
 
       /** @Column(type="string",name="attr2") */
-        protected $metadataUUID;
+        protected $metadataID;
 
-        public function setMetadataUUID($val)
+        public function setMetadataID($val)
         {
-            $this->metadataUUID=$val;
+            $this->metadataID=$val;
         }
 
-        public function getMetadataUUID()
+        public function getMetadataID()
         {
-            return $this->metadataUUID;
+            return $this->metadataID;
         }
 
 

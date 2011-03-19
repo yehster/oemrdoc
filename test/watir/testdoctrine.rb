@@ -4,7 +4,7 @@ require "OEMRTestFrame"
 
 #use firefox by default
 Watir::Browser.default = 'firefox'
-@host='192.168.75.129'
+@host='192.168.75.130'
 ARGV.each do|a|
   puts "Argument: #{a}"
 	if a=='ie' or a=='IE'
