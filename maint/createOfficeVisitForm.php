@@ -49,14 +49,55 @@ findOrCreateMDCI($em,$ros,$form);
 
 
 $rosCON = findOrCreateSubsection($em,'ROS:CON','Review of Systems:Constitutional',$ros);
+$rosCON->setCode('CON','ROS');
+
 $rosEYE = findOrCreateSubsection($em,'ROS:EYE','Review of Systems:Eyes',$ros);
+$rosEYE->setCode('EYE','ROS');
+
 $rosENT = findOrCreateSubsection($em,'ROS:ENT','Review of Systems:Ears & Nose & Mouth & Throat',$ros);
+$rosENT->setCode('ENT','ROS');
+
+
 $rosCV = findOrCreateSubsection($em,'ROS:CV','Review of Systems:Cardiovascular',$ros);
+$rosCV->setCode('CV','ROS');
+
+
 $rosRES = findOrCreateSubsection($em,'ROS:RES','Review of Systems:Respiratory',$ros);
+$rosRES->setCode('RES','ROS');
+
+
 $rosGI = findOrCreateSubsection($em,'ROS:GI','Review of Systems:Gastrointestinal',$ros);
+$rosGI->setCode('GI','ROS');
+
+
 $rosGU = findOrCreateSubsection($em,'ROS:GU','Review of Systems:Genitourinary tract',$ros);
+$rosGU->setCode('GU','ROS');
+
+$rosMS = findOrCreateSubsection($em,'ROS:MS','Review of Systems:Musculoskeletal',$ros);
+$rosMS->setCode('MS','ROS');
 
 
+$rosINT = findOrCreateSubsection($em,'ROS:INT','Review of Systems:Integumentary',$ros);
+$rosINT->setCode('INT','ROS');
+
+$rosNEURO = findOrCreateSubsection($em,'ROS:NEURO','Review of Systems:Neurological',$ros);
+$rosNEURO->setCode('NEURO','ROS');
+
+
+$rosPSYCH = findOrCreateSubsection($em,'ROS:PSYCH','Review of Systems:Psychiatric',$ros);
+$rosPSYCH->setCode('PSYCH','ROS');
+
+
+$rosENDO = findOrCreateSubsection($em,'ROS:ENDO','Review of Systems:Endocrine',$ros);
+$rosENDO->setCode('ENDO','ROS');
+
+
+$rosHEM = findOrCreateSubsection($em,'ROS:HEM','Review of Systems:Hematologic',$ros);
+$rosHEM->setCode('HEM','ROS');
+
+
+$rosIMM = findOrCreateSubsection($em,'ROS:IMM','Review of Systems:Immunologic',$ros);
+$rosIMM->setCode('IMM','ROS');
 
 
 $pe = findOrCreateSection($em,'PE','Physical Exam');

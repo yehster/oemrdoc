@@ -180,8 +180,8 @@ function findCodesForKwArr($em,$kwarr,$tok)
         $qb->andWhere("kwc".$tokIdx.".keyword in ".$kwinList[$tokIdx]);
         $qb->andWhere("kwc".$tokIdx.".code = cd");
         $qb->andWhere("kwc".$tokIdx.".keyword = kw".$tokIdx);
-        $qb->orderBy("qual".$tokIdx,"DESC");
-        $qb->orderBy("kw".$tokIdx.".content","ASC");
+        $qb->orderBy("kw".$tokIdx.".content" ,"DESC");
+//        $qb->orderBy("qual".$tokIdx,"DESC");
 
      }
 
