@@ -40,5 +40,15 @@ class Concept {
         return $this->tty;
     }
 
+    /**
+     * @Column(type="string")
+     */
+    protected $SAB;
+
+    public function getSAB()
+    {
+        return $this->SAB;
+    }
+
 }
 ?>

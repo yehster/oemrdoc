@@ -67,7 +67,7 @@ class ObservationMetadata
          * @Column(type="string")
          */
         protected $classification;
-        /* is this typically a "normal" or and "abnormal" finding */
+        /* is this typically a "normal" or an "abnormal" finding */
 
         public function getClassification()
         {

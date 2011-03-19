@@ -22,9 +22,13 @@ function lookupPreferredTerms($em,$toks)
 function addPT($DOM,$ParentElement,$pt)
 {
     $newRow=$DOM->createElement("TR");
+    $newRow->setAttribute("CLASS","SNOMED");
+    $newRow->setAttribute("aui",$pt->getAUI());
+
     $ParentElement->appendChild($newRow);
 
     $tdStr=$DOM->createElement("TD",htmlentities($pt->getSTR()));
+    $tdStr->setAttribute("CLASS","str");
     $newRow->appendChild($tdStr);
 
     $tdAUI=$DOM->createElement("TD",htmlentities($pt->getAUI()));
