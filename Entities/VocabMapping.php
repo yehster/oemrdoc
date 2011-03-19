@@ -22,15 +22,6 @@ class VocabMapping {
 
     }
 
-        public function getRelationship()
-        {
-            return $this->relationship;
-        }
-
-        public function setRelationship($val)
-        {
-            $this->relationship = $val;
-        }
         
       	/**
 	 * @Id
@@ -38,6 +29,10 @@ class VocabMapping {
 	 */
 	protected $uuid;
 
+        public function getUUID()
+        {
+            return $this->uuid;
+        }
 	/**
 	 * @Column(type="datetime")
 	 */
@@ -52,6 +47,11 @@ class VocabMapping {
          * @Column(type="string")
          */
         protected $source_code;
+
+        public function getSource_code()
+        {
+            return $this->source_code;
+        }
 
         /**
          * @Column(type="string")
@@ -78,8 +78,20 @@ class VocabMapping {
             return $this->text;
         }
 
+        /**
+         * @Column(type="string")
+         */
+        protected $classification;
 
+        public function getClassification()
+        {
+            return $this->classification;
+        }
 
+        public function setClassification($val)
+        {
+            $this->classification=$val;
+        }
 
 }
 ?>

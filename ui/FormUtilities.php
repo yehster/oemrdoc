@@ -1,4 +1,21 @@
 <?php
+function getFormEntries($em,$c,$ct,$classification)
+{
+    $qb = $em->createQueryBuilder()
+        ->select("fe")
+        ->from("library\doctrine\Entities\FormEntry","fe")
+        ->where("fe.target_code=:tc")
+        ->andWhere("fe.target_code_type=:tt")
+        ->andWhere("fe.classification=:cl")
+        ->orderBy("fe.modified","DESC");
+    $qb->setParameter("tc",$c);
+    $qb->setParameter("tt",$ct);
+    $qb->setParameter("cl",$classification);
+
+    $qry=$qb->getQuery();
+    return $qry->getResult();
+}
+
 function getObservations($em,$c, $ct,$classification)
 {
     $qb = $em->createQueryBuilder()
@@ -21,7 +38,7 @@ function addObservation($DOM,$ELEMParent,$obs,$className)
     $tr->setAttribute("CLASS",$className);
     $obsText = htmlentities($obs->getText());
     $tr->setAttribute("ObsText",$obsText);
-    $tr->setAttribute("ID",$obs->getUUID());
+    $tr->setAttribute("ID",$obs->getSource_code());
     $tr->setIdAttribute("ID",true);
     $obsDesc = $DOM->createElement("TD",$obsText);
 
@@ -89,7 +106,7 @@ function createObservationTable($em,$DOM,$ELEMParent,$header,$code,$code_type)
 function createObservationRows($em,$DOM,$table,$c,$ct,$classification,$htmlClass)
 {
 
-    $observations = getObservations($em,$c,$ct,$classification);
+    $observations = getFormEntries($em,$c,$ct,$classification);
     for($obsIdx=0;$obsIdx<count($observations);$obsIdx++)
         {
             $curObs = $observations[$obsIdx];
@@ -127,14 +144,17 @@ function createDocEntryTable($em,$DOM,$ELEMParent,$docEntry)
     {
         // Update the radio buttons based on the state of the observations
         $obsRow=$DOM->getElementById($docEntry->getMetadataUUID());
-        $obsRow->setAttribute("ObservationID",$docEntry->getUUID());
-        $inputs=$obsRow->getElementsByTagName("INPUT");
-        for($inpIdx=0;$inpIdx<$inputs->length;$inpIdx++)
+        if($obsRow!==null)
         {
-            $inp=$inputs->item($inpIdx);
-            if($inp->getAttribute("VALUE")==$docEntry->getValue())
+            $obsRow->setAttribute("ObservationID",$docEntry->getUUID());
+            $inputs=$obsRow->getElementsByTagName("INPUT");
+            for($inpIdx=0;$inpIdx<$inputs->length;$inpIdx++)
             {
-                $inp->setAttribute("Checked","");
+                $inp=$inputs->item($inpIdx);
+                if($inp->getAttribute("VALUE")==$docEntry->getValue())
+                {
+                    $inp->setAttribute("Checked","");
+                }
             }
         }
     }
