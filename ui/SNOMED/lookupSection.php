@@ -25,6 +25,7 @@ function addSection($DOM,$table,$section)
     $newTR->setAttribute("code",$section->getCode());
     $newTR->setAttribute("code_type",$section->getCode_type());
     $newTR->setAttribute("class","section");
+    $newTR->setAttribute("uuid",$section->getUUID());
 
 
     $textTD = $DOM->createElement("TD",htmlentities($section->getText()));

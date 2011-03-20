@@ -56,6 +56,18 @@ include('/var/www/openemr/library/doctrine/init-em.php');
         );        
     }
 
+    function showFormEntries(uuid)
+    {
+            $.post("/openemr/library/doctrine/ui/SNOMED/lookupSectionVocab.php",
+                {
+                    sectionUUID: ""+uuid+""
+                },
+                function(data) {
+                    $("#FormEntries").html(data);
+                }
+            );
+
+    }
     function clickSnomed()
     {
         mode=$("#mode").find("input:radio:checked").val();
@@ -75,6 +87,8 @@ include('/var/www/openemr/library/doctrine/init-em.php');
                 },
                 function(data) {
                     $("#status").text(data);
+                    uuid=$("#code").attr("uuid");
+                    showFormEntries(uuid);
                 });
         }
     }
@@ -82,8 +96,11 @@ include('/var/www/openemr/library/doctrine/init-em.php');
     {
         code=$(this).attr("code");
         code_type=$(this).attr("code_type");
+        uuid=$(this).attr("uuid");
         $("#code").text(code);
+        $("#code").attr("uuid",uuid);
         $("#codeType").text(code_type);
+        showFormEntries(uuid);
     }
 
     function registerControlEvents()
@@ -120,6 +137,7 @@ include('/var/www/openemr/library/doctrine/init-em.php');
         <input type="radio" name="mode" value="abnormal"/>
     </span>
     </DIV>
+    <DIV id="FormEntries"></DIV>
     <h1 id="code"></h1>
     <h1 id="codeType"></h1>
     <h1 id="status"></h1>
