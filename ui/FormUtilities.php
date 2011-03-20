@@ -11,7 +11,7 @@ function getFormEntries($em,$c,$ct,$classification)
     $qb->setParameter("tc",$c);
     $qb->setParameter("tt",$ct);
     $qb->setParameter("cl",$classification);
-
+    $qb->orderBy("fe.seq","ASC");
     $qry=$qb->getQuery();
     return $qry->getResult();
 }

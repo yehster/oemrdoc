@@ -93,5 +93,19 @@ class VocabMapping {
             $this->classification=$val;
         }
 
+        /**
+         * @Column(type="integer")
+         */
+        protected $seq;
+
+        public function setSeq($val)
+        {
+            $this->seq=$val;
+        }
+
+        public function getSeq()
+        {
+            return $this->seq;
+        }
 }
 ?>
