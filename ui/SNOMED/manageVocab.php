@@ -81,29 +81,56 @@ if(isset($_REQUEST['classification']))
     $classification=$_REQUEST['classification'];
 }
 
-
-echo $sourceType.":".$sourceCode.":".$targetType.":".$targetCode.":".$text.":".$classification;
-
-if(($text!==null) && ($targetCode!==null) && ($targetType!==null) && ($sourceType!==null) && ($sourceCode!==null))
+if(isset($_REQUEST['mode']))
 {
-    $fe=findOrCreateFormEntry($em,$text,$sourceType,$sourceCode,$targetType,$targetCode);
-    $fe->setClassification($classification);
-    if(isset($_REQUEST['seq']))
-    {
-        $seq=$_REQUEST['seq'];
-    }
-    else
-    {
-        $seq=findMaxSeqFE($em, $targetType, $targetCode,$classification);
-        if($seq==null)
-        {
-            $seq=0;
-        }
-        $seq++;
-    }
-    $fe->setSeq($seq);
-    $em->flush();
+    $mode=$_REQUEST['mode'];
 }
 
-echo "<BR>SUCCESS!";
+if(isset($_REQUEST['type']))
+{
+    $type=$_REQUEST['type'];
+}
+
+
+if(isset($_REQUEST['uuid']))
+{
+    $uuid=$_REQUEST['uuid'];
+}
+
+if($mode=="create")
+{
+    echo $sourceType.":".$sourceCode.":".$targetType.":".$targetCode.":".$text.":".$classification;
+    if(($text!==null) && ($targetCode!==null) && ($targetType!==null) && ($sourceType!==null) && ($sourceCode!==null))
+    {
+     $fe=findOrCreateFormEntry($em,$text,$sourceType,$sourceCode,$targetType,$targetCode);
+     $fe->setClassification($classification);
+     if(isset($_REQUEST['seq']))
+     {
+         $seq=$_REQUEST['seq'];
+     }
+     else
+     {
+         $seq=findMaxSeqFE($em, $targetType, $targetCode,$classification);
+         if($seq==null)
+         {
+             $seq=0;
+         }
+         $seq++;
+     }
+     $fe->setSeq($seq);
+     $em->flush();
+    }
+}
+if($mode=="delete")
+{
+    if($type=="FormEntry")
+    {
+        $fe=$em->getRepository('library\doctrine\Entities\FormEntry')->find($uuid);
+        $classification=$fe->getClassification();
+        $em->remove($fe);
+        $em->flush();
+        echo "delete successful";
+    }
+}
+
 ?>

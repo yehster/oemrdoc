@@ -37,6 +37,19 @@ include('/var/www/openemr/library/doctrine/init-em.php');
 
 <script src="/openemr/library/js/jquery-1.5.min.js" type="text/javascript"></script>
 <script  type="text/javascript">
+    function getAttrForElem(elem,attrName)
+{
+
+    if($(elem).attr(attrName)!=undefined)
+    {
+        return($(elem).attr(attrName));
+    }
+    else
+    {
+        return getAttrForElem($(elem).parent(),attrName);
+    }
+}
+
     function updateResults(data)
     {
         $("#results1").html(data);
@@ -92,7 +105,8 @@ include('/var/www/openemr/library/doctrine/init-em.php');
                     targetCode: ""+targetCode+"",
                     targetType: ""+targetType+"",
                     text: ""+text+"",
-                    classification: ""+mode+""
+                    classification: ""+mode+"",
+                    mode: "create"
                 },
                 function(data) {
                     $("#status").text(data);
@@ -112,12 +126,37 @@ include('/var/www/openemr/library/doctrine/init-em.php');
         showFormEntries(uuid);
     }
 
+    function refreshFETable()
+    {
+        uuid=$("#code").attr("uuid");
+        showFormEntries(uuid);
+
+    }
+
+    function deleteEntry()
+    {
+        uuid=getAttrForElem(this,"uuid");
+        window.alert(uuid);
+        $.post("/openemr/library/doctrine/ui/SNOMED/manageVocab.php",
+                {
+                    uuid: ""+uuid+"",
+                    mode: "delete",
+                    type: "FormEntry"
+                },
+                function(data) {
+                    $("#status").text(data);
+                    refreshFETable();
+                });
+
+    }
+
     function registerControlEvents()
     {
         $("#btnSearch").live({click: findConcepts});
         $("#btnSearchSection").live({click: findSections});
         $("tr.section").live({click: chooseSection, mouseover: function() {$(this).addClass('Highlight');} ,mouseout: function() {$(this).removeClass('Highlight');}});
         $("tr.SNOMED").live({click: clickSnomed ,mouseover: function() {$(this).addClass('Highlight');} ,mouseout: function() {$(this).removeClass('Highlight');} });
+        $("input.del").live({click: deleteEntry});
     }
     window.onload= registerControlEvents;
 </script>
