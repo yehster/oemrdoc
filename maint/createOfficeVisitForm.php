@@ -126,7 +126,7 @@ $peRES = findOrCreateSubsection($em,'PE:RES','Physical Exam:Respiratory system',
 $peGI = findOrCreateSubsection($em,'PE:GI','Physical Exam:Gastrointestinal system',$pe,'11430-6','LOINC');
 
 //Physical findings of Musculoskeletal system 11410-8
-$peMS = findOrCreateSubsection($em,'PE:MS','Physical Exam:Musculoskeletal system',$pe,'11430-6','LOINC');
+$peMS = findOrCreateSubsection($em,'PE:MS','Physical Exam:Musculoskeletal system',$pe,'11410-8','LOINC');
 
 //Physical findings of Extremities
 $peEXT = findOrCreateSubsection($em,'PE:EXT','Physical Exam:Extremities',$pe,'10196-4','LOINC');
