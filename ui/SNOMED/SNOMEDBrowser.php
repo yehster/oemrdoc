@@ -136,7 +136,6 @@ include('/var/www/openemr/library/doctrine/init-em.php');
     function modifyEntry()
     {
         uuid=getAttrForElem(this,"uuid");
-        window.alert(uuid);
         mode = this.getAttribute("value");
         $.post("/openemr/library/doctrine/ui/SNOMED/manageVocab.php",
                 {

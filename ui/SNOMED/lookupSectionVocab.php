@@ -43,6 +43,15 @@ function addEntry($DOM,$table,$fe)
     createButton($DOM,$newTR,"del","del");
     createButton($DOM,$newTR,"up","up");
     createButton($DOM,$newTR,"dn","dn");
+    if($fe->getClassification()=="normal")
+    {
+        createButton($DOM,$newTR,"abn","abn");
+    }
+    elseif($fe->getClassification()=="abnormal")
+    {
+        createButton($DOM,$newTR,"nor","nor");
+    }
+
     
 
 

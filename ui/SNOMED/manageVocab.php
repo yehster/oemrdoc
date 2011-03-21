@@ -30,7 +30,7 @@ function findOrCreateFormEntry($em,$text,$sourceType,$sourceCode,$targetType,$ta
 function findMaxSeqFE($em,$targetType,$targetCode,$cls)
 {
    $qb = $em->createQueryBuilder()
-        ->select("COUNT(fe.seq) as maxSeq")
+        ->select("MAX(fe.seq) as maxSeq")
         ->from("library\doctrine\Entities\FormEntry","fe")
         ->Where("fe.target_code=:tc")
         ->andWhere("fe.target_code_type=:tt")
@@ -41,7 +41,12 @@ function findMaxSeqFE($em,$targetType,$targetCode,$cls)
     $qry=$qb->getQuery();
     $res=$qry->getResult();
     $val=$res[0];
-    return $val['maxSeq'];
+    $retval=$val['maxSeq'];
+    if($retval==null)
+    {
+        $retval=0;
+    }
+    return $retval;
 }
 
 function findSEQSwapFE($em,$FE,$mode)
@@ -184,5 +189,24 @@ if(($mode=="up") || ($mode=="dn"))
         echo "updated sequence.";
     }
 }
-
+if(($mode=="abn") || ($mode=="nor"))
+{
+    if($mode=="abn")
+    {
+        $newClass="abnormal";
+    }
+    else
+    {
+        $newClass="normal";
+    }
+    if($type=="FormEntry")
+    {
+        $fe=$em->getRepository('library\doctrine\Entities\FormEntry')->find($uuid);
+        $nextSeq=findMaxSeqFE($em, $fe->getTarget_code_type(), $fe->getTarget_code(), $newClass)+1;
+        $fe->setClassification($newClass);
+        $fe->setSeq($nextSeq);
+        echo $newClass.":".$maxSeq;
+        $em->flush();
+    }
+}
 ?>
