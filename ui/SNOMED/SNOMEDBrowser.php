@@ -23,7 +23,16 @@ include('/var/www/openemr/library/doctrine/init-em.php');
         background-color: yellow;
         cursor: pointer;
     }
+    .normal {
+            background-color: lightgreen;
+    }
 
+    .abnormal {
+            background-color: lightpink;
+    }
+    table.formEntries {
+        width: 100%;
+    }
 </style>
 
 <script src="/openemr/library/js/jquery-1.5.min.js" type="text/javascript"></script>
