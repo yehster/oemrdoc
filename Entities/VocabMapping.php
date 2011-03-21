@@ -58,15 +58,29 @@ class VocabMapping {
          */
         protected $source_code_type;
 
+        public function getSource_code_type()
+        {
+            return $this->source_code_type;
+        }
+
         /**
          * @Column(type="string")
          */
         protected $target_code;
+        public function getTarget_code()
+        {
+            return $this->target_code;
+        }
 
         /**
          * @Column(type="string")
          */
         protected $target_code_type;
+        
+        public function getTarget_code_type()
+        {
+            return $this->target_code_type;
+        }
 
         /**
          * @Column(type="string")

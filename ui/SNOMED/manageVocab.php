@@ -44,6 +44,41 @@ function findMaxSeqFE($em,$targetType,$targetCode,$cls)
     return $val['maxSeq'];
 }
 
+function findSEQSwapFE($em,$FE,$mode)
+{
+
+   $qb = $em->createQueryBuilder()
+        ->select("fe")
+        ->from("library\doctrine\Entities\FormEntry","fe")
+        ->Where("fe.target_code=:tc")
+        ->andWhere("fe.target_code_type=:tt")
+        ->andWhere("fe.classification=:cl");
+    if($mode=="dn")
+    {
+        $qb->andWhere("fe.seq>:seqNum");
+        $qb->orderBy("fe.seq","ASC");
+    }
+    elseif($mode=="up")
+    {
+        $qb->andWhere("fe.seq<:seqNum");
+        $qb->orderBy("fe.seq","DESC");
+    }
+    $qb->setParameter("tc",$FE->getTarget_code());
+    $qb->setParameter("tt",$FE->getTarget_code_type());
+    $qb->setParameter("cl",$FE->getClassification());
+    $qb->setParameter("seqNum",$FE->getSeq());
+    $qry=$qb->getQuery();
+    $res=$qry->getResult();
+    if(count($res)>0)
+    {
+        return $res[0];
+    }
+    else
+    {
+        return null;
+    }
+}
+
 if(isset($_REQUEST['aui']))
 {
     $aui = $_REQUEST['aui'];
@@ -121,15 +156,32 @@ if($mode=="create")
      $em->flush();
     }
 }
-if($mode=="delete")
+if($mode=="del")
 {
     if($type=="FormEntry")
     {
         $fe=$em->getRepository('library\doctrine\Entities\FormEntry')->find($uuid);
         $classification=$fe->getClassification();
+        // TODO: update sequence
         $em->remove($fe);
         $em->flush();
         echo "delete successful";
+    }
+}
+if(($mode=="up") || ($mode=="dn"))
+{
+    if($type=="FormEntry")
+    {
+        $fe=$em->getRepository('library\doctrine\Entities\FormEntry')->find($uuid);
+        $swapSeqFE=findSEQSwapFE($em,$fe,$mode);
+        if($swapSeqFE!==null)
+        {
+            $tmpSwap=$swapSeqFE->getSeq();
+            $swapSeqFE->setSeq($fe->getSeq());
+            $fe->setSeq($tmpSwap);
+            $em->flush();
+        }
+        echo "updated sequence.";
     }
 }
 

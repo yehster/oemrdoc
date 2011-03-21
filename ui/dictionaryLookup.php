@@ -182,7 +182,7 @@ function findCodesForKwArr($em,$kwarr,$tok)
         $qb->andWhere("kwc".$tokIdx.".keyword = kw".$tokIdx);
         $qb->orderBy("kw".$tokIdx.".content" ,"DESC");
 //        $qb->orderBy("qual".$tokIdx,"DESC");
-
+// TODO: tweak sort ordering issues
      }
 
     $qry=$qb->getQuery();

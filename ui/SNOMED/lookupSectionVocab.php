@@ -26,7 +26,7 @@ function createButton($DOM,$tr,$value,$class)
 
     $but->setAttribute("value",$value);
     $but->setAttribute("type","button");
-    $but->setAttribute("class",$class);
+    $but->setAttribute("class",$class." modFE");
     
 }
 

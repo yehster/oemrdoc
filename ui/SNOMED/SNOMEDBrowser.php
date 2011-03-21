@@ -133,14 +133,15 @@ include('/var/www/openemr/library/doctrine/init-em.php');
 
     }
 
-    function deleteEntry()
+    function modifyEntry()
     {
         uuid=getAttrForElem(this,"uuid");
         window.alert(uuid);
+        mode = this.getAttribute("value");
         $.post("/openemr/library/doctrine/ui/SNOMED/manageVocab.php",
                 {
                     uuid: ""+uuid+"",
-                    mode: "delete",
+                    mode: ""+mode+"",
                     type: "FormEntry"
                 },
                 function(data) {
@@ -156,7 +157,7 @@ include('/var/www/openemr/library/doctrine/init-em.php');
         $("#btnSearchSection").live({click: findSections});
         $("tr.section").live({click: chooseSection, mouseover: function() {$(this).addClass('Highlight');} ,mouseout: function() {$(this).removeClass('Highlight');}});
         $("tr.SNOMED").live({click: clickSnomed ,mouseover: function() {$(this).addClass('Highlight');} ,mouseout: function() {$(this).removeClass('Highlight');} });
-        $("input.del").live({click: deleteEntry});
+        $("input.modFE").live({click: modifyEntry});
     }
     window.onload= registerControlEvents;
 </script>
