@@ -63,6 +63,24 @@ function updateObservation()
     }
 
 }
+function createNarrative()
+{
+    parentEntryUUID=$(this).attr("sectionuuid");
+    narText=this.value;
+        $.post("/openemr/library/doctrine/interface/manageEntry.php",
+           {
+                parentEntryUUID: ""+parentEntryUUID+"",
+                EntryType: "narrative",
+                task: "create",
+                content: ""+narText+""
+            },
+            function(data) {
+                window.alert(data);
+            }
+            
+        )
+}
+
 
 function registerFormEvents()
 {

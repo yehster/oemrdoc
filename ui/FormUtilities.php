@@ -171,7 +171,8 @@ function createDocEntryTable($em,$DOM,$ELEMParent,$docEntry)
         $par = $docEntry->getParentEntry();
         if($par->getType()=="Section")
         {
-
+            $textArea=$DOM->getElementById("newNar".$par->getUUID());
+//            $textArea->setText(htmlentities($docEntry->getText()));
         }
     }
 
