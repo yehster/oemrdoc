@@ -67,4 +67,5 @@ function updateObservation()
 function registerFormEvents()
 {
     $("tr.ObservationTable").live({click: updateObservation});
+    $("textarea.newNarrative").live({blur: createNarrative});
 }

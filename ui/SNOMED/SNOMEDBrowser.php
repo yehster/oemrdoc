@@ -161,11 +161,13 @@ include('/var/www/openemr/library/doctrine/init-em.php');
     window.onload= registerControlEvents;
 </script>
 <DIV ID="left">
+    <H3>Terms:</H3>
 <INPUT TYPE="TEXT" ID="txtSearch"/>
 <INPUT TYPE="BUTTON" ID="btnSearch" value="search"/>
 <DIV ID="results1"></DIV>
 </DIV>
 <DIV ID="middle">
+    <H3>Document Section:</H3>
 <INPUT TYPE="TEXT" ID="txtSearchSection"/>
 <INPUT TYPE="BUTTON" ID="btnSearchSection" value="search"/>
 <DIV ID="sectionInfo">
@@ -177,6 +179,7 @@ include('/var/www/openemr/library/doctrine/init-em.php');
 
 </DIV>
 <DIV ID="right">
+    <H3>Details:</H3>
     <DIV ID="mode">
     <span>normal
         <input type="radio" name="mode" value="normal" checked/>

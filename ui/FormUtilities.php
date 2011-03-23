@@ -86,6 +86,7 @@ function createObservationTable($em,$DOM,$ELEMParent,$header,$code,$code_type)
     createObservationRows($em,$DOM,$table,$code,$code_type,"normal",$class." normal");
 
     createObservationRows($em,$DOM,$table,$code,$code_type,"abnormal",$class." abnormal");
+    return $table;
 
 }
 function createObservationRows($em,$DOM,$table,$c,$ct,$classification,$htmlClass)
@@ -97,6 +98,26 @@ function createObservationRows($em,$DOM,$table,$c,$ct,$classification,$htmlClass
             $curObs = $observations[$obsIdx];
             addObservation($DOM,$table,$curObs,$htmlClass);
         }
+}
+
+
+function createSectionTextBox($DOM,$parent,$docEntry)
+{
+    $textBox = $DOM->createElement("TEXTAREA");
+    $textBox->setAttribute("CLASS","newNarrative");
+    $textBox->setAttribute("ID","newNar".$docEntry->getUUID());
+    $textBox->setAttribute("sectionuuid",$docEntry->getUUID());
+    $textBox->setAttribute("rows","1");
+
+
+    $td = $DOM->createElement("td");
+    $td->appendChild($textBox);
+    $td->setAttribute("COLSPAN","3");
+    $tr = $DOM->createElement("TR");
+    $tr->appendChild($td);
+
+    $parent->appendChild($tr);
+
 }
 
 function createDocEntryTable($em,$DOM,$ELEMParent,$docEntry)
@@ -119,9 +140,10 @@ function createDocEntryTable($em,$DOM,$ELEMParent,$docEntry)
         $DIVSection = $DOM->createElement("DIV");
         $DIVSection->setAttribute("CLASS","FormSection");
         $DIVSection->setAttribute("SectionID",$docEntry->getUUID());
+ 
         $ELEMParent->appendChild($DIVSection);
-        createObservationTable($em,$DOM,$DIVSection,$header,$code,$code_type);
-        // need to modify this to update the radio buttons to specify already selected values.
+        $obsTable =createObservationTable($em,$DOM,$DIVSection,$header,$code,$code_type);
+        createSectionTextBox($DOM,$obsTable,$docEntry);
         $ELEMParent=$DIVSection;
     }
 
@@ -144,6 +166,15 @@ function createDocEntryTable($em,$DOM,$ELEMParent,$docEntry)
         }
     }
 
+    if($docEntry->getType()=="Narrative")
+    {
+        $par = $docEntry->getParentEntry();
+        if($par->getType()=="Section")
+        {
+
+        }
+    }
+
     $childCount= $item->getItems()->count();
     if($childCount>0)
     {
@@ -156,6 +187,7 @@ function createDocEntryTable($em,$DOM,$ELEMParent,$docEntry)
             createDocEntryTable($em,$DOM,$ELEMParent,$childEntry);
         }
     }
+
 
 }
 ?>

@@ -208,6 +208,11 @@ include_once("OEMRProblem.php");
         {
             return $this->item;
         }
+
+        public function getParentEntry()
+        {
+            return $this->getItem()->getParent()->getEntry();
+        }
  }
 
  ?>

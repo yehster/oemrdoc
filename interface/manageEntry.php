@@ -140,6 +140,11 @@ if($EntryType=="problem")
     }
 }
 
+if($EntryType=="Narrative")
+{
+    
+}
+
 if(isset($_REQUEST['refresh']))
 {
     $request=$_REQUEST['refresh'];
