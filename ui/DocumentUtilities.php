@@ -56,6 +56,13 @@ function generateDOM($DOMRoot,$DocItem,$parentDOMElem=null,$parentItem=null)
             $DOMElem->setAttribute("CLASS",$fullClass);
 
         }
+        elseif($DocEntry->getText()=="Review of Systems")
+        {
+            $fullClass = $DOMElem->getAttribute("CLASS")." ROS";
+            $DOMElem->setAttribute("CLASS",$fullClass);
+
+        }
+
     }
 
 

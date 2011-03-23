@@ -14,7 +14,7 @@ function getAttrForElem(elem,attrName)
     }
 }
 
-function displayPhysicalExam()
+function displayForm()
 {
     secUUID = this.id;
     $.post("/openemr/library/doctrine/ui/FormGenerator.php",{docEntryUUID: ""+secUUID+""},

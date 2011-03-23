@@ -276,7 +276,8 @@ function addProblem() {
         $("tr.problemItem").live({mouseover: function() {$(this).addClass('Highlight');} ,mouseout: function() {$(this).removeClass('Highlight');}, click: addProblem});
         $("TEXTAREA.ProblemEntry").live({keyup: keyupProblemEntry});
         $("td.medName").live({mouseover: function() {$(this).addClass('Highlight');} ,mouseout: function() {$(this).removeClass('Highlight');}, click: clickDrug});
-        $("div.pe").live({click: displayPhysicalExam})
+        $("div.pe").live({click: displayForm})
+        $("div.ros").live({click: displayForm})
         $("#finishPE").live({click: finishPhysicalExam})
 
         $("#popupDiv").hide();
