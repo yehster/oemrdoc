@@ -76,6 +76,7 @@ function createNarrative()
             },
             function(data) {
                 window.alert(data);
+                // TODO: update the text box attributes so that changes go to the existing entry and we don't keep creating new ones
             }
             
         )
