@@ -105,7 +105,9 @@ function createSectionTextBox($DOM,$parent,$docEntry)
 {
     $textBox = $DOM->createElement("TEXTAREA");
     $textBox->setAttribute("CLASS","newNarrative");
-    $textBox->setAttribute("ID","newNar".$docEntry->getUUID());
+    $textBox->setAttribute("searchID","newNar".$docEntry->getUUID());
+    $textBox->setIdAttribute("searchID",true);
+
     $textBox->setAttribute("sectionuuid",$docEntry->getUUID());
     $textBox->setAttribute("rows","1");
 
@@ -171,8 +173,19 @@ function createDocEntryTable($em,$DOM,$ELEMParent,$docEntry)
         $par = $docEntry->getParentEntry();
         if($par->getType()=="Section")
         {
-            $textArea=$DOM->getElementById("newNar".$par->getUUID());
-//            $textArea->setText(htmlentities($docEntry->getText()));
+            $searchID="newNar".$par->getUUID();
+            $textArea=$DOM->getElementById($searchID);
+            $textClass=$textArea->getAttribute("CLASS");
+            if($textClass=="newNarrative")
+            {
+                $textArea->nodeValue=htmlentities($docEntry->getText());
+                $textArea->setAttribute("CLASS","Narrative");
+                $textArea->setAttribute("ID",$docEntry->getUUID());
+            }
+
+
+//            $textArea->nodeValue=htmlentities(print_r($textArea));
+
         }
     }
 
