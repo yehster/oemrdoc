@@ -5,7 +5,7 @@ function CreateEditorElement($DOM,$DocEntry,$tag,$parent=null,$text=null)
 {
     $retval = $DOM->createElement($tag,$text);
     $retval->setAttribute(ATTR_UUID,$DocEntry->getUUID());
-    $retval->setAttribute(ATTR_CLASS,$DocEntry->getType());
+    $retval->setAttribute(ATTR_ENTRY_TYPE,$DocEntry->getType());
     if($parent!=null)
     {
         $parent->appendChild($retval);
@@ -22,6 +22,10 @@ function generateEditorDOM($DOM,$Parent,$DocItem,$Depth)
         $sectionDIV=CreateEditorElement($DOM,$DocEntry,"DIV",$Parent);
 
         $sectionHeader=CreateEditorElement($DOM,$DocEntry,"TEXT",$sectionDIV,$DocEntry->getText());
+        $firstSPAN=$DOM->createElement("SPAN");
+        $secondSPAN=$DOM->createElement("SPAN");
+        $sectionDIV->appendChild($firstSPAN);
+        $sectionDIV->appendChild($secondSPAN);
         $nextParent=$sectionDIV;
     }
     elseif($DocEntry->getType()==TYPE_NARRATIVE)
@@ -33,7 +37,10 @@ function generateEditorDOM($DOM,$Parent,$DocItem,$Depth)
 
         $nextParent=$narDiv;
     }
-
+    elseif($DocEntry->getType()==TYPE_OBSERVATION)
+    {
+        $nextParent=CreateEditorElement($DOM,$DocEntry,"TEXT",$Parent,$DocEntry->getText());
+    }
     else
     {
         $nextParent=CreateEditorElement($DOM,$DocEntry,"TEXT",$Parent,$DocEntry->getText());

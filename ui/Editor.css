@@ -17,16 +17,17 @@ root {
 
 }
 
-div.Section {
+div[entrytype="Section"] {
     font-size: medium;
     position: relative;
     left: 10px;
 }
 
-div.Narrative {
-    position: relative;
-    left: 15px;
+text.Section {
+    font-family:sans-serif;
+   
 }
+
 textarea {
     resize: none;
     overflow:auto;
