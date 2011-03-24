@@ -179,7 +179,7 @@ function createDocEntryTable($em,$DOM,$ELEMParent,$docEntry)
             if($textClass=="newNarrative")
             {
                 $textArea->nodeValue=htmlentities($docEntry->getText());
-                $textArea->setAttribute("CLASS","Narrative");
+                $textArea->setAttribute("CLASS","FormNarrative");
                 $textArea->setAttribute("ID",$docEntry->getUUID());
             }
 
