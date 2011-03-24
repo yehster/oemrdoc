@@ -49,6 +49,11 @@ class Patient
 	protected $ts;
 
 
+        public function displayName()
+        {
+            return $this->lname .',' . $this->fname . ' ' . $this->mname;
+        }
+
 	function display()
 	{
 

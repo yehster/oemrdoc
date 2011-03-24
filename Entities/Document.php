@@ -98,6 +98,11 @@ class Document
 	*/
 	private $patient;
 
+        public function getPatient()
+        {
+            return $this->patient;
+        }
+
 	/**
          * @Column(type="string")
 	 */

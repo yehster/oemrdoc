@@ -32,9 +32,9 @@ if(isset($_REQUEST['docUUID']))
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>
-            <?php $doc->getMetadata()->getLongDesc();?>
-        </title>
+        <title><?php echo $doc->getMetadata()->getLongDesc().":";
+                echo $doc->getPatient()->displayName();
+            ?></title>
     </head>
 <?php echo $EditorDOM->saveXML($Body);?>
 </html>

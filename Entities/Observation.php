@@ -38,6 +38,13 @@ namespace library\doctrine\Entities;
             return $this->vocabID;
         }
 
+        public function getText()
+        {
+            return $this->text."=".$this->value;
+        }
+
+
+
 
 
  }

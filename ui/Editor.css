@@ -23,3 +23,11 @@ div.Section {
     left: 10px;
 }
 
+div.Narrative {
+    position: relative;
+    left: 15px;
+}
+textarea {
+    resize: none;
+    overflow:auto;
+}
