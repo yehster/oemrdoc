@@ -67,7 +67,8 @@ function createNarrative()
 {
     parentEntryUUID=$(this).attr("sectionuuid");
     narText=this.value;
-        $.post("/openemr/library/doctrine/interface/manageEntry.php",
+    if(narText!=""){
+           $.post("/openemr/library/doctrine/interface/manageEntry.php",
            {
                 parentEntryUUID: ""+parentEntryUUID+"",
                 EntryType: "narrative",
@@ -75,15 +76,42 @@ function createNarrative()
                 content: ""+narText+""
             },
             function(data) {
-                window.alert(data);
+                uuid=data;
+                refreshSection(parentEntryUUID);
             }
             
         )
+        $(this).attr("class","FormNarrative");
+        $(this).attr("id",uuid);
+    }
 }
 
+function updateNarrative()
+{
+    parentEntryUUID=$(this).attr("sectionuuid");
+    narText=this.value;
+    uuid=$(this).attr("id");
+    $.post("/openemr/library/doctrine/interface/manageEntry.php",
+    {
+        docEntryUUID: ""+uuid+"",
+        parentEntryUUID: ""+parentEntryUUID+"",
+        EntryType: "narrative",
+        task: "update",
+        content: ""+narText+"",
+        refresh: "YES"
+    },
+        function(data) {
+                    idText = "#" + parentEntryUUID;
+                    $(idText).replaceWith(data) ;
+            }
+
+        )
+
+}
 
 function registerFormEvents()
 {
     $("tr.ObservationTable").live({click: updateObservation});
     $("textarea.newNarrative").live({blur: createNarrative});
+    $("textarea.FormNarrative").live({blur: updateNarrative});
 }

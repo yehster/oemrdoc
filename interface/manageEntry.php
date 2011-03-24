@@ -152,6 +152,16 @@ if($EntryType=="narrative")
         echo $newNarrative->getUUID();
 
     }
+    if($task=="update")
+    {
+        if(isset($_REQUEST['docEntryUUID']))
+        {
+            $docEntryUUID = $_REQUEST['docEntryUUID'];
+            $docEntry = $em->getRepository('library\doctrine\Entities\Narrative')->find($docEntryUUID);
+            $docEntry->setText($content,$user);
+            $em->flush();
+        }
+    }
 }
 
 if(isset($_REQUEST['refresh']))
