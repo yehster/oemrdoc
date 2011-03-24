@@ -15,7 +15,9 @@ function generateDOM($DOMRoot,$DocItem,$parentDOMElem=null,$parentItem=null)
     }
     if($DocEntry->getType()=="Narrative")
     {
+        $DivElem=$DOMRoot->createElement("DIV");
         $DOMElem=$DOMRoot->createElement("TEXTAREA",htmlentities($DocEntry->getText()));
+        $DivElem->appendChild($DOMElem);
     }
     elseif ($DocEntry->getType()=="Section")
     {

@@ -1,0 +1,25 @@
+/* 
+    Document   : Editor
+    Created on : Mar 24, 2011, 3:34:49 PM
+    Author     : yehster
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+root { 
+    display: block;
+    font-family:sans-serif;
+
+}
+
+div.Section {
+    font-size: medium;
+    position: relative;
+    left: 10px;
+}
+

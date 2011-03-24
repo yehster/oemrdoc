@@ -43,6 +43,11 @@ class Document
 	*/
         private $metadata;
 
+        public function getMetadata()
+        {
+            return $this->metadata;
+        }
+
 	/**
 	 * @Id 
 	 * @Column(type="string") 
@@ -63,8 +68,11 @@ class Document
 	/** 
 	 * @Column(type="datetime") 
 	 */
-	private $modified;
-
+	protected $modified;
+        public function getModified()
+        {
+            return $this->modified;
+        }
 	
 	/**
 	* @OneToMany(targetEntity="DocumentItem", mappedBy="document", cascade={"persist", "remove"})
