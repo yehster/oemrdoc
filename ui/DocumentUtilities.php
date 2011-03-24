@@ -42,7 +42,7 @@ function generateDOM($DOMRoot,$DocItem,$parentDOMElem=null,$parentItem=null)
     }
     elseif ($DocEntry->getType()=="Observation")
     {
-        $DOMElem=$DOMRoot->createElement("SPAN",htmlentities($DocEntry->getText())." ".$DocEntry->getValue()."|");
+        $DOMElem=$DOMRoot->createElement("DIV",htmlentities($DocEntry->getText())." ".$DocEntry->getValue()."|");
     }
 
     $DOMElem->setAttribute("CLASS",$DocEntry->getType());
