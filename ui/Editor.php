@@ -1,8 +1,11 @@
 <script src="/openemr/library/js/jquery-1.5.min.js" type="text/javascript"></script>
 <script src="/openemr/library/doctrine/ui/Editor.js" type="text/javascript"></script>
+<script src="/openemr/library/doctrine/ui/ProblemManagement.js" type="text/javascript"></script>
+
 <style type="text/css" media="all">
    @import "/openemr/library/doctrine/ui/Editor.css";
    @import "/openemr/library/doctrine/ui/Form.css";
+   @import "/openemr/library/doctrine/ui/ProblemManagement.css";
 
 </style>
 

@@ -57,3 +57,7 @@ textarea {
         display: none;
 }
 
+    .Highlight {
+        background-color: yellow;
+        cursor: pointer;
+    }
