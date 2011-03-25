@@ -11,7 +11,7 @@ if(isset($_REQUEST['docEntryUUID']))
 
 $FormDOM = new DOMDocument("1.0","utf-8");
 $closeDIV = $FormDOM->createElement("BUTTON","close");
-$closeDIV->setAttribute("ID","finishPE");
+$closeDIV->setAttribute("class","ClosePopup");
 $closeDIV->setAttribute("TYPE","button");
 
 

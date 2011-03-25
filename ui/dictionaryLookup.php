@@ -192,7 +192,10 @@ function findCodesForKwArr($em,$kwarr,$tok)
 
 
 $ResultsDom = new DOMDocument("1.0","utf-8");
-
+$closeDIV = $ResultsDom->createElement("BUTTON","close");
+$closeDIV->setAttribute("class","ClosePopup");
+$closeDIV->setAttribute("TYPE","button");
+$ResultsDom->appendChild($closeDIV);
 if(isset($_REQUEST['searchString']))
 {
     $searchString = $_REQUEST['searchString'];

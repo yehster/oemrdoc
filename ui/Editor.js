@@ -143,7 +143,7 @@ function registerControlEvents()
 
 
         $("input[type='button']").live({click: displayForm});
-        $("#finishPE").live({click: closePopup});
+        $(".ClosePopup").live({click: closePopup});
 
 
         registerProblemEvents();

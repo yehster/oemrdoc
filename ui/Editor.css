@@ -42,7 +42,7 @@ textarea {
 #popup{
         position: fixed;
         top:5px;
-        right: 10px;
+        right: 5px;
         width: 75%;
         height: 95%;
         background-color:#FFFFFF;
@@ -51,6 +51,7 @@ textarea {
         font-size:small;
         z-index: 1000;
         overflow: auto;
+        opacity: 0.9;
     }
 
     .hidden {
