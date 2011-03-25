@@ -15,6 +15,7 @@ function generateDOM($DOMRoot,$DocItem,$parentDOMElem=null,$parentItem=null)
     }
     if($DocEntry->getType()=="Narrative")
     {
+        // TODO: move narr to end for forms
         $textArea=$DOMRoot->createElement("TEXTAREA",htmlentities($DocEntry->getText()));
         $div=$DOMRoot->createElement("DIV");
         $div->appendChild($textArea);
@@ -22,6 +23,7 @@ function generateDOM($DOMRoot,$DocItem,$parentDOMElem=null,$parentItem=null)
     }
     elseif ($DocEntry->getType()=="Section")
     {
+            // TODO: fix header substring
             if( ($parSectionText!==null) && (strpos($DocEntry->getText(),$parSectionText)!== false))
             {
                 $sectionText=substr($DocEntry->getText(),strlen($parSectionText)+1);
