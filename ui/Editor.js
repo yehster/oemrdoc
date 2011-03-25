@@ -21,6 +21,14 @@ function displayForm()
 $("#popup").show();
 
 }
+function refreshSection(id)
+{
+    $.post("/openemr/library/doctrine/interface/manageEntry.php",{parentEntryUUID:""+id+"",refresh: "YES"},function (data){
+       idText = "#" + id;
+       $(idText).replaceWith(data) ;
+       $(idText).removeClass("hidden");
+    });
+}
 
 function updateObservation()
 {
@@ -54,6 +62,68 @@ function updateObservation()
 
 }
 
+function createNarrative()
+{
+    parentEntryUUID=$(this).attr("sectionuuid");
+    narText=this.value;
+    var textArea=$(this);
+    if(narText!=""){
+           $.post("/openemr/library/doctrine/interface/manageEntry.php",
+           {
+                parentEntryUUID: ""+parentEntryUUID+"",
+                EntryType: "narrative",
+                task: "create",
+                content: ""+narText+""
+            },
+            function(data) {
+                // TODO: update the text box attributes so that changes go to the existing entry and we don't keep creating new ones
+                uuid=data;
+                refreshSection(parentEntryUUID);
+                textArea.attr("class","FormNarrative");
+                textArea.attr("id",uuid);
+            }
+
+        )
+    }
+}
+
+
+function updateFormNarrative()
+{
+    parentEntryUUID=$(this).attr("sectionuuid");
+    narText=this.value;
+    uuid=$(this).attr("id");
+    $.post("/openemr/library/doctrine/interface/manageEntry.php",
+    {
+        docEntryUUID: ""+uuid+"",
+        parentEntryUUID: ""+parentEntryUUID+"",
+        EntryType: "narrative",
+        task: "update",
+        content: ""+narText+"",
+        refresh: "YES"
+    },
+        function(data) {
+                    idText = "#" + parentEntryUUID;
+                    $(idText).replaceWith(data) ;
+            }
+
+        )
+
+}
+
+function updateNarrative()
+{
+    uuid=$(this).attr("uuid");
+    narText=this.value;
+    $.post("/openemr/library/doctrine/interface/manageEntry.php",
+    {
+        docEntryUUID: ""+uuid+"",
+        EntryType: "narrative",
+        task: "update",
+        content: ""+narText+"",
+    } )
+    
+}
 
 function closePopup()
 {
@@ -64,6 +134,9 @@ function registerControlEvents()
 {
 
         $("tr.ObservationTable").live({click: updateObservation});
+        $("textarea.newNarrative").live({blur: createNarrative});
+        $("textarea.FormNarrative").live({blur: updateFormNarrative});
+        $("textarea[entrytype='Narrative']").live({blur: updateNarrative});
 
         $("input[type='button']").live({click: displayForm});
         $("#finishPE").live({click: closePopup});

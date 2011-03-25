@@ -15,25 +15,22 @@
 body {
     display: block;
     font-family:sans-serif;
+    font-size:small;
 
 }
 
 div[entrytype='Section'] {
-    font-size: medium;
     position: relative;
     left: 10px;
 }
-
-
 span[entrytype='Section'] {
-    font-size: medium;
     position: relative;
     left: 10px;
 }
-
-text.Section {
+text[entrytype='Section'] {
     font-family:sans-serif;
-   
+    font-weight:bold;
+    color: darkblue;
 }
 
 textarea {
