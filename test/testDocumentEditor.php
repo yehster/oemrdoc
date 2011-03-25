@@ -15,16 +15,21 @@ if(isset($_SESSION['pid']))
     $qry=$qb->getQuery();
     $res=$qry->getResult();
 
+    $DOM = new DOMDocument("1.0","utf-8");
     foreach($res as $value)
             {
-                echo "<DIV onClick='javascript:createDoc(\"".$value->getuuid()."\")'>";
-                echo "<A HREF='/openemr/library/doctrine/ui/DocumentEditor.php?docUUID=".$value->getuuid()."'>";
-                echo $value->getUUID();
-                echo "</A>";
-                echo "</DIV>";
-                $md = $value;
-            }
-    
+                $editorLink=$DOM->createElement("A",$value->getModified()->format(DATE_COOKIE));
+                $link='/openemr/library/doctrine/ui/DocumentEditor.php?docUUID='.$value->getuuid();
+                $editorLink->setAttribute("HREF",$link);
+                $DOM->appendChild($editorLink);
+                $editorLink=$DOM->createElement("A","Editor:".$value->getModified()->format(DATE_COOKIE));
+                $link='/openemr/library/doctrine/ui/Editor.php?docUUID='.$value->getuuid();
+                $editorLink->setAttribute("HREF",$link);
+                $editorLink->setAttribute("target","_new");
+                $DOM->appendChild($editorLink);
+                $DOM->appendChild($DOM->createElement("BR"));
+                }
+    echo $DOM->saveXML();
 
 }
 

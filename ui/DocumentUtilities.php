@@ -15,11 +15,7 @@ function generateDOM($DOMRoot,$DocItem,$parentDOMElem=null,$parentItem=null)
     }
     if($DocEntry->getType()=="Narrative")
     {
-        // TODO: move narr to end for forms
-        $textArea=$DOMRoot->createElement("TEXTAREA",htmlentities($DocEntry->getText()));
-        $div=$DOMRoot->createElement("DIV");
-        $div->appendChild($textArea);
-        $DOMElem=$div;
+        $DOMElem=$DOMRoot->createElement("TEXTAREA",htmlentities($DocEntry->getText()));
     }
     elseif ($DocEntry->getType()=="Section")
     {
