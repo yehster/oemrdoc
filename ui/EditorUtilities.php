@@ -13,6 +13,20 @@ function CreateEditorElement($DOM,$DocEntry,$tag,$parent=null,$text=null)
     return $retval;
 }
 
+function addProblemControls($DOM,$parent)
+{
+    $DIV=$DOM->createElement("DIV");
+    $parent->appendChild($DIV);
+    $label=$DOM->createElement("TEXT","Add Problem:");
+    $DIV->appendChild($label);
+
+    $input=$DOM->createElement("INPUT");
+    $input->setAttribute("TYPE","TEXT");
+    $input->setAttribute("ID","txtNewProblem");
+
+    $DIV->appendChild($input);
+}
+
 function generateEditorDOM($DOM,$Parent,$DocItem,$Depth)
 {
     $DocEntry=$DocItem->getEntry();
@@ -52,6 +66,13 @@ function generateEditorDOM($DOM,$Parent,$DocItem,$Depth)
 
             $secondSPAN=CreateEditorElement($DOM,$DocEntry,"SPAN",$sectionDIV," ");
             $nextParent=$firstSPAN;
+
+            if($text==SECTION_PROBLEM_LIST)
+            {
+
+                $thirdSPAN=CreateEditorElement($DOM,$DocEntry,"SPAN",$sectionDIV," ");
+                addProblemControls($DOM,$thirdSPAN);
+            }
             $retVal=$sectionDIV;
             break;
         case TYPE_NARRATIVE:

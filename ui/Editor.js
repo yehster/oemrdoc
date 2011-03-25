@@ -130,6 +130,23 @@ function closePopup()
     $("#popup").hide();
 }
 
+
+
+function lookupProblem() {
+      inputString=this.value;
+    if(inputString.length == 0) {
+        // Hide the suggestion box.
+        $('#popup').hide();
+    } else {
+        $.post("/openemr/library/doctrine/ui/dictionaryLookup.php", {searchString: ""+inputString+"",context: "code", className: "problemItem", maxRes: "5" }, function(data){
+            if(data.length >0) {
+                $('#popup').show();
+                $('#popup').html(data);
+            }
+        });
+    }
+}
+
 function registerControlEvents()
 {
 
@@ -137,7 +154,8 @@ function registerControlEvents()
         $("textarea.newNarrative").live({blur: createNarrative});
         $("textarea.FormNarrative").live({blur: updateFormNarrative});
         $("textarea[entrytype='Narrative']").live({blur: updateNarrative});
-
+        $("#txtNewProblem").live({keyup: lookupProblem});
+        
         $("input[type='button']").live({click: displayForm});
         $("#finishPE").live({click: closePopup});
 

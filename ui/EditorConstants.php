@@ -6,7 +6,7 @@ define('TYPE_PROBLEM',"Problem");
 
 define('SECTION_PHYSICAL_EXAM',"Physical Exam");
 define('SECTION_REVIEW_OF_SYSTEMS',"Review of Systems");
-
+define('SECTION_PROBLEM_LIST',"Problem List");
 
 
 define('ATTR_CLASS','class');
