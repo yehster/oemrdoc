@@ -1,7 +1,7 @@
 <?php
 include_once("/var/www/openemr/interface/globals.php");
 include_once('/var/www/openemr/library/doctrine/init-em.php');
-include_once('../ui/DocumentUtilities.php');
+include_once('../ui/EditorUtilities.php');
 
 function findObservationOrCreate($em,$PE,$vocabID,$pat,$user)
 {
@@ -170,7 +170,8 @@ if(isset($_REQUEST['refresh']))
     if($request==="YES")
     {
         $docEntryDOM =  new DOMDocument("1.0","utf-8");
-        $DOMNode= generateDOM($docEntryDOM,$parentEntry->getItem());
+        $body=$docEntryDOM->createElement("BODY");
+        $DOMNode= generateEditorDOM($docEntryDOM,$body,$parentEntry->getItem(),1);
         echo $docEntryDOM->saveXML($DOMNode);
         return;
     }

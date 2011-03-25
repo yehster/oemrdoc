@@ -15,21 +15,44 @@ function CreateEditorElement($DOM,$DocEntry,$tag,$parent=null,$text=null)
 
 function generateEditorDOM($DOM,$Parent,$DocItem,$Depth)
 {
-    $parentItem=$DocItem->getParent();
     $DocEntry=$DocItem->getEntry();
     $text=htmlentities($DocEntry->getText());
+    $hide=false;
     switch($DocEntry->getType())
     {
         case TYPE_SECTION:
+            $parentItem=$DocItem->getParent();
+            if($parentItem!=null)
+            {
+                $parSectionText=$parentItem->getEntry()->getText();
+                if(strpos($text,$parSectionText)!== false)
+                {
+                    $text=substr($text,strlen($parSectionText)+1);
+                    if(count($DocItem->getItems())==0)
+                    {
+                        $hide=true;
+                    }
+                }
+            }
             $sectionDIV=CreateEditorElement($DOM,$DocEntry,"DIV",$Parent);
+            $sectionDIV->setAttribute("ID",$DocEntry->getUUID());
+            if($hide)
+            {
+                $sectionDIV->setAttribute(ATTR_CLASS,CLASS_HIDDEN);
+            }
             $sectionHeader=CreateEditorElement($DOM,$DocEntry,"TEXT",$sectionDIV,$text);
+            if(($text==SECTION_PHYSICAL_EXAM) || ($text==SECTION_REVIEW_OF_SYSTEMS))
+            {
+                $button=CreateEditorElement($DOM,$DocEntry,"INPUT",$sectionDIV);
+                $button->setAttribute("type","BUTTON");
+                $button->setAttribute("value","details");
+            }
             $firstSPAN=CreateEditorElement($DOM,$DocEntry,"SPAN",$sectionDIV);
             $firstSPAN->appendChild($DOM->createElement("BR"));
 
-
-            $secondSPAN=CreateEditorElement($DOM,$DocEntry,"SPAN",$sectionDIV);
-
+            $secondSPAN=CreateEditorElement($DOM,$DocEntry,"SPAN",$sectionDIV," ");
             $nextParent=$firstSPAN;
+            $retVal=$sectionDIV;
             break;
         case TYPE_NARRATIVE:
             $div=CreateEditorElement($DOM,$DocEntry,"DIV",$Parent);
@@ -41,6 +64,12 @@ function generateEditorDOM($DOM,$Parent,$DocItem,$Depth)
         case TYPE_OBSERVATION:
             $nextParent=CreateEditorElement($DOM,$DocEntry,"SPAN",$Parent,"[".$text."]");
             break;
+        case TYPE_PROBLEM:
+            $div=CreateEditorElement($DOM,$DocEntry,"DIV",$Parent);
+            $text=CreateEditorElement($DOM,$DocEntry,"TEXT",$div,$text);
+            $problemInfo=CreateEditorElement($DOM,$DocEntry,"ul",$div);
+            $nextParent=$div;
+            break;
         default:
             $nextParent=CreateEditorElement($DOM,$DocEntry,"TEXT",$Parent,$text);
     }
@@ -48,15 +77,23 @@ function generateEditorDOM($DOM,$Parent,$DocItem,$Depth)
     //recurse the document tree
     foreach($DocItem->getItems() as $childItem)
     {
-        if(($childItem->getEntry()->getType()==TYPE_NARRATIVE) && ($DocEntry->getType()==TYPE_SECTION))
+        $childType=$childItem->getEntry()->getType();
+        if((($childType==TYPE_NARRATIVE) || ($childType==TYPE_SECTION)) && ($DocEntry->getType()==TYPE_SECTION))
         {
             generateEditorDOM($DOM,$secondSPAN,$childItem,$Depth+1);
+        }
+        elseif($DocEntry->getType()==TYPE_PROBLEM)
+        {
+            $li=$DOM->createElement("LI");
+            $problemInfo->appendChild($li);
+            generateEditorDOM($DOM,$li,$childItem,$Depth+1);
         }
         else
         {
             generateEditorDOM($DOM,$nextParent,$childItem,$Depth+1);
         }
     }
+    return $retVal;
 }
 
 ?>
