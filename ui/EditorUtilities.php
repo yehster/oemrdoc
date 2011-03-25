@@ -17,39 +17,45 @@ function generateEditorDOM($DOM,$Parent,$DocItem,$Depth)
 {
     $parentItem=$DocItem->getParent();
     $DocEntry=$DocItem->getEntry();
-    if($DocEntry->getType()==TYPE_SECTION)
+    $text=htmlentities($DocEntry->getText());
+    switch($DocEntry->getType())
     {
-        $sectionDIV=CreateEditorElement($DOM,$DocEntry,"DIV",$Parent);
+        case TYPE_SECTION:
+            $sectionDIV=CreateEditorElement($DOM,$DocEntry,"DIV",$Parent);
+            $sectionHeader=CreateEditorElement($DOM,$DocEntry,"TEXT",$sectionDIV,$text);
+            $firstSPAN=CreateEditorElement($DOM,$DocEntry,"SPAN",$sectionDIV);
+            $firstSPAN->appendChild($DOM->createElement("BR"));
 
-        $sectionHeader=CreateEditorElement($DOM,$DocEntry,"TEXT",$sectionDIV,$DocEntry->getText());
-        $firstSPAN=$DOM->createElement("SPAN");
-        $secondSPAN=$DOM->createElement("SPAN");
-        $sectionDIV->appendChild($firstSPAN);
-        $sectionDIV->appendChild($secondSPAN);
-        $nextParent=$sectionDIV;
-    }
-    elseif($DocEntry->getType()==TYPE_NARRATIVE)
-    {
-        $narDiv=CreateEditorElement($DOM,$DocEntry,"DIV",$Parent);
-        $textArea=CreateEditorElement($DOM,$DocEntry,"TEXTAREA",$narDiv,$DocEntry->getText());
-        $textArea->setAttribute("rows",1);
-        $textArea->setAttribute("cols",80);
 
-        $nextParent=$narDiv;
-    }
-    elseif($DocEntry->getType()==TYPE_OBSERVATION)
-    {
-        $nextParent=CreateEditorElement($DOM,$DocEntry,"TEXT",$Parent,$DocEntry->getText());
-    }
-    else
-    {
-        $nextParent=CreateEditorElement($DOM,$DocEntry,"TEXT",$Parent,$DocEntry->getText());
+            $secondSPAN=CreateEditorElement($DOM,$DocEntry,"SPAN",$sectionDIV);
+
+            $nextParent=$firstSPAN;
+            break;
+        case TYPE_NARRATIVE:
+            $div=CreateEditorElement($DOM,$DocEntry,"DIV",$Parent);
+            $textArea=CreateEditorElement($DOM,$DocEntry,"TEXTAREA",$div,$text);
+            $textArea->setAttribute("rows",1);
+            $textArea->setAttribute("cols",80);
+            $nextParent=$div;
+            break;
+        case TYPE_OBSERVATION:
+            $nextParent=CreateEditorElement($DOM,$DocEntry,"SPAN",$Parent,"[".$text."]");
+            break;
+        default:
+            $nextParent=CreateEditorElement($DOM,$DocEntry,"TEXT",$Parent,$text);
     }
 
     //recurse the document tree
     foreach($DocItem->getItems() as $childItem)
     {
-        generateEditorDOM($DOM,$nextParent,$childItem,$Depth+1);
+        if(($childItem->getEntry()->getType()==TYPE_NARRATIVE) && ($DocEntry->getType()==TYPE_SECTION))
+        {
+            generateEditorDOM($DOM,$secondSPAN,$childItem,$Depth+1);
+        }
+        else
+        {
+            generateEditorDOM($DOM,$nextParent,$childItem,$Depth+1);
+        }
     }
 }
 

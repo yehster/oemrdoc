@@ -17,10 +17,17 @@ root {
 
 }
 
-div[entrytype="Section"] {
+div[entrytype='Section'] {
     font-size: medium;
     position: relative;
     left: 10px;
+}
+
+
+span[entrytype='Section'] {
+    font-size: medium;
+    position: relative;
+    left: 5px;
 }
 
 text.Section {
