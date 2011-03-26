@@ -69,7 +69,7 @@ function generateEditorDOM($DOM,$Parent,$DocItem,$Depth)
 
             if($text==SECTION_PROBLEM_LIST)
             {
-
+                $olProblems=CreateEditorElement($DOM,$DocEntry,"ol",$firstSPAN);
                 $thirdSPAN=CreateEditorElement($DOM,$DocEntry,"SPAN",$sectionDIV," ");
                 addProblemControls($DOM,$thirdSPAN);
             }
@@ -102,6 +102,12 @@ function generateEditorDOM($DOM,$Parent,$DocItem,$Depth)
         if((($childType==TYPE_NARRATIVE) || ($childType==TYPE_SECTION)) && ($DocEntry->getType()==TYPE_SECTION))
         {
             generateEditorDOM($DOM,$secondSPAN,$childItem,$Depth+1);
+        }
+        elseif($childType==TYPE_PROBLEM)
+        {
+            $li=$DOM->createElement("LI");
+            $olProblems->appendChild($li);
+            generateEditorDOM($DOM,$li,$childItem,$Depth+1);
         }
         elseif($DocEntry->getType()==TYPE_PROBLEM)
         {
