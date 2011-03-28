@@ -41,7 +41,8 @@ if(isset($_REQUEST['docUUID']))
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title><?php echo $doc->getMetadata()->getLongDesc().":";
-//                echo $doc->getPatient()->displayName();
+//                $patient=$doc->getPatient();
+//                echo $patient->displayName();
                 ?></title>
     </head>
 <?php echo $EditorDOM->saveXML($Body);?>

@@ -1,5 +1,5 @@
 <?php
-include_once("/var/www/openemr/interface/globals.php");
+//include_once("/var/www/openemr/interface/globals.php");
 include_once('/var/www/openemr/library/doctrine/init-em.php');
 include_once('../ui/EditorUtilities.php');
 
