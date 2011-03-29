@@ -22,7 +22,8 @@ function findObservationOrCreate($em,$PE,$vocabID,$pat,$user)
     if(count($qryRes)===0)
     {
         $res = new library\doctrine\Entities\Observation(null,$pat,$user);
-        $PE->getItem()->addEntry($res);
+        $newItem=$PE->getItem()->addEntry($res);
+        $em->persist($newItem);
         $res->setvocabID($vocabID);
     }
     else
