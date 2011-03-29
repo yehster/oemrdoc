@@ -83,9 +83,7 @@ function clickProbDetails()
                         window.alert(data);
                     }
             }
-
         );
-    $("#txtNewProblem").focus();
 }
 function registerProblemEvents()
 {
