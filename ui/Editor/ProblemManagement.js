@@ -68,8 +68,20 @@ function clickProbDetails()
             },
             function(data) {
                 // TODO: update the text box attributes so that changes go to the existing entry and we don't keep creating new ones
-                id = "#"+parentEntryUUID;
-                $(id).replaceWith(data);
+                if(data.indexOf("error:",0)==-1)
+                    {
+                        pos=data.indexOf("<",0);
+                        uuid=data.substr(0,pos);
+                        html=data.substr(pos);
+                        id = "#"+parentEntryUUID;
+                       $(id).replaceWith(html);
+                       textareaID= "textarea"+"[uuid='"+uuid+"']";
+                       $(textareaID).focus();
+                    }
+                    else
+                    {
+                        window.alert(data);
+                    }
             }
 
         );
