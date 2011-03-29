@@ -162,7 +162,10 @@ if($EntryType=="narrative")
         $parentEntry->getItem()->addEntry($newNarrative);
         $em->persist($newNarrative);
         $em->flush();
-        echo $newNarrative->getUUID();
+        if(!isset($_REQUEST['refresh']))
+        {
+            echo $newNarrative->getUUID();
+        }
 
     }
     if($task=="update")

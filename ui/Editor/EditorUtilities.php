@@ -96,6 +96,8 @@ function generateEditorDOM($DOM,$Parent,$DocItem,$Depth)
             break;
         case TYPE_PROBLEM:
             $div=CreateEditorElement($DOM,$DocEntry,"DIV",$Parent);
+            $div->setAttribute("ID",$DocEntry->getUUID());
+            $retVal=$div;
             $text=CreateEditorElement($DOM,$DocEntry,"TEXT",$div,$text);
             $medButton=addButton($DOM,$DocEntry,$div,"med");
             $medButton=addButton($DOM,$DocEntry,$div,"details");

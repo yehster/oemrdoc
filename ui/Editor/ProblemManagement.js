@@ -54,10 +54,32 @@ function addProblem() {
             });
 }
 
+function clickProbDetails()
+{
+
+    parentEntryUUID=$(this).attr("uuid");
+    $.post("/openemr/library/doctrine/interface/manageEntry.php",
+           {
+                parentEntryUUID: ""+parentEntryUUID+"",
+                EntryType: "narrative",
+                task: "create",
+                content: "",
+                refresh: "YES"
+            },
+            function(data) {
+                // TODO: update the text box attributes so that changes go to the existing entry and we don't keep creating new ones
+                id = "#"+parentEntryUUID;
+                $(id).replaceWith(data);
+            }
+
+        );
+    $("#txtNewProblem").focus();
+}
 function registerProblemEvents()
 {
     $("#txtNewProblem").live({keyup: lookupProblem});
 
     $("tr.problemItem").live({mouseover: function() {$(this).addClass('Highlight');} ,mouseout: function() {$(this).removeClass('Highlight');}, click: addProblem});
 
+    $("input[type='button'][entrytype='Problem'][value='details']").live({click: clickProbDetails});
 }
