@@ -27,6 +27,15 @@ function addProblemListControls($DOM,$parent)
     $DIV->appendChild($input);
 }
 
+function addButton($DOM,$DocEntry,$parent,$val)
+{
+    $Button=CreateEditorElement($DOM,$DocEntry,"INPUT",$parent);
+    $Button->setAttribute("TYPE","BUTTON");
+    $Button->setAttribute("value",$val);
+    
+    return $Button;
+}
+
 function generateEditorDOM($DOM,$Parent,$DocItem,$Depth)
 {
     $DocEntry=$DocItem->getEntry();
@@ -88,6 +97,10 @@ function generateEditorDOM($DOM,$Parent,$DocItem,$Depth)
         case TYPE_PROBLEM:
             $div=CreateEditorElement($DOM,$DocEntry,"DIV",$Parent);
             $text=CreateEditorElement($DOM,$DocEntry,"TEXT",$div,$text);
+            $medButton=addButton($DOM,$DocEntry,$div,"med");
+            $medButton=addButton($DOM,$DocEntry,$div,"details");
+
+
             $problemInfo=CreateEditorElement($DOM,$DocEntry,"ul",$div);
             $nextParent=$div;
             break;

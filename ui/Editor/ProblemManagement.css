@@ -10,3 +10,9 @@
    TODO customize this sample style
    Syntax recommendation http://www.w3.org/TR/REC-CSS2/
 */
+input[type="button"][entrytype="Problem"] {
+    font-size: x-small;
+}
+text[entrytype="Problem"] {
+    color: blue;
+}

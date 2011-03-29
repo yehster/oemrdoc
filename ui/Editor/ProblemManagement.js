@@ -30,7 +30,6 @@ function addProblem() {
         code_text=$(this).find("td.problemItem").text();
         code = $(this).find("td.CODE").text();
         uuid = getAttrForElem($("#txtNewProblem"),"uuid");
-        window.alert(uuid);
         $.post("/openemr/library/doctrine/interface/manageEntry.php",
         {   parentEntryUUID: ""+ uuid + "",
             EntryType: "problem",

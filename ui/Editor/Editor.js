@@ -142,7 +142,7 @@ function registerControlEvents()
         $("textarea[entrytype='Narrative']").live({blur: updateNarrative});
 
 
-        $("input[type='button']").live({click: displayForm});
+        $("input[type='button'][value='details'][entrytype='Section']").live({click: displayForm});
         $(".ClosePopup").live({click: closePopup});
 
 
