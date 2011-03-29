@@ -12,8 +12,21 @@ function getAttrForElem(elem,attrName)
 }
 
 
-function lookupProblem() {
-      inputString=this.value;
+var problemTimer;
+var searchDelayInterval=150;
+function keypressProblem()
+{
+    searchString=this.value;
+    clearTimeout(problemTimer);
+        problemTimer = setTimeout(
+        function(){lookupProblem(searchString)},
+        searchDelayInterval
+    );
+
+    return true;
+}
+
+function lookupProblem(inputString) {
     if(inputString.length == 0) {
         // Hide the suggestion box.
         $('#popup').hide();
@@ -87,7 +100,7 @@ function clickProbDetails()
 }
 function registerProblemEvents()
 {
-    $("#txtNewProblem").live({keyup: lookupProblem});
+    $("#txtNewProblem").live({keyup: keypressProblem});
 
     $("tr.problemItem").live({mouseover: function() {$(this).addClass('Highlight');} ,mouseout: function() {$(this).removeClass('Highlight');}, click: addProblem});
 
