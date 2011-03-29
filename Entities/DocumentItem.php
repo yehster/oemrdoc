@@ -69,7 +69,7 @@ namespace library\doctrine\Entities;
 	private $modified;
 
 	/**
-	  * @ManyToOne(targetEntity="DocumentItem", inversedBy="items", cascade={"persist"})
+	  * @ManyToOne(targetEntity="DocumentItem", inversedBy="items", cascade={"persist,remove"})
 	  * @JoinColumn(name="parent_id", referencedColumnName="uuid")
 	  */
 	private $parent;
@@ -84,7 +84,7 @@ namespace library\doctrine\Entities;
             return $this->parent;
         }
       /**
-	* @OneToMany(targetEntity="DocumentItem", mappedBy="parent", cascade={"persist"})
+	* @OneToMany(targetEntity="DocumentItem", mappedBy="parent", cascade={"persist,remove"})
 	* @OrderBy({"seq" = "ASC"})
 	*/
 	private $items;
@@ -111,7 +111,7 @@ namespace library\doctrine\Entities;
         }
 
 	/**
-	  * @OneToOne(targetEntity="DocumentEntry", cascade={"persist"}, inversedBy="item")
+	  * @OneToOne(targetEntity="DocumentEntry", cascade={"persist,remove"}, inversedBy="item")
 	  * @JoinColumn(name="entry_id", referencedColumnName="uuid")
 	  */
 	protected $entry;
