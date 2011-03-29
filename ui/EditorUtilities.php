@@ -13,7 +13,7 @@ function CreateEditorElement($DOM,$DocEntry,$tag,$parent=null,$text=null)
     return $retval;
 }
 
-function addProblemControls($DOM,$parent)
+function addProblemListControls($DOM,$parent)
 {
     $DIV=$DOM->createElement("DIV");
     $parent->appendChild($DIV);
@@ -71,7 +71,7 @@ function generateEditorDOM($DOM,$Parent,$DocItem,$Depth)
             {
                 $olProblems=CreateEditorElement($DOM,$DocEntry,"ol",$firstSPAN);
                 $thirdSPAN=CreateEditorElement($DOM,$DocEntry,"SPAN",$sectionDIV," ");
-                addProblemControls($DOM,$thirdSPAN);
+                addProblemListControls($DOM,$thirdSPAN);
             }
             $retVal=$sectionDIV;
             break;
