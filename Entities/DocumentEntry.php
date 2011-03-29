@@ -200,7 +200,7 @@ include_once("OEMRProblem.php");
         }
 
         /**
-         * @OneToOne(targetEntity="DocumentItem", mappedBy="entry")
+         * @OneToOne(targetEntity="DocumentItem", mappedBy="entry", cascade={"persist","remove"})
         */
         protected $item;
 

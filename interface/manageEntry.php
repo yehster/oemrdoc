@@ -134,6 +134,7 @@ if($EntryType=="problem")
                 $prob->setCode($code,$codeType);
                 $prob->setText($content,$user);
                 $newItem=$parentEntry->getItem()->addEntry($prob);
+                $em->persist($newItem);
                 $em->persist($prob);
                 $em->flush();
                 $result = $prob->getUUID();
@@ -159,7 +160,8 @@ if($EntryType=="narrative")
     {
         $newNarrative=new library\doctrine\Entities\Narrative(null, $pat, $user);
         $newNarrative->setText($content,$user);
-        $parentEntry->getItem()->addEntry($newNarrative);
+        $newItem=$parentEntry->getItem()->addEntry($newNarrative);
+        $em->persist($newItem);
         $em->persist($newNarrative);
         $em->flush();
 
