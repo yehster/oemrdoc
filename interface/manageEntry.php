@@ -85,7 +85,8 @@ if($EntryType=="med")
             $med->setRXCUI($rxcui);
             $med->setRXAUI($rxaui);
 
-            $parentEntry->getItem()->addEntry($med);
+            $newItem=$parentEntry->getItem()->addEntry($med);
+            $em->persist($newItem);
             $em->persist($med);
             $em->flush();
             $result = $med->getUUID();
