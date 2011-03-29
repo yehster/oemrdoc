@@ -1,0 +1,64 @@
+/* 
+    Document   : Editor
+    Created on : Mar 24, 2011, 3:34:49 PM
+    Author     : yehster
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+
+body {
+    display: block;
+    font-family:sans-serif;
+    font-size:small;
+
+}
+
+div[entrytype='Section'] {
+    position: relative;
+    left: 10px;
+}
+span[entrytype='Section'] {
+    position: relative;
+    left: 10px;
+}
+text[entrytype='Section'] {
+    font-family:sans-serif;
+    font-weight:bold;
+    color: darkblue;
+
+}
+
+textarea {
+    resize: none;
+    overflow:auto;
+}
+
+#popup{
+        position: fixed;
+        top:5px;
+        right: 5px;
+        width: 75%;
+        height: 95%;
+        background-color:#FFFFFF;
+        border:1px solid #999999;
+        font-family: sans-serif;
+        font-size:small;
+        z-index: 1000;
+        overflow: auto;
+        opacity: 0.9;
+    }
+
+    .hidden {
+        display: none;
+}
+
+    .Highlight {
+        background-color: yellow;
+        cursor: pointer;
+    }
