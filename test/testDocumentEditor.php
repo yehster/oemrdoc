@@ -23,7 +23,7 @@ if(isset($_SESSION['pid']))
                 $editorLink->setAttribute("HREF",$link);
                 $DOM->appendChild($editorLink);
                 $editorLink=$DOM->createElement("A","Editor:".$value->getModified()->format(DATE_COOKIE));
-                $link='/openemr/library/doctrine/ui/Editor.php?docUUID='.$value->getuuid();
+                $link='/openemr/library/doctrine/ui/Editor/Editor.php?docUUID='.$value->getuuid();
                 $editorLink->setAttribute("HREF",$link);
                 $editorLink->setAttribute("target","_new");
                 $DOM->appendChild($editorLink);

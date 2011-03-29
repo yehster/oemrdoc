@@ -1,7 +1,7 @@
 <?php
-//include_once("/var/www/openemr/interface/globals.php");
+include_once("/var/www/openemr/interface/globals.php");
 include_once('/var/www/openemr/library/doctrine/init-em.php');
-include_once('../ui/EditorUtilities.php');
+include_once('../ui/Editor/EditorUtilities.php');
 
 function findObservationOrCreate($em,$PE,$vocabID,$pat,$user)
 {
@@ -136,6 +136,16 @@ if($EntryType=="problem")
                 $result = $prob->getUUID();
                 $newEntry = $prob;
             }
+            else
+            {
+                echo "error:"." No Parent Entry.";
+                return;
+            }
+        }
+        else
+        {
+            echo  "error:"." No Patient.";
+            return;
         }
     }
 }
