@@ -23,7 +23,6 @@ function findObservationOrCreate($em,$PE,$vocabID,$pat,$user)
     {
         $res = new library\doctrine\Entities\Observation(null,$pat,$user);
         $newItem=$PE->getItem()->addEntry($res);
-        $em->persist($newItem);
         $res->setvocabID($vocabID);
     }
     else
@@ -86,7 +85,6 @@ if($EntryType=="med")
             $med->setRXAUI($rxaui);
 
             $newItem=$parentEntry->getItem()->addEntry($med);
-            $em->persist($newItem);
             $em->persist($med);
             $em->flush();
             $result = $med->getUUID();
@@ -136,7 +134,6 @@ if($EntryType=="problem")
                 $prob->setCode($code,$codeType);
                 $prob->setText($content,$user);
                 $newItem=$parentEntry->getItem()->addEntry($prob);
-                $em->persist($newItem);
                 $em->persist($prob);
                 $em->flush();
                 $result = $prob->getUUID();
@@ -163,7 +160,6 @@ if($EntryType=="narrative")
         $newNarrative=new library\doctrine\Entities\Narrative(null, $pat, $user);
         $newNarrative->setText($content,$user);
         $newItem=$parentEntry->getItem()->addEntry($newNarrative);
-        $em->persist($newItem);
         $em->persist($newNarrative);
         $em->flush();
 

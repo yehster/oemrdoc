@@ -11,23 +11,38 @@ function clickMedButton()
     $("#txtMedSearch").focus();
 
 }
-function keypressMed()
+
+function searchMed(inputString)
 {
-    inputString=this.value;
-    sectionID=$(this).attr("uuid");
     if(inputString.length==0)
     {
 //     $('#popupDiv').hide();
     }
     else
     {
-            $.post("/openemr/library/doctrine/ui/dictionaryLookup.php", {searchString: ""+inputString+"",context: "med", className: "medList", maxRes: "20" }, function(data){
+            $.post("/openemr/library/doctrine/ui/dictionaryLookup.php",
+            {searchString: ""+inputString+"",
+                context: "med",
+                className: "medList",
+                maxRes: "20" }, function(data){
                 if(data.length >0) {
                     $('#popupResults').html(data);
-                    $('#popupResults').attr("ProblemSection",sectionID);
                     }
             })
         }
+
+}
+
+var medTimer;
+function keypressMed()
+{
+    
+    inputString=this.value;
+    clearTimeout(medTimer);
+        problemTimer = setTimeout(
+        function(){searchMed(inputString)},
+        150
+    );
 }
 
 function clickDrug()

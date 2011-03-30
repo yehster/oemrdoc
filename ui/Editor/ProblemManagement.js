@@ -99,37 +99,7 @@ function clickProbDetails()
         );
 }
 
-function setupMedSearch(uuid)
-{
-    info="<INPUT TYPE='BUTTON' value='close' class='closePopup'/><DIV><INPUT TYPE='TEXT' ID='txtMedSearch' uuid='"+uuid+"'/></DIV><DIV ID='popupResults'> </DIV>";
-    $("#popup").html(info);
-}
-function clickMed()
-{
-    uuid=$(this).attr('uuid');
-    setupMedSearch(uuid);
-    $("#popup").show();
-    $("#txtMedSearch").focus();
 
-}
-function keypressMed()
-{
-    inputString=this.value;
-    sectionID=$(this).attr("uuid");
-    if(inputString.length==0)
-    {
-     $('#popupDiv').hide();
-    }
-    else
-    {
-        $.post("/openemr/library/doctrine/ui/dictionaryLookup.php", {searchString: ""+inputString+"",context: "med", className: "medList", maxRes: "20" }, function(data){
-            if(data.length >0) {
-                $('#popupResults').html(data);
-                $('#popupResults').attr("ProblemSection",sectionID);
-                }
-        })
-    }
-}
 function registerProblemEvents()
 {
     $("#txtNewProblem").live({keyup: keypressProblem});
@@ -138,6 +108,5 @@ function registerProblemEvents()
 
     $("input[type='button'][entrytype='Problem'][value='details']").live({click: clickProbDetails});
 
-    $("input[type='button'][entrytype='Problem'][value='med']").live({click: clickMed});
-    $("#txtMedSearch").live({keyup: keypressMed});
+
 }
