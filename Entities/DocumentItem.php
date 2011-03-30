@@ -69,7 +69,7 @@ namespace library\doctrine\Entities;
 	private $modified;
 
 	/**
-	  * @ManyToOne(targetEntity="DocumentItem", inversedBy="items", cascade={"persist","remove"})
+	  * @ManyToOne(targetEntity="DocumentItem", inversedBy="items", cascade={"persist"})
 	  * @JoinColumn(name="parent_id", referencedColumnName="uuid")
 	  */
 	private $parent;

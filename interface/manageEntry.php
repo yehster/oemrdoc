@@ -61,6 +61,7 @@ if(isset($_REQUEST['vocabID']))
     $vocabID = $_REQUEST['vocabID'];
 }
 
+
 /****************************************************
  * MedicationEntry
  */
@@ -185,7 +186,7 @@ if(isset($_REQUEST['refresh']))
     {
         $docEntryDOM =  new DOMDocument("1.0","utf-8");
         $body=$docEntryDOM->createElement("BODY");
-        $DOMNode= generateEditorDOM($docEntryDOM,$body,$parentEntry->getItem(),1);
+        $DOMNode= generateEditorDOM($docEntryDOM,$body,$parentEntry->getItem(),2);
         echo $docEntryDOM->saveXML($DOMNode);
         return;
     }

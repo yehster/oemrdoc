@@ -86,10 +86,15 @@ function generateEditorDOM($DOM,$Parent,$DocItem,$Depth)
             break;
         case TYPE_NARRATIVE:
             $div=CreateEditorElement($DOM,$DocEntry,"DIV",$Parent);
+            $div->setAttribute("ID",$DocEntry->getUUID());
             $textArea=CreateEditorElement($DOM,$DocEntry,"TEXTAREA",$div,$text);
             $textArea->setAttribute("rows",1);
             $textArea->setAttribute("cols",80);
             $nextParent=$div;
+            if($Depth>2)
+            {
+                addButton($DOM,$DocEntry,$div,"del");
+            }
             break;
         case TYPE_OBSERVATION:
             $nextParent=CreateEditorElement($DOM,$DocEntry,"SPAN",$Parent,"[".$text."]");
@@ -100,11 +105,16 @@ function generateEditorDOM($DOM,$Parent,$DocItem,$Depth)
             $retVal=$div;
             $text=CreateEditorElement($DOM,$DocEntry,"TEXT",$div,$text);
             $medButton=addButton($DOM,$DocEntry,$div,"med");
-            $medButton=addButton($DOM,$DocEntry,$div,"details");
-
+            $detailsButton=addButton($DOM,$DocEntry,$div,"details");
+            
+            $deleteButton = addButton($DOM,$DocEntry,$div,"del");
 
             $problemInfo=CreateEditorElement($DOM,$DocEntry,"ul",$div);
             $nextParent=$div;
+            break;
+        case TYPE_MEDICATION_ENTRY:
+            $nextParent=CreateEditorElement($DOM,$DocEntry,"TEXT",$Parent,$text);
+            $deleteButton = addButton($DOM,$DocEntry,$Parent,"del");
             break;
         default:
             $nextParent=CreateEditorElement($DOM,$DocEntry,"TEXT",$Parent,$text);
