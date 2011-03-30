@@ -135,6 +135,7 @@ function closePopup()
 
 function registerControlEvents()
 {
+        $("#popup").hide();
 
         $("tr.ObservationTable").live({click: updateObservation});
         $("textarea.newNarrative").live({blur: createNarrative});
@@ -147,7 +148,8 @@ function registerControlEvents()
 
 
         registerProblemEvents();
-
+        registerMedManagementEvents();
+        
         $("#popup").hide();
 }
     window.onload= registerControlEvents;
