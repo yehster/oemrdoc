@@ -103,7 +103,8 @@ namespace library\doctrine\Entities;
 	{
 		$this->items->add($obj);
 		$obj->setParent($this);
-		$obj->setSeq($this->items->count());
+                $newSeq=$this->items($this->items->count())->getSeq();
+		$obj->setSeq();
 	}
 
         public function getItems()
@@ -136,9 +137,13 @@ namespace library\doctrine\Entities;
 	// The order of the items
 	public function setSeq($val)
 	{
-		$this->seq=$val;
+            $this->seq=$val;
 	}
 	
+	public function getSeq()
+	{
+            return $this->seq;
+	}
 
  }
 

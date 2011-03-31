@@ -122,7 +122,7 @@ include('/var/www/openemr/library/doctrine/init-em.php');
                     aui: ""+aui+""
                 },
                 function(data) {
-                    window.alert(data);
+                    $("#info").html(data);
                 });
 
         }
@@ -191,6 +191,7 @@ include('/var/www/openemr/library/doctrine/init-em.php');
 
 </DIV>
 <DIV ID="right">
+    <DIV ID="info"> </DIV>
     <H3>Details:</H3>
     <DIV ID="mode">
     <span>normal

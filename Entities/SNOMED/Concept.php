@@ -51,7 +51,7 @@ class Concept {
     }
 
     /**
-      * @OneToMany(targetEntity="Relationship", mappedBy="AUI1")
+      * @OneToMany(targetEntity="Relationship", mappedBy="concept1")
       */
     protected $relationships1;
 
@@ -61,7 +61,7 @@ class Concept {
     }
 
     /**
-      * @OneToMany(targetEntity="Relationship", mappedBy="AUI2")
+      * @OneToMany(targetEntity="Relationship", mappedBy="concept2")
       */
     protected $relationships2;
 
