@@ -4,7 +4,7 @@ namespace library\doctrine\Entities\SNOMED;
  *  @Table(name="MRCONSO")
  *  @InheritanceType("SINGLE_TABLE")
  *  @DiscriminatorColumn(name="TTY", type="string")
- *  @DiscriminatorMap({"PT" = "PreferredTerm"})
+ *  @DiscriminatorMap({"PT" = "PreferredTerm", "IS" = "Concept", "OP" = "Concept"})
  */
 
 class Concept {
@@ -18,6 +18,16 @@ class Concept {
     public function getAUI()
     {
         return $this->AUI;
+    }
+
+    /**
+     * @Column(type="string")
+     */
+    protected $CUI;
+
+    public function getCUI()
+    {
+        return $this->CUI;
     }
 
    /**

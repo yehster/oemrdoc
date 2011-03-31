@@ -47,5 +47,15 @@ class Relationship {
         return $this->concept2;
     }
 
+
+    /**
+     * @Column(type="string")
+     */
+    protected $AUI2;
+
+    public function getAUI2()
+    {
+        return $this->AUI2;
+    }
 }
 ?>

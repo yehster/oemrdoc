@@ -116,18 +116,31 @@ include('/var/www/openemr/library/doctrine/init-em.php');
         }
         if(mode=="rel")
         {
-            aui=$(this).attr("aui");
-            $.post("/openemr/library/doctrine/ui/SNOMED/lookupRelationships.php",
-                {
-                    aui: ""+aui+""
-                },
-                function(data) {
-                    $("#info").html(data);
-                });
-
+            lookupRel(this);
         }
     }
-    function chooseSection()
+
+function clickRel()
+{
+    lookupRel(this);
+}
+function lookupRel(obj)
+{
+                aui=$(obj).attr("aui");
+                $("#info").load(
+            "/openemr/library/doctrine/ui/SNOMED/lookupRelationships.php",
+                {
+                    aui: ""+aui+""
+                });
+                        $("tr.relationship").die();
+
+                        $("tr.relationship").live({click: clickRel
+                                    ,mouseover: function() {$(this).addClass('Highlight');}
+                                    ,mouseout: function() {$(this).removeClass('Highlight');
+                                    }});
+
+}
+function chooseSection()
     {
         code=$(this).attr("code");
         code_type=$(this).attr("code_type");
@@ -168,7 +181,9 @@ include('/var/www/openemr/library/doctrine/init-em.php');
         $("#btnSearchSection").live({click: findSections});
         $("tr.section").live({click: chooseSection, mouseover: function() {$(this).addClass('Highlight');} ,mouseout: function() {$(this).removeClass('Highlight');}});
         $("tr.SNOMED").live({click: clickSnomed ,mouseover: function() {$(this).addClass('Highlight');} ,mouseout: function() {$(this).removeClass('Highlight');} });
+        $("tr.FormEntry").live({click: clickFE});
         $("input.modFE").live({click: modifyEntry});
+
     }
     window.onload= registerControlEvents;
 </script>
@@ -190,8 +205,9 @@ include('/var/www/openemr/library/doctrine/init-em.php');
 </DIV>
 
 </DIV>
+
 <DIV ID="right">
-    <DIV ID="info"> </DIV>
+<DIV ID="info"> </DIV>
     <H3>Details:</H3>
     <DIV ID="mode">
     <span>normal

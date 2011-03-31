@@ -103,8 +103,8 @@ namespace library\doctrine\Entities;
 	{
 		$this->items->add($obj);
 		$obj->setParent($this);
-                $newSeq=$this->items($this->items->count())->getSeq();
-		$obj->setSeq();
+                $lastSeq=$this->items($this->items->count())->getSeq();
+		$obj->setSeq($lastSeq+1);
 	}
 
         public function getItems()

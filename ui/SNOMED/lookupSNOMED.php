@@ -24,6 +24,8 @@ function addPT($DOM,$ParentElement,$pt)
     $newRow=$DOM->createElement("TR");
     $newRow->setAttribute("CLASS","SNOMED");
     $newRow->setAttribute("aui",$pt->getAUI());
+    $newRow->setAttribute("cui",$pt->getCUI());
+
 
     $ParentElement->appendChild($newRow);
 

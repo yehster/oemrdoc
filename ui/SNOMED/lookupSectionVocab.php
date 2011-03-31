@@ -35,6 +35,7 @@ function addEntry($DOM,$table,$fe)
     $newTR = $DOM->createElement("tr");
     $newTR->setAttribute("class","FormEntry ".$fe->getClassification());
     $newTR->setAttribute("uuid",$fe->getUUID());
+    $newTR->setAttribute("aui",$fe->getSource_code());
     $table->appendChild($newTR);
 
     $tdText = $DOM->createElement("td",$fe->getText());
