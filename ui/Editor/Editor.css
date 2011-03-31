@@ -62,3 +62,7 @@ textarea {
         background-color: yellow;
         cursor: pointer;
     }
+
+input[type="button"]{
+    font-size: x-small;
+}

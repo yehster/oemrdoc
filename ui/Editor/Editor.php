@@ -1,12 +1,14 @@
 <script src="/openemr/library/js/jquery-1.5.min.js" type="text/javascript"></script>
 <script src="/openemr/library/doctrine/ui/Editor/Editor.js" type="text/javascript"></script>
 <script src="/openemr/library/doctrine/ui/Editor/ProblemManagement.js" type="text/javascript"></script>
+<script src="/openemr/library/doctrine/ui/Editor/MedManagement.js" type="text/javascript"></script>
+
 
 <style type="text/css" media="all">
    @import "/openemr/library/doctrine/ui/Editor/Editor.css";
    @import "/openemr/library/doctrine/ui/Editor/Form.css";
    @import "/openemr/library/doctrine/ui/Editor/ProblemManagement.css";
-
+   @import "/openemr/library/doctrine/ui/Editor/MedManagement.css";
 </style>
 
 <?php

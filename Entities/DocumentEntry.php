@@ -139,35 +139,6 @@ include_once("OEMRProblem.php");
             return $this->text;
         }
 
-	// The history of an entry is maintained as a doubly linked list to older (prev) and newer (next)documentEntry items
-	// Need to understand difference between "history" e.g. updates to the problem/item over visits and revisions (changing an item in an existing document.)
-        
-
-	/**
-	  * @OneToOne(targetEntity="DocumentEntry")
-	  * @JoinColumn(name="prevVersion", referencedColumnName="uuid")
-	  */
-	protected $prevVersion;
-	
-	/**
-	  * @OneToOne(targetEntity="DocumentEntry")
-	  * @JoinColumn(name="nextVersion", referencedColumnName="uuid")
-	  */
-	protected $nextVersion;
-	// The history of document entry is represented as a linked list to prior entries.
-
-        // This function creates tag info (class and id) for html elements to use
-        public function getTagInfo()
-        {
-            $info = " id='".$this->getUUID()."' "." class='".self::classtype."'";
-            return $info;
-        }
-
-        public function getTag()
-        {
-            return "DIV";
-        }
-
 
 	/**
 	  * @OneToOne(targetEntity="OEMRListItem",cascade={"persist", "remove", "merge"})
@@ -200,7 +171,7 @@ include_once("OEMRProblem.php");
         }
 
         /**
-         * @OneToOne(targetEntity="DocumentItem", mappedBy="entry", cascade={"persist","remove"})
+         * @OneToOne(targetEntity="DocumentItem", mappedBy="entry",cascade={"persist","remove"})
         */
         protected $item;
 

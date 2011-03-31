@@ -120,7 +120,7 @@ function updateNarrative()
         docEntryUUID: ""+uuid+"",
         EntryType: "narrative",
         task: "update",
-        content: ""+narText+"",
+        content: ""+narText+""
     } )
     
 }
@@ -131,10 +131,26 @@ function closePopup()
 }
 
 
-
+function deleteEntry()
+{
+    uuid=$(this).attr("uuid");
+    $.post("/openemr/library/doctrine/interface/deleteEntry.php",
+    {
+        docEntryUUID: ""+uuid+"",
+        refresh: "YES"
+    },
+    function(data) {
+        pos=data.indexOf("<",0);
+        uuid=data.substr(0,pos);
+        id="#"+uuid;
+        $(id).html(data.substr(pos));
+    }
+    );
+}
 
 function registerControlEvents()
 {
+        $("#popup").hide();
 
         $("tr.ObservationTable").live({click: updateObservation});
         $("textarea.newNarrative").live({blur: createNarrative});
@@ -146,8 +162,12 @@ function registerControlEvents()
         $(".ClosePopup").live({click: closePopup});
 
 
-        registerProblemEvents();
+        $("input[type='button'][value='del']").live({click: deleteEntry});
 
+
+        registerProblemEvents();
+        registerMedManagementEvents();
+        
         $("#popup").hide();
 }
     window.onload= registerControlEvents;

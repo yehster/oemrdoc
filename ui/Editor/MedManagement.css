@@ -1,0 +1,18 @@
+/* 
+    Document   : MedManagement
+    Created on : Mar 30, 2011, 2:57:53 PM
+    Author     : yehster
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+tr.SpecifiedDrug {
+    color: darkblue;
+    font-size: small;
+}
+
