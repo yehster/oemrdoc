@@ -114,6 +114,18 @@ include('/var/www/openemr/library/doctrine/init-em.php');
                     showFormEntries(uuid);
                 });
         }
+        if(mode=="rel")
+        {
+            aui=$(this).attr("aui");
+            $.post("/openemr/library/doctrine/ui/SNOMED/lookupRelationships.php",
+                {
+                    aui: ""+aui+""
+                },
+                function(data) {
+                    window.alert(data);
+                });
+
+        }
     }
     function chooseSection()
     {

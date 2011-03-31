@@ -50,5 +50,24 @@ class Concept {
         return $this->SAB;
     }
 
+    /**
+      * @OneToMany(targetEntity="Relationship", mappedBy="AUI1")
+      */
+    protected $relationships1;
+
+    public function getRelationships1()
+    {
+        return $this->relationships1;
+    }
+
+    /**
+      * @OneToMany(targetEntity="Relationship", mappedBy="AUI2")
+      */
+    protected $relationships2;
+
+    public function getRelationships2()
+    {
+        return $this->relationships2;
+    }
 }
 ?>
