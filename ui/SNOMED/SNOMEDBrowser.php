@@ -182,10 +182,13 @@ include('/var/www/openemr/library/doctrine/init-em.php');
     <H3>Details:</H3>
     <DIV ID="mode">
     <span>normal
-        <input type="radio" name="mode" value="normal" checked/>
+        <input type="radio" name="mode" value="normal"/>
     </span>
     <span>abnormal
         <input type="radio" name="mode" value="abnormal"/>
+    </span>
+     <span>rel
+        <input type="radio" name="mode" value="rel" checked/>
     </span>
     </DIV>
     <DIV id="FormEntries"></DIV>
