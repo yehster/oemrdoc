@@ -105,4 +105,5 @@ function registerProblemEvents()
     $("tr.problemItem").live({mouseover: function() {$(this).addClass('Highlight');} ,mouseout: function() {$(this).removeClass('Highlight');}, click: addProblem});
 
     $("input[type='button'][entrytype='Problem'][value='details']").live({click: clickProbDetails});
+    $("input[type='button'][entrytype='Problem'][value='med']").live({click: clickMed});
 }
