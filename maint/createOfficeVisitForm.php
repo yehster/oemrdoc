@@ -34,6 +34,9 @@ findOrCreateMDCI($em,$pm,$form);
 $all = findOrCreateSection($em,'ALL','Allergies');
 findOrCreateMDCI($em,$all,$form);
 
+$drugAllergy=findOrCreateSubsection($em,"DRUGALL","Drug Allergy",$all);
+$drugAllergy->setCode('A8380263','SNOMED');
+
 $med = findOrCreateSection($em,'MED','Medications');
 findOrCreateMDCI($em,$med,$form);
 
