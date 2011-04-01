@@ -18,7 +18,8 @@ function addRowRelationship($DOM,$TABLE,$rel,$dir)
     }
     if($con!=null)
     {
-        $TDCon=$DOM->createElement("TD",$con->getSTR());
+        $TDCon=$DOM->createElement("TD",htmlentities($con->getSTR()));
+        $TDCon->setAttribute("class","str");
         $TDCon->setAttribute("aui",$con->getAUI());
         $TR->appendChild($TDCon);
     }
@@ -47,11 +48,19 @@ $DOM= new DOMDocument("1.0","utf-8");
 
 $TABLE = $DOM->createElement("TABLE");
 $DOM->appendChild($TABLE);
-foreach($relationships as $rel)
+echo $num;
+$num=$relationships->count();
+$idx=0;
+while(($idx<$num) && ($idx<255))
 {
+    $rel=$relationships->get($idx);
     addRowRelationship($DOM,$TABLE,$rel,true);
+    $idx++;
+
 }
 
+$display=$DOM->createElement("TEXT",$idx."/".$num);
+$TABLE->insertBefore($display);
 
 echo $DOM->saveXML($TABLE);
 ?>

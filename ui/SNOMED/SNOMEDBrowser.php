@@ -5,18 +5,24 @@ include('/var/www/openemr/library/doctrine/init-em.php');
 <style>
     #left
     {
-        width: 30%;
+        width: 24%;
         float: left;
     }
     #middle
     {
-        width: 30%;
+        width: 24%;
         float:left;
     }
+    #middle2
+    {
+        width: 24%;
+        float:left;
+    }
+
     #right
     {
         float: left;
-        width: 30%;
+        width: 24%;
     }
 
     .Highlight {
@@ -88,17 +94,15 @@ include('/var/www/openemr/library/doctrine/init-em.php');
                     $("#FormEntries").html(data);
                 }
             );
-
+            $("input.modFE").die();
+            $("input.modFE").live({click: modifyEntry});
     }
-    function clickSnomed()
+    function createFormEntry(src,mode)
     {
-        mode=$("#mode").find("input:radio:checked").val();
-        if((mode=="abnormal") || (mode=="normal"))
-        {
-            aui=$(this).attr("aui");
+            aui=$(src).attr("aui");
             targetCode=$("#code").text();
             targetType=$("#codeType").text();
-            text=$(this).find("td.str").text();
+            text=$(src).find("td.str").text();
             $.post("/openemr/library/doctrine/ui/SNOMED/manageVocab.php",
                 {
                     aui: ""+aui+"",
@@ -113,31 +117,60 @@ include('/var/www/openemr/library/doctrine/init-em.php');
                     uuid=$("#code").attr("uuid");
                     showFormEntries(uuid);
                 });
+
+    }
+    function clickSnomed()
+    {
+        mode=$("#mode").find("input:radio:checked").val();
+        if((mode=="abnormal") || (mode=="normal") || (mode=="opt"))
+        {
+            createFormEntry(this,mode);
         }
         if(mode=="rel")
         {
             lookupRel(this);
         }
+        if(mode=="target")
+        {
+            code=$(this).attr("aui");
+            code_type="SNOMED";
+            $("#code").text(code);
+            $("#code").attr("uuid","");
+            $("#codeType").text(code_type);
+        }
     }
 
 function clickRel()
 {
-    lookupRel(this);
+    mode=$("#mode").find("input:radio:checked").val();
+    if(mode=="opt")
+        {
+            createFormEntry(this,"option");
+        }
+        else
+            {
+                    lookupRel(this);
+            }
 }
 function lookupRel(obj)
 {
                 aui=$(obj).attr("aui");
-                $("#info").load(
+                $.post(
             "/openemr/library/doctrine/ui/SNOMED/lookupRelationships.php",
                 {
                     aui: ""+aui+""
-                });
-                        $("tr.relationship").die();
+                },
+                function(data) {
+                    $("#right").html(data);
+                }
+               );
+                                           $("tr.relationship").die();
 
                         $("tr.relationship").live({click: clickRel
                                     ,mouseover: function() {$(this).addClass('Highlight');}
                                     ,mouseout: function() {$(this).removeClass('Highlight');
                                     }});
+
 
 }
 function chooseSection()
@@ -149,6 +182,7 @@ function chooseSection()
         $("#code").attr("uuid",uuid);
         $("#codeType").text(code_type);
         showFormEntries(uuid);
+        lookupRel(this);
     }
 
     function refreshFETable()
@@ -206,8 +240,8 @@ function chooseSection()
 
 </DIV>
 
-<DIV ID="right">
-<DIV ID="info"> </DIV>
+<DIV ID="middle2">
+
     <H3>Details:</H3>
     <DIV ID="mode">
     <span>normal
@@ -219,6 +253,12 @@ function chooseSection()
      <span>rel
         <input type="radio" name="mode" value="rel" checked/>
     </span>
+     <span>target
+        <input type="radio" name="mode" value="target"/>
+    </span>
+     <span>opt
+        <input type="radio" name="mode" value="opt"/>
+    </span>
     </DIV>
     <DIV id="FormEntries"></DIV>
     <h1 id="code"></h1>
@@ -226,3 +266,4 @@ function chooseSection()
     <h1 id="status"></h1>
 
 </DIV>
+<DIV ID="right"> </DIV>

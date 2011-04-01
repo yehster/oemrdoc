@@ -4,7 +4,7 @@ namespace library\doctrine\Entities;
  *  @Table(name="dct_vocab_mappings")
  *  @InheritanceType("SINGLE_TABLE")
  *  @DiscriminatorColumn(name="relationship", type="string")
- *  @DiscriminatorMap({"form" = "FormEntry"})*/
+ *  @DiscriminatorMap({"form" = "FormEntry", "option" = "Option"})*/
 class VocabMapping {
 
 

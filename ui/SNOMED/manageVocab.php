@@ -2,9 +2,19 @@
 include_once('/var/www/openemr/library/doctrine/init-em.php');
 function findOrCreateFormEntry($em,$text,$sourceType,$sourceCode,$targetType,$targetCode)
 {
+    return findOrCreateVocab($em,$text,$sourceType,$sourceCode,$targetType,$targetCode,"library\doctrine\Entities\FormEntry");
+}
+
+function findOrCreateOption($em,$text,$sourceType,$sourceCode,$targetType,$targetCode)
+{
+    return findOrCreateVocab($em,$text,$sourceType,$sourceCode,$targetType,$targetCode,"library\doctrine\Entities\Option");
+}
+
+function findOrCreateVocab($em,$text,$sourceType,$sourceCode,$targetType,$targetCode,$type)
+{
    $qb = $em->createQueryBuilder()
         ->select("fe")
-        ->from("library\doctrine\Entities\FormEntry","fe")
+        ->from($type,"fe")
         ->where("fe.source_code=:sc")
         ->andWhere("fe.source_code_type=:st")
         ->andWhere("fe.target_code=:tc")
@@ -161,6 +171,7 @@ if($mode=="create")
      $em->flush();
     }
 }
+
 if($mode=="del")
 {
     if($type=="FormEntry")

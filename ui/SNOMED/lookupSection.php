@@ -23,6 +23,7 @@ function addSection($DOM,$table,$section)
     $table->appendChild($newTR);
 
     $newTR->setAttribute("code",$section->getCode());
+    $newTR->setAttribute("aui",$section->getCode());
     $newTR->setAttribute("code_type",$section->getCode_type());
     $newTR->setAttribute("class","section");
     $newTR->setAttribute("uuid",$section->getUUID());

@@ -43,6 +43,9 @@ findOrCreateMDCI($em,$fam,$form);
 $soc = findOrCreateSection($em,'SOC','Social History');
 findOrCreateMDCI($em,$soc,$form);
 
+$socTob = findOrCreateSubsection($em,'TOB','Tobacco Use',$soc);
+$socTob->setCode('A3210982','SNOMED');
+
 $ros = findOrCreateSection($em,'ROS','Review of Systems');
 $ros->setCode('10187-3','LOINC');
 findOrCreateMDCI($em,$ros,$form);
