@@ -103,7 +103,15 @@ namespace library\doctrine\Entities;
 	{
 		$this->items->add($obj);
 		$obj->setParent($this);
-                $lastSeq=$this->items($this->items->count())->getSeq();
+                $numItems=$this->items->count();
+                if($numItems>0)
+                {
+                    $lastSeq=$this->items->last()->getSeq();
+                }
+                else
+                {
+                    $lastSeq=0;
+                }
 		$obj->setSeq($lastSeq+1);
 	}
 
