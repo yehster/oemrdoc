@@ -103,12 +103,22 @@ include('/var/www/openemr/library/doctrine/init-em.php');
             targetCode=$("#code").text();
             targetType=$("#codeType").text();
             text=$(src).find("td.str").text();
+            if(mode=="opt")
+                {
+                    mode="option";
+                    type="Option";
+                }
+                else
+                    {
+                        type="FormEntry";
+                    }
             $.post("/openemr/library/doctrine/ui/SNOMED/manageVocab.php",
                 {
                     aui: ""+aui+"",
                     targetCode: ""+targetCode+"",
                     targetType: ""+targetType+"",
                     text: ""+text+"",
+                    type: ""+type+"",
                     classification: ""+mode+"",
                     mode: "create"
                 },

@@ -1,5 +1,6 @@
 <?php
 include_once('/var/www/openemr/library/doctrine/init-em.php');
+define('ENTITIES_NS',"library\doctrine\Entities\\");
 function findOrCreateFormEntry($em,$text,$sourceType,$sourceCode,$targetType,$targetCode)
 {
     return findOrCreateVocab($em,$text,$sourceType,$sourceCode,$targetType,$targetCode,"library\doctrine\Entities\FormEntry");
@@ -27,7 +28,7 @@ function findOrCreateVocab($em,$text,$sourceType,$sourceCode,$targetType,$target
     $res=$qry->getResult();
     if(count($res)==0)
     {
-        $retVal=new library\doctrine\Entities\FormEntry($text,$sourceCode,$sourceType,$targetCode,$targetType);
+        $retVal=new $type($text,$sourceCode,$sourceType,$targetCode,$targetType);
         $em->persist($retVal);
     }
     else
@@ -41,7 +42,7 @@ function findMaxSeqFE($em,$targetType,$targetCode,$cls)
 {
    $qb = $em->createQueryBuilder()
         ->select("MAX(fe.seq) as maxSeq")
-        ->from("library\doctrine\Entities\FormEntry","fe")
+        ->from("library\doctrine\Entities\VocabMapping","fe")
         ->Where("fe.target_code=:tc")
         ->andWhere("fe.target_code_type=:tt")
         ->andWhere("fe.classification=:cl");
@@ -64,7 +65,7 @@ function findSEQSwapFE($em,$FE,$mode)
 
    $qb = $em->createQueryBuilder()
         ->select("fe")
-        ->from("library\doctrine\Entities\FormEntry","fe")
+        ->from("library\doctrine\Entities\VocabMapping","fe")
         ->Where("fe.target_code=:tc")
         ->andWhere("fe.target_code_type=:tt")
         ->andWhere("fe.classification=:cl");
@@ -152,7 +153,7 @@ if($mode=="create")
     echo $sourceType.":".$sourceCode.":".$targetType.":".$targetCode.":".$text.":".$classification;
     if(($text!==null) && ($targetCode!==null) && ($targetType!==null) && ($sourceType!==null) && ($sourceCode!==null))
     {
-     $fe=findOrCreateFormEntry($em,$text,$sourceType,$sourceCode,$targetType,$targetCode);
+     $fe=findOrCreateVocab($em,$text,$sourceType,$sourceCode,$targetType,$targetCode,ENTITIES_NS.$type);
      $fe->setClassification($classification);
      if(isset($_REQUEST['seq']))
      {
@@ -186,9 +187,8 @@ if($mode=="del")
 }
 if(($mode=="up") || ($mode=="dn"))
 {
-    if($type=="FormEntry")
-    {
-        $fe=$em->getRepository('library\doctrine\Entities\FormEntry')->find($uuid);
+
+        $fe=$em->getRepository('library\doctrine\Entities\VocabMapping')->find($uuid);
         $swapSeqFE=findSEQSwapFE($em,$fe,$mode);
         if($swapSeqFE!==null)
         {
@@ -198,7 +198,6 @@ if(($mode=="up") || ($mode=="dn"))
             $em->flush();
         }
         echo "updated sequence.";
-    }
 }
 if(($mode=="abn") || ($mode=="nor"))
 {
