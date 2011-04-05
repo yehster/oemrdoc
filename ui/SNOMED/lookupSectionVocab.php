@@ -5,7 +5,7 @@ function getFormEntries($em,$c,$ct)
 {
     $qb = $em->createQueryBuilder()
         ->select("fe")
-        ->from("library\doctrine\Entities\FormEntry","fe")
+        ->from("library\doctrine\Entities\VocabMapping","fe")
         ->where("fe.target_code=:tc")
         ->andWhere("fe.target_code_type=:tt")
         ->orderBy("fe.classification DESC,fe.modified","DESC");
@@ -30,10 +30,33 @@ function createButton($DOM,$tr,$value,$class)
     
 }
 
+$options = array("","exclusive","multiple","option");
+function createSelect($DOM,$tr,$name,$selected,$options)
+{
+    $td = $DOM->createElement("td");
+    $tr->appendChild($td);
+
+    $select=$DOM->createElement("select");
+    $select->setAttribute("class",$name);
+    $td->appendChild($select);
+    for($idx=0;$idx<count($options);$idx++)
+    {
+        $opt=$options[$idx];
+        $htmlOpt=$DOM->createElement("option",$opt);
+        $select->appendChild($htmlOpt);
+        if($opt==$selected)
+        {
+            $htmlOpt->setAttribute("selected"," ");
+        }
+    }
+
+}
+
 function addEntry($DOM,$table,$fe)
 {
+    global $options;
     $newTR = $DOM->createElement("tr");
-    $newTR->setAttribute("class","FormEntry ".$fe->getClassification());
+    $newTR->setAttribute("class",$fe->getType()." ".$fe->getClassification());
     $newTR->setAttribute("uuid",$fe->getUUID());
     $newTR->setAttribute("aui",$fe->getSource_code());
     $table->appendChild($newTR);
@@ -44,13 +67,20 @@ function addEntry($DOM,$table,$fe)
     createButton($DOM,$newTR,"del","del");
     createButton($DOM,$newTR,"up","up");
     createButton($DOM,$newTR,"dn","dn");
-    if($fe->getClassification()=="normal")
+    if($fe->getType()=="FormEntry")
     {
-        createButton($DOM,$newTR,"abn","abn");
+        if($fe->getClassification()=="normal")
+        {
+            createButton($DOM,$newTR,"abn","abn");
+        }
+        elseif($fe->getClassification()=="abnormal")
+        {
+            createButton($DOM,$newTR,"nor","nor");
+        }
     }
-    elseif($fe->getClassification()=="abnormal")
+    elseif($fe->getType()=="Option")
     {
-        createButton($DOM,$newTR,"nor","nor");
+        createSelect($DOM,$newTR,"OptionSelect",$fe->getClassification(),$options);
     }
 
     

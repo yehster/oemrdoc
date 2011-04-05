@@ -183,6 +183,8 @@ function lookupRel(obj)
                                     ,mouseover: function() {$(this).addClass('Highlight');}
                                     ,mouseout: function() {$(this).removeClass('Highlight');
                                     }});
+                        $("select.OptionSelect").die();
+                        $("select.OptionSelect").live({change: modifyOption});
 
 
 }
@@ -222,6 +224,24 @@ function chooseSection()
 
     }
 
+    function modifyOption()
+    {
+
+        uuid=getAttrForElem(this,"uuid");
+        classification = $(this).val();
+        $.post("/openemr/library/doctrine/ui/SNOMED/manageVocab.php",
+                {
+                    uuid: ""+uuid+"",
+                    mode: "updateClass",
+                    classification: ""+classification+"",
+                    type: "Option"
+                },
+                function(data) {
+                    $("#status").text(data);
+                    refreshFETable();
+                });
+
+    }
     function registerControlEvents()
     {
         $("#btnSearch").live({click: findConcepts});

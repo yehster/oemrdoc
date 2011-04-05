@@ -215,8 +215,22 @@ if(($mode=="abn") || ($mode=="nor"))
         $nextSeq=findMaxSeqFE($em, $fe->getTarget_code_type(), $fe->getTarget_code(), $newClass)+1;
         $fe->setClassification($newClass);
         $fe->setSeq($nextSeq);
-        echo $newClass.":".$maxSeq;
+        echo $newClass.":".$nextSeq;
         $em->flush();
+    }
+}
+
+if($mode=="updateClass")
+{
+    if($type=="Option")
+    {
+        $opt=$em->getRepository('library\doctrine\Entities\Option')->find($uuid);
+        $nextSeq=findMaxSeqFE($em, $opt->getTarget_code_type(), $opt->getTarget_code(), $classification)+1;
+        $opt->setClassification($classification);
+        $opt->setSeq($nextSeq);
+        $em->flush();
+        echo $opt->getUUID().":".$nextSeq.":".$classification;
+
     }
 }
 ?>
