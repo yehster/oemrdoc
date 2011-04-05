@@ -39,6 +39,9 @@ include('/var/www/openemr/library/doctrine/init-em.php');
     table.formEntries {
         width: 100%;
     }
+    .rad{
+       border: black thin solid;
+    }
 </style>
 
 <script src="/openemr/library/js/jquery-1.5.min.js" type="text/javascript"></script>
@@ -254,19 +257,19 @@ function chooseSection()
 
     <H3>Details:</H3>
     <DIV ID="mode">
-    <span>normal
+    <span class="rad">normal
         <input type="radio" name="mode" value="normal"/>
     </span>
-    <span>abnormal
+    <span class="rad">abnormal
         <input type="radio" name="mode" value="abnormal"/>
     </span>
-     <span>rel
+     <span class="rad">rel
         <input type="radio" name="mode" value="rel" checked/>
     </span>
-     <span>target
+     <span class="rad">target
         <input type="radio" name="mode" value="target"/>
     </span>
-     <span>opt
+     <span class="rad">opt
         <input type="radio" name="mode" value="opt"/>
     </span>
     </DIV>
