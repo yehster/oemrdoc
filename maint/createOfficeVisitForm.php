@@ -34,8 +34,15 @@ findOrCreateMDCI($em,$pm,$form);
 $all = findOrCreateSection($em,'ALL','Allergies');
 findOrCreateMDCI($em,$all,$form);
 
-$drugAllergy=findOrCreateSubsection($em,"DRUGALL","Drug Allergy",$all);
+$drugAllergy=findOrCreateSubsection($em,"ALL:DRUG","Drug Allergy",$all);
 $drugAllergy->setCode('A8380263','SNOMED');
+
+
+$foodAllergy=findOrCreateSubsection($em,"ALL:FOOD","Food Allergy",$all);
+$foodAllergy->setCode('A7873398',"SNOMED");
+
+//$envAllergy=findOrCreateSubsection($em,"ALL:ENV","Environmental Allergy",$all);
+//$envAllergy->setCode('A13016313',"SNOMED");
 
 $med = findOrCreateSection($em,'MED','Medications');
 findOrCreateMDCI($em,$med,$form);
@@ -48,6 +55,9 @@ findOrCreateMDCI($em,$soc,$form);
 
 $socTob = findOrCreateSubsection($em,'TOB','Tobacco Use',$soc);
 $socTob->setCode('A3210982','SNOMED');
+
+$alcTob = findOrCreateSubsection($em,'ALC','Alcohol Intake',$soc);
+$alcTob->setCode('A3245941','SNOMED');
 
 $ros = findOrCreateSection($em,'ROS','Review of Systems');
 $ros->setCode('10187-3','LOINC');

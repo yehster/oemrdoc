@@ -158,7 +158,7 @@ function clickRel()
     mode=$("#mode").find("input:radio:checked").val();
     if(mode=="opt")
         {
-            createFormEntry(this,"option");
+            createFormEntry(this,"opt");
         }
         else
             {
