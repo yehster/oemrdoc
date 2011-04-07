@@ -169,7 +169,7 @@ function registerControlEvents()
 
         registerProblemEvents();
         registerMedManagementEvents();
-        
+        registerNominativeEvents();
         $("#popup").hide();
 }
     window.onload= registerControlEvents;

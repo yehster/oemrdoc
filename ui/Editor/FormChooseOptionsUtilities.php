@@ -30,9 +30,15 @@ function createHeader($DOM,$parentElem,$docEntry)
 function createCheckBox($DOM,$parent,$option)
 {
     $optionRow=$DOM->createElement("TR");
+    $optionRow->setAttribute("class","OptionRow");
+    $optionRow->setAttribute("code",$option->getSource_code());
+    $optionRow->setAttribute("NomText",htmlentities($option->getText()));
+
     $parent->appendChild($optionRow);
-    
-    $tdLabel=$DOM->createElement("TD",$option->getText());
+    $optionRow->setAttribute("code",$option->getSource_code());
+    $optionRow->setIdAttribute("code",true);
+
+    $tdLabel=$DOM->createElement("TD",htmlentities($option->getText()));
     $optionRow->appendChild($tdLabel);
 
     $tdCheckBox=$DOM->createElement("TD");
@@ -57,6 +63,7 @@ function createOptionsListDOM($em, $DOM, $parentElem, $docEntry)
 
             $sectionTable=$DOM->createElement("TABLE");
             $sectionTBODY=$DOM->createElement("TBODY");
+            $sectionTBODY->setAttribute("sectionUUID",$docEntry->getUUID());
             $divOptions->appendChild($sectionTable);
             $sectionTable->appendChild($sectionTBODY);
             createHeader($DOM,$sectionTBODY,$docEntry);

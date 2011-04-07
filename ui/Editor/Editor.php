@@ -2,6 +2,7 @@
 <script src="/openemr/library/doctrine/ui/Editor/Editor.js" type="text/javascript"></script>
 <script src="/openemr/library/doctrine/ui/Editor/ProblemManagement.js" type="text/javascript"></script>
 <script src="/openemr/library/doctrine/ui/Editor/MedManagement.js" type="text/javascript"></script>
+<script src="/openemr/library/doctrine/ui/Editor/FormNominatives.js" type="text/javascript"></script>
 
 
 <style type="text/css" media="all">

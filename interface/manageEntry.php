@@ -8,10 +8,16 @@ session_start();
 
 function findObservationOrCreate($em,$PE,$vocabID,$pat,$user)
 {
+    return findOrCreateVocabDocEntry($em,$PE,$vocabID,$pat,$user,"Observation");
+}
+
+function findOrCreateVocabDocEntry($em,$PE,$vocabID,$pat,$user,$type)
+{
     $parItem=$PE->getItem();
+    $objType="library\doctrine\Entities\\".$type;
     $qb = $em->createQueryBuilder()
         ->select("obs")
-        ->from("library\doctrine\Entities\Observation","obs")
+        ->from($objType,"obs")
         ->join("obs.item","i")
         ->where("obs.vocabID=:voc")
         ->andwhere("i.parent=:par")    ;
@@ -21,7 +27,7 @@ function findObservationOrCreate($em,$PE,$vocabID,$pat,$user)
     $qryRes=$qb->getQuery()->getResult();
     if(count($qryRes)===0)
     {
-        $res = new library\doctrine\Entities\Observation(null,$pat,$user);
+        $res = new $objType(null,$pat,$user);
         $newItem=$PE->getItem()->addEntry($res);
         $res->setvocabID($vocabID);
     }
@@ -30,7 +36,11 @@ function findObservationOrCreate($em,$PE,$vocabID,$pat,$user)
         $res = $qryRes[0];
     }
     return $res;
+}
 
+function findNominativeOrCreate($em,$PE,$vocabID,$pat,$user)
+{
+    return findOrCreateVocabDocEntry($em,$PE,$vocabID,$pat,$user,"Nominative");
 }
 
 $user = $_SESSION['authUser'];
@@ -177,6 +187,29 @@ if($EntryType=="narrative")
             $em->flush();
         }
     }
+}
+
+
+if($EntryType=="nominative")
+{
+    if(isset($_REQUEST['val']))
+    {
+        $val = $_REQUEST['val'];
+    }
+    if(isset($_REQUEST['nominativeUUID']))
+    {
+        $nominativeUUID=$_REQUEST['nominativeUUID'];
+        $nom=$em->getRepository('library\doctrine\Entities\Nominative')->find($nominativeUUID);
+
+    }
+    if($nom===null)
+    {
+        $nom = findNominativeOrCreate($em,$parentEntry,$vocabID,$pat,$user);
+    }
+    $nom->setText($content,$auth);
+    $em->persist($nom);
+    $em->flush();
+    $result = $nom->getUUID();
 }
 
 if(isset($_REQUEST['refresh']))

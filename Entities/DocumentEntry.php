@@ -6,7 +6,9 @@ include_once("OEMRProblem.php");
  *  @Table(name="dct_document_entries")
  *  @InheritanceType("SINGLE_TABLE")
  *  @DiscriminatorColumn(name="discr", type="string")
- *  @DiscriminatorMap({"sect" = "Section", "obs" = "Observation", "ord" = "Order", "nar" = "Narrative", "prob"="Problem", "med"="MedicationEntry"})
+ *  @DiscriminatorMap({"sect" = "Section", "obs" = "Observation", "ord" = "Order",
+   "nar" = "Narrative", "prob"="Problem", "med"="MedicationEntry",
+   "nom" = "Nominative"})
  */
  class DocumentEntry
  {
