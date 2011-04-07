@@ -206,9 +206,19 @@ if($EntryType=="nominative")
     {
         $nom = findNominativeOrCreate($em,$parentEntry,$vocabID,$pat,$user);
     }
-    $nom->setText($content,$auth);
-    $em->persist($nom);
-    $em->flush();
+    
+    if($task=="update")
+    {
+        $nom->setText($content,$auth);
+        $em->persist($nom);
+        $em->flush();
+        
+    }
+    elseif($task=="delete")
+    {
+        $em->remove($nom);
+        $em->flush();
+    }
     $result = $nom->getUUID();
 }
 

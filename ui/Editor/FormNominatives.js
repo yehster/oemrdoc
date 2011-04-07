@@ -19,15 +19,22 @@ function updateNominative()
     vocabID=$(this).attr("code");
     checkValue = $(this).find("input:checkbox:checked");
     nominativeUUID="";
+
     if(checkValue.length==1)
     {
+        task="update";
+    }
+    else
+    {
+        task="delete";
+    }
         $.post("/openemr/library/doctrine/interface/manageEntry.php",
            {
                 parentEntryUUID: ""+parentEntryUUID+"",
                 vocabID: ""+vocabID+"",
                 nominativeUUID: ""+nominativeUUID+"",
                 EntryType: "nominative",
-                task: "update",
+                task: ""+task+"",
                 content: ""+nomText+"",
                 refresh: "YES"
             },
@@ -38,7 +45,7 @@ function updateNominative()
             }
 
         );
-    }
+   
 
 }
 
