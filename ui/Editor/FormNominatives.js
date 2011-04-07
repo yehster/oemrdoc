@@ -1,26 +1,34 @@
+function getAttrForElem(elem,attrName)
+{
+
+    if($(elem).attr(attrName)!=undefined)
+    {
+        return($(elem).attr(attrName));
+    }
+    else
+    {
+        return getAttrForElem($(elem).parent(),attrName);
+    }
+}
+
 function updateNominative()
 {
     nomText=$(this).attr("NomText");
-    window.alert(nomText);
 
-    parentEntryUUID = getAttrForElem(this,"sectionid");
-    observationID = $(this).attr("uuid");
+    parentEntryUUID = getAttrForElem(this,"sectionuuid");
     vocabID=$(this).attr("code");
-    window.alert(observationText);
-    checkValue = $(this).find("input");
-    
-    window.alert(checkValue.length);
-
-    if(radioValue!=undefined)
+    checkValue = $(this).find("input:checkbox:checked");
+    nominativeUUID="";
+    if(checkValue.length==1)
     {
         $.post("/openemr/library/doctrine/interface/manageEntry.php",
            {
                 parentEntryUUID: ""+parentEntryUUID+"",
                 vocabID: ""+vocabID+"",
-                observationUUID: ""+observationID+"",
+                nominativeUUID: ""+nominativeUUID+"",
                 EntryType: "nominative",
                 task: "update",
-                content: ""+NomText+"",
+                content: ""+nomText+"",
                 refresh: "YES"
             },
             function(data) {
