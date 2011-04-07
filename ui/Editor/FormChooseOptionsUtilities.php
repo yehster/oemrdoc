@@ -77,6 +77,21 @@ function createOptionsListDOM($em, $DOM, $parentElem, $docEntry)
         }
     }
 
+    if($docEntry->getType()=="Nominative")
+    {
+        $obsRow=$DOM->getElementById($docEntry->getvocabID());
+        if($obsRow!==null)
+        {
+            $obsRow->setAttribute("nominativeUUID",$docEntry->getUUID());
+            $inputs=$obsRow->getElementsByTagName("INPUT");
+            for($inpIdx=0;$inpIdx<$inputs->length;$inpIdx++)
+            {
+                $inp=$inputs->item($inpIdx);
+                $inp->setAttribute("Checked","");
+            }
+        }
+    }
+
     // iterate through the child elements
     $item=$docEntry->getItem();
     $childCount= $item->getItems()->count();
