@@ -1,3 +1,6 @@
+/* 
+Scripts for manipulating Forms (ROS/Physical Exam) in the document editor
+ */
 function getAttrForElem(elem,attrName)
 {
 
@@ -13,23 +16,21 @@ function getAttrForElem(elem,attrName)
 
 function displayForm()
 {
-    secUUID = $(this).attr('uuid');
-    $.post("/openemr/library/doctrine/ui/Editor/FormGenerator.php",{docEntryUUID: ""+secUUID+""},
-        function(data) {
-            $("#popup").html(data);
-            $("#popup").show();
-        }
+    secUUID = this.id;
+    $.post("/openemr/library/doctrine/ui/FormGenerator.php",{docEntryUUID: ""+secUUID+""},
+        function(data) {$("#popupDiv").html(data)}
     );
+
+$("#popupDiv").show();
+
 
 
 }
-function refreshSection(id)
+
+function finishPhysicalExam()
 {
-    $.post("/openemr/library/doctrine/interface/manageEntry.php",{parentEntryUUID:""+id+"",refresh: "YES"},function (data){
-       idText = "#" + id;
-       $(idText).replaceWith(data) ;
-       $(idText).removeClass("hidden");
-    });
+    $("#popupDiv").hide();
+
 }
 
 function updateObservation()
@@ -56,19 +57,16 @@ function updateObservation()
             function(data) {
                     idText = "#" + parentEntryUUID;
                     $(idText).replaceWith(data) ;
-                    $(idText).removeClass('hidden');
             }
-
+            
         )
     }
 
 }
-
 function createNarrative()
 {
     parentEntryUUID=$(this).attr("sectionuuid");
     narText=this.value;
-    var textArea=$(this);
     if(narText!=""){
            $.post("/openemr/library/doctrine/interface/manageEntry.php",
            {
@@ -81,16 +79,15 @@ function createNarrative()
                 // TODO: update the text box attributes so that changes go to the existing entry and we don't keep creating new ones
                 uuid=data;
                 refreshSection(parentEntryUUID);
-                textArea.attr("class","FormNarrative");
-                textArea.attr("id",uuid);
             }
-
+            
         )
+        $(this).attr("class","FormNarrative");
+        $(this).attr("id",uuid);
     }
 }
 
-
-function updateFormNarrative()
+function updateNarrative()
 {
     parentEntryUUID=$(this).attr("sectionuuid");
     narText=this.value;
@@ -113,63 +110,9 @@ function updateFormNarrative()
 
 }
 
-function updateNarrative()
+function registerFormEvents()
 {
-    uuid=$(this).attr("uuid");
-    narText=this.value;
-    $.post("/openemr/library/doctrine/interface/manageEntry.php",
-    {
-        docEntryUUID: ""+uuid+"",
-        EntryType: "narrative",
-        task: "update",
-        content: ""+narText+""
-    } )
-    
+    $("tr.ObservationTable").live({click: updateObservation});
+    $("textarea.newNarrative").live({blur: createNarrative});
+    $("textarea.FormNarrative").live({blur: updateNarrative});
 }
-
-function closePopup()
-{
-    $("#popup").hide();
-}
-
-
-function deleteEntry()
-{
-    uuid=$(this).attr("uuid");
-    $.post("/openemr/library/doctrine/interface/deleteEntry.php",
-    {
-        docEntryUUID: ""+uuid+"",
-        refresh: "YES"
-    },
-    function(data) {
-        pos=data.indexOf("<",0);
-        uuid=data.substr(0,pos);
-        id="#"+uuid;
-        $(id).html(data.substr(pos));
-    }
-    );
-}
-
-function registerControlEvents()
-{
-        $("#popup").hide();
-
-        $("tr.ObservationTable").live({click: updateObservation});
-        $("textarea.newNarrative").live({blur: createNarrative});
-        $("textarea.FormNarrative").live({blur: updateFormNarrative});
-        $("textarea[entrytype='Narrative']").live({blur: updateNarrative});
-
-
-        $("input[type='button'][value='details'][entrytype='Section']").live({click: displayForm});
-        $(".ClosePopup").live({click: closePopup});
-
-
-        $("input[type='button'][value='del']").live({click: deleteEntry});
-
-
-        registerProblemEvents();
-        registerMedManagementEvents();
-        
-        $("#popup").hide();
-}
-    window.onload= registerControlEvents;

@@ -8,7 +8,8 @@ define('TYPE_MEDICATION_ENTRY',"MedicationEntry");
 define('SECTION_PHYSICAL_EXAM',"Physical Exam");
 define('SECTION_REVIEW_OF_SYSTEMS',"Review of Systems");
 define('SECTION_PROBLEM_LIST',"Problem List");
-
+define('SECTION_ALLERGIES','Allergies');
+define('SECTION_SOCIAL_HISTORY','Social History');
 
 define('ATTR_CLASS','class');
 define('ATTR_UUID','uuid');

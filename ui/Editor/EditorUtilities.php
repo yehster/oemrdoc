@@ -64,7 +64,7 @@ function generateEditorDOM($DOM,$Parent,$DocItem,$Depth)
                 $sectionDIV->setAttribute(ATTR_CLASS,CLASS_HIDDEN);
             }
             $sectionHeader=CreateEditorElement($DOM,$DocEntry,"TEXT",$sectionDIV,$text);
-            if(($text==SECTION_PHYSICAL_EXAM) || ($text==SECTION_REVIEW_OF_SYSTEMS))
+            if(($text==SECTION_PHYSICAL_EXAM) || ($text==SECTION_REVIEW_OF_SYSTEMS) || ($text==SECTION_ALLERGIES) || ($text==SECTION_SOCIAL_HISTORY))
             {
                 $button=CreateEditorElement($DOM,$DocEntry,"INPUT",$sectionDIV);
                 $button->setAttribute("type","BUTTON");
