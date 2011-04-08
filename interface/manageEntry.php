@@ -54,6 +54,12 @@ if(isset($_SESSION['pid']))
     $patID=$_SESSION['pid'];
     $pat=$em->getRepository('library\doctrine\Entities\Patient')->find($patID);
 }
+if($pat==null)
+{
+    echo "Error:no patient set!";
+    return;
+}
+
 if(isset($_REQUEST['parentEntryUUID']))
 {
     $parentEntryUUID = $_REQUEST['parentEntryUUID'];

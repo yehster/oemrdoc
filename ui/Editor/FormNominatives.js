@@ -14,11 +14,18 @@ function getAttrForElem(elem,attrName)
 function updateNominative()
 {
     nomText=$(this).attr("NomText");
-
     parentEntryUUID = getAttrForElem(this,"sectionuuid");
     vocabID=$(this).attr("code");
-    checkValue = $(this).find("input:checkbox:checked");
-    nominativeUUID="";
+    classification=$(this).attr("classification");
+    nominativeUUID=$(this).attr("nominativeUUID");
+
+
+    checkValue = $(this).parent().find("input:checkbox:checked");
+    checkBox =$(this).find("input:checkbox");
+    if(checkBox.attr("disabled")=="disabled")
+    {
+        return;
+    }
 
     if(checkValue.length==1)
     {
@@ -42,6 +49,9 @@ function updateNominative()
                     idText = "#" + parentEntryUUID;
                     $(idText).replaceWith(data) ;
                     $(idText).removeClass('hidden');
+                    if(classification=="exclusive")
+                        {
+                        }
             }
 
         );
@@ -51,5 +61,5 @@ function updateNominative()
 
 function registerNominativeEvents()
 {
-    $("tr.OptionRow").live({click: updateNominative});
+    $("input[type='checkbox'].OptionRow").live({change: updateNominative});
 }

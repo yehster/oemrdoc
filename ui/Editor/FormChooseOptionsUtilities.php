@@ -31,8 +31,7 @@ function createCheckBox($DOM,$parent,$option)
 {
     $optionRow=$DOM->createElement("TR");
     $optionRow->setAttribute("class","OptionRow");
-    $optionRow->setAttribute("code",$option->getSource_code());
-    $optionRow->setAttribute("NomText",htmlentities($option->getText()));
+
 
     $parent->appendChild($optionRow);
     $optionRow->setAttribute("code",$option->getSource_code());
@@ -48,6 +47,12 @@ function createCheckBox($DOM,$parent,$option)
     $tdCheckBox->appendChild($inpCheckBox);
 
     $inpCheckBox->setAttribute("TYPE","CHECKBOX");
+
+    $inpCheckBox->setAttribute("class","OptionRow");
+
+    $inpCheckBox->setAttribute("code",$option->getSource_code());
+    $inpCheckBox->setAttribute("classification",$option->getClassification());
+    $inpCheckBox->setAttribute("NomText",htmlentities($option->getText()));
 
 }
 function createOptionsListDOM($em, $DOM, $parentElem, $docEntry)
@@ -88,6 +93,7 @@ function createOptionsListDOM($em, $DOM, $parentElem, $docEntry)
             {
                 $inp=$inputs->item($inpIdx);
                 $inp->setAttribute("Checked","");
+                $inp->setAttribute("nominativeUUID",$docEntry->getUUID());
             }
         }
     }
