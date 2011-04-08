@@ -44,6 +44,11 @@ function findNominativeOrCreate($em,$PE,$vocabID,$pat,$user)
 }
 
 $user = $_SESSION['authUser'];
+if($user==null)
+{
+    echo "Error:no user set!";
+    return;
+}
 if(isset($_SESSION['pid']))
 {
     $patID=$_SESSION['pid'];
@@ -119,7 +124,7 @@ if($EntryType=="observation")
         $obs = findObservationOrCreate($em,$parentEntry,$vocabID,$pat,$user);
     }
     $obs->setValue($val);
-    $obs->setText($content,$auth);
+    $obs->setText($content,$user);
     $em->persist($obs);
     $em->flush();
     $result = $obs->getUUID();
@@ -209,7 +214,7 @@ if($EntryType=="nominative")
     
     if($task=="update")
     {
-        $nom->setText($content,$auth);
+        $nom->setText($content,$user);
         $em->persist($nom);
         $em->flush();
         
