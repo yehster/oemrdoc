@@ -67,14 +67,19 @@ input[type="button"]{
     font-size: x-small;
 }
 
-span[entrytype="Observation"] {
+span[entrytype="Observation"]:nth-child(odd) {
     background-color: lavender;
     margin: 0.1em;
 }
-span[entrytype="Observation"]:nth-child(odd) {
-    background-color: lightgoldenrodyellow;
+
+li.problem:nth-child(even) {
+    background-color:lavender;
 }
 
-li.div[entrytype="Problem"]:nth-child(odd) {
-    background-color:lavender;
+text[entrytype="Nominative"] {
+    margin: 0.1em;
+}
+
+text[entrytype="Nominative"]:nth-child(odd) {
+    background-color: lavender;
 }

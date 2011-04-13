@@ -131,6 +131,7 @@ function generateEditorDOM($DOM,$Parent,$DocItem,$Depth)
         elseif($childType==TYPE_PROBLEM)
         {
             $li=$DOM->createElement("LI");
+            $li->setAttribute("class","problem");
             $olProblems->appendChild($li);
             generateEditorDOM($DOM,$li,$childItem,$Depth+1);
         }

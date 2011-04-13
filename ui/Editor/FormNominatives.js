@@ -1,15 +1,3 @@
-function getAttrForElem(elem,attrName)
-{
-
-    if($(elem).attr(attrName)!=undefined)
-    {
-        return($(elem).attr(attrName));
-    }
-    else
-    {
-        return $(elem).parents('['+attrName+']').first().attr(attrName);
-    }
-}
 
 function updateNominative()
 {
@@ -30,11 +18,13 @@ function updateNominative()
     if(checkValue.length==1)
     {
         task="update";
+        sibs=$(this).parents("tr").siblings("tr.OptionRow");
     }
     else
     {
         task="delete";
     }
+
         $.post("/openemr/library/doctrine/interface/manageEntry.php",
            {
                 parentEntryUUID: ""+parentEntryUUID+"",
@@ -49,9 +39,19 @@ function updateNominative()
                     idText = "#" + parentEntryUUID;
                     $(idText).replaceWith(data) ;
                     $(idText).removeClass('hidden');
-                    if(classification=="exclusive")
+
+                    if(task=="update")
+                    {
+                        if(classification=="exclusive")
                         {
+                            sibs.find("input:checkbox:checked").removeAttr("checked").change();
+                            
                         }
+                        else
+                        {
+                            sibs.find("input[classification='exclusive']:checked").removeAttr("checked").change()
+                        }
+                    }
             }
 
         );
