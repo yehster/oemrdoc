@@ -29,13 +29,16 @@
         border: 1px solid;
     }
 
-    .normal {
+    tr.normal {
             background-color: lightgreen;
     }
 
-    .abnormal {
+
+
+    tr.abnormal {
             background-color: lightpink;
     }
+
 
     th.formHeader{
         width: 80%;
@@ -47,4 +50,9 @@
     }
     input.RB {
         width: 100%;
+    }
+    span.Options{
+        float:left;
+        width: 32%;
+        
     }

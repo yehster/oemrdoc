@@ -63,13 +63,14 @@ function createOptionsListDOM($em, $DOM, $parentElem, $docEntry)
         $options=getSectionOptions($em,$docEntry);
         if(count($options)>0)
         {
-            $divOptions=$DOM->createElement("DIV");
-            $parentElem->appendChild($divOptions);
+            $spanOptions=$DOM->createElement("SPAN");
+            $spanOptions->setAttribute("CLASS","Options");
+            $parentElem->appendChild($spanOptions);
 
             $sectionTable=$DOM->createElement("TABLE");
             $sectionTBODY=$DOM->createElement("TBODY");
             $sectionTBODY->setAttribute("sectionUUID",$docEntry->getUUID());
-            $divOptions->appendChild($sectionTable);
+            $spanOptions->appendChild($sectionTable);
             $sectionTable->appendChild($sectionTBODY);
             createHeader($DOM,$sectionTBODY,$docEntry);
             for($optionIdx=0;$optionIdx<count($options);$optionIdx++)

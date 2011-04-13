@@ -7,7 +7,7 @@ function getAttrForElem(elem,attrName)
     }
     else
     {
-        return getAttrForElem($(elem).parent(),attrName);
+        return $(elem).parents('['+attrName+']').first().attr(attrName);
     }
 }
 

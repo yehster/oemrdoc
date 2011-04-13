@@ -34,7 +34,12 @@ namespace library\doctrine\Entities;
 	 * @Column(type="string") 
 	 */
 	private $uuid;
- 
+
+        public function getUUID()
+        {
+            return $this->uuid;
+        }
+
 	/**
 	  * @ManyToOne(targetEntity="Document", inversedBy="items", cascade={"persist","remove"})
 	  * @JoinColumn(name="document_id", referencedColumnName="uuid")
@@ -93,25 +98,26 @@ namespace library\doctrine\Entities;
 
         public function addEntry($entry)
         {
-            $newItem = new DocumentItem($this->root,null,null,null);
-            $newItem->setEntry ($entry);
+
+            $newItem = new DocumentItem($this->root,null,$entry->getPatient(),$entry->getAuthor());
+            $newItem->setEntry($entry);
             $this->addItem($newItem);
             return $newItem;
         }
 
 	public function addItem($obj)
 	{
-		$this->items->add($obj);
 		$obj->setParent($this);
-                $numItems=$this->items->count();
-                if($numItems>0)
+                $lastItem=$this->items->last();
+                if($lastItem!=null)
                 {
-                    $lastSeq=$this->items->last()->getSeq();
+                    $lastSeq=$lastItem->getSeq();
                 }
                 else
                 {
                     $lastSeq=0;
                 }
+		$this->items->add($obj);
 		$obj->setSeq($lastSeq+1);
 	}
 

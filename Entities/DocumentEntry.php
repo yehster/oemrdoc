@@ -104,6 +104,11 @@ include_once("OEMRProblem.php");
 	// may need to expand this entry to additional fields to accommodate HL7 source info. if the author isn't specified, assume the parent entry's
 	// author is the author.
 
+        public function getAuthor()
+        {
+            return $this->author;
+        }
+
 	/**
 	 * @Column(type="string") 
  	 */

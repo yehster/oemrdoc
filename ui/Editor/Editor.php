@@ -50,5 +50,9 @@ if(isset($_REQUEST['docUUID']))
                 echo $patient->displayName();
                 ?></title>
     </head>
+    <div><?php echo $doc->getMetadata()->getLongDesc().":";
+                $patient=$doc->getPatient();
+                echo $patient->displayName();
+                ?></div>
 <?php echo $EditorDOM->saveXML($Body);?>
 </html>

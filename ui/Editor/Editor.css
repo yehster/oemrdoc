@@ -66,3 +66,15 @@ textarea {
 input[type="button"]{
     font-size: x-small;
 }
+
+span[entrytype="Observation"] {
+    background-color: lavender;
+    margin: 0.1em;
+}
+span[entrytype="Observation"]:nth-child(odd) {
+    background-color: lightgoldenrodyellow;
+}
+
+li.div[entrytype="Problem"]:nth-child(odd) {
+    background-color:lavender;
+}
