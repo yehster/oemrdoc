@@ -83,3 +83,7 @@ text[entrytype="Nominative"] {
 text[entrytype="Nominative"]:nth-child(odd) {
     background-color: lavender;
 }
+text[entrytype="MedicationEntry"]
+{
+    display: block;
+}

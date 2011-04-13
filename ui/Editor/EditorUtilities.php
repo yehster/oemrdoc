@@ -82,6 +82,10 @@ function generateEditorDOM($DOM,$Parent,$DocItem,$Depth)
                 $thirdSPAN=CreateEditorElement($DOM,$DocEntry,"SPAN",$sectionDIV," ");
                 addProblemListControls($DOM,$thirdSPAN);
             }
+            if($text==SECTION_MEDICATIONS)
+            {
+                $medButton=addButton($DOM,$DocEntry,$sectionHeader,"med");
+            }
             $retVal=$sectionDIV;
             break;
         case TYPE_NARRATIVE:
@@ -114,7 +118,7 @@ function generateEditorDOM($DOM,$Parent,$DocItem,$Depth)
             break;
         case TYPE_MEDICATION_ENTRY:
             $nextParent=CreateEditorElement($DOM,$DocEntry,"TEXT",$Parent,$text);
-            $deleteButton = addButton($DOM,$DocEntry,$Parent,"del");
+            $deleteButton = addButton($DOM,$DocEntry,$nextParent,"del");
             break;
         default:
             $nextParent=CreateEditorElement($DOM,$DocEntry,"TEXT",$Parent,$text);

@@ -10,6 +10,7 @@ define('SECTION_REVIEW_OF_SYSTEMS',"Review of Systems");
 define('SECTION_PROBLEM_LIST',"Problem List");
 define('SECTION_ALLERGIES','Allergies');
 define('SECTION_SOCIAL_HISTORY','Social History');
+define('SECTION_MEDICATIONS','Medications');
 
 define('ATTR_CLASS','class');
 define('ATTR_UUID','uuid');

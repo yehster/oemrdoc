@@ -101,6 +101,7 @@ function clickDrug()
 function registerMedManagementEvents()
 {
     $("input[type='button'][entrytype='Problem'][value='med']").live({click: clickMedButton});
+    $("input[type='button'][entrytype='Section'][value='med']").live({click: clickMedButton});
     $("#txtMedSearch").live({keyup: keypressMed});
 
     $("td.medName").live({mouseover: function() {$(this).addClass('Highlight');} ,mouseout: function() {$(this).removeClass('Highlight');}, click: clickDrug});
