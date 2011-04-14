@@ -20,9 +20,10 @@ function updateHistory(type,uuid)
         {
             params = {currentSectionUUID: ""+uuid+""};
         }
+    $("#reviewhistory").children().remove();
     $.post("/openemr/library/doctrine/ui/Review/ReviewSection.php", params,
     function(data) {
-        $("#reviewhistory").children().remove();
+
         $("#reviewhistory").append(data);
         
     }
@@ -40,7 +41,8 @@ function reviewSection()
 
 function closeReview()
 {
-            $("#reviewcurrent").children().remove();
+    $("#reviewhistory").children().remove();
+    $("#reviewcurrent").children().remove();
             $("#review").hide();
             sectionUUID= $("#review").attr("sectionUUID");
             refreshSection(sectionUUID);
