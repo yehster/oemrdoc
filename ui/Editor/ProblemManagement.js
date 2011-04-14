@@ -14,16 +14,21 @@ function getAttrForElem(elem,attrName)
 
 var problemTimer;
 var searchDelayInterval=150;
-function keypressProblem()
+function keypressProblem(event)
 {
     searchString=this.value;
+    if(event.which==8)
+        {
+                    $('#popup').attr("inputString","");
+        }
+    if(event.which==32)
+        {
+            return true;
+        }
     clearTimeout(problemTimer);
-        problemTimer = setTimeout(
-        function(){lookupProblem(searchString)},
-        searchDelayInterval
-    );
-
+    problemTimer=setTimeout("lookupProblem(searchString)",searchDelayInterval);
     return true;
+
 }
 
 function lookupProblem(inputString) {
@@ -31,10 +36,17 @@ function lookupProblem(inputString) {
         // Hide the suggestion box.
         $('#popup').hide();
     } else {
+        requestTime= new Date().getTime();
         $.post("/openemr/library/doctrine/ui/dictionaryLookup.php", {searchString: ""+inputString+"",context: "code", className: "problemItem", maxRes: "5" }, function(data){
             if(data.length >0) {
-                $('#popup').show();
-                $('#popup').html(data);
+                updateTime=$('#popup').attr("updateTime");
+                if( $('#popup').attr("inputString")==undefined || ($('#popup').attr("inputString").length <inputString.length))
+                {
+                    $('#popup').attr("updateTime",requestTime);
+                    $('#popup').attr("inputString",inputString);
+                    $('#popup').html(data);
+                    $('#popup').show();
+                }
             }
         });
     }

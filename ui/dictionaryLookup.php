@@ -235,7 +235,14 @@ if($context=="code")
         $maxMatch=$keywords[0]['qual'];
         $minMatch=$keywords[count($keywords)-1]['qual'];
         $tol=($maxMatch-$minMatch) / 2;
-        for($idx=0;$idx<count($keywords) and (($keywords[$idx]['qual']) - $maxMatch + $tol) >= 0;$idx++)
+        if(strlen($toks[0])==1)
+        {
+            $maxRes=20;
+        }
+        else {
+            $maxRes=9999;
+        }
+        for($idx=0;$idx<count($keywords) and ((($keywords[$idx]['qual']) - $maxMatch + $tol) >= 0) and $idx<$maxRes;$idx++)
         {
             $curKW = $keywords[$idx][0];
             addKeyword($ResultsDom,$table,$curKW,"");
