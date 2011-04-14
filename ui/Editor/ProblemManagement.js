@@ -21,10 +21,6 @@ function keypressProblem(event)
         {
                     $('#popup').attr("inputString","");
         }
-    if(event.which==32)
-        {
-            return true;
-        }
     clearTimeout(problemTimer);
     problemTimer=setTimeout("lookupProblem(searchString)",searchDelayInterval);
     return true;
