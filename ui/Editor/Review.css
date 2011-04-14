@@ -38,3 +38,12 @@
 #reviewcurrent > div {
     width: 95%;
 }
+
+div[reviewtype][depth='1'] {
+    position: relative;
+    left: 0px;
+}
+div[reviewtype] {
+    position: relative;
+    left: 5px;
+}
