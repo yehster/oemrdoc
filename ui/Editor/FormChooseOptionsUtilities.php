@@ -12,7 +12,8 @@ function getSectionOptions($em,$docEntry)
         ->from("library\doctrine\Entities\Option","opt")
         ->where("opt.target_code=:tc")
         ->andWhere("opt.target_code_type=:tt")
-        ->orderBy("opt.seq","ASC");
+        ->orderBy("opt.classification ASC, opt.seq","ASC");
+
     $qb->setParameter("tc",$c);
     $qb->setParameter("tt",$ct);
     $qry=$qb->getQuery();

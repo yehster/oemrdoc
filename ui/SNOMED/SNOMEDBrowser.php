@@ -215,7 +215,6 @@ function chooseSection()
                 {
                     uuid: ""+uuid+"",
                     mode: ""+mode+"",
-                    type: "FormEntry"
                 },
                 function(data) {
                     $("#status").text(data);

@@ -79,13 +79,16 @@ function createObservationTable($em,$DOM,$ELEMParent,$header,$code,$code_type)
 {
     $class="ObservationTable";
     $table = $DOM->createElement("TABLE");
-    $ELEMParent->appendChild($table);
     $table->setAttribute("CLASS",$class);
+    $ELEMParent->appendChild($table);
+    $tbody=  $DOM->createElement("TBODY");
+    $table->appendChild($tbody);
 
-    AddObsHeader($DOM,$table,$header,$class);
-    createObservationRows($em,$DOM,$table,$code,$code_type,"normal",$class." normal");
 
-    createObservationRows($em,$DOM,$table,$code,$code_type,"abnormal",$class." abnormal");
+    AddObsHeader($DOM,$tbody,$header,$class);
+    createObservationRows($em,$DOM,$tbody,$code,$code_type,"normal",$class." normal");
+
+    createObservationRows($em,$DOM,$tbody,$code,$code_type,"abnormal",$class." abnormal");
     return $table;
 
 }

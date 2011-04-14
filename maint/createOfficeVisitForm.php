@@ -48,6 +48,8 @@ $med = findOrCreateSection($em,'MED','Medications');
 findOrCreateMDCI($em,$med,$form);
 
 $fam = findOrCreateSection($em,'FAM','Family History');
+$fam->setCode('A11740158','SNOMED');
+
 findOrCreateMDCI($em,$fam,$form);
 
 $soc = findOrCreateSection($em,'SOC','Social History');

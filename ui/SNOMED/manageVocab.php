@@ -175,15 +175,12 @@ if($mode=="create")
 
 if($mode=="del")
 {
-    if($type=="FormEntry")
-    {
-        $fe=$em->getRepository('library\doctrine\Entities\FormEntry')->find($uuid);
-        $classification=$fe->getClassification();
+        $vm=$em->getRepository('library\doctrine\Entities\VocabMapping')->find($uuid);
+        $classification=$vm->getClassification();
         // TODO: update sequence
-        $em->remove($fe);
+        $em->remove($vm);
         $em->flush();
         echo "delete successful";
-    }
 }
 if(($mode=="up") || ($mode=="dn"))
 {

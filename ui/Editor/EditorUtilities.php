@@ -86,7 +86,14 @@ function generateEditorDOM($DOM,$Parent,$DocItem,$Depth)
             {
                 $medButton=addButton($DOM,$DocEntry,$sectionHeader,"med");
             }
+            if($text==SECTION_AP)
+            {
+                $reviewButton=addButton($DOM,$DocEntry,$sectionHeader,"review");
+            }
             $retVal=$sectionDIV;
+            $sectionDIV->setAttribute("code",$DocEntry->getCode());
+            $sectionDIV->setAttribute("code_type",$DocEntry->getCode_type());
+
             break;
         case TYPE_NARRATIVE:
             $div=CreateEditorElement($DOM,$DocEntry,"DIV",$Parent);

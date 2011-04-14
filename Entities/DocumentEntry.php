@@ -127,6 +127,7 @@ include_once("OEMRProblem.php");
                     $this->OEMRListItem->setTitle($val);
                 }
             }
+            $this->modified= new \DateTime;
 
 	}
 

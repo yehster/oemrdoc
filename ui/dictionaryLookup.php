@@ -1,4 +1,7 @@
 <?php
+session_name("OpenEMR");
+session_start();
+
 include('/var/www/openemr/library/doctrine/init-em.php');
 
 function tokenize($str)

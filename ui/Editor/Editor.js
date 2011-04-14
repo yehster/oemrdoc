@@ -170,6 +170,8 @@ function registerControlEvents()
         registerProblemEvents();
         registerMedManagementEvents();
         registerNominativeEvents();
+        registerReviewEvents();
         $("#popup").hide();
+        $("#review").hide();
 }
     window.onload= registerControlEvents;

@@ -1,9 +1,10 @@
 <?php
+session_name("OpenEMR");
+session_start();
+
 include_once('/var/www/openemr/library/doctrine/init-em.php');
 include_once('../ui/Editor/EditorUtilities.php');
 
-session_name("OpenEMR");
-session_start();
 
 
 function findObservationOrCreate($em,$PE,$vocabID,$pat,$user)

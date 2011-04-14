@@ -11,6 +11,7 @@ define('SECTION_PROBLEM_LIST',"Problem List");
 define('SECTION_ALLERGIES','Allergies');
 define('SECTION_SOCIAL_HISTORY','Social History');
 define('SECTION_MEDICATIONS','Medications');
+define('SECTION_AP','Assessment/Plan');
 
 define('ATTR_CLASS','class');
 define('ATTR_UUID','uuid');
@@ -18,6 +19,10 @@ define('ATTR_ENTRY_TYPE','entrytype');
 
 define('CLASS_HIDDEN',"hidden");
 define('ID_POPUP','popup');
+define('ID_REVIEW','review');
+define('ID_REVIEW_HISTORY','reviewhistory');
+define('ID_REVIEW_CURRENT','reviewcurrent');
+
 
 
 ?>
