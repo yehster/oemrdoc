@@ -7,6 +7,7 @@ function reviewRecurse($em,$DOM,$parent,$DocItem,$depth)
     $nextParent=$DOM->createElement("DIV",$text);
     $nextParent->setAttribute("reviewtype",$DocEntry->getType());
     $nextParent->setAttribute("depth",$depth);
+    $nextParent->setAttribute("uuid",$DocEntry->getUUID());
 
     $parent->appendChild($nextParent);
     foreach($DocItem->getItems() as $childItem)
