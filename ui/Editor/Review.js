@@ -48,8 +48,23 @@ function closeReview()
             refreshSection(sectionUUID);
 
 }
+function updateReviewCheck()
+{
+    if($(this).attr("checked"))
+    {
+        parChecks=$(this).parents("div[reviewtype]").children("input:checkbox[reviewtype]"); //.children("input[type='CHECKBOX'][reviewtype]");
+        parChecks.attr("checked","checked");
+    }
+    else
+    {
+        otherChecks= $(this).siblings().find("input:checkbox[reviewtype]");
+        otherChecks.removeAttr("checked");
+    }
+}
+
 function registerReviewEvents()
 {
     $("input[type='button'][value='review']").live({click: reviewSection});
     $(".CloseReview").live({click: closeReview});
+    $("input[type='CHECKBOX'][reviewtype]").live({change: updateReviewCheck});
 }
