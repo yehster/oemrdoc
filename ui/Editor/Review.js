@@ -61,10 +61,15 @@ function updateReviewCheck()
         otherChecks.removeAttr("checked");
     }
 }
+function clickLabel()
+{
+    $(this).siblings("input:checkbox[reviewtype]").click().change();
+}
 
 function registerReviewEvents()
 {
     $("input[type='button'][value='review']").live({click: reviewSection});
     $(".CloseReview").live({click: closeReview});
     $("input[type='CHECKBOX'][reviewtype]").live({change: updateReviewCheck});
+    $("span[reviewtype]").live({click: clickLabel});
 }
