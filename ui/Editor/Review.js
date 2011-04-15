@@ -68,8 +68,8 @@ function clickLabel()
 
 function registerReviewEvents()
 {
-    $("input[type='button'][value='review']").live({click: reviewSection});
+    $("input:button[value='review']").live({click: reviewSection});
     $(".CloseReview").live({click: closeReview});
-    $("input[type='CHECKBOX'][reviewtype]").live({change: updateReviewCheck});
+    $("input:checkbox[reviewtype]").live({change: updateReviewCheck});
     $("span[reviewtype]").live({click: clickLabel});
 }
