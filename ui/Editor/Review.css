@@ -45,5 +45,5 @@ div[reviewtype][depth='1'] {
 }
 div[reviewtype] {
     position: relative;
-    left: 5px;
+    left: 1em;
 }
