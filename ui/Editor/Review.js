@@ -25,7 +25,7 @@ function updateHistory(type,uuid)
     function(data) {
 
         $("#reviewhistory").append(data);
-        
+        $("#reviewhistory").append("<INPUT TYPE='BUTTON' value='copy'/>")
     }
     );
 }
@@ -66,10 +66,16 @@ function clickLabel()
     $(this).siblings("input:checkbox[reviewtype]").click().change();
 }
 
+function clickCopy()
+{
+    window.alert("yo");
+}
+
 function registerReviewEvents()
 {
     $("input:button[value='review']").live({click: reviewSection});
     $(".CloseReview").live({click: closeReview});
     $("input:checkbox[reviewtype]").live({change: updateReviewCheck});
     $("span[reviewtype]").live({click: clickLabel});
+    $("#reviewhistory>input:button[value='copy']").live({click: clickCopy});
 }

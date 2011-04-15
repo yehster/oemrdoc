@@ -30,6 +30,7 @@ function keypressProblem(event)
 function lookupProblem(inputString) {
     if(inputString.length == 0) {
         // Hide the suggestion box.
+        $('#popup').attr("inputString","");
         $('#popup').hide();
     } else {
         requestTime= new Date().getTime();
@@ -67,6 +68,7 @@ function addProblem() {
                         $('#popup').hide();
                         sectionID = "#" + uuid;
                         $(sectionID).replaceWith(data) ;
+                        $('#popup').attr("inputString","");
                     }
                     else
                     {

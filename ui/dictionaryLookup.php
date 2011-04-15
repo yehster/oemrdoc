@@ -176,6 +176,7 @@ function findCodesForKwArr($em,$kwarr,$tok)
     $qb = $em->createQueryBuilder()
         ->select("cd".$quals);
      $qb->from("library\doctrine\Entities\Code", "cd");
+     $orderByString="";
     for($tokIdx=0;$tokIdx<$numTok;$tokIdx++)
     {
         $qb->from("library\doctrine\Entities\KeywordCodeAssociation","kwc".$tokIdx);
@@ -183,11 +184,20 @@ function findCodesForKwArr($em,$kwarr,$tok)
         $qb->andWhere("kwc".$tokIdx.".keyword in ".$kwinList[$tokIdx]);
         $qb->andWhere("kwc".$tokIdx.".code = cd");
         $qb->andWhere("kwc".$tokIdx.".keyword = kw".$tokIdx);
-        $qb->orderBy("kw".$tokIdx.".content" ,"DESC");
+        if($tokIdx<$numTok-1)
+        {
+            $orderByString.='qual'.$tokIdx.' DESC,'. "kw".$tokIdx.".content DESC,";
+        }
+        else
+        {
+            $orderByString.="kw".$tokIdx.".content";
+        }
+
 //        $qb->orderBy("qual".$tokIdx,"DESC");
 // TODO: tweak sort ordering issues
      }
 
+     $qb->orderBy($orderByString,"DESC");
     $qry=$qb->getQuery();
     $res=$qry->getResult();
     return $res;
