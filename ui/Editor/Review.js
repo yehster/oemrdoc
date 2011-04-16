@@ -68,7 +68,24 @@ function clickLabel()
 
 function clickCopy()
 {
-    window.alert("yo");
+    var output = "";
+
+    $("#reviewhistory").find("input:checkbox[reviewtype]:checked").each(function(index)
+        {
+            output += $(this).attr('uuid')+'|'+$(this).attr('depth')+'|'+index+"\n";
+        });
+    targetUUID = $("#reviewcurrent").find("div[uuid]").attr("uuid");
+    params = {
+        targetUUID: ""+targetUUID+"",
+        copylist: ""+output+""
+    };
+    $.post("/openemr/library/doctrine/ui/Review/copyEntries.php", params,
+    function(data) {
+
+        window.alert(data);
+    }
+
+    );
 }
 
 function registerReviewEvents()

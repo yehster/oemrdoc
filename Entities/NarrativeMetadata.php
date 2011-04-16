@@ -9,11 +9,12 @@ class NarrativeMetadata extends DocumentMetadata
 	 */
          private $code;
 
-         public function setCode($c)
+        public function setCode($c,$ct)
          {
             $this->code = $c;
+            $this->code_type=$ct;
          }
-
+         
     	/**
 	 * @Column(type="string")
 	 */
