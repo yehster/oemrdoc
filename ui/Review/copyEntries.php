@@ -3,7 +3,7 @@ session_name("OpenEMR");
 session_start();
 
 include_once('/var/www/openemr/library/doctrine/init-em.php');
-function findTarget($sourceParent,$targetEntry,$maxDepth,$depth)
+function findTargetParent($sourceParent,$targetEntry,$maxDepth,$depth)
 {
     if($sourceParent->similar($targetEntry))
     {
@@ -16,7 +16,7 @@ function findTarget($sourceParent,$targetEntry,$maxDepth,$depth)
         foreach($items as $item)
         {
             $childEntry=$item->getEntry();
-            $retval = findTarget($sourceParent,$childEntry,$maxDepth,$depth+1);
+            $retval = findTargetParent($sourceParent,$childEntry,$maxDepth,$depth+1);
             if($retval!=null)
             {
                 return $retval;
@@ -39,7 +39,7 @@ function findOrCopy($targetTop,$source,$depth)
     if($depth>1)
     {
         $sourceParent=$source->getItem()->getParent()->getEntry();
-        $targetParent=findTarget($sourceParent,$targetTop,$depth,1);
+        $targetParent=findTargetParent($sourceParent,$targetTop,$depth,1);
         if($targetParent!==null)
         {
             echo '\nfound:'.$targetParent->getUUID().":".$targetParent->getText().":source:".$source->getText()."\n";
