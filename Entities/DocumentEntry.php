@@ -192,6 +192,27 @@ include_once("OEMRProblem.php");
         {
             return $this->getItem()->getParent()->getEntry();
         }
+
+        public function similar($comp)
+        {
+            // compares this object to another document entry
+            try
+            {
+
+                if((get_class($targetTop)!=get_class($source)) or
+                        ($comp->getCode_type()!=$this->getCode_type()) or
+                        ($comp->getCode()!=$this->getCode()))
+                {
+                    return false;
+                }
+                return true;
+            }
+
+            catch(Exception $e)
+            {
+                return false;
+            }
+        }
  }
 
  ?>

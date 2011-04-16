@@ -3,10 +3,60 @@ session_name("OpenEMR");
 session_start();
 
 include_once('/var/www/openemr/library/doctrine/init-em.php');
-function copyEntry($target,$sourceInfo)
+function findTarget($sourceParent,$targetEntry,$maxDepth,$depth)
 {
-    $sourceUUID=strtok($sourceInfo,"|");
-    echo "\n".$sourceUUID;
+    if($sourceParent->similar($targetEntry))
+    {
+        return $targetEntry;
+    }
+
+    if($depth<$maxDepth)
+    {
+        $items=$targetEntry->getItem()->getItems();
+        foreach($items as $item)
+        {
+            $childEntry=$item->getEntry();
+            $retval = findTarget($sourceParent,$childEntry,$maxDepth,$depth+1);
+            if($retval!=null)
+            {
+                return $retval;
+            }
+        }
+    }
+    return null;
+    
+}
+function findOrCopy($targetTop,$source,$depth)
+{
+    if($depth==1)
+    {
+            if($source->similar($targetTop))
+            {
+                $targetParent=$targetTop;
+                return $targetParent;
+            }
+    }
+    if($depth>1)
+    {
+        $sourceParent=$source->getItem()->getParent()->getEntry();
+        $targetParent=findTarget($sourceParent,$targetTop,$depth,1);
+        if($targetParent!==null)
+        {
+            echo '\nfound:'.$targetParent->getUUID().":".$targetParent->getText().":source:".$source->getText()."\n";
+        }
+    }
+}
+function copyEntries($em,$target,$sourceInfoArray)
+{
+    foreach($sourceInfoArray as $sourceInfo)
+    {
+        $sourceUUID=strtok($sourceInfo,"|");
+        $sourceEntry = $em->getRepository('library\doctrine\Entities\DocumentEntry')->find($sourceUUID);
+        $depth=strtok("|");
+        $copy=findOrCopy($target,$sourceEntry,$depth);
+
+//        echo "\n".$sourceUUID."|".$sourceEntry->getText();
+    }
 }
 $user = $_SESSION['authUser'];
 if($user==null)
@@ -46,9 +96,6 @@ echo get_class($targetEntry);
         $idx++;
         $tok=strtok("\n");
     }
-    foreach($toks as $sourceInfo)
-    {
-        copyEntry($targetEntry,$sourceInfo);
-    }
+    copyEntries($em,$targetEntry,$toks);
 
 ?>
