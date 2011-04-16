@@ -13,8 +13,10 @@ function findTargetParent($sourceParent,$targetEntry,$maxDepth,$depth)
     if($depth<$maxDepth)
     {
         $item=$targetEntry->getItem();
-        if($item!=null)
+        if($item==null)
         {
+            echo "\nerror finding tp:".$targetEntry->getText();
+        }
             $items=$item->getItems();
             foreach($items as $item)
             {
@@ -25,22 +27,27 @@ function findTargetParent($sourceParent,$targetEntry,$maxDepth,$depth)
                  return $retval;
              }
             }
-        }
     }
     return null;
     
 }
 function findCopy($targetParent,$source)
 {
-        $items=$targetParent->getItem()->getItems();
-        foreach($items as $item)
-        {
-         $entry=$item->getEntry();
-         if($source->similar($entry))
-         {
-             return $entry;
-         }
-        }
+    $item=$targetParent->getItem();
+    if($item==null)
+    {
+        echo "\nError:".$targetParent->getText().":".$source->getText();
+        return null;
+    }
+            $items=$item->getItems();
+            foreach($items as $item)
+            {
+                $entry=$item->getEntry();
+                if($source->similar($entry))
+                {
+                    return $entry;
+                }
+            }
     return null;
 }
 function targetExistsOrCopy($em,$targetParent,$source)
@@ -72,7 +79,7 @@ function findOrCopy($em,$targetTop,$source,$depth)
         $targetParent=findTargetParent($sourceParent,$targetTop,$depth,1);
         if($targetParent!==null)
         {
-//            echo '\nfound:'.$targetParent->getUUID().":".$targetParent->getText().":source:".$source->getText()."\n";
+            echo "\n found:".$targetParent->getUUID().":".$targetParent->getText().":source:".$source->getText()."\n";
             targetExistsOrCopy($em,$targetParent,$source);
         }
     }
