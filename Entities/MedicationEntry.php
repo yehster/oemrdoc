@@ -12,6 +12,13 @@ class MedicationEntry extends DocumentEntry
 
     }
 
+    public function copy($auth)
+    {
+        $retVal=parent::copy($auth);
+        $retVal->rxcui = $this->rxcui;
+        $retVal->rxaui = $this->rxaui;
+        return $retVal;
+    }
         const classtype = "MedicationEntry";
         public function getType()
         {

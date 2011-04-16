@@ -187,6 +187,7 @@ include_once("OEMRProblem.php");
         {
             return $this->item;
         }
+        
 
         public function getParentEntry()
         {
@@ -212,6 +213,16 @@ include_once("OEMRProblem.php");
             {
                 return false;
             }
+        }
+
+        public function copy($auth)
+        {
+            $type = get_class($this);
+            $copy = new $type($this->md,$this->pat,$auth);
+            $copy->text=$this->text;
+            $copy->setCode($this->getCode(),$this->getCode_type());
+
+            return $copy;
         }
  }
 

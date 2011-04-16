@@ -12,21 +12,51 @@ function findTargetParent($sourceParent,$targetEntry,$maxDepth,$depth)
 
     if($depth<$maxDepth)
     {
-        $items=$targetEntry->getItem()->getItems();
-        foreach($items as $item)
+        $item=$targetEntry->getItem();
+        if($item!=null)
         {
-            $childEntry=$item->getEntry();
-            $retval = findTargetParent($sourceParent,$childEntry,$maxDepth,$depth+1);
-            if($retval!=null)
+            $items=$item->getItems();
+            foreach($items as $item)
             {
-                return $retval;
+             $childEntry=$item->getEntry();
+             $retval = findTargetParent($sourceParent,$childEntry,$maxDepth,$depth+1);
+             if($retval!=null)
+             {
+                 return $retval;
+             }
             }
         }
     }
     return null;
     
 }
-function findOrCopy($targetTop,$source,$depth)
+function findCopy($targetParent,$source)
+{
+        $items=$targetParent->getItem()->getItems();
+        foreach($items as $item)
+        {
+         $entry=$item->getEntry();
+         if($source->similar($entry))
+         {
+             return $entry;
+         }
+        }
+    return null;
+}
+function targetExistsOrCopy($em,$targetParent,$source)
+{
+    $copy=findCopy($targetParent,$source);
+    if($copy==null)
+    {
+        $copy=$source->copy();
+        echo "\n".$copy->getText();
+        $targetParent->getItem()->addEntry($copy);
+        $em->persist($copy);
+        $em->flush();
+    }
+    return $copy;
+}
+function findOrCopy($em,$targetTop,$source,$depth)
 {
     if($depth==1)
     {
@@ -42,7 +72,8 @@ function findOrCopy($targetTop,$source,$depth)
         $targetParent=findTargetParent($sourceParent,$targetTop,$depth,1);
         if($targetParent!==null)
         {
-            echo '\nfound:'.$targetParent->getUUID().":".$targetParent->getText().":source:".$source->getText()."\n";
+//            echo '\nfound:'.$targetParent->getUUID().":".$targetParent->getText().":source:".$source->getText()."\n";
+            targetExistsOrCopy($em,$targetParent,$source);
         }
     }
 }
@@ -53,7 +84,7 @@ function copyEntries($em,$target,$sourceInfoArray)
         $sourceUUID=strtok($sourceInfo,"|");
         $sourceEntry = $em->getRepository('library\doctrine\Entities\DocumentEntry')->find($sourceUUID);
         $depth=strtok("|");
-        $copy=findOrCopy($target,$sourceEntry,$depth);
+        $copy=findOrCopy($em,$target,$sourceEntry,$depth);
 
 //        echo "\n".$sourceUUID."|".$sourceEntry->getText();
     }
@@ -97,5 +128,5 @@ echo get_class($targetEntry);
         $tok=strtok("\n");
     }
     copyEntries($em,$targetEntry,$toks);
-
+    $em->flush();
 ?>
