@@ -77,13 +77,14 @@ function clickCopy()
     targetUUID = $("#reviewcurrent").find("div[uuid]").attr("uuid");
     params = {
         targetUUID: ""+targetUUID+"",
-        copylist: ""+output+""
+        copylist: ""+output+"",
+        refresh: "YES"
     };
     $.post("/openemr/library/doctrine/ui/Review/copyEntries.php", params,
     function(data) {
 
         //window.alert(data);
-        refreshSection(targetUUID)
+        $("#"+targetUUID).replaceWith(data);
     }
 
     );

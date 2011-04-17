@@ -3,6 +3,7 @@ session_name("OpenEMR");
 session_start();
 
 include_once('/var/www/openemr/library/doctrine/init-em.php');
+include_once('../Editor/EditorUtilities.php');
 function findTargetParent($sourceParent,$targetItem,$maxDepth,$depth)
 {
     if($sourceParent->similar($targetItem->getEntry()))
@@ -125,7 +126,6 @@ if(isset($_REQUEST['copylist']))
 {
     $copylist = $_REQUEST['copylist'];
 }
-echo get_class($targetEntry);
 
     $idx=0;
     $toks = array();
@@ -138,4 +138,17 @@ echo get_class($targetEntry);
     }
     copyEntries($em,$targetEntry,$toks,$user);
     $em->flush();
-?>
+
+if(isset($_REQUEST['refresh']))
+{
+    $request=$_REQUEST['refresh'];
+    if($request==="YES")
+    {
+        $docEntryDOM =  new DOMDocument("1.0","utf-8");
+        $body=$docEntryDOM->createElement("BODY");
+        $DOMNode= generateEditorDOM($docEntryDOM,$body,$targetEntry->getItem(),1);
+        echo $docEntryDOM->saveXML($DOMNode);
+        return;
+    }
+}
+    ?>
