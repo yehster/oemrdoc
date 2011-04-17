@@ -82,7 +82,8 @@ function clickCopy()
     $.post("/openemr/library/doctrine/ui/Review/copyEntries.php", params,
     function(data) {
 
-        window.alert(data);
+        //window.alert(data);
+        refreshSection(targetUUID)
     }
 
     );

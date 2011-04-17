@@ -48,7 +48,6 @@ class MedicationEntry extends DocumentEntry
         {
             if(parent::similar($comp))
             {
-                echo "\n check similar med:".$comp->getText();
                 if ($comp->getText()==$this->getText())
                 {
                     return true;

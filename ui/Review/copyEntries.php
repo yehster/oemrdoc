@@ -46,14 +46,12 @@ function targetExistsOrCopy($em,$targetParent,$source,$user)
     if($copy==null)
     {
         $copy=$source->copy($user);
-        echo "\n".$copy->getText();
         $targetParent->addEntry($copy);
         $em->persist($copy);
         $em->flush();
     }
     else
     {
-        echo "\n".$copy->getText().":".get_class($copy);
         if(($copy->getType()=="Narrative") and ($copy->getCode()!=null))
         {
             /* we have a code tagged narrative section and need to decided if we should

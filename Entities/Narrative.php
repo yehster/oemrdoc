@@ -35,6 +35,10 @@ class Narrative extends DocumentEntry
                         return true;
                     }
                 }
+                else
+                {
+                    return true;
+                }
             }
             return false;
         }
