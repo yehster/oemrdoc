@@ -24,6 +24,21 @@ class Narrative extends DocumentEntry
             return "TEXTAREA";
         }
 
+        public function similar($comp)
+        {
+            if(parent::similar($comp))
+            {
+                if($this->getCode()==null)
+                {
+                    if($this->getText()==$comp->getText())
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
 }
 
 ?>

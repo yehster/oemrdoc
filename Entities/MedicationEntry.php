@@ -44,6 +44,17 @@ class MedicationEntry extends DocumentEntry
             $this->RXAUI=$val;
         }
 
-
+        public function similar($comp)
+        {
+            if(parent::similar($comp))
+            {
+                echo "\n check similar med:".$comp->getText();
+                if ($comp->getText()==$this->getText())
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
 }
 ?>

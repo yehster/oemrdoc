@@ -3,25 +3,20 @@ session_name("OpenEMR");
 session_start();
 
 include_once('/var/www/openemr/library/doctrine/init-em.php');
-function findTargetParent($sourceParent,$targetEntry,$maxDepth,$depth)
+function findTargetParent($sourceParent,$targetItem,$maxDepth,$depth)
 {
-    if($sourceParent->similar($targetEntry))
+    if($sourceParent->similar($targetItem->getEntry()))
     {
-        return $targetEntry;
+        return $targetItem;
     }
 
     if($depth<$maxDepth)
     {
-        $item=$targetEntry->getItem();
-        if($item==null)
-        {
-            echo "\nerror finding tp:".$targetEntry->getText();
-        }
-            $items=$item->getItems();
+
+            $items=$targetItem->getItems();
             foreach($items as $item)
             {
-             $childEntry=$item->getEntry();
-             $retval = findTargetParent($sourceParent,$childEntry,$maxDepth,$depth+1);
+             $retval = findTargetParent($sourceParent,$item,$maxDepth,$depth+1);
              if($retval!=null)
              {
                  return $retval;
@@ -33,37 +28,46 @@ function findTargetParent($sourceParent,$targetEntry,$maxDepth,$depth)
 }
 function findCopy($targetParent,$source)
 {
-    $item=$targetParent->getItem();
-    if($item==null)
+    $items=$targetParent->getItems();
+    foreach($items as $item)
     {
-        echo "\nError:".$targetParent->getText().":".$source->getText();
-        return null;
+        $docEntry=$item->getEntry();
+        if($docEntry->similar($source))
+        {
+            return $docEntry;
+        }
     }
-            $items=$item->getItems();
-            foreach($items as $item)
-            {
-                $entry=$item->getEntry();
-                if($source->similar($entry))
-                {
-                    return $entry;
-                }
-            }
     return null;
 }
-function targetExistsOrCopy($em,$targetParent,$source)
+
+function targetExistsOrCopy($em,$targetParent,$source,$user)
 {
     $copy=findCopy($targetParent,$source);
     if($copy==null)
     {
-        $copy=$source->copy();
+        $copy=$source->copy($user);
         echo "\n".$copy->getText();
-        $targetParent->getItem()->addEntry($copy);
+        $targetParent->addEntry($copy);
         $em->persist($copy);
         $em->flush();
     }
+    else
+    {
+        echo "\n".$copy->getText().":".get_class($copy);
+        if(($copy->getType()=="Narrative") and ($copy->getCode()!=null))
+        {
+            /* we have a code tagged narrative section and need to decided if we should
+                copy it to the existing section*/
+            if($copy->getText()=="")
+            {
+                $copy->setText($source->getText(),$user);
+                $em->flush();
+            }
+        }
+    }
     return $copy;
 }
-function findOrCopy($em,$targetTop,$source,$depth)
+function findOrCopy($em,$targetTop,$source,$depth,$user)
 {
     if($depth==1)
     {
@@ -76,22 +80,22 @@ function findOrCopy($em,$targetTop,$source,$depth)
     if($depth>1)
     {
         $sourceParent=$source->getItem()->getParent()->getEntry();
-        $targetParent=findTargetParent($sourceParent,$targetTop,$depth,1);
+        $targetItem=$targetTop->getItem();
+        $targetParent=findTargetParent($sourceParent,$targetItem,$depth,1);
         if($targetParent!==null)
         {
-            echo "\n found:".$targetParent->getUUID().":".$targetParent->getText().":source:".$source->getText()."\n";
-            targetExistsOrCopy($em,$targetParent,$source);
+            targetExistsOrCopy($em,$targetParent,$source,$user);
         }
     }
 }
-function copyEntries($em,$target,$sourceInfoArray)
+function copyEntries($em,$target,$sourceInfoArray,$user)
 {
     foreach($sourceInfoArray as $sourceInfo)
     {
         $sourceUUID=strtok($sourceInfo,"|");
         $sourceEntry = $em->getRepository('library\doctrine\Entities\DocumentEntry')->find($sourceUUID);
         $depth=strtok("|");
-        $copy=findOrCopy($em,$target,$sourceEntry,$depth);
+        $copy=findOrCopy($em,$target,$sourceEntry,$depth,$user);
 
 //        echo "\n".$sourceUUID."|".$sourceEntry->getText();
     }
@@ -134,6 +138,6 @@ echo get_class($targetEntry);
         $idx++;
         $tok=strtok("\n");
     }
-    copyEntries($em,$targetEntry,$toks);
+    copyEntries($em,$targetEntry,$toks,$user);
     $em->flush();
 ?>

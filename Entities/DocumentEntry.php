@@ -199,13 +199,10 @@ include_once("OEMRProblem.php");
             // compares this object to another document entry
             try
             {
-
-                if((get_class($targetTop)!=get_class($source)) or
-                        ($comp->getCode_type()!=$this->getCode_type()) or
-                        ($comp->getCode()!=$this->getCode()))
-                {
-                    return false;
-                }
+                if((get_class($comp)!=get_class($this))
+                or ($comp->getCode_type()!=$this->getCode_type())
+                or ($comp->getCode()!=$this->getCode()))
+                { return false; }
                 return true;
             }
 
