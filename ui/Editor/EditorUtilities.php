@@ -102,7 +102,7 @@ function generateEditorDOM($DOM,$Parent,$DocItem,$Depth)
             $textArea->setAttribute("rows",1);
             $textArea->setAttribute("cols",80);
             $nextParent=$div;
-            if($Depth>2)
+            if($DocEntry->getMetadata()==null)
             {
                 addButton($DOM,$DocEntry,$div,"del");
             }

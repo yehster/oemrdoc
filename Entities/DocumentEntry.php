@@ -46,7 +46,12 @@ include_once("OEMRProblem.php");
 	* @JoinColumn(name="metadata_id", referencedColumnName="uuid")
 	*/
         protected $metadata;
- 
+
+        public function getMetadata()
+        {
+            return $this->metadata;
+        }
+
 	/** 
 	 * @Column(type="datetime") 
 	 */
@@ -218,7 +223,8 @@ include_once("OEMRProblem.php");
             $copy = new $type($this->md,$this->pat,$auth);
             $copy->text=$this->text;
             $copy->setCode($this->getCode(),$this->getCode_type());
-
+            $copy->metadata=$this->metadata;
+            
             return $copy;
         }
  }
