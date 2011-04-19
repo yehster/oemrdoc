@@ -63,6 +63,11 @@ include_once("OEMRProblem.php");
 	 */
 	protected $modified;
 
+        public function getModified()
+        {
+            return $this->modified;
+        }
+
 	/**
 	* @ManyToOne(targetEntity="Patient")
 	* @JoinColumn(name="patient_id", referencedColumnName="pid")

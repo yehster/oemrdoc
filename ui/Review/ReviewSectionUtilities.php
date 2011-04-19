@@ -34,6 +34,8 @@ function reviewRecurse($em,$DOM,$parent,$DocItem,$depth)
 function generateReviewDOM($em,$DOM,$section)
 {
     $retVal = $DOM->createElement("SPAN");
+    $header=$DOM->createElement("TEXT",$section->getModified()->format(DateTime::COOKIE));
+    $retVal->appendChild($header);
     $DOM->appendChild($retVal);
     reviewRecurse($em,$DOM,$retVal,$section->getItem(),1);
     return $retVal;

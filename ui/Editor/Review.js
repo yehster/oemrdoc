@@ -10,20 +10,21 @@ function updateCurrent(uuid)
     );
 }
 
-function updateHistory(type,uuid)
+function updateHistory(type,uuid,sec)
 {
     if(type=="history")
     {
-            params = {historicalSectionUUID: ""+uuid+""};
+            params = {historicalSectionUUID: ""+uuid+"",
+                      SectionUUID: ""+sec+""};
     }
     else if(type=="current")
         {
             params = {currentSectionUUID: ""+uuid+""};
         }
-    $("#reviewhistory").children().remove();
+
     $.post("/openemr/library/doctrine/ui/Review/ReviewSection.php", params,
     function(data) {
-
+    $("#reviewhistory").children().remove();
         $("#reviewhistory").append(data);
         $("#reviewhistory").append("<INPUT TYPE='BUTTON' value='copy'/>")
     }
@@ -36,7 +37,7 @@ function reviewSection()
             sectionUUID=$(this).attr("uuid");
             $("#review").attr("sectionUUID",sectionUUID);
             updateCurrent(sectionUUID);
-            updateHistory("current",sectionUUID)
+            updateHistory("current",sectionUUID,null)
 }
 
 function closeReview()
@@ -89,7 +90,12 @@ function clickCopy()
 
     );
 }
-
+function clickPrev()
+{
+    uuid=$(this).attr("uuid");
+    sectionUUID = $("#reviewcurrent").find("div[uuid]").attr("uuid");
+    updateHistory("history",uuid,sectionUUID);
+}
 function registerReviewEvents()
 {
     $("input:button[value='review']").live({click: reviewSection});
@@ -97,4 +103,5 @@ function registerReviewEvents()
     $("input:checkbox[reviewtype]").live({change: updateReviewCheck});
     $("span[reviewtype]").live({click: clickLabel});
     $("#reviewhistory>input:button[value='copy']").live({click: clickCopy});
+    $("input.reviewLink:button[value]").live({click: clickPrev});
 }
