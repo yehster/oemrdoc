@@ -67,15 +67,23 @@ include('/var/www/openemr/library/doctrine/init-em.php');
     function updateSectionsResults(data)
     {
         $("#sectionSearchResult").html(data);
-    }        $("#btnSearch").live({click: findConcepts});
+    }        
 
     function findConcepts()
     {
         searchString = $('#txtSearch').val();
-        $.post("/openemr/library/doctrine/ui/SNOMED/lookupSNOMED.php",
-            {searchString: ""+searchString+"" },
-            updateResults
-        );
+        searchType=$("#selSearchType").val();
+        if(searchType=="SNOMED")
+            {
+                $.post("/openemr/library/doctrine/ui/SNOMED/lookupSNOMED.php",
+                {searchString: ""+searchString+"" },
+                updateResults
+                );
+            }
+       else if(searchType=="LOINC")
+           {
+               
+           }
     }
     
     function findSections()
@@ -257,6 +265,10 @@ function chooseSection()
     <H3>Terms:</H3>
 <INPUT TYPE="TEXT" ID="txtSearch"/>
 <INPUT TYPE="BUTTON" ID="btnSearch" value="search"/>
+<SELECT ID="selSearchType">
+    <OPTION>SNOMED</OPTION>
+    <OPTION>LOINC</OPTION>
+</SELECT>
 <DIV ID="results1"></DIV>
 </DIV>
 <DIV ID="middle">

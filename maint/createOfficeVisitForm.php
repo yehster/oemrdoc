@@ -13,6 +13,7 @@ if($form == NULL)
 
 $cc = findOrCreateSection($em,'CC','Chief Complaint');
 $ccnar = findOrCreateNarrativeMetadata($em,'CCNAR','Chief Complaint Narrative');
+$cc->setCode("10154-3","LOINC");
 $ccnar->setCode("10154-3","LOINC");
 
 findOrCreateMDCI($em,$cc,$form);
@@ -22,6 +23,7 @@ findOrCreateMDCI($em,$ccnar,$cc);
 
 $hpi = findOrCreateSection($em,'HPI','History of Present Illness');
 $hpinar = findOrCreateNarrativeMetadata($em,'HPINAR','History of Present Illness Narrative');
+$hpi->setCode('10164-2','LOINC');
 $hpinar->setCode('10164-2','LOINC');
 
 
@@ -46,6 +48,7 @@ $foodAllergy->setCode('A7873398',"SNOMED");
 
 $med = findOrCreateSection($em,'MED','Medications');
 findOrCreateMDCI($em,$med,$form);
+$med->setCode('52471-0',"LOINC");
 
 $fam = findOrCreateSection($em,'FAM','Family History');
 $fam->setCode('A11740158','SNOMED');
@@ -54,6 +57,7 @@ findOrCreateMDCI($em,$fam,$form);
 
 $soc = findOrCreateSection($em,'SOC','Social History');
 findOrCreateMDCI($em,$soc,$form);
+$soc->setCode("29762-2",'LOINC');
 
 $socTob = findOrCreateSubsection($em,'TOB','Tobacco Use',$soc);
 $socTob->setCode('A3210982','SNOMED');
