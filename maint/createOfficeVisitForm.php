@@ -125,6 +125,8 @@ $rosIMM->setCode('IMM','ROS');
 $pe = findOrCreateSection($em,'PE','Physical Exam');
 findOrCreateMDCI($em,$pe,$form);
 
+$peVIT= findOrCreateSubsection($em,'PE:VIT','Physical Exam:Vital Signs',$pe,'34565-2','LOINC');
+
 //Physical findings of General appearance
 $peGEN = findOrCreateSubsection($em,'PE:GEN','Physical Exam:General',$pe,'32434-3','LOINC');
 
