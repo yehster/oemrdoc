@@ -45,6 +45,7 @@ include('/var/www/openemr/library/doctrine/init-em.php');
 </style>
 
 <script src="/openemr/library/js/jquery-1.5.min.js" type="text/javascript"></script>
+<script src="/openemr/library/doctrine/ui/SNOMED/LOINCBrowser.js" type="text/javascript"></script>
 <script  type="text/javascript">
     function getAttrForElem(elem,attrName)
 {
@@ -82,7 +83,10 @@ include('/var/www/openemr/library/doctrine/init-em.php');
             }
        else if(searchType=="LOINC")
            {
-               
+                $.post("/openemr/library/doctrine/ui/SNOMED/lookupLOINC.php",
+                {searchString: ""+searchString+"" },
+                updateResults
+                );               
            }
     }
     
@@ -194,7 +198,6 @@ function lookupRel(obj)
                         $("select.OptionSelect").die();
                         $("select.OptionSelect").live({change: modifyOption});
 
-
 }
 function chooseSection()
     {
@@ -257,6 +260,7 @@ function chooseSection()
         $("tr.SNOMED").live({click: clickSnomed ,mouseover: function() {$(this).addClass('Highlight');} ,mouseout: function() {$(this).removeClass('Highlight');} });
         $("tr.FormEntry").live({click: clickFE});
         $("input.modFE").live({click: modifyEntry});
+        registerLOINCEvents();
 
     }
     window.onload= registerControlEvents;

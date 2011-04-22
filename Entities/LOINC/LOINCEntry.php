@@ -1,9 +1,7 @@
 <?php
+namespace library\doctrine\Entities\LOINC;
 /** @Entity
  *  @Table(name="LOINC")
- *  @InheritanceType("SINGLE_TABLE")
- *  @DiscriminatorColumn(name="TTY", type="string")
- *  @DiscriminatorMap({"PT" = "PreferredTerm", "IS" = "Concept", "OP" = "Concept"})
  */
 
 class LOINCEntry {
@@ -14,6 +12,11 @@ class LOINCEntry {
      * @Column(type="string")
      */
     protected $LOINC_NUM;
+    
+    public function getLOINC_NUM()
+    {
+        return $this->LOINC_NUM;
+    }
 
     /**
      * @Column(type="string")
@@ -50,6 +53,10 @@ class LOINCEntry {
      */
     protected $LONG_COMMON_NAME;
 
+    public function getLONG_COMMON_NAME()
+    {
+        return $this->LONG_COMMON_NAME;
+    }
     /**
      * @Column(type="string")
      */
