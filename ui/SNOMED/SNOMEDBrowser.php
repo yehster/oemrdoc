@@ -63,6 +63,7 @@ include('/var/www/openemr/library/doctrine/init-em.php');
     function updateResults(data)
     {
         $("#results1").html(data);
+        registerLOINCEvents();
     }
 
     function updateSectionsResults(data)
@@ -177,6 +178,8 @@ function clickRel()
                     lookupRel(this);
             }
 }
+
+
 function lookupRel(obj)
 {
                 aui=$(obj).attr("aui");
@@ -208,7 +211,6 @@ function chooseSection()
         $("#code").attr("uuid",uuid);
         $("#codeType").text(code_type);
         showFormEntries(uuid);
-        lookupRel(this);
     }
 
     function refreshFETable()

@@ -25,8 +25,9 @@ function addLOE($DOM,$ParentElement,$pt)
     $newRow=$DOM->createElement("TR");
     $newRow->setAttribute("CLASS","LOINC");
     $newRow->setAttribute("LOINC_NUM",$pt->getLOINC_NUM());
-
-
+    $newRow->setAttribute("SCALE_TYPE",$pt->getSCALE_TYP());
+    $newRow->setAttribute("PROPERTY",$pt->getPROPERTY());
+    
     $ParentElement->appendChild($newRow);
 
     $tdStr=$DOM->createElement("TD",htmlentities($pt->getLONG_COMMON_NAME()));

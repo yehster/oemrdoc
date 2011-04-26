@@ -58,7 +58,8 @@ function addEntry($DOM,$table,$fe)
     $newTR = $DOM->createElement("tr");
     $newTR->setAttribute("class",$fe->getType()." ".$fe->getClassification());
     $newTR->setAttribute("uuid",$fe->getUUID());
-    $newTR->setAttribute("aui",$fe->getSource_code());
+    $newTR->setAttribute("source_code_type",$fe->getSource_code_type());
+    $newTR->setAttribute("source_code",$fe->getSource_code());
     $table->appendChild($newTR);
 
     $tdText = $DOM->createElement("td",$fe->getText());
@@ -81,6 +82,11 @@ function addEntry($DOM,$table,$fe)
     elseif($fe->getType()=="Option")
     {
         createSelect($DOM,$newTR,"OptionSelect",$fe->getClassification(),$options);
+    }
+    elseif($fe->getType()=="VocabComponent")
+    {
+        $classTD=$DOM->createElement("td",$fe->getClassification());
+        $newTR->appendChild($classTD);
     }
 
     

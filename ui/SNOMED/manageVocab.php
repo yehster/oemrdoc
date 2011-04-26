@@ -169,6 +169,10 @@ if($mode=="create")
          $seq++;
      }
      $fe->setSeq($seq);
+     if(isset($_REQUEST['property']))
+     {
+         $fe->setProperty($_REQUEST['property']);
+     }
      $em->flush();
     }
 }

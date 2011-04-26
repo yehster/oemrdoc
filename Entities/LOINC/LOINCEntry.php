@@ -27,7 +27,12 @@ class LOINCEntry {
      * @Column(type="string")
      */
     protected $PROPERTY;
-
+    
+    public function getPROPERTY()
+    {
+        return $this->PROPERTY;
+    }
+    
     /**
      * @Column(type="string")
      */
@@ -42,6 +47,11 @@ class LOINCEntry {
      * @Column(type="string")
      */
     protected $SCALE_TYP;
+    
+    public function getSCALE_TYP()
+    {
+        return $this->SCALE_TYP;
+    }
 
     /**
      * @Column(type="string")
