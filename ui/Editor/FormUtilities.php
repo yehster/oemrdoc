@@ -128,6 +128,7 @@ function addVocabMapping($DOM,$ELEMParent,$vm,$className)
         $sel->setAttribute("class","units");
     }
     
+    
 }
 function AddObsHeader($DOM,$ELEMParent,$header,$class)
 {
@@ -158,6 +159,7 @@ function createObservationTable($em,$DOM,$ELEMParent,$header,$code,$code_type)
 
 
     AddObsHeader($DOM,$tbody,$header,$class);
+    
     createVocabMapRows($em,$DOM,$tbody,$code,$code_type,$class);
     createObservationRows($em,$DOM,$tbody,$code,$code_type,"normal",$class." normal");
 
@@ -230,6 +232,7 @@ function createDocEntryTable($em,$DOM,$ELEMParent,$docEntry)
  
         $ELEMParent->appendChild($DIVSection);
         $obsTable =createObservationTable($em,$DOM,$DIVSection,$header,$code,$code_type);
+        $obsTable->setAttribute("SectionID",$docEntry->getUUID());
         createSectionTextBox($DOM,$obsTable,$docEntry);
         $ELEMParent=$DIVSection;
     }

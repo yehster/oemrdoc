@@ -9,6 +9,9 @@ function updateQuant()
     val = this.value;
     task = "update";
     content = $(this).parent().siblings("text").text();
+    vocabID = $(this).attr("code");
+    quantUUID = null;
+    parentEntryUUID = getAttrForElem(this,"sectionid");
     window.alert(content);
     
             $.post("/openemr/library/doctrine/interface/manageEntry.php",

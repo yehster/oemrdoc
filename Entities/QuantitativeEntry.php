@@ -36,6 +36,11 @@ class QuantitativeEntry extends DocumentEntry
         {
             return $this->vocabID;
         }    
+        
+        public function getText()
+        {
+            return $this->text.":".$this->value;
+        }
 }
 
 ?>
