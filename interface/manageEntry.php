@@ -124,8 +124,9 @@ if($EntryType=="observation")
     if(isset($_REQUEST['observationUUID']))
     {
         $observationUUID=$_REQUEST['observationUUID'];
+        $obs=$em->getRepository('library\doctrine\Entities\Observation')->find($observationUUID);
     }
-    $obs=$em->getRepository('library\doctrine\Entities\Observation')->find($observationUUID);
+    
     if($obs===null)
     {
         $obs = findObservationOrCreate($em,$parentEntry,$vocabID,$pat,$user);
@@ -222,6 +223,39 @@ if($EntryType=="nominative")
     if($task=="update")
     {
         $nom->setText($content,$user);
+        $em->persist($nom);
+        $em->flush();
+        
+    }
+    elseif($task=="delete")
+    {
+        $em->remove($nom);
+        $em->flush();
+    }
+    $result = $nom->getUUID();
+}
+
+if($EntryType=="quantitative")
+{
+    if(isset($_REQUEST['val']))
+    {
+        $val = $_REQUEST['val'];
+    }
+    if(isset($_REQUEST['quantUUID']))
+    {
+        $quaUUID=$_REQUEST['quantUUID'];
+        $qua=$em->getRepository('library\doctrine\Entities\Nominative')->find($quantUUID);
+
+    }
+    if($qua===null)
+    {
+        $qua = findOrCreateVocabDocEntry($em,$parentEntry,$vocabID,$pat,$user,"QuantitativeEntry");
+    }
+    
+    if($task=="update")
+    {
+        $qua->setText($content,$user);
+        $qua->setValue($val);
         $em->persist($nom);
         $em->flush();
         

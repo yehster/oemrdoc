@@ -171,6 +171,7 @@ function registerControlEvents()
         registerMedManagementEvents();
         registerNominativeEvents();
         registerReviewEvents();
+        registerFormQuantEvents();
         $("#popup").hide();
         $("#review").hide();
 }

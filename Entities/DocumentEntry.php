@@ -8,7 +8,8 @@ include_once("OEMRProblem.php");
  *  @DiscriminatorColumn(name="discr", type="string")
  *  @DiscriminatorMap({"sect" = "Section", "obs" = "Observation", "ord" = "Order",
    "nar" = "Narrative", "prob"="Problem", "med"="MedicationEntry",
-   "nom" = "Nominative"})
+   "nom" = "Nominative",
+   "quant" = "QuantitativeEntry" })
  */
  class DocumentEntry
  {

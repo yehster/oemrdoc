@@ -16,6 +16,21 @@ function getFormEntries($em,$c,$ct,$classification)
     return $qry->getResult();
 }
 
+function getVocabMappings($em,$c,$ct)
+{
+
+        $qb = $em->createQueryBuilder()
+        ->select("vm")
+        ->from("library\doctrine\Entities\VocabComponent","vm")
+        ->where("vm.target_code=:tc")
+        ->andWhere("vm.target_code_type=:tt");
+    $qb->setParameter("tc",$c);
+    $qb->setParameter("tt",$ct);
+    $qb->orderBy("vm.seq","ASC");
+    $qry=$qb->getQuery();
+    return $qry->getResult();
+}
+
 function addObservation($DOM,$ELEMParent,$obs,$className)
 {
     $tr = $DOM->createElement("TR");
@@ -57,6 +72,63 @@ function addObservation($DOM,$ELEMParent,$obs,$className)
 
 
 }
+
+$ratioUnits = array("/min");
+$pressureUnits = array("mm[Hg]");
+$tempUnits = array("&deg;F","&deg;C");
+$massUnits = array("lbs","kg");
+$lengthUnits = array("inches","cm");
+$units = array("NRat"=>$ratioUnits, "Pres"=>$pressureUnits,"Temp"=>$tempUnits,"Mass"=>$massUnits,"Len"=>$lengthUnits);
+    
+
+function AddUnitSelector($DOM,$ELEMParent,$property)
+{
+    global $units;
+    $uarray=$units[$property];
+    if(count($uarray)>0)
+    {
+        $sel = $DOM->createElement("SELECT");
+        $ELEMParent->appendChild($sel);
+        for($idx=0;$idx<count($uarray);$idx++)
+        {
+            $opt = $DOM->createElement("OPTION",$uarray[$idx]);
+            $sel->appendChild($opt);
+        }
+    }
+    return $sel;
+}
+
+function addVocabMapping($DOM,$ELEMParent,$vm,$className)
+{
+    $tr = $DOM->createElement("TR");
+    $ELEMParent->appendChild($tr);
+    $tr->setAttribute("CLASS",$className);
+    $td = $DOM->createElement("TD");
+    $td->setAttribute("COLSPAN","3");
+    $tr->appendChild($td);
+    
+    $text = $DOM->createElement("TEXT",$vm->getText());
+    $td->appendChild($text);
+    
+    $spanRight=$DOM->createElement("SPAN");
+    $spanRight->setAttribute("style","float:right;");
+    $td->appendChild($spanRight);
+    
+    $input = $DOM->createElement("INPUT");
+    $input->setAttribute("TYPE","TEXT");
+    $input->setAttribute("code",$vm->getSource_code());
+    $input->setAttribute("code_type",$vm->getSource_code_type());
+    $input->setAttribute("class",$vm->getClassification());
+    $input->setAttribute("size","6");
+    $spanRight->appendChild($input);
+    
+    $sel = AddUnitSelector($DOM,$spanRight,$vm->getProperty());
+    if($sel!=null)
+    {
+        $sel->setAttribute("class","units");
+    }
+    
+}
 function AddObsHeader($DOM,$ELEMParent,$header,$class)
 {
     $tr= $DOM->createElement("TR");
@@ -86,6 +158,7 @@ function createObservationTable($em,$DOM,$ELEMParent,$header,$code,$code_type)
 
 
     AddObsHeader($DOM,$tbody,$header,$class);
+    createVocabMapRows($em,$DOM,$tbody,$code,$code_type,$class);
     createObservationRows($em,$DOM,$tbody,$code,$code_type,"normal",$class." normal");
 
     createObservationRows($em,$DOM,$tbody,$code,$code_type,"abnormal",$class." abnormal");
@@ -103,6 +176,15 @@ function createObservationRows($em,$DOM,$table,$c,$ct,$classification,$htmlClass
         }
 }
 
+function createVocabMapRows($em,$DOM,$table,$c,$ct,$htmlClass)
+{
+    $vms = getVocabMappings($em,$c,$ct);
+    for($vmIdx=0;$vmIdx<count($vms);$vmIdx++)
+    {
+        $curVM = $vms[$vmIdx];
+        addVocabMapping($DOM,$table,$curVM,$htmlClass );
+    }
+}
 
 function createSectionTextBox($DOM,$parent,$docEntry)
 {
