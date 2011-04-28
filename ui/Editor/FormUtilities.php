@@ -120,6 +120,8 @@ function addVocabMapping($DOM,$ELEMParent,$vm,$className)
     $input->setAttribute("code_type",$vm->getSource_code_type());
     $input->setAttribute("class",$vm->getClassification());
     $input->setAttribute("size","6");
+    $input->setAttribute("seq",$vm->getSeq());
+    $input->setIdAttribute("code",true);
     $spanRight->appendChild($input);
     
     $sel = AddUnitSelector($DOM,$spanRight,$vm->getProperty());
@@ -253,6 +255,17 @@ function createDocEntryTable($em,$DOM,$ELEMParent,$docEntry)
                     $inp->setAttribute("Checked","");
                 }
             }
+        }
+    }
+    
+    if($docEntry->getType()=="QuantitativeEntry")
+    {
+        $inp=$DOM->getElementById($docEntry->getvocabID());
+        if($inp!==null)
+        {
+            $inp->setAttribute("quantUUID",$docEntry->getUUID());
+            $inp->setAttribute("value",$docEntry->getValue());
+            
         }
     }
 

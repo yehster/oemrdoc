@@ -6,6 +6,13 @@ include_once('DocumentEntry.php');
   */
 class QuantitativeEntry extends DocumentEntry
 {
+    
+        const classtype = "QuantitativeEntry";
+        public function getType()
+        {
+            return self::classtype;
+        }
+        
     /**
      * @column(type="float",name="num1")
      */

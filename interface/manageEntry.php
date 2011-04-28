@@ -55,11 +55,18 @@ if(isset($_SESSION['pid']))
     $patID=$_SESSION['pid'];
     $pat=$em->getRepository('library\doctrine\Entities\Patient')->find($patID);
 }
+
+if(isset($_REQUEST['seq']))
+{
+    $seq=intval($_REQUEST['seq']);
+}
+
 if($pat==null)
 {
     echo "Error:no patient set!";
     return;
 }
+
 
 if(isset($_REQUEST['parentEntryUUID']))
 {
@@ -259,8 +266,13 @@ if($EntryType=="quantitative")
     if($task=="update")
     {
         $qua->setText($content,$user);
-        $qua->setValue(floatval($val));
+        $qua->setValue(floatval($val),$user);
         $qua->setUnits($units);
+        if(isset($seq))
+        {
+            $item=$qua->getItem();
+            $item->setSeq($seq);        
+        }
         $em->persist($qua);
         $em->flush();
         
