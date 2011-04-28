@@ -37,9 +37,22 @@ class QuantitativeEntry extends DocumentEntry
             return $this->vocabID;
         }    
         
+        /** @Column(type="string",name="attr1") */
+        protected $units;
+
+        public function getUnits()
+        {
+            return $this->units;
+        }
+
+
+        public function setUnits($val)
+        {
+            $this->units=$val;
+        }
         public function getText()
         {
-            return $this->text.":".$this->value;
+            return $this->text.":".$this->value.$this->units;
         }
 }
 

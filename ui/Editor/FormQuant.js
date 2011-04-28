@@ -12,17 +12,17 @@ function updateQuant()
     vocabID = $(this).attr("code");
     quantUUID = null;
     parentEntryUUID = getAttrForElem(this,"sectionid");
-    window.alert(content);
-    
+    units=$(this).siblings("select.units").val();
             $.post("/openemr/library/doctrine/interface/manageEntry.php",
            {
                 parentEntryUUID: ""+parentEntryUUID+"",
                 vocabID: ""+vocabID+"",
                 quantUUID: ""+quantUUID+"",
-                EntryType: "nominative",
+                EntryType: "quantitative",
                 task: ""+task+"",
                 val: ""+val+"",
                 content: ""+content+"",
+                units: ""+units+"",
                 refresh: "YES"
             },
             function(data) {

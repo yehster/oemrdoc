@@ -241,6 +241,10 @@ if($EntryType=="quantitative")
     {
         $val = $_REQUEST['val'];
     }
+    if(isset($_REQUEST['units']))
+    {
+        $units=$_REQUEST['units'];
+    }
     if(isset($_REQUEST['quantUUID']))
     {
         $quaUUID=$_REQUEST['quantUUID'];
@@ -255,8 +259,9 @@ if($EntryType=="quantitative")
     if($task=="update")
     {
         $qua->setText($content,$user);
-        $qua->setValue($val);
-        $em->persist($nom);
+        $qua->setValue(floatval($val));
+        $qua->setUnits($units);
+        $em->persist($qua);
         $em->flush();
         
     }
@@ -265,7 +270,7 @@ if($EntryType=="quantitative")
         $em->remove($nom);
         $em->flush();
     }
-    $result = $nom->getUUID();
+    $result = $qua->getUUID();
 }
 
 if(isset($_REQUEST['refresh']))
