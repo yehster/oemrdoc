@@ -75,7 +75,7 @@ function addObservation($DOM,$ELEMParent,$obs,$className)
 
 $ratioUnits = array("/min");
 $pressureUnits = array("mm[Hg]");
-$tempUnits = array("°F","°C");
+$tempUnits = array("&deg;F","&deg;C");
 $massUnits = array("lbs","kg");
 $lengthUnits = array("inches","cm");
 $units = array("NRat"=>$ratioUnits, "Pres"=>$pressureUnits,"Temp"=>$tempUnits,"Mass"=>$massUnits,"Len"=>$lengthUnits);
