@@ -68,7 +68,7 @@ if(isset($_REQUEST['docUUID']))
 ?>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="Content-Type" content="text/html; utf-8">
         <title><?php echo $doc->getMetadata()->getLongDesc().":";
                 $patient=$doc->getPatient();
                 echo $patient->displayName();

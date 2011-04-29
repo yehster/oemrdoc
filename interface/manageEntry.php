@@ -250,7 +250,7 @@ if($EntryType=="quantitative")
     }
     if(isset($_REQUEST['units']))
     {
-        $units=$_REQUEST['units'];
+        $units=urldecode($_REQUEST['units']);
     }
     if(isset($_REQUEST['quantUUID']))
     {

@@ -17,7 +17,7 @@ function updateQuant()
     quantUUID = null;
     seq=$(this).attr("seq");
     parentEntryUUID = getAttrForElem(this,"sectionid");
-    units=$(this).siblings("select.units").val();
+    units=escape($(this).siblings("select.units").val());
             $.post("/openemr/library/doctrine/interface/manageEntry.php",
            {
                 parentEntryUUID: ""+parentEntryUUID+"",
