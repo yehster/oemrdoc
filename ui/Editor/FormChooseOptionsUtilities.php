@@ -80,7 +80,7 @@ function createOptionsListDOM($em, $DOM, $parentElem, $docEntry)
                 createCheckBox($DOM,$sectionTBODY,$curOpt);
             }
 
-            $parentElem=$divOptions;
+            $parentElem=$spanOptions;
         }
     }
 

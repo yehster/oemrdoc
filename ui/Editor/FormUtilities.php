@@ -95,7 +95,10 @@ function AddUnitSelector($DOM,$ELEMParent,$property)
             $sel->appendChild($opt);
         }
     }
-    return $sel;
+    if(isset($sel))
+    {
+        return $sel;    
+    }
 }
 
 function addVocabMapping($DOM,$ELEMParent,$vm,$className)
