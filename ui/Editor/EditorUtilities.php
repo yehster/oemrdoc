@@ -157,7 +157,14 @@ function generateEditorDOM($DOM,$Parent,$DocItem,$Depth)
             generateEditorDOM($DOM,$nextParent,$childItem,$Depth+1);
         }
     }
-    return $retVal;
+    if(isset($retVal))
+    {
+        return $retVal;
+    }
+    else
+    {
+        return $nextParent;
+    }
 }
 
 ?>

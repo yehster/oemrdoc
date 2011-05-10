@@ -85,6 +85,10 @@ text[entrytype="Nominative"] {
     margin: 0.1em;
 }
 
+text[entrytype="QuantitativeEntry"] {
+    margin: 0.1em;
+}
+
 text[entrytype="Nominative"]:nth-child(odd) {
     background-color: lavender;
 }

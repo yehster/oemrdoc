@@ -255,7 +255,7 @@ if($EntryType=="quantitative")
     if(isset($_REQUEST['quantUUID']))
     {
         $quaUUID=$_REQUEST['quantUUID'];
-        $qua=$em->getRepository('library\doctrine\Entities\Nominative')->find($quantUUID);
+        $qua=$em->getRepository('library\doctrine\Entities\Nominative')->find($quaUUID);
 
     }
     if($qua===null)
