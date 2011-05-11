@@ -271,7 +271,17 @@ if($EntryType=="quantitative")
         if(isset($seq))
         {
             $item=$qua->getItem();
-            $item->setSeq($seq);        
+            if($item!=null)
+            {
+                $item->setSeq($seq);                      
+            }
+            else
+            {
+                $em->persist($qua);
+                $em->flush();
+                $item=$qua->getItem();
+                $item->setSeq($seq);                                      
+            }
         }
         $em->persist($qua);
         $em->flush();
