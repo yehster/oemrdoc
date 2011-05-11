@@ -12,7 +12,7 @@ function findObservationOrCreate($em,$PE,$vocabID,$pat,$user)
     return findOrCreateVocabDocEntry($em,$PE,$vocabID,$pat,$user,"Observation");
 }
 
-function findOrCreateVocabDocEntry($em,$PE,$vocabID,$pat,$user,$type)
+function findOrCreateVocabDocEntry($em,$PE,$vocabID,$pat,$user,$type,$seq=-1)
 {
     $parItem=$PE->getItem();
     $objType="library\doctrine\Entities\\".$type;
@@ -30,6 +30,10 @@ function findOrCreateVocabDocEntry($em,$PE,$vocabID,$pat,$user,$type)
     {
         $res = new $objType(null,$pat,$user);
         $newItem=$PE->getItem()->addEntry($res);
+        if($seq!=-1)
+        {
+            $newItem->setSeq($seq);
+        }
         $res->setvocabID($vocabID);
     }
     else
@@ -260,7 +264,7 @@ if($EntryType=="quantitative")
     }
     if($qua===null)
     {
-        $qua = findOrCreateVocabDocEntry($em,$parentEntry,$vocabID,$pat,$user,"QuantitativeEntry");
+        $qua = findOrCreateVocabDocEntry($em,$parentEntry,$vocabID,$pat,$user,"QuantitativeEntry",$seq);
     }
     
     if($task=="update")
@@ -274,13 +278,6 @@ if($EntryType=="quantitative")
             if($item!=null)
             {
                 $item->setSeq($seq);                      
-            }
-            else
-            {
-                $em->persist($qua);
-                $em->flush();
-                $item=$qua->getItem();
-                $item->setSeq($seq);                                      
             }
         }
         $em->persist($qua);
