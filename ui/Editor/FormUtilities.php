@@ -84,7 +84,14 @@ $units = array("NRat"=>$ratioUnits, "Pres"=>$pressureUnits,"Temp"=>$tempUnits,"M
 function AddUnitSelector($DOM,$ELEMParent,$property)
 {
     global $units;
-    $uarray=$units[$property];
+    if(array_key_exists ($property,$units))
+    {
+        $uarray=$units[$property];
+    }
+    else 
+    {
+        return;
+    }
     if(count($uarray)>0)
     {
         $sel = $DOM->createElement("SELECT");
@@ -118,7 +125,7 @@ function addVocabMapping($DOM,$ELEMParent,$vm,$className)
     $td->appendChild($spanRight);
     
     $input = $DOM->createElement("INPUT");
-    $input->setAttribute("TYPE","TEXT");
+    $input->setAttribute("TYPE","NUMBER");
     $input->setAttribute("code",$vm->getSource_code());
     $input->setAttribute("code_type",$vm->getSource_code_type());
     $input->setAttribute("class",$vm->getClassification());

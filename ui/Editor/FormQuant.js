@@ -41,7 +41,7 @@ function updateQuant()
 }
 function registerFormQuantEvents()
 {
-    $("input[type='text'].quantitative").live({blur: updateQuant, 
+    $("input[type='number'].quantitative").live({blur: updateQuant, 
         keyup: numbersOnly} 
     );
     $("select.units").live({change: function(){$(this).siblings("input[type='text'].quantitative").blur();}})
