@@ -4,13 +4,11 @@ function createElement($DOM,$parent,$docEntry,$docItem)
 {
     
 
+    $text=$docEntry->getText();
     switch($docEntry->getType())
     {
         case TYPE_SECTION:
             $newElem=$DOM->createElement("SECTION");
-            $label=$DOM->createElement("SPAN",htmlentities($docEntry->getText()));
-            $label->setAttribute("CLASS","LABEL");
-            $newElem->appendChild($label);
             // Create a list for Problem lists
             if($docEntry->getText()==SECTION_PROBLEM_LIST)
             {
@@ -24,10 +22,11 @@ function createElement($DOM,$parent,$docEntry,$docItem)
             
             // Determine if we should hide an empty section
             $parentItem=$docItem->getParent();
-             if($parentItem!=null)
+            if($parentItem!=null)
             {
-                $text=$docEntry->getText();
+
                 $parSectionText=$parentItem->getEntry()->getText();
+                // Does this subsection have a redundant label (e.g. ROS/PE)
                 if(strpos($text,$parSectionText)!== false)
                 {
                     $text=substr($text,strlen($parSectionText)+1);
@@ -37,6 +36,12 @@ function createElement($DOM,$parent,$docEntry,$docItem)
                     }
                 }
             }
+
+            // Create the label for this section
+            $label=$DOM->createElement("SPAN",htmlentities($text));
+            $label->setAttribute("CLASS","LABEL");
+            $newElem->appendChild($label);
+
             break;
         case TYPE_PROBLEM:
             $newElem=$DOM->createElement("ARTICLE",htmlentities($docEntry->getText()));
