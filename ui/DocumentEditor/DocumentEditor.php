@@ -1,6 +1,10 @@
 <!DOCTYPE html>
+<style type="text/css" media="all">
+   @import "/openemr/library/doctrine/ui/DocumentEditor/DocumentEditor.css";
+</style>
 <?php
 include_once('/var/www/openemr/library/doctrine/init-em.php');
+include_once('DocumentEditorUtilities.php');
 if(isset($_REQUEST['docUUID']))
 {
     $docUUID = $_REQUEST['docUUID'];
@@ -14,8 +18,14 @@ if(isset($_REQUEST['docUUID']))
     $DOM = new DOMDocument("1.0","utf-8");
     $Body=$DOM->createElement("BODY");
     
+    
+    foreach($doc->getItems() as $docItem)
+    {
+        populateEditorDOM($DOM,$Body,$docItem,1);
+    }    
+    
 ?>
-<script src="jquery-1.6.1.min.js"></script>
+<script src="../../../js/jquery-1.6.1.min.js"></script>
 <html lang="en">
     <head>
         <meta charset="utf-8"/>

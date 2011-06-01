@@ -1,0 +1,23 @@
+/* 
+    Document   : DocumentEditor
+    Created on : Jun 1, 2011, 11:05:55 AM
+    Author     : yehster
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+
+
+section {
+    position: relative;
+    left: 10px;
+}
+
+.label {
+    font-size: large;
+}
