@@ -9,16 +9,7 @@ function createElement($DOM,$parent,$docEntry,$docItem)
     {
         case TYPE_SECTION:
             $newElem=$DOM->createElement("SECTION");
-            // Create a list for Problem lists
-            if($docEntry->getText()==SECTION_PROBLEM_LIST)
-            {
-                $retVal=$DOM->createElement("OL");
-                $newElem->appendChild($retVal);
-            }
-            else
-            {
-                $retVal=$newElem;
-            }
+
             
             // Determine if we should hide an empty section
             $parentItem=$docItem->getParent();
@@ -38,13 +29,24 @@ function createElement($DOM,$parent,$docEntry,$docItem)
             }
 
             // Create the label for this section
-            $label=$DOM->createElement("SPAN",htmlentities($text));
+            $label=$DOM->createElement("DIV",htmlentities($text));
             $label->setAttribute("CLASS","LABEL");
             $newElem->appendChild($label);
 
+
+            // Create a list for Problem lists
+            if($docEntry->getText()==SECTION_PROBLEM_LIST)
+            {
+                $retVal=$DOM->createElement("OL");
+                $newElem->appendChild($retVal);
+            }
+            else
+            {
+                $retVal=$newElem;
+            }            
             break;
         case TYPE_PROBLEM:
-            $newElem=$DOM->createElement("ARTICLE",htmlentities($docEntry->getText()));
+            $newElem=$DOM->createElement("SPAN",htmlentities($docEntry->getText()));
             $retVal=$DOM->createElement("UL");
             $newElem->appendChild($retVal);
             break;
