@@ -1,11 +1,8 @@
 require "rubygems"
-require "watir"
-require "watir/contrib/enabled_popup"
-require "test/unit"
-require "watir/assertions"
+require "watir-webdriver"
+require "watir-webdriver/wait"
 
-Watir::Browser.default = 'firefox'
-Watir::Browser.default = 'ie'
+require "test/unit"
 
 module OEMRTestFrame
   def CreateTestPatient(sex="Male")
@@ -59,7 +56,6 @@ module OEMRTestFrame
   end #class patient
 
 	class Manager
-    include Watir::Assertions
     def CreateTestPatient(sex="Male")
       currentTime=Time.new
       suffix=currentTime.mon.to_s + currentTime.day.to_s + currentTime.hour.to_s + currentTime.min.to_s + currentTime.sec.to_s
@@ -104,13 +100,9 @@ module OEMRTestFrame
     end #brw
 		def initialize(baseURL="localhost/openemr",userID="admin",pwd="pass")
 			@baseURL=baseURL
-			@brwType=Watir::Browser.default
-			begin
-				@brw=Watir::Browser.attach(:url,baseURL+"/interface/main/main_screen.php?auth=login&site=default")
-			rescue
-				@brw=Watir::Browser.new.goto(@baseURL)
-				login(userID,pwd)
-			end
+			@brw= Watir::Browser.new :firefox
+                        @brw.goto(@baseURL)
+                        login(userID,pwd)
 		end # initialize
 		def login(userID,pwd)
 			frmLogin=@brw.frame(:name,LBL_Frame_Login)
@@ -141,17 +133,12 @@ module OEMRTestFrame
 		
 		def navPatient(section,function=nil)
 			
-      Watir::Waiter::wait_until { frmLeftNav.span(:text,LBL_Sec_Patient).exists? }
-			#unless frmLeftNav.span(:text,section).visible
+                Watir::Wait::until { frmLeftNav.span(:text,LBL_Sec_Patient).exists? }
+			unless frmLeftNav.link(:text,function).visible?
 				frmLeftNav.span(:text,LBL_Sec_Patient).click
-			#end
-
-				#unless frmLeftNav.link(:text,function).visible
-			unless section == nil
-				frmLeftNav.span(:text,section).click
 			end 
 			unless function == nil
-				frmLeftNav.link(:text,function).click
+                            frmLeftNav.link(:text,function).click
 			end #unless
 		end #navPatient 
 
@@ -190,7 +177,7 @@ module OEMRTestFrame
 			# can improve this abstraction by developing classes specific to various forms in OEMR. Still need to understand how that would work.
 
       navPatient(nil,LBL_Link_New_Search)
-      Watir::Waiter::wait_until { frmRTop.text_field(:id,LBL_TF_PatientFName).exists? }
+      Watir::Wait::until { frmRTop.text_field(:id,LBL_TF_PatientFName).exists? }
 
 			frmRTop.text_field(:id,LBL_TF_PatientFName).value = p.fname
 			frmRTop.text_field(:id,LBL_TF_PatientMName).value = p.mname
@@ -215,7 +202,7 @@ module OEMRTestFrame
     LBL_DIV_SR="searchResults"
 	def findPatient(p)
       navPatient(nil,LBL_Link_New_Search)
-      Watir::Waiter::wait_until { frmRTop.text_field(:id,LBL_TF_PatientFName).exists? }
+      Watir::Wait::until { frmRTop.text_field(:id,LBL_TF_PatientFName).exists? }
 
 
 			frmRTop.text_field(:id,LBL_TF_PatientFName).value = p.fname
@@ -224,9 +211,9 @@ module OEMRTestFrame
 			if(p.dob!=nil)
 				frmRTop.text_field(:id,LBL_TF_Patientdob).value = p.dobSTR
 			end
-			frmRTop.select_list(:id,LBL_Sel_PatientSex).set(p.sex)
+			frmRTop.select_list(:id,LBL_Sel_PatientSex).select(p.sex)
 
-      Watir::Waiter::wait_until { frmRTop.button(:id,LBL_But_Search).exists? }
+      Watir::Wait::until { frmRTop.button(:id,LBL_But_Search).exists? }
 
       frmRTop.button(:id,LBL_But_Search).click
       sleep(2)

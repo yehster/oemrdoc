@@ -1,10 +1,9 @@
 require "rubygems"
-require "watir"
+require "watir-webdriver"
 require "OEMRTestFrame"
 
 #use firefox by default
-Watir::Browser.default = 'firefox'
-@host='192.168.75.130'
+@host='192.168.75.135'
 ARGV.each do|a|
   puts "Argument: #{a}"
 	if a=='ie' or a=='IE'
