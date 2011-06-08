@@ -51,9 +51,7 @@ function createElement($DOM,$parent,$docEntry,$docItem)
             $newElem->appendChild($retVal);
             break;
         case TYPE_NARRATIVE:
-            $newElem=$DOM->createElement("INPUT");
-            $newElem->setAttribute("TYPE","TEXT");
-            $newElem->setAttribute("VALUE",$docEntry->getText());
+            $newElem=$DOM->createElement("TEXTAREA",$docEntry->getText());
             $retVal=$newElem;
             break;
         case TYPE_OBSERVATION:

@@ -26,6 +26,14 @@ if(isset($_REQUEST['docUUID']))
     
 ?>
 <script src="../../../js/jquery-1.6.1.min.js"></script>
+<script src="UpdateNarrative.js"></script>
+<script>
+    function registerControlEvents()
+    {
+        registerNarrativeEvents();
+    }
+    window.onload= registerControlEvents;
+</script>
 <html lang="en">
     <head>
         <meta charset="utf-8"/>

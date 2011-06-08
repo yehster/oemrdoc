@@ -3,7 +3,7 @@ require "watir-webdriver"
 require "OEMRTestFrame"
 
 #use firefox by default
-@host='192.168.75.135'
+@host='yehster.no-ip.org:5900'
 ARGV.each do|a|
   puts "Argument: #{a}"
 	if a=='ie' or a=='IE'

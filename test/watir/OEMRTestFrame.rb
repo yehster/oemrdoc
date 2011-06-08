@@ -218,18 +218,20 @@ module OEMRTestFrame
       frmRTop.button(:id,LBL_But_Search).click
       sleep(2)
 	  popupURL=@baseURL + "/interface/main/finder/patient_select.php?popup=1"
-      popup=Watir::Browser.attach(:url,popupURL)
+      popup=@brw.window(:url => popupURL).use
       puts "URL:" + popup.url
-      srDiv=popup.div(:id,LBL_DIV_SR)
+      puts popup
+      srDiv=@brw.div(:id,LBL_DIV_SR)
       fullname = p.lname.to_s
       fullname = fullname + ", "
       fullname = fullname + p.fname
-      puts fullname
       found = false
 	  patID= ""
-      srDiv.tables[1].each do |row|
-        row.each do |cell|
-          #puts cell.text
+      puts srDiv.tables[0]
+      srDiv.tables[0].rows do |row|
+        puts row.text
+        row.cells do |cell|
+          puts cell.text
           if cell.text == fullname then
             found = true
 			patID=row.id
