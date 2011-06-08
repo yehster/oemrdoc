@@ -21,3 +21,8 @@ section {
 .label {
     font-size: large;
 }
+textarea[entrytype='Narrative'] {
+    width: 400px;
+
+    
+}
