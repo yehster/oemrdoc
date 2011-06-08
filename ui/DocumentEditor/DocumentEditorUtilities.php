@@ -1,5 +1,9 @@
 <?php
 include_once('/var/www/openemr/library/doctrine/ui/Editor/EditorConstants.php');
+function addSectionControls($DOM,$newElem,$docEntry)
+{
+    
+}
 function createElement($DOM,$parent,$docEntry,$docItem)
 {
     
@@ -33,6 +37,8 @@ function createElement($DOM,$parent,$docEntry,$docItem)
             $label->setAttribute("CLASS","LABEL");
             $newElem->appendChild($label);
 
+            addSectionControls($DOM,$newElem,$docEntry);
+
 
             // Create a list for Problem lists
             if($docEntry->getText()==SECTION_PROBLEM_LIST)
@@ -43,7 +49,7 @@ function createElement($DOM,$parent,$docEntry,$docItem)
             else
             {
                 $retVal=$newElem;
-            }            
+            }
             break;
         case TYPE_PROBLEM:
             $newElem=$DOM->createElement("SPAN",htmlentities($docEntry->getText()));
