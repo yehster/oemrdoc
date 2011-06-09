@@ -27,10 +27,12 @@ if(isset($_REQUEST['docUUID']))
 ?>
 <script src="../../../js/jquery-1.6.1.min.js"></script>
 <script src="UpdateNarrative.js"></script>
+<script src="deleteEntry.js"></script>
 <script>
     function registerControlEvents()
     {
         registerNarrativeEvents();
+        registerDeleteEntryEvents();
     }
     window.onload= registerControlEvents;
 </script>
