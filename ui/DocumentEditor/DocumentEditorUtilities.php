@@ -15,11 +15,15 @@ function addSectionControls($DOM,$Elem,$docEntry)
     
 }
 
-function tagElement($elem,$docEntry)
+
+function createTagElem($DOM,$docEntry,$tag,$text="")
 {
-    $elem->setAttribute(ATTR_ENTRY_TYPE,$docEntry->getType());
-    $elem->setAttribute("CODE",$docEntry->getCode());
-    $elem->setAttribute("UUID",$docEntry->getUUID());
+    $retVal=$DOM->createElement($tag,$text);
+    $retVal->setAttribute(ATTR_ENTRY_TYPE,$docEntry->getType());
+    $retVal->setAttribute("CODE",$docEntry->getCode());
+    $retVal->setAttribute("UUID",$docEntry->getUUID());
+    
+    return $retVal;
 }
 
 function addToParentOrList($DOM,$parent,$elem)
@@ -45,8 +49,7 @@ function createElement($DOM,$parent,$docEntry,$docItem)
     switch($docEntry->getType())
     {
         case TYPE_SECTION:
-            $newElem=$DOM->createElement("SECTION");
-            tagElement($newElem,$docEntry);
+            $newElem=createTagElem($DOM,$docEntry,"SECTION");
             
             // Determine if we should hide an empty section
             $parentItem=$docItem->getParent();
@@ -87,28 +90,31 @@ function createElement($DOM,$parent,$docEntry,$docItem)
 
             break;
         case TYPE_PROBLEM:
-            $newElem=$DOM->createElement("SPAN",htmlentities($docEntry->getText()));
-            tagElement($newElem,$docEntry);
+            $newElem=createTagElem($DOM,$docEntry,"SPAN",htmlentities($docEntry->getText()));
             $retVal=$DOM->createElement("UL");
             $newElem->appendChild($retVal);
             addToParentOrList($DOM,$parent,$newElem);
             break;
+        case TYPE_MEDICATION_ENTRY:
+            $newElem=createTagElem($DOM,$docEntry,"SPAN",htmlentities($docEntry->getText()));
+            createButton($DOM,$newElem,$docEntry,"del",FUNC_DELETE);
+            $retVal=$newElem;
+            addToParentOrList($DOM,$parent,$newElem);
+            break;
         case TYPE_NARRATIVE:
             $narSpan=$DOM->createElement("SPAN");
-            $newElem=$DOM->createElement("TEXTAREA",$docEntry->getText());
-            tagElement($newElem,$docEntry);
+            $newElem=createTagElem($DOM,$docEntry,"TEXTAREA",$docEntry->getText());
             $narSpan->appendChild($newElem);
             $retVal=$narSpan;
             if(is_null($docEntry->getMetadata()))
             {
-                createButton($DOM,$narSpan,$docEntry,"DEL",FUNC_DELETE);
+                createButton($DOM,$narSpan,$docEntry,"del",FUNC_DELETE);
             }
             addToParentOrList($DOM,$parent,$narSpan);
             break;
         case TYPE_OBSERVATION:
         default:
-            $newElem=$DOM->createElement("SPAN",htmlentities($docEntry->getText()));
-            tagElement($newElem,$docEntry);
+            $newElem=createTagElem($DOM,$docEntry,"SPAN",htmlentities($docEntry->getText()));
             $retVal=$newElem;
             addToParentOrList($DOM,$parent,$newElem);
     }
