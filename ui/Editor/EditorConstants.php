@@ -23,6 +23,6 @@ define('ID_REVIEW','review');
 define('ID_REVIEW_HISTORY','reviewhistory');
 define('ID_REVIEW_CURRENT','reviewcurrent');
 
-
+define('FUNC_DELETE','DELETE');
 
 ?>
