@@ -26,21 +26,6 @@ function createTagElem($DOM,$docEntry,$tag,$text="")
     return $retVal;
 }
 
-function addToParentOrList($DOM,$parent,$elem)
-{
-        
-    if(($parent->tagName=="UL") || ($parent->tagName=="OL"))
-    {
-        $newLI=$DOM->createElement("LI");
-        $newLI->appendChild($elem);
-        $parent->appendChild($newLI);
-    }
-    else
-    {
-        $parent->appendChild($elem);
-    }
-}
-
 function createElement($DOM,$parent,$docEntry,$docItem)
 {
     
@@ -86,20 +71,21 @@ function createElement($DOM,$parent,$docEntry,$docItem)
             {
                 $retVal=$newElem;
             }
-            addToParentOrList($DOM,$parent,$newElem);
+            $parent->appendChild($newElem);
 
             break;
         case TYPE_PROBLEM:
             $newElem=createTagElem($DOM,$docEntry,"SPAN",htmlentities($docEntry->getText()));
+            createButton($DOM,$newElem,$docEntry,"del",FUNC_DELETE);
             $retVal=$DOM->createElement("UL");
             $newElem->appendChild($retVal);
-            addToParentOrList($DOM,$parent,$newElem);
+            $parent->appendChild($newElem);
             break;
         case TYPE_MEDICATION_ENTRY:
             $newElem=createTagElem($DOM,$docEntry,"SPAN",htmlentities($docEntry->getText()));
             createButton($DOM,$newElem,$docEntry,"del",FUNC_DELETE);
             $retVal=$newElem;
-            addToParentOrList($DOM,$parent,$newElem);
+            $parent->appendChild($newElem);
             break;
         case TYPE_NARRATIVE:
             $narSpan=$DOM->createElement("SPAN");
@@ -110,13 +96,13 @@ function createElement($DOM,$parent,$docEntry,$docItem)
             {
                 createButton($DOM,$narSpan,$docEntry,"del",FUNC_DELETE);
             }
-            addToParentOrList($DOM,$parent,$narSpan);
+            $parent->appendChild($narSpan);
             break;
         case TYPE_OBSERVATION:
         default:
             $newElem=createTagElem($DOM,$docEntry,"SPAN",htmlentities($docEntry->getText()));
             $retVal=$newElem;
-            addToParentOrList($DOM,$parent,$newElem);
+            $parent->appendChild($newElem);
     }
 
 
@@ -128,11 +114,22 @@ function populateEditorDOM($DOM,$parent,$docItem,$depth)
 {
     $docEntry = $docItem->getEntry();
     $parentElem = createElement($DOM, $parent, $docEntry,$docItem);
-
-    foreach($docItem->getItems() as $docItem)
-    {
-        populateEditorDOM($DOM,$parentElem,$docItem,$depth+1);
-    }    
+        if(($parentElem->tagName=="UL") || ($parentElem->tagName=="OL"))
+        {
+            foreach($docItem->getItems() as $docItem)
+            {
+                $LI=$DOM->createElement("LI");
+                $parentElem->appendChild($LI);
+                populateEditorDOM($DOM,$LI,$docItem,$depth+1);
+            }              
+        }
+        else
+        {
+            foreach($docItem->getItems() as $docItem)
+            {
+                populateEditorDOM($DOM,$parentElem,$docItem,$depth+1);
+            }   
+        }
         
 }
 ?>
