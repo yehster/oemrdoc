@@ -16,6 +16,7 @@
 section {
     position: relative;
     left: 10px;
+    font-size:small;
 }
 
 .label {
@@ -23,6 +24,6 @@ section {
 }
 textarea[entrytype='Narrative'] {
     width: 400px;
-
+    font-size:small;
     
 }

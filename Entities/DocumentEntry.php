@@ -129,7 +129,7 @@ include_once("OEMRProblem.php");
 	// set the value of the text. this requires specifying the author
 	public function setText($val,$auth)
 	{
-            if(!$this->locked)
+            if(!is_null($this->locked))
             {
 		$this->text = $val;
 		$this->author = $auth;
@@ -143,7 +143,7 @@ include_once("OEMRProblem.php");
 	}
 
         /**
-         * @Column(type="boolean")
+         * @Column(type="datetime")
          */
         protected $locked;
 
@@ -152,7 +152,16 @@ include_once("OEMRProblem.php");
             
             return $this->locked;
         }
+        
+        public function isLocked()
+        {
+            return !is_null($this->locked);
+        }
 
+        public function lock($time)
+        {
+            $this->locked = $time;
+        }
         public function getText()
         {
             return $this->text;

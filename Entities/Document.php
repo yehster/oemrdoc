@@ -74,6 +74,45 @@ class Document
             return $this->modified;
         }
 	
+	/** 
+	 * @Column(type="datetime") 
+	 */
+        protected $locked;
+
+        public function getLocked()
+        {
+            return $this->locked;
+        }
+        
+        public function isLocked()
+        {
+            return !is_null($this->locked);
+        }
+        
+        /**
+         * @Column(type="string")
+         */
+        protected $lockedBy;
+        
+        public function lock($user)
+        {
+            $this->lockedBy=$user;
+            $this->locked= new \DateTime;
+            foreach($this->getItems() as $item)
+            {
+                $this->lockItem($item,$this->locked);
+            }
+        }
+        
+        protected function lockItem($item,$time)
+        {
+            $entry=$item->getEntry();
+            $entry->lock($time);
+            foreach($item->getItems() as $child)
+            {
+                lockItem($child,$time);
+            }
+        }
 	/**
 	* @OneToMany(targetEntity="DocumentItem", mappedBy="document", cascade={"persist", "remove"})
 	* @OrderBy({"seq" = "ASC"})
@@ -117,6 +156,7 @@ class Document
         }
 
 
+        
  }
  
  ?>
