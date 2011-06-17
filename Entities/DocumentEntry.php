@@ -102,6 +102,7 @@ include_once("OEMRProblem.php");
 
 	public function setCode($val,$for)
 	{
+            if($this->isLocked()){return;}
 		$this->code = $val;
 		$this->code_type = $for;
 	}
@@ -160,8 +161,12 @@ include_once("OEMRProblem.php");
 
         public function lock($time)
         {
-            $this->locked = $time;
+            if(!is_null($time))
+            {
+                $this->locked = $time;
+            }
         }
+
         public function getText()
         {
             return $this->text;
@@ -176,8 +181,7 @@ include_once("OEMRProblem.php");
 
         public function updateProperty($prop,$value)
         {
-          if($this->locked!=true)
-          {
+          if($this->isLocked()){return false;}            
             if(($prop!="uuid") &&
                  ($prop!="created") &&
                  ($prop!="modified") &&
@@ -194,8 +198,6 @@ include_once("OEMRProblem.php");
               }
               return true;
             }
-          }
-          return false;
         }
 
         /**

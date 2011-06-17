@@ -17,22 +17,28 @@ if(isset($_REQUEST['docUUID']))
 }
     $DOM = new DOMDocument("1.0","utf-8");
     $Body=$DOM->createElement("BODY");
-    
+
+    $status=$DOM->createElement("SECTION"," ");
+    $status->setAttribute("ID","status");
+    $status->setAttribute("hidden",true);
+    $Body->appendChild($status);    
     
     foreach($doc->getItems() as $docItem)
     {
         populateEditorDOM($DOM,$Body,$docItem,1);
     }    
-    
+
 ?>
 <script src="../../../js/jquery-1.6.1.min.js"></script>
 <script src="UpdateNarrative.js"></script>
 <script src="deleteEntry.js"></script>
+<script src="ajaxErrorHandler.js"></script>
 <script>
     function registerControlEvents()
     {
         registerNarrativeEvents();
         registerDeleteEntryEvents();
+        $("body").ajaxError(handleAjaxError);
     }
     window.onload= registerControlEvents;
 </script>

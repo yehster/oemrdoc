@@ -102,6 +102,8 @@ class Document
             {
                 $this->lockItem($item,$this->locked);
             }
+            //TODO: Generate the hash and XML to verify changes and prove invariance and attribution
+            // to the people.
         }
         
         protected function lockItem($item,$time)

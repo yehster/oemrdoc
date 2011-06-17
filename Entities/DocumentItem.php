@@ -143,7 +143,6 @@ namespace library\doctrine\Entities;
 		$this->entry=$entry;
 	}
 
-
 	/**
 	 * @Column(type="integer") 
  	 */
@@ -151,6 +150,7 @@ namespace library\doctrine\Entities;
 	// The order of the items
 	public function setSeq($val)
 	{
+            if($this->isLocked()){return;}
             $this->seq=$val;
 	}
 	
@@ -158,6 +158,30 @@ namespace library\doctrine\Entities;
 	{
             return $this->seq;
 	}
+
+                /**
+         * @Column(type="datetime")
+         */
+        protected $locked;
+
+        public function getLocked()
+        {
+            
+            return $this->locked;
+        }
+        
+        public function isLocked()
+        {
+            return !is_null($this->locked);
+        }
+
+        public function lock($time)
+        {
+            if(!is_null($time))
+            {
+                $this->locked = $time;
+            }
+        }
 
  }
 

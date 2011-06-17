@@ -11,6 +11,7 @@ class NarrativeMetadata extends DocumentMetadata
 
         public function setCode($c,$ct)
          {
+            if($this->isLocked()){return false;}
             $this->code = $c;
             $this->code_type=$ct;
          }
