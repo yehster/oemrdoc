@@ -58,6 +58,10 @@ include_once("OEMRProblem.php");
 	 */
 	protected $created;
 
+        public function getCreated()
+        {
+            return $this->created;
+        }
 
 	/** 
 	 * @Column(type="datetime") 
@@ -173,6 +177,7 @@ include_once("OEMRProblem.php");
         }
 
 
+        
 	/**
 	  * @OneToOne(targetEntity="OEMRListItem",cascade={"persist", "remove", "merge"})
 	  * @JoinColumn(name="OEMRListItem", referencedColumnName="id")

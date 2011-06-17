@@ -94,25 +94,53 @@ class Document
          */
         protected $lockedBy;
         
+        
+        /**
+         * @Column(type="string")
+         */
+        protected $XMLContent;
+        
+        protected $lockHash;
+        
         public function lock($user)
         {
             $this->lockedBy=$user;
             $this->locked= new \DateTime;
+            $DOM = new DOMDocument;
+            $doc=$DOM->createElement("DOCUMENT");
+            $doc->setAttribute("uuid",$this->getUUID());
+            $DOM->appendChild($doc);
             foreach($this->getItems() as $item)
             {
-                $this->lockItem($item,$this->locked);
+                $this->lockItem($item,$this->locked,$DOM,$doc);
             }
             //TODO: Generate the hash and XML to verify changes and prove invariance and attribution
             // to the people.
+            $this->XMLContent=$DOM->saveXML($doc);
+            $lockHash=hash("SHA256",$user.$this->XMLContent);
         }
         
-        protected function lockItem($item,$time)
+        protected function lockItem($item,$time,$DOM,$parent)
         {
+            $item->lock($time);
+            $itemElem=$DOM->createElement("item");
+            $itemElem->setAttribute("uuid",$item->getUUID());
+            $parent->appendChild($itemElem);
+            
             $entry=$item->getEntry();
             $entry->lock($time);
+            $entryElem=$DOM->createElement("entry");
+            $entryElem->setAttribute("uuid",$entry->getUUID());
+            $entryElem->setAttribute("text",$entry->getText());
+            $entryElem->setAttribute("modified",$entry->getModified());
+            $entryElem->setAttribute("created",$entry->getCreated());
+            $entryElem->setAttribute("author",$entry->getAuthor());
+            
+            $itemElem->appendChild($entry);
+            
             foreach($item->getItems() as $child)
             {
-                lockItem($child,$time);
+                $this->lockItem($child,$time,$DOM,$itemElem);
             }
         }
 	/**
