@@ -83,6 +83,7 @@ if(isset($_REQUEST['docUUID']))
         registerDeleteEntryEvents();
         registerLockEvents();
         $("body").ajaxError(handleAjaxError);
+        $("#status").click(function(){$(this).attr("hidden",true);});
     }
     window.onload= registerControlEvents;
 </script>
