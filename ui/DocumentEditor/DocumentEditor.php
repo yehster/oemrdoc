@@ -3,6 +3,7 @@
    @import "/openemr/library/doctrine/ui/DocumentEditor/DocumentEditor.css";
 </style>
 <?php
+include_once("../../../sha1.js");
 include_once('/var/www/openemr/library/doctrine/init-em.php');
 include_once('DocumentEditorUtilities.php');
 if(isset($_REQUEST['docUUID']))
@@ -22,6 +23,37 @@ if(isset($_REQUEST['docUUID']))
     $status->setAttribute("ID","status");
     $status->setAttribute("hidden",true);
     $Body->appendChild($status);    
+
+
+    $lockDialog=$DOM->createElement("SECTION");
+    $lockDialog->setAttribute("ID","lockDialog");
+    $lockDialog->setAttribute("HIDDEN",true);    
+    
+    $divLockPwd=$DOM->createElement("DIV","Confirm that you want to lock this document by entering your password.");
+    $lockDialog->appendChild($divLockPwd);
+    
+    $lblPwd=$DOM->createElement("SPAN","Password:");
+    $lockDialog->appendChild($lblPwd);
+    
+    $lockPassword=$DOM->createElement("INPUT");
+    $lockPassword->setAttribute("TYPE","PASSWORD");
+    $lockPassword->setAttribute("ID","lockPass");
+   
+    
+    $lockDialog->appendChild($lockPassword);
+
+    $buttonDiagLock=$DOM->createElement("BUTTON","Lock");
+    $buttonDiagLock->setAttribute("ID","lockDocument");
+    $buttonDiagLock->setAttribute("docUUID",$docUUID);
+    $lockDialog->appendChild($buttonDiagLock);    
+    
+    
+    $buttonDiagCancel=$DOM->createElement("BUTTON","Cancel");
+    $buttonDiagCancel->setAttribute("ID","cancelLock");    
+    $lockDialog->appendChild($buttonDiagCancel);
+    
+
+    $Body->appendChild($lockDialog);
     
     foreach($doc->getItems() as $docItem)
     {
@@ -33,8 +65,10 @@ if(isset($_REQUEST['docUUID']))
     
     $lockButton=$DOM->createElement("BUTTON","Lock Document");
     $lockButton->setAttribute("FUNC","lock");
-    $lockButton->setAttribute("docUUID",$docUUID);
     $footerSpan->appendChild($lockButton);
+    
+
+    
 ?>
 <script src="../../../js/jquery-1.6.1.min.js"></script>
 <script src="UpdateNarrative.js"></script>
