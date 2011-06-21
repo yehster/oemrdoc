@@ -100,6 +100,9 @@ class Document
          */
         protected $XMLContent;
         
+        /**
+         * @Column(type="string")
+         */
         protected $lockHash;
         
         public function lock($user)
@@ -117,7 +120,7 @@ class Document
             //TODO: Generate the hash and XML to verify changes and prove invariance and attribution
             // to the people.
             $this->XMLContent=$DOM->saveXML($doc);
-            $lockHash=hash("SHA256",$user.$this->XMLContent);
+            $this->lockHash=hash("SHA256",$user.$this->XMLContent);
         }
         
         protected function lockItem($item,$time,$DOM,$parent)
