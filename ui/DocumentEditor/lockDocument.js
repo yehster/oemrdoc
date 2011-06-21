@@ -1,7 +1,6 @@
 function lockDocument()
 {
     docUUID=$(this).attr("docUUID");
-    window.alert(docUUID);
     $.post("../../interface/lockDocument.php",
             {
                 docUUID: ""+docUUID+""
