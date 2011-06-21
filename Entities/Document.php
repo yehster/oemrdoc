@@ -107,6 +107,10 @@ class Document
         
         public function lock($user)
         {
+            if($this->locked!=null)
+            {
+                throw new Exception("Can't relock a document!");
+            }
             $this->lockedBy=$user;
             $this->locked= new \DateTime;
             $DOM = new \DOMDocument;
@@ -120,7 +124,7 @@ class Document
             //TODO: Generate the hash and XML to verify changes and prove invariance and attribution
             // to the people.
             $this->XMLContent=$DOM->saveXML($doc);
-            $this->lockHash=hash("SHA256",$user.$this->XMLContent);
+            $this->lockHash=hash("SHA256",$user.$this->locked->format('Y-m-d H:i:s').$this->XMLContent);
         }
         
         protected function lockItem($item,$time,$DOM,$parent)

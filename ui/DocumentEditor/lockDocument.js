@@ -5,7 +5,7 @@ function ajaxLockDocument()
 function lockDocument()
 {
     $("#lockDialog").attr("hidden",false);
-
+    $("#lockPass").select();
 
 }
 
@@ -29,7 +29,7 @@ function lockButtonClicked()
             },
             function(data)
             {
-              window.alert(data);  
+              window.alert("Document Locked!\n"+data);  
             }
         );
     }
