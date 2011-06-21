@@ -106,7 +106,7 @@ class Document
         {
             $this->lockedBy=$user;
             $this->locked= new \DateTime;
-            $DOM = new DOMDocument;
+            $DOM = new \DOMDocument;
             $doc=$DOM->createElement("DOCUMENT");
             $doc->setAttribute("uuid",$this->getUUID());
             $DOM->appendChild($doc);
@@ -136,7 +136,7 @@ class Document
             $entryElem->setAttribute("created",$entry->getCreated());
             $entryElem->setAttribute("author",$entry->getAuthor());
             
-            $itemElem->appendChild($entry);
+            $itemElem->appendChild($entryElem);
             
             foreach($item->getItems() as $child)
             {

@@ -28,16 +28,26 @@ if(isset($_REQUEST['docUUID']))
         populateEditorDOM($DOM,$Body,$docItem,1);
     }    
 
+    $footerSpan=$DOM->createElement("SPAN");
+    $Body->appendChild($footerSpan);
+    
+    $lockButton=$DOM->createElement("BUTTON","Lock Document");
+    $lockButton->setAttribute("FUNC","lock");
+    $lockButton->setAttribute("docUUID",$docUUID);
+    $footerSpan->appendChild($lockButton);
 ?>
 <script src="../../../js/jquery-1.6.1.min.js"></script>
 <script src="UpdateNarrative.js"></script>
 <script src="deleteEntry.js"></script>
+<script src="lockDocument.js"></script>
+
 <script src="ajaxErrorHandler.js"></script>
 <script>
     function registerControlEvents()
     {
         registerNarrativeEvents();
         registerDeleteEntryEvents();
+        registerLockEvents();
         $("body").ajaxError(handleAjaxError);
     }
     window.onload= registerControlEvents;

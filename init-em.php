@@ -8,7 +8,7 @@ use Doctrine\ORM\EntityManager,
 set_include_path(get_include_path() . PATH_SEPARATOR . '/var/www/openemr');
 
 session_name("OpenEMR");
-//session_start();
+session_start();
 
 
 if(isset($_SESSION['em']))
