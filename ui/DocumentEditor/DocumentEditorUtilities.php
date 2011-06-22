@@ -12,7 +12,12 @@ function createButton($DOM,$Elem,$docEntry,$text,$func)
 }
 function addSectionControls($DOM,$Elem,$docEntry)
 {
-    
+    switch($docEntry->getText())
+    {
+        case SECTION_PROBLEM_LIST:
+            createButton($DOM,$Elem,$docEntry,"Add Problem","ADDPROB");
+            break;
+    }
 }
 
 
@@ -59,7 +64,7 @@ function createElement($DOM,$parent,$docEntry,$docItem)
             $label->setAttribute("CLASS","LABEL");
             $newElem->appendChild($label);
 
-            addSectionControls($DOM,$newElem,$docEntry);
+            addSectionControls($DOM,$label,$docEntry);
 
 
             // Create a list for Problem lists

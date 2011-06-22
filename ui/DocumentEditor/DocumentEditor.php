@@ -74,6 +74,8 @@ if(isset($_REQUEST['docUUID']))
 <script src="UpdateNarrative.js"></script>
 <script src="deleteEntry.js"></script>
 <script src="lockDocument.js"></script>
+<script src="addProblem.js"></script>
+
 
 <script src="ajaxErrorHandler.js"></script>
 <script>
@@ -82,6 +84,7 @@ if(isset($_REQUEST['docUUID']))
         registerNarrativeEvents();
         registerDeleteEntryEvents();
         registerLockEvents();
+        registerAddProblemEvents();
         $("body").ajaxError(handleAjaxError);
         $("#status").click(function(){$(this).attr("hidden",true);});
     }
