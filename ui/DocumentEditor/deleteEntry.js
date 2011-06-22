@@ -14,7 +14,7 @@ function deleteEntry()
          {
             pos=data.indexOf("<",0);
             uuid=data.substr(0,pos);
-            selector="span[uuid='"+uuid+"']";
+            selector="[uuid='"+uuid+"']";
              $(selector).html(data.substr(pos));
          }
     );
