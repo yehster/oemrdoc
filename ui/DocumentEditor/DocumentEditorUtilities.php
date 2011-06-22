@@ -6,7 +6,7 @@ function createButton($DOM,$Elem,$docEntry,$text,$func)
     $but->setAttribute("FUNC",$func);
     $but->setAttribute("EntryUUID",$docEntry->getUUID());
     $but->setAttribute(ATTR_ENTRY_TYPE,$docEntry->getType());
-    $Elem->appendCHild($but);
+    $Elem->appendChild($but);
     return $but;
             
 }
@@ -22,6 +22,7 @@ function createTagElem($DOM,$docEntry,$tag,$text="")
     $retVal->setAttribute(ATTR_ENTRY_TYPE,$docEntry->getType());
     $retVal->setAttribute("CODE",$docEntry->getCode());
     $retVal->setAttribute("UUID",$docEntry->getUUID());
+    $retVal->setIdAttribute("UUID",true);
     
     return $retVal;
 }
@@ -106,14 +107,15 @@ function createElement($DOM,$parent,$docEntry,$docItem)
     }
 
 
-    return $retVal;
+    return array($newElem,$retVal);
         
 }
 
 function populateEditorDOM($DOM,$parent,$docItem,$depth)
 {
     $docEntry = $docItem->getEntry();
-    $parentElem = createElement($DOM, $parent, $docEntry,$docItem);
+    $vals = createElement($DOM, $parent, $docEntry,$docItem);
+    $parentElem = $vals[1];
         if(($parentElem->tagName=="UL") || ($parentElem->tagName=="OL"))
         {
             foreach($docItem->getItems() as $docItem)
@@ -130,6 +132,6 @@ function populateEditorDOM($DOM,$parent,$docItem,$depth)
                 populateEditorDOM($DOM,$parentElem,$docItem,$depth+1);
             }   
         }
-        
+    return $vals[0];
 }
 ?>

@@ -32,8 +32,9 @@ if(isset($_REQUEST['refresh']))
     {
         $parentItem=$docEntry->getItem()->getParent();
         $docEntryDOM =  new DOMDocument("1.0","utf-8");
-        $body=$docEntryDOM->createElement("BODY");
-        $DOMNode= populateEditorDOM($docEntryDOM,$body,$parentItem,2);
+        $span=$docEntryDOM->createElement("SPAN");
+        $DOMNode= populateEditorDOM($docEntryDOM,$span,$parentItem,2);
+        echo $parentItem->getUUID();
         echo $docEntryDOM->saveXML($DOMNode);
         return;
     }

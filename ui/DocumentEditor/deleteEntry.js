@@ -8,10 +8,14 @@ function deleteEntry()
 {
     entryUUID=$(this).attr("entryUUID");
     $.post("../../interface/deleteEntry.php",
-        {entryUUID: ""+entryUUID},
+        {entryUUID: ""+entryUUID,
+         refresh: "YES"},
          function(data)
          {
-             $(this).parent.remove();
+            pos=data.indexOf("<",0);
+            uuid=data.substr(0,pos);
+            selector="span[uuid='"+uuid+"']";
+             $(selector).html(data.substr(pos));
          }
     );
         
