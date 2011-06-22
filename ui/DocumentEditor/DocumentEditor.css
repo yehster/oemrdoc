@@ -30,6 +30,24 @@ textarea[entrytype='Narrative'] {
     
 }
 
+
+.dialog
+{
+        position: fixed;
+        top:5px;
+        right: 5px;
+        width: 20%;
+        height: 5%;
+        background-color:#FFFFFF;
+        border:1px solid #999999;
+        font-family: sans-serif;
+        font-size:small;
+        z-index: 1000;
+        overflow: auto;
+        opacity: 0.9;
+
+}
+
 #status
 {
         position: fixed;

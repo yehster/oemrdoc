@@ -17,12 +17,12 @@ if(isset($_REQUEST['docUUID']))
     }
 }
     $DOM = new DOMDocument("1.0","utf-8");
-    $Body=$DOM->createElement("BODY");
+    $MainSpan=$DOM->createElement("SPAN");
 
     $status=$DOM->createElement("SECTION"," ");
     $status->setAttribute("ID","status");
     $status->setAttribute("hidden",true);
-    $Body->appendChild($status);    
+    $MainSpan->appendChild($status);    
 
 
     $lockDialog=$DOM->createElement("SECTION");
@@ -53,15 +53,15 @@ if(isset($_REQUEST['docUUID']))
     $lockDialog->appendChild($buttonDiagCancel);
     
 
-    $Body->appendChild($lockDialog);
+    $MainSpan->appendChild($lockDialog);
     
     foreach($doc->getItems() as $docItem)
     {
-        populateEditorDOM($DOM,$Body,$docItem,1);
+        populateEditorDOM($DOM,$MainSpan,$docItem,1);
     }    
 
     $footerSpan=$DOM->createElement("SPAN");
-    $Body->appendChild($footerSpan);
+    $MainSpan->appendChild($footerSpan);
     
     $lockButton=$DOM->createElement("BUTTON","Lock Document");
     $lockButton->setAttribute("FUNC","lock");
@@ -98,7 +98,12 @@ if(isset($_REQUEST['docUUID']))
                 echo $patient->displayName();
                 ?></title>
     </head>
+    <body>
+        <section ID="problemDialog" class="dialog" hidden="true">
+            
+        </section>
     <?php
-        echo $DOM->saveXML($Body);
+        echo $DOM->saveXML($MainSpan);
      ?>
+    </body>
 </html>

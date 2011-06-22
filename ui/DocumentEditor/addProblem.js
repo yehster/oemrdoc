@@ -7,6 +7,7 @@ function addProblem()
 {
     entryUUID=$(this).attr("entryUUID");
     window.alert(entryUUID);
+    $("#problemDialog").attr("hidden",false);
 }
 
 function registerAddProblemEvents()
