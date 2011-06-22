@@ -4,6 +4,7 @@ include_once("OEMRProblem.php");
 
 /** @Entity 
  *  @Table(name="dct_document_entries")
+ *  @HasLifecycleCallbacks
  *  @InheritanceType("SINGLE_TABLE")
  *  @DiscriminatorColumn(name="discr", type="string")
  *  @DiscriminatorMap({"sect" = "Section", "obs" = "Observation", "ord" = "Order",
@@ -163,11 +164,13 @@ include_once("OEMRProblem.php");
             return !is_null($this->locked);
         }
 
+        protected $locking=false;
         public function lock($time)
         {
             if(!is_null($time))
             {
                 $this->locked = $time;
+                $this->locking=true;
             }
         }
 
@@ -249,6 +252,32 @@ include_once("OEMRProblem.php");
             
             return $copy;
         }
- }
+        
+    /** @PreRemove */
+    public function preventRemoveOfLocked()
+    {
+        if($this->isLocked())
+        {
+            throw new \Exception("Cannot Remove Locked Entry");
+        }
+    }
+
+    /** @PreUpdate */
+    public function preventUpdateOfLocked()
+    {
+        
+        if($this->isLocked())
+        {
+            if(!$this->locking)
+            {
+                throw new \Exception("Cannot Update Locked Entry");
+            }
+            $this->locking=false;
+        }
+    }
+
+    
+    
+}
 
  ?>

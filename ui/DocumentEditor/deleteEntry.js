@@ -6,7 +6,15 @@
 
 function deleteEntry()
 {
-    window.alert($(this).attr("entryUUID"));
+    entryUUID=$(this).attr("entryUUID");
+    $.post("../../interface/deleteEntry.php",
+        {entryUUID: ""+entryUUID},
+         function(data)
+         {
+             $(this).parent.remove();
+         }
+    );
+        
 }
 function registerDeleteEntryEvents()
 {

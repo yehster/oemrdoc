@@ -4,6 +4,7 @@ namespace library\doctrine\Entities;
 
 /** @Entity 
 *	@Table(name="dct_documents")
+*       @HasLifecycleCallbacks
 */
 class Document
  {
@@ -193,7 +194,14 @@ class Document
         }
 
 
-        
+    /** @PreRemove */
+    public function verifyNotLocked()
+    {
+        if($this->isLocked())
+        {
+            throw new Exception("Cannot Remove Locked Entry");
+        }
+    }
  }
  
  ?>
