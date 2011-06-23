@@ -36,8 +36,8 @@ textarea[entrytype='Narrative'] {
         position: fixed;
         top:5px;
         right: 5px;
-        width: 20%;
-        height: 5%;
+        width: 80%;
+        height: 95%;
         background-color:#FFFFFF;
         border:1px solid #999999;
         font-family: sans-serif;

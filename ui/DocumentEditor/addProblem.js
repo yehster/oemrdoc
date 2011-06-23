@@ -6,11 +6,26 @@
 function addProblem()
 {
     entryUUID=$(this).attr("entryUUID");
-    window.alert(entryUUID);
     $("#problemDialog").attr("hidden",false);
+    $("#problemDialog").attr("entryUUID",entryUUID);
+    $("#txtProblem").select();
 }
+
+var t;
+function txtProblemKeyPress()
+{
+clearTimeout(t);
+t=setTimeout(function() {
+        searchString=$("#txtProblem").val();
+        length=searchString.length;
+        $("#problemFavorites").text(searchString);
+
+    },200)
+}
+
 
 function registerAddProblemEvents()
 {
     $("button[func='ADDPROB']").live({click: addProblem});
+    $("#txtProblem").keypress(txtProblemKeyPress)
 }

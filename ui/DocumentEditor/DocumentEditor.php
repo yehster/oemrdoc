@@ -100,7 +100,11 @@ if(isset($_REQUEST['docUUID']))
     </head>
     <body>
         <section ID="problemDialog" class="dialog" hidden="true">
-            
+            <input type="text" id="txtProblem"/>
+            <button id="useTxtProblem">Add Problem</button>
+            <section ID="problemFavorites"/> </section>
+            <section ID="problemSearch"/> </section>
+        
         </section>
     <?php
         echo $DOM->saveXML($MainSpan);
