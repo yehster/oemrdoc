@@ -43,8 +43,61 @@ function findKeywords($em,$searchString)
     $qry=$qb->getQuery();
     return $qry->getResult();
 }
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
+
+function findCodesForKwArr($em,$kwarr,$tok)
+{
+    // need to fix scoring order
+    $kwinList=array();
+    $numTok=count($kwarr);
+    for($tokIdx=0;$tokIdx<$numTok;$tokIdx++)
+    {
+        $kwinList[$tokIdx]="";
+        $keywords=$kwarr[$tokIdx];
+        $maxMatch=$keywords[0]['qual'];
+        $minMatch=$keywords[count($keywords)-1]['qual'];
+        $tol=$minMatch + ($maxMatch-$minMatch)*0.05 ;
+        for($kwIdx=0;$kwIdx<count($keywords) && ($keywords[$kwIdx]['qual']>=$tol) ;$kwIdx++)
+        {
+            $kwID=$keywords[$kwIdx][0]->getID();
+            $kwinList[$tokIdx]=$kwinList[$tokIdx].",".$kwID;
+        }
+        $kwinList[$tokIdx]="(". substr($kwinList[$tokIdx],1).")";
+    }
+    $quals = "";
+    for($tokIdx=0;$tokIdx<$numTok;$tokIdx++)
+    {
+        $qualStr="MATCHQUALITY('".$tok[$tokIdx]."',kw".$tokIdx.".content) as qual".$tokIdx;
+        $quals=$quals.",".$qualStr.",kw".$tokIdx.".content as content".$tokIdx;
+    }
+    $qb = $em->createQueryBuilder()
+        ->select("cd".$quals);
+     $qb->from("library\doctrine\Entities\Code", "cd");
+     $orderByString="";
+    for($tokIdx=0;$tokIdx<$numTok;$tokIdx++)
+    {
+        $qb->from("library\doctrine\Entities\KeywordCodeAssociation","kwc".$tokIdx);
+        $qb->from("library\doctrine\Entities\Keyword","kw".$tokIdx);
+        $qb->andWhere("kwc".$tokIdx.".keyword in ".$kwinList[$tokIdx]);
+        $qb->andWhere("kwc".$tokIdx.".code = cd");
+        $qb->andWhere("kwc".$tokIdx.".keyword = kw".$tokIdx);
+        if($tokIdx<$numTok-1)
+        {
+            $orderByString.='qual'.$tokIdx.' DESC,'. "kw".$tokIdx.".content DESC,";
+        }
+        else
+        {
+            $orderByString.="kw".$tokIdx.".content";
+        }
+
+//        $qb->orderBy("qual".$tokIdx,"DESC");
+// TODO: tweak sort ordering issues
+     }
+
+     $qb->orderBy($orderByString,"DESC");
+    $qry=$qb->getQuery();
+    $res=$qry->getResult();
+    return $res;
+}
+
 ?>

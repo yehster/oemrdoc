@@ -13,17 +13,25 @@ function addKeyword($DOM,$tbody,$keyword)
     
     
 }
+function addKeywordContent($DOM,$tbody,$keyword)
+{
+    $row=$DOM->createElement("tr");
+    $tbody->appendChild($row);
+    
+    $tdKeyword=$DOM->createElement("TD",$keyword);
+    
+    $row->appendChild($tdKeyword);
+
+}
 
 function addCodeResult($DOM,$tbody,$code)
 {
        $newRow=$DOM->createElement("TR");
-    $newRow->setAttribute("class",$className);
     $newRow->setAttribute("ID",$code->getId());
 
     $tbody->appendChild($newRow);
 
     $codeTextTD = $DOM->createElement("TD",$code->getCodeText());
-    $codeTextTD->setAttribute("class",$className);
 
     $newRow->appendChild($codeTextTD);
 
@@ -79,6 +87,7 @@ if(isset($_REQUEST["searchString"]))
                 $kwarr[$tokIdx] = findKeywords($em,$toks[$tokIdx]);
             }
             $codes=findCodesForKwArr($em,$kwarr,$toks);
+            echo count($codes);
             $lastKW = array();
             for($cidx=0;$cidx<count($codes);$cidx++)
             {
@@ -87,14 +96,14 @@ if(isset($_REQUEST["searchString"]))
                     if($lastKW[$tokIdx]!==$codes[$cidx]['content'.$tokIdx])
                     {
                         $lastKW[$tokIdx]=$codes[$cidx]['content'.$tokIdx];
-                        addKeywordContent($DOM,$table,$lastKW[$tokIdx],"");
+                        addKeywordContent($DOM,$tbody,$lastKW[$tokIdx]);
                     }
                 }
                 $curCode=$codes[$cidx][0];
-                addCodeResult($DOM,$table,$curCode,$className);
+                addCodeResult($DOM,$tbody,$curCode);
             }
 
         }
-        echo $DOM->saveXML();
+        echo $DOM->saveXML($table);
     }
 ?>
