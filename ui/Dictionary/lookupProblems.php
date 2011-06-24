@@ -87,7 +87,6 @@ if(isset($_REQUEST["searchString"]))
                 $kwarr[$tokIdx] = findKeywords($em,$toks[$tokIdx]);
             }
             $codes=findCodesForKwArr($em,$kwarr,$toks);
-            echo count($codes);
             $lastKW = array();
             for($cidx=0;$cidx<count($codes);$cidx++)
             {
