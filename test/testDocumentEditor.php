@@ -1,4 +1,4 @@
-<script src="/openemr/library/js/jquery-1.5.min.js" type="text/javascript"></script>
+<script src="/openemr/library/js/jquery-1.6.1.min.js" type="text/javascript"></script>
 <script type="text/javascript">
     function createDoc() {
 
@@ -18,7 +18,7 @@
 
 </script>
 <?php
-include_once("/var/www/openemr/interface/globals.php");
+
 include_once('/var/www/openemr/library/doctrine/init-em.php');
     $DOM = new DOMDocument("1.0","utf-8");
             $qry = $em->createQuery("SELECT dt FROM library\doctrine\Entities\DocumentType dt");

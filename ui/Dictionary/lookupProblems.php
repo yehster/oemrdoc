@@ -2,13 +2,47 @@
 include_once('/var/www/openemr/library/doctrine/init-em.php');
 include_once('DictionaryUtilities.php');
 
-if(isset($_REQUEST["searchStr"]))
+function addKeyword($DOM,$tbody,$keyword)
 {
-    $searchString= $_REQUEST["searchStr"];
+    $row=$DOM->createElement("tr");
+    $tbody->appendChild($row);
+    
+    $tdKeyword=$DOM->createElement("TD",$keyword->getContent());
+    
+    $row->appendChild($tdKeyword);
     
     
 }
 
+function addCodeResult($DOM,$tbody,$code)
+{
+       $newRow=$DOM->createElement("TR");
+    $newRow->setAttribute("class",$className);
+    $newRow->setAttribute("ID",$code->getId());
+
+    $tbody->appendChild($newRow);
+
+    $codeTextTD = $DOM->createElement("TD",$code->getCodeText());
+    $codeTextTD->setAttribute("class",$className);
+
+    $newRow->appendChild($codeTextTD);
+
+    $codeTD = $DOM->createElement("TD",$code->getCode());
+    $codeTD->setAttribute("class","CODE");
+    $newRow->appendChild($codeTD);
+}
+if(isset($_REQUEST["searchString"]))
+{
+    $searchString= $_REQUEST["searchString"];
+    
+    
+}
+    $DOM= new DOMDocument("1.0","utf-8");
+    
+    $table=$DOM->createElement("TABLE");
+    $tbody=$DOM->createElement("TBODY");
+    $table->appendChild($tbody);
+    
     $toks = tokenize($searchString);
     if(count($toks)==1)
     {
@@ -26,14 +60,14 @@ if(isset($_REQUEST["searchStr"]))
         for($idx=0;$idx<count($keywords) and ((($keywords[$idx]['qual']) - $maxMatch + $tol) >= 0) and $idx<$maxRes;$idx++)
         {
             $curKW = $keywords[$idx][0];
-            addKeyword($DOM,$table,$curKW,"");
+            addKeyword($DOM,$tbody,$curKW);
             $codes = findCodesForKeyword($em,$curKW);
             for($cidx=0;$cidx<count($codes);$cidx++)
             {
-                addCodeResult($DOM,$table,$codes[$cidx],$className);
+                addCodeResult($DOM,$tbody,$codes[$cidx],$className);
             }
         }
-        echo $DOM->saveXML();
+        echo $DOM->saveXML($table);
     }
     else
     {

@@ -11,6 +11,19 @@ function addProblem()
     $("#txtProblem").select();
 }
 
+function lookupProblem(searchString)
+{
+    $.post("../Dictionary/lookupProblems.php",
+        {
+            searchString: ""+searchString+""
+        },
+        function(data)
+        {
+            $("#problemSearch").html(data);
+        }
+    );
+}
+
 var t;
 function txtProblemKeyPress()
 {
@@ -19,7 +32,7 @@ t=setTimeout(function() {
         searchString=$("#txtProblem").val();
         length=searchString.length;
         $("#problemFavorites").text(searchString);
-
+        lookupProblem(searchString);
     },200)
 }
 
