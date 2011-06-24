@@ -20,7 +20,12 @@ function lookupProblem(searchString)
         function(data)
         {
             $("#problemSearch").html(data);
-        }
+            $("#problemSearch td").click(function(){window.alert($(this).html())});
+            $("#problemSearch tr").live({
+                mouseover: function(){$(this).addClass("highlight")}
+                ,mouseout: function(){$(this).removeClass("highlight")}
+                });
+            }
     );
 }
 
