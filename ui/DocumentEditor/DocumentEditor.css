@@ -80,7 +80,7 @@ textarea[entrytype='Narrative'] {
         opacity: 0.95;
 }
 
-    .Highlight {
+    .highlight {
         background-color: yellow;
         cursor: pointer;
     }

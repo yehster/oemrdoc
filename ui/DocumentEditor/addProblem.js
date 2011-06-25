@@ -21,11 +21,10 @@ function lookupProblem(searchString)
         {
             $("#problemSearch").html(data);
             $("#problemSearch td").click(function(){window.alert($(this).html())});
-            $("#problemSearch tr").live({
-                mouseover: function(){$(this).addClass("highlight")}
-                ,mouseout: function(){$(this).removeClass("highlight")}
-                });
-            }
+            $("#problemSearch tr").mouseover(function(){$(this).addClass("highlight")});
+            $("#problemSearch tr").mouseout(function(){$(this).removeClass("highlight")});
+            
+        }
     );
 }
 
