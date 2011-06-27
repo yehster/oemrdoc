@@ -22,7 +22,7 @@ include_once("OEMRProblem.php");
         $this->metadata = $md;
         $this->patient = $pat;
         $this->author = $auth;
-        $this->locked = false;
+        $this->locked = null;
     }
 
     const classtype = "DocumentEntry";
@@ -135,7 +135,7 @@ include_once("OEMRProblem.php");
 	// set the value of the text. this requires specifying the author
 	public function setText($val,$auth)
 	{
-            if(!is_null($this->locked))
+            if(!$this->isLocked())
             {
 		$this->text = $val;
 		$this->author = $auth;

@@ -11,7 +11,6 @@ function addKeyword($DOM,$tbody,$keyword)
     
     $row->appendChild($tdKeyword);
     
-    
 }
 function addKeywordContent($DOM,$tbody,$keyword)
 {
@@ -32,19 +31,24 @@ function addCodeResult($DOM,$tbody,$code)
     $tbody->appendChild($newRow);
 
     $codeTextTD = $DOM->createElement("TD",$code->getCodeText());
-
+    $codeTextTD->setAttribute("type","CODETEXT");
+    $codeTextTD->setAttribute("codetype",$code->getCode_type());
+    $codeTextTD->setAttribute("code",$code->getCode());
+    
+    
     $newRow->appendChild($codeTextTD);
 
     $codeTD = $DOM->createElement("TD",$code->getCode());
     $codeTD->setAttribute("class","CODE");
+    $codeTD->setAttribute("type","CODE");
+
     $newRow->appendChild($codeTD);
 }
 if(isset($_REQUEST["searchString"]))
 {
-    $searchString= $_REQUEST["searchString"];
-    
-    
+    $searchString= $_REQUEST["searchString"];    
 }
+
     $DOM= new DOMDocument("1.0","utf-8");
     
     $table=$DOM->createElement("TABLE");
@@ -72,7 +76,7 @@ if(isset($_REQUEST["searchString"]))
             $codes = findCodesForKeyword($em,$curKW);
             for($cidx=0;$cidx<count($codes);$cidx++)
             {
-                addCodeResult($DOM,$tbody,$codes[$cidx],$className);
+                addCodeResult($DOM,$tbody,$codes[$cidx]);
             }
         }
         echo $DOM->saveXML($table);

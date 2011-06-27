@@ -22,6 +22,11 @@ class Code
 
 	/** @Column(type="integer") */
 	private $code_type;
+        
+        public function getCode_type()
+        {
+            return $this->code_type;
+        }
 
 	/** @Column(type="string",length=255) */
 	private $code_text;
