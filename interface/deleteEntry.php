@@ -9,12 +9,13 @@ if(isset($_REQUEST['entryUUID']))
 {
     $docEntryUUID = $_REQUEST['entryUUID'];
     $docEntry=$em->getRepository('library\doctrine\Entities\DocumentEntry')->find($docEntryUUID);
-    $parentItem=$docEntry->getItem()->getParent();
 }
 if(!is_null($docEntry))
 {
     try
     {
+        $parentItem=$docEntry->getItem()->getParent();
+        $em->remove($docEntry->getItem());
         $em->remove($docEntry);
         $em->flush();
     }
@@ -25,6 +26,12 @@ if(!is_null($docEntry))
         return;
 
     }
+}
+ else {
+        header("HTTP/1.0 403 Forbidden");
+        echo $docEntryUUID." entry does not exist!";
+        return;
+
 }
 if(isset($_REQUEST['refresh']))
 {

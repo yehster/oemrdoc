@@ -11,9 +11,17 @@ function addProblemStart()
     $("#txtProblem").select();
 }
 
+function clearAndHideProblemDialog()
+{
+    $("#problemDialog").attr("hidden",true);
+    $("#txtProblem").val("");
+    $("#problemSearch").html("");
+    
+    
+}
+
 function createProblem(parentUUID,code,codeType,text)
 {
-    window.alert(text);
     $.post("../../interface/manageProblem.php",
     {
         parentUUID: ""+parentUUID+"",
@@ -24,7 +32,8 @@ function createProblem(parentUUID,code,codeType,text)
     },
     function(data)
     {
-        window.alert(data);
+        refreshEntry(parentUUID,data);
+        clearAndHideProblemDialog();
     }
     );
 }
@@ -44,7 +53,6 @@ function lookupProblem(searchString)
                 code=$(this).attr("code");
                 codeType=$(this).attr("codetype")
                 text=$(this).text();
-                window.alert(entryUUID);
                 createProblem(entryUUID,code,codeType,text);
             });
             $("#problemSearch tr").mouseover(function(){$(this).addClass("highlight")});

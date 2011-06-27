@@ -121,22 +121,10 @@ function populateEditorDOM($DOM,$parent,$docItem,$depth)
     $docEntry = $docItem->getEntry();
     $vals = createElement($DOM, $parent, $docEntry,$docItem);
     $parentElem = $vals[1];
-        if(($parentElem->tagName=="UL") || ($parentElem->tagName=="OL"))
-        {
-            foreach($docItem->getItems() as $docItem)
-            {
-                $LI=$DOM->createElement("LI");
-                $parentElem->appendChild($LI);
-                populateEditorDOM($DOM,$LI,$docItem,$depth+1);
-            }              
-        }
-        else
-        {
-            foreach($docItem->getItems() as $docItem)
-            {
-                populateEditorDOM($DOM,$parentElem,$docItem,$depth+1);
-            }   
-        }
+    foreach($docItem->getItems() as $di)
+    {
+        populateEditorDOM($DOM,$parentElem,$di,$depth+1);
+    }   
     return $vals[0];
 }
 ?>

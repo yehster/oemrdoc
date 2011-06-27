@@ -71,6 +71,13 @@ if(isset($_REQUEST['docUUID']))
     
 ?>
 <script src="../../../js/jquery-1.6.1.min.js"></script>
+<script>
+    function refreshEntry(uuid,data)
+    {
+        selector="[uuid='"+uuid+"']";
+        $(selector).html(data);
+    }
+</script>
 <script src="UpdateNarrative.js"></script>
 <script src="deleteEntry.js"></script>
 <script src="lockDocument.js"></script>

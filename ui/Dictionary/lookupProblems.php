@@ -86,12 +86,13 @@ if(isset($_REQUEST["searchString"]))
         if(count($toks)>1)
         {
             $kwarr=array();
+            $lastKW = array();
             for($tokIdx=0;$tokIdx<count($toks);$tokIdx++)
             {
                 $kwarr[$tokIdx] = findKeywords($em,$toks[$tokIdx]);
+                $lastKW[$tokIdx]=null;
             }
             $codes=findCodesForKwArr($em,$kwarr,$toks);
-            $lastKW = array();
             for($cidx=0;$cidx<count($codes);$cidx++)
             {
                 for($tokIdx=0;$tokIdx<count($toks);$tokIdx++)
