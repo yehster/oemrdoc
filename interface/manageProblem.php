@@ -76,8 +76,19 @@ switch ($task)
         $newItem=$parentEntry->getItem()->addEntry($prob);
         $em->persist($prob);
         $em->flush();
-        echo $text;
+
+        
         break;
 }
 
+if(isset($_REQUEST['refresh']))
+{
+    $request=$_REQUEST['refresh'];
+    if($request==="YES")
+    {
+        require_once("../ui/DocumentEditor/refreshSection.php");
+        refreshSection($parentEntry->getItem());
+        return;
+    }
+}
 ?>

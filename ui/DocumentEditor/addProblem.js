@@ -28,7 +28,8 @@ function createProblem(parentUUID,code,codeType,text)
         code: ""+code+"",
         codeType: ""+codeType+"",
         text: ""+text+"",
-        task: "create"
+        task: "create",
+        refresh: "YES"
     },
     function(data)
     {

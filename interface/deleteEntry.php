@@ -1,6 +1,5 @@
 <?php
 include_once('/var/www/openemr/library/doctrine/init-em.php');
-include_once('../ui/DocumentEditor/DocumentEditorUtilities.php');
 
 session_name("OpenEMR");
 session_start();
@@ -38,11 +37,9 @@ if(isset($_REQUEST['refresh']))
     $request=$_REQUEST['refresh'];
     if($request==="YES")
     {
-        $docEntryDOM =  new DOMDocument("1.0","utf-8");
-        $span=$docEntryDOM->createElement("SPAN");
-        $DOMNode= populateEditorDOM($docEntryDOM,$span,$parentItem,2);
         echo $parentItem->getEntry()->getUUID();
-        echo $docEntryDOM->saveXML($DOMNode);
+        require_once("../ui/DocumentEditor/refreshSection.php");
+        refreshSection($parentItem);
         return;
     }
 }

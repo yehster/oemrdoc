@@ -70,7 +70,7 @@ function createElement($DOM,$parent,$docEntry,$docItem)
             // Create a list for Problem lists
             if($docEntry->getText()==SECTION_PROBLEM_LIST)
             {
-                $retVal=$DOM->createElement("OL");
+                $retVal=$DOM->createElement("OL"," ");
                 $newElem->appendChild($retVal);
             }
             else
@@ -81,9 +81,11 @@ function createElement($DOM,$parent,$docEntry,$docItem)
 
             break;
         case TYPE_PROBLEM:
-            $newElem=createTagElem($DOM,$docEntry,"SPAN",htmlentities($docEntry->getText()));
+            $newElem=createTagElem($DOM,$docEntry,"SPAN");
+            $label=$DOM->createElement("SPAN",htmlentities($docEntry->getText()));
+            $newElem->appendChild($label);
             createButton($DOM,$newElem,$docEntry,"del",FUNC_DELETE);
-            $retVal=$DOM->createElement("UL");
+            $retVal=$DOM->createElement("UL"," ");
             $newElem->appendChild($retVal);
             $parent->appendChild($newElem);
             break;
@@ -121,10 +123,22 @@ function populateEditorDOM($DOM,$parent,$docItem,$depth)
     $docEntry = $docItem->getEntry();
     $vals = createElement($DOM, $parent, $docEntry,$docItem);
     $parentElem = $vals[1];
-    foreach($docItem->getItems() as $di)
-    {
-        populateEditorDOM($DOM,$parentElem,$di,$depth+1);
-    }   
+       if(($parentElem->tagName=="UL") || ($parentElem->tagName=="OL"))
+        {
+            foreach($docItem->getItems() as $childDI)
+            {
+                $LI=$DOM->createElement("LI");
+                $parentElem->appendChild($LI);
+                populateEditorDOM($DOM,$LI,$childDI,$depth+1);
+            }
+        }
+        else
+        {
+            foreach($docItem->getItems() as $childDI)
+            {
+                populateEditorDOM($DOM,$parentElem,$childDI,$depth+1);
+            }
+        }
     return $vals[0];
 }
 ?>
