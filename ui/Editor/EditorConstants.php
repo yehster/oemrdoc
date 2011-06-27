@@ -24,5 +24,7 @@ define('ID_REVIEW_HISTORY','reviewhistory');
 define('ID_REVIEW_CURRENT','reviewcurrent');
 
 define('FUNC_DELETE','DELETE');
+define('FUNC_DETAILS','DETAILS');
+define('FUNC_MED','MED');
 
 ?>

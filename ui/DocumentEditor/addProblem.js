@@ -79,5 +79,6 @@ t=setTimeout(function() {
 function registerAddProblemEvents()
 {
     $("button[func='ADDPROB']").live({click: addProblemStart});
-    $("#txtProblem").keypress(txtProblemKeyPress)
+    $("#txtProblem").keypress(txtProblemKeyPress);
+    $("#cancelProblem").click(clearAndHideProblemDialog);
 }

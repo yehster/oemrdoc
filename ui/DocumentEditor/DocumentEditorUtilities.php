@@ -85,6 +85,7 @@ function createElement($DOM,$parent,$docEntry,$docItem)
             $label=$DOM->createElement("SPAN",htmlentities($docEntry->getText()));
             $newElem->appendChild($label);
             createButton($DOM,$newElem,$docEntry,"del",FUNC_DELETE);
+            createButton($DOM,$newElem,$docEntry,"details",FUNC_DETAILS);
             $retVal=$DOM->createElement("UL"," ");
             $newElem->appendChild($retVal);
             $parent->appendChild($newElem);

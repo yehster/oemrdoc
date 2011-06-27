@@ -82,6 +82,7 @@ if(isset($_REQUEST['docUUID']))
 <script src="deleteEntry.js"></script>
 <script src="lockDocument.js"></script>
 <script src="addProblem.js"></script>
+<script src="addNarrative.js"></script>
 
 
 <script src="ajaxErrorHandler.js"></script>
@@ -92,6 +93,7 @@ if(isset($_REQUEST['docUUID']))
         registerDeleteEntryEvents();
         registerLockEvents();
         registerAddProblemEvents();
+        registerAddNarrativeEvents();
         $("body").ajaxError(handleAjaxError);
         $("#status").click(function(){$(this).attr("hidden",true);});
     }
@@ -109,6 +111,7 @@ if(isset($_REQUEST['docUUID']))
         <section ID="problemDialog" class="dialog" hidden="true">
             <input type="text" id="txtProblem"/>
             <button id="useTxtProblem">Add Problem</button>
+            <button id="cancelProblem">Cancel</button>            
             <section ID="problemFavorites"/> </section>
             <section ID="problemSearch"/> </section>
         
