@@ -1,5 +1,5 @@
 <?php
-require_once(manageParentEntry.php);
+require_once("manageParentEntry.php");
 
 if(isset($_REQUEST["code"]))
 {
