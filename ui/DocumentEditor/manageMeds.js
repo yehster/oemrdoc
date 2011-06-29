@@ -27,13 +27,15 @@ function lookupMed(searchString)
 {
     $.post("../Dictionary/lookupMedications.php",
         {
-            searchString: ""+searchString+""
+            searchString: ""+searchString+"",
+            task: "MEDSEARCH"
         },
         processResults
         
     );
 }
 
+var t;
 function txtMedKeyPress()
 {
 clearTimeout(t);
@@ -41,7 +43,7 @@ t=setTimeout(function() {
         searchString=$("#txtMedication").val();
         length=searchString.length;
         lookupMed(searchString);
-    },200)
+    },300)
 }
 
 
