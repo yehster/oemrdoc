@@ -26,6 +26,7 @@ function processResults(data)
     $("#medSearch tr").mouseout(function(){$(this).removeClass("highlight")});
     $("#medSearch tr td").click(clickDrug);
     $("#medSearch tr td[tty='SCDF']").click(clickDrug);
+    $("#medLoading").attr("hidden",true);
 
 }
 
@@ -38,6 +39,7 @@ function clickDrug()
     if((tty=="SCD") || (tty=="SBD"))
     {
         parentUUID=$("#medLookupDialog").attr("entryUUID");
+        $("#medLoading").attr("hidden",false);
         $.post("../../interface/manageMedication.php",
             {
                 parentUUID: ""+ parentUUID + "",
@@ -50,6 +52,7 @@ function clickDrug()
             function(data)
             {
                 refreshEntry(parentUUID,data);
+                $("#medLoading").attr("hidden",true);
                 clearAndHideDialogMed()
             }
         );
@@ -62,6 +65,7 @@ function clickDrug()
     }
     else
     {
+        $("#medLoading").attr("hidden",false);
         $.post("../Dictionary/lookupMedications.php",
         {
             rxcui: ""+rxcui+"",
@@ -78,6 +82,7 @@ function clickDrug()
 }
 function lookupMed(searchString)
 {
+    $("#medLoading").attr("hidden",false);
     $.post("../Dictionary/lookupMedications.php",
         {
             searchString: ""+searchString+"",
