@@ -2,15 +2,16 @@
 include_once('/var/www/openemr/library/doctrine/init-em.php');
 include_once('DictionaryUtilities.php');
 
-function addKeyword($DOM,$tbody,$keyword)
+function addKeyword($DOM,$tbody,$keyword,$qual=0)
 {
     $row=$DOM->createElement("tr");
     $tbody->appendChild($row);
     
     $tdKeyword=$DOM->createElement("TD",$keyword->getContent());
+    $tdQual=$DOM->createElement("TD",$qual);
     
     $row->appendChild($tdKeyword);
-    
+    $row->appendChild($tdQual);
 }
 function addKeywordContent($DOM,$tbody,$keyword)
 {
@@ -72,7 +73,8 @@ if(isset($_REQUEST["searchString"]))
         for($idx=0;$idx<count($keywords) and ((($keywords[$idx]['qual']) - $maxMatch + $tol) >= 0) and $idx<$maxRes;$idx++)
         {
             $curKW = $keywords[$idx][0];
-            addKeyword($DOM,$tbody,$curKW);
+            $qual = $keywords[$idx]['qual'];
+            addKeyword($DOM,$tbody,$curKW,$qual);
             $codes = findCodesForKeyword($em,$curKW);
             for($cidx=0;$cidx<count($codes);$cidx++)
             {

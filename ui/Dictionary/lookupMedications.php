@@ -8,9 +8,11 @@ function lookupMedNames($em,$searchString)
         ->select("mn,".$orderClause." as qual")
         ->from("library\doctrine\Entities\MedName","mn")
         ->where("mn.str like :startsWith")
+        ->andWhere("mn.str like :contains")
         ->orderBy("qual DESC, mn.str");
 
     $qb->setParameter("startsWith",$searchString[0]."%");
+    $qb->setParameter("contains","%".$searchString[1]."%");
 
     $qry=$qb->getQuery();
     return $qry->getResult();
@@ -26,7 +28,8 @@ function addMedName($DOM,$tbody,$mn)
     $nameCell->setAttribute("RXCUI",$mn->getRXCUI());
     $nameCell->setAttribute("RXAUI",$mn->getRXAUI());
     $nameCell->setAttribute("TTY",$mn->getTTY());
-
+    $nameCell->setAttribute("TYPE","NAME");
+    
     $newRow->appendChild($nameCell);
 }
 

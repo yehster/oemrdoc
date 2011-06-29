@@ -22,6 +22,9 @@ function startAddMed()
 function processResults(data)
 {
     $("#medSearch").html(data);
+    $("#medSearch tr").mouseover(function(){$(this).addClass("highlight")});
+    $("#medSearch tr").mouseout(function(){$(this).removeClass("highlight")});
+
 }
 function lookupMed(searchString)
 {
@@ -43,7 +46,7 @@ t=setTimeout(function() {
         searchString=$("#txtMedication").val();
         length=searchString.length;
         lookupMed(searchString);
-    },300)
+    },200)
 }
 
 
