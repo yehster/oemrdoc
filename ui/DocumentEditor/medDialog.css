@@ -1,0 +1,21 @@
+/* 
+    Document   : medDialog
+    Created on : Jun 29, 2011, 12:51:51 PM
+    Author     : yehster
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+#medSearch tr td[tty='SCDF'] { 
+    font-weight: bold;
+}
+
+
+#medSearch tr td[tty='SBDF'] {
+    font-weight: bold;    
+}

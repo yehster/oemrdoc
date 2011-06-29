@@ -24,7 +24,57 @@ function processResults(data)
     $("#medSearch").html(data);
     $("#medSearch tr").mouseover(function(){$(this).addClass("highlight")});
     $("#medSearch tr").mouseout(function(){$(this).removeClass("highlight")});
+    $("#medSearch tr td").click(clickDrug);
+    $("#medSearch tr td[tty='SCDF']").click(clickDrug);
 
+}
+
+function clickDrug()
+{
+    rxcui=$(this).attr("rxcui");
+    rxaui=$(this).attr("rxaui");
+    tty=$(this).attr("tty");
+    drugStr=$(this).text();
+    if((tty=="SCD") || (tty=="SBD"))
+    {
+        parentUUID=$("#medLookupDialog").attr("entryUUID");
+        $.post("../../interface/manageMedication.php",
+            {
+                parentUUID: ""+ parentUUID + "",
+                text: ""+drugStr+"",
+                rxcui: ""+rxcui+"",
+                rxaui: ""+rxaui+"",
+                task: "create",
+                refresh: "YES"
+            },
+            function(data)
+            {
+                refreshEntry(parentUUID,data);
+                clearAndHideDialogMed()
+            }
+        );
+    }
+    else
+        {
+    if((tty=="SCDF") || (tty=="SBDF"))
+    {
+            
+    }
+    else
+    {
+        $.post("../Dictionary/lookupMedications.php",
+        {
+            rxcui: ""+rxcui+"",
+            rxaui: ""+rxaui+"",
+            task: "MEDSEMANTIC"
+        },
+        processResults
+        
+        );            
+    }
+            
+        }
+    
 }
 function lookupMed(searchString)
 {

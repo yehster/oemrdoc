@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <style type="text/css" media="all">
-   @import "/openemr/library/doctrine/ui/DocumentEditor/DocumentEditor.css";
+   @import "DocumentEditor.css";
+   @import "medDialog.css";
 </style>
 <?php
 include_once("../../../sha1.js");

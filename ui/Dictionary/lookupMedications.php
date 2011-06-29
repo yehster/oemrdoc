@@ -18,6 +18,33 @@ function lookupMedNames($em,$searchString)
     return $qry->getResult();
 }
 
+function lookupMedForms($em,$rel,$types,$rxcui,$rxaui=null)
+{
+    $qb = $em->createQueryBuilder()
+        ->select("co")
+        ->from("library\doctrine\Entities\RXNConcept","co")
+        ->from("library\doctrine\Entities\RXNRelationship", "rel")
+        ->where("(rel.RXCUI1=:cui OR rel.RXAUI1=:aui)")
+        ->andWhere("rel.RXCUI2 = co.RXCUI")
+        ->andWhere("rel.RELA = :rel")
+        ->andWhere("co.TTY in(".$types.")")
+        ->orderBy("co.TTY");
+
+    $qb->setParameter("cui",$rxcui);
+    $qb->setParameter("aui",$rxaui);
+    $qb->setParameter("rel",$rel);
+
+    $qry=$qb->getQuery();
+    $res=$qry->getResult();
+    if(count($res)==0)
+    {
+        // If there are no results, then we need to check for synonyms
+
+    }
+    return $res;
+}
+
+
 function addMedName($DOM,$tbody,$mn)
 {
     $newRow = $DOM->createElement("TR");
@@ -55,10 +82,8 @@ $DOM= new DOMDocument("1.0","utf-8");
 $table = $DOM->createElement("TABLE");
 $tbody = $DOM->createElement("TBODY");
 $table->appendChild($tbody);
-$maxRes=30;
+$maxRes=20;
 
-if(strlen($searchString)>0)
-{
     switch ($task)
     {
      case "MEDSEARCH":
@@ -70,7 +95,20 @@ if(strlen($searchString)>0)
              addMedName($DOM,$tbody,$curMed);
             }
             break;
-    }
+     case "MEDSEMANTIC":
+            $medForms= lookupMedForms($em,"has_ingredient","'SCDF','SBDF'",$rxcui,$rxaui);
+            for($idx=0;$idx<count($medForms);$idx++)
+            {
+                $curMed = $medForms[$idx];
+                addMedName($DOM,$tbody,$curMed);
+                $medSem = lookupMedForms($em,"isa","'SCD','SBD'",$curMed->getRXCUI(),$curMed->getRXAUI());
+                for($formIdx=0;$formIdx<count($medSem);$formIdx++)
+                {
+                    $curSem = $medSem[$formIdx];
+                    addMedName($DOM,$tbody,$curSem);
+                }
+            }
+         break;
 }
 echo $DOM->saveXML($table);
 ?>
