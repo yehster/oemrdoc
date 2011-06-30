@@ -13,8 +13,7 @@ function updateNarrative()
         EntryType: "narrative",
         task: "update",
         content: ""+narText+""
-    } )
-    
+    } );
 }
 
 function registerNarrativeEvents()

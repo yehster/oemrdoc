@@ -24,14 +24,14 @@ function lookupMedForms($em,$rel,$types,$rxcui,$rxaui=null)
         ->select("co")
         ->from("library\doctrine\Entities\RXNConcept","co")
         ->from("library\doctrine\Entities\RXNRelationship", "rel")
-        ->where("(rel.RXCUI1=:cui OR rel.RXAUI1=:aui)")
+        ->where("(rel.RXCUI1=:cui)")
         ->andWhere("rel.RXCUI2 = co.RXCUI")
         ->andWhere("rel.RELA = :rel")
         ->andWhere("co.TTY in(".$types.")")
         ->orderBy("co.TTY");
 
     $qb->setParameter("cui",$rxcui);
-    $qb->setParameter("aui",$rxaui);
+//    $qb->setParameter("aui",$rxaui);
     $qb->setParameter("rel",$rel);
 
     $qry=$qb->getQuery();

@@ -97,10 +97,11 @@ if(isset($_REQUEST['docUUID']))
         registerAddProblemEvents();
         registerAddNarrativeEvents();
         registerManageMedsEvents();
-        $("body").ajaxError(handleAjaxError);
+        $(document).ajaxError(handleAjaxError);
         $("#status").click(function(){$(this).attr("hidden",true);});
     }
     window.onload= registerControlEvents;
+    window.unload= function() { $(document).unbind('ajaxError'); }
 </script>
 <html lang="en">
     <head>
