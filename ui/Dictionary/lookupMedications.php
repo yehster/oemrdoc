@@ -44,6 +44,37 @@ function lookupMedForms($em,$rel,$types,$rxcui,$rxaui=null)
     return $res;
 }
 
+function lookupMedFormsJoin($em,$rel,$rel2,$types,$rxcui,$rxaui=null)
+{
+    $qb = $em->createQueryBuilder()
+        ->select("co,count(rel2) as cnt")
+        ->from("library\doctrine\Entities\RXNConcept","co")
+        ->from("library\doctrine\Entities\RXNRelationship", "rel")
+        ->from("library\doctrine\Entities\RXNRelationship", "rel2")
+        ->where("(rel.RXCUI1=:cui)")
+        ->andWhere("rel.RXCUI2 = co.RXCUI")
+        ->andWhere("co.RXCUI=rel2.RXCUI1")    
+        ->andWhere("rel.RELA = :rel")
+        ->andWhere("rel2.RELA = :rel2")
+        ->andWhere("co.TTY in(".$types.")")
+        ->groupBy("co")
+        ->orderby("cnt");
+
+    $qb->setParameter("cui",$rxcui);
+//    $qb->setParameter("aui",$rxaui);
+    $qb->setParameter("rel",$rel);
+    $qb->setParameter("rel2",$rel2);
+
+    $qry=$qb->getQuery();
+    $res=$qry->getResult();
+    if(count($res)==0)
+    {
+        // If there are no results, then we need to check for synonyms
+
+    }
+    return $res;
+}
+
 
 function addMedName($DOM,$tbody,$mn)
 {
@@ -96,10 +127,11 @@ $maxRes=20;
             }
             break;
      case "MEDSEMANTIC":
-            $medForms= lookupMedForms($em,"has_ingredient","'SCDF','SBDF'",$rxcui,$rxaui);
+//            $medForms= lookupMedForms($em,"has_ingredient","'SCDF','SBDF'",$rxcui,$rxaui);
+            $medForms= lookupMedFormsJoin($em,"has_ingredient","ingredient_of","'SCDF','SBDF'",$rxcui,$rxaui);
             for($idx=0;$idx<count($medForms);$idx++)
             {
-                $curMed = $medForms[$idx];
+                $curMed = $medForms[$idx][0];
                 addMedName($DOM,$tbody,$curMed);
                 $medSem = lookupMedForms($em,"isa","'SCD','SBD'",$curMed->getRXCUI(),$curMed->getRXAUI());
                 for($formIdx=0;$formIdx<count($medSem);$formIdx++)
