@@ -1,9 +1,19 @@
 function showFormDialog()
 {
     $("#sectionForm").attr("hidden",false);
-    $("#sectionForm").attr("entryUUID",$(this).attr("entryUUID"));
+    entryUUID=$(this).attr("entryUUID");
+    $("#sectionForm").attr("entryUUID",entryUUID);
     label=$(this).siblings(".LABEL").text();
     $("#sectionFormsHeader").html(label)
+    $.post("../DocumentForms/generateForm.php",
+        {
+            entryUUID: ""+entryUUID+""
+        },
+        function(data)
+        {
+            $("#sectionFormsDisplay").html(data);
+        }
+    );
 }
 function hideFormDialog()
 {
