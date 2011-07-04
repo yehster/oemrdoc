@@ -85,6 +85,7 @@ if(isset($_REQUEST['docUUID']))
 <script src="addProblem.js"></script>
 <script src="addNarrative.js"></script>
 <script src="manageMeds.js"></script>
+<script src="sectionForms.js"></script>
 
 
 <script src="ajaxErrorHandler.js"></script>
@@ -97,6 +98,7 @@ if(isset($_REQUEST['docUUID']))
         registerAddProblemEvents();
         registerAddNarrativeEvents();
         registerManageMedsEvents();
+        registerSectionFormsEvents();
         $(document).ajaxError(handleAjaxError);
         $("#status").click(function(){$(this).attr("hidden",true);});
     }
@@ -120,7 +122,8 @@ if(isset($_REQUEST['docUUID']))
             <section ID="problemSearch"/> </section>
         
         </section>
-        <?php include( "medLookupDialog.php") ?>
+        <?php include("medLookupDialog.php"); ?>
+        <?php require("dialogSectionForms.php"); ?>
     <?php
         echo $DOM->saveXML($MainSpan);
      ?>

@@ -9,6 +9,7 @@ define('SECTION_PHYSICAL_EXAM',"Physical Exam");
 define('SECTION_REVIEW_OF_SYSTEMS',"Review of Systems");
 define('SECTION_PROBLEM_LIST',"Problem List");
 define('SECTION_ALLERGIES','Allergies');
+define('SECTION_FAMILY_HISTORY','Family History');
 define('SECTION_SOCIAL_HISTORY','Social History');
 define('SECTION_MEDICATIONS','Medications');
 define('SECTION_AP','Assessment/Plan');
@@ -26,5 +27,6 @@ define('ID_REVIEW_CURRENT','reviewcurrent');
 define('FUNC_DELETE','DELETE');
 define('FUNC_DETAILS','DETAILS');
 define('FUNC_MED','MED');
+define('FUNC_SHOWFORM','SHOWFORM');
 
 ?>

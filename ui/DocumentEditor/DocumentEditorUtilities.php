@@ -17,6 +17,16 @@ function addSectionControls($DOM,$Elem,$docEntry)
         case SECTION_PROBLEM_LIST:
             createButton($DOM,$Elem,$docEntry,"Add Problem","ADDPROB");
             break;
+        case SECTION_PHYSICAL_EXAM:
+        case SECTION_ALLERGIES:
+        case SECTION_FAMILY_HISTORY:
+        case SECTION_REVIEW_OF_SYSTEMS:
+        case SECTION_SOCIAL_HISTORY:
+            createButton($DOM,$Elem,$docEntry,"Details",FUNC_SHOWFORM);
+            break;
+        case SECTION_MEDICATIONS:
+            createButton($DOM,$Elem,$docEntry,"med",FUNC_MED);
+            break;
     }
 }
 
@@ -59,12 +69,17 @@ function createElement($DOM,$parent,$docEntry,$docItem)
                 }
             }
 
+            // create the header section
+            
+            $header=$DOM->createElement("DIV");
             // Create the label for this section
-            $label=$DOM->createElement("DIV",htmlentities($text));
+            $label=$DOM->createElement("SPAN",htmlentities($text));
             $label->setAttribute("CLASS","LABEL");
-            $newElem->appendChild($label);
+            $header->appendChild($label);
+            
+            $newElem->appendChild($header);
 
-            addSectionControls($DOM,$label,$docEntry);
+            addSectionControls($DOM,$header,$docEntry);
 
 
             // Create a list for Problem lists
