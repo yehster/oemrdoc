@@ -3,11 +3,11 @@ include_once('/var/www/openemr/library/doctrine/ui/Editor/EditorConstants.php');
 
 function generateSectionHeader($DOM,$parent,$entry)
 {
-    $th=$DOM->createElement("TH");
-    $parent->appendChild($th);
+    $tr=$DOM->createElement("TR");
+    $parent->appendChild($tr);
     
-    $td=$DOM->createElement("TD",$entry->getText());
-    $th->appendChild($td);
+    $th=$DOM->createElement("TH",$entry->getText());
+    $tr->appendChild($th);
 }
 
 function generateSectionForm($DOM,$parent,$entry)
@@ -16,13 +16,17 @@ function generateSectionForm($DOM,$parent,$entry)
     
     if($entry->getType()===TYPE_SECTION)
     {
+        $span=$DOM->createElement("SPAN");
+        
         $formTable=$DOM->createElement("TABLE");
-        $parent->appendChild($formTable);
         $formTBODY=$DOM->createELEMENT("TBODY");
         $formTable->appendChild($formTBODY);
-        generateSectionHeader($DOM, $parent, $entry);
-    }
-    $newParent=$parent;
+        generateSectionHeader($DOM, $formTBODY, $entry);
+        $span->appendChild($formTable);
+        $parent->appendChild($span);
+
+        }
+    $newParent=$span;
     foreach($entryItem->getItems() as $childItem)
     {
         generateSectionForm($DOM,$newParent,$childItem->getEntry());

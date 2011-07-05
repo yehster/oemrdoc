@@ -4,7 +4,6 @@ function showFormDialog()
     entryUUID=$(this).attr("entryUUID");
     $("#sectionForm").attr("entryUUID",entryUUID);
     label=$(this).siblings(".LABEL").text();
-    $("#sectionFormsHeader").html(label)
     $.post("../DocumentForms/generateForm.php",
         {
             entryUUID: ""+entryUUID+""
