@@ -1,5 +1,6 @@
 <?php
 require_once('../../init-em.php');
+require_once('generateFormUtilities.php');
 if(isset($_REQUEST["entryUUID"]))
 {
     $entryUUID = $_REQUEST["entryUUID"];
@@ -11,7 +12,10 @@ if(is_null($entry))
     echo "No Entry Specified";
     return;
 }
+$DOM = new \DOMDocument("1.0","utf-8");
+$mainSpan = $DOM->createElement("SPAN");
+generateSectionForm($DOM,$mainSpan,$entry);
+echo $DOM->saveXML($mainSpan);
 
-echo $entryUUID;
 
 ?>
