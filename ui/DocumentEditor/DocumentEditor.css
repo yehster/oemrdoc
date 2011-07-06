@@ -36,7 +36,7 @@ textarea[entrytype='Narrative'] {
         position: fixed;
         top:5px;
         right: 5px;
-        width: 80%;
+        width: 95%;
         height: 95%;
         background-color:#FFFFFF;
         border:1px solid #999999;
@@ -52,9 +52,9 @@ textarea[entrytype='Narrative'] {
 {
         position: fixed;
         top:5px;
-        right: 5px;
-        width: 20%;
-        height: 5%;
+        right: 40px;
+        width: 50%;
+        height: 15%;
         background-color:#FFFFFF;
         border:1px solid #999999;
         font-family: sans-serif;

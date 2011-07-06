@@ -1,3 +1,10 @@
+function formCheckBoxClicked()
+{
+    tr=$(this).parents("tr[code]");
+    code=tr.attr("code");
+    code_type=tr.attr("code_type")
+    window.alert(code+":"+code_type);
+}
 function showFormDialog()
 {
     $("#sectionForm").attr("hidden",false);
@@ -11,6 +18,7 @@ function showFormDialog()
         function(data)
         {
             $("#sectionFormsDisplay").html(data);
+            $("#sectionFormsDisplay table[type='form'] tr[code] input[type='checkbox']").click(formCheckBoxClicked)
         }
     );
 }

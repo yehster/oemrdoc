@@ -25,16 +25,34 @@ function generateSectionHeader($DOM,$parent,$entry)
     $parent->appendChild($tr);
     
     $th=$DOM->createElement("TH",$entry->getText());
+    $th->setAttribute("COLSPAN","2");
     $tr->appendChild($th);
 }
 
 function addMappingRow($DOM,$tbody,$vm)
 {
     $tr=$DOM->createElement("tr");
+    $classification=$vm->getClassification();
+    $tr->setAttribute("classification",$classification);
+    $tr->setAttribute("code",$vm->getSource_code());
+    $tr->setAttribute("code_type",$vm->getSource_code_type());
+    
     $tbody->appendChild($tr);
     
+    $tdControl=$DOM->createElement("td");
     $tdLabel=$DOM->createElement("td",$vm->getText());
+    $tr->appendChild($tdControl);
     $tr->appendChild($tdLabel);
+    
+    switch ($classification)
+    {
+        case "abnormal":
+        case "normal":
+            $checkbox=$DOM->createElement("INPUT");
+            $checkbox->setAttribute("TYPE","checkbox");
+            $tdControl->appendChild($checkbox);
+            break;
+    }
 }
 
 function generateSectionEntries($em,$DOM,$entry,$tbody)
@@ -58,6 +76,7 @@ function generateSectionForm($em,$DOM,$parent,$entry)
         $formTable=$DOM->createElement("TABLE");
         $formTBODY=$DOM->createELEMENT("TBODY");
         $formTable->appendChild($formTBODY);
+        $formTable->setAttribute("type","form");
         generateSectionHeader($DOM, $formTBODY, $entry);
         generateSectionEntries($em,$DOM,$entry,$formTBODY);
         

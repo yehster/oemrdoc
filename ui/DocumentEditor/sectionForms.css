@@ -1,0 +1,27 @@
+/* 
+    Document   : sectionForms
+    Created on : Jul 6, 2011, 11:07:09 AM
+    Author     : yehster
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+table[type='form'] { 
+    float: left;
+}
+
+tr[classification='normal']
+{
+    background-color: lightgreen;
+}
+
+tr[classification='abnormal']
+{
+    background-color: lightpink;
+}
+

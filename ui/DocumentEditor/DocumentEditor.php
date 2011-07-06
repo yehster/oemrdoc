@@ -2,6 +2,7 @@
 <style type="text/css" media="all">
    @import "DocumentEditor.css";
    @import "medDialog.css";
+   @import "sectionForms.css";
 </style>
 <?php
 include_once("../../../sha1.js");
