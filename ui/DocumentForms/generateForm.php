@@ -14,7 +14,7 @@ if(is_null($entry))
 }
 $DOM = new \DOMDocument("1.0","utf-8");
 $mainSpan = $DOM->createElement("SPAN");
-generateSectionForm($DOM,$mainSpan,$entry);
+generateSectionForm($em,$DOM,$mainSpan,$entry);
 echo $DOM->saveXML($mainSpan);
 
 
