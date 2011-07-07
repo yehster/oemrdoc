@@ -48,6 +48,8 @@ function addMappingRow($DOM,$tbody,$vm)
     {
         case "abnormal":
         case "normal":
+        case "multiple":
+        case "exclusive":
             $checkbox=$DOM->createElement("INPUT");
             $checkbox->setAttribute("TYPE","checkbox");
             $tdControl->appendChild($checkbox);
@@ -74,6 +76,7 @@ function generateSectionForm($em,$DOM,$parent,$entry)
         $span=$DOM->createElement("SPAN");
         
         $formTable=$DOM->createElement("TABLE");
+        $formTable->setAttribute("entryuuid",$entry->getUUID());
         $formTBODY=$DOM->createELEMENT("TBODY");
         $formTable->appendChild($formTBODY);
         $formTable->setAttribute("type","form");

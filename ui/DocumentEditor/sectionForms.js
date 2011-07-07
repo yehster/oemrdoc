@@ -3,7 +3,26 @@ function formCheckBoxClicked()
     tr=$(this).parents("tr[code]");
     code=tr.attr("code");
     code_type=tr.attr("code_type")
-    window.alert(code+":"+code_type);
+    parentuuid=$(this).parents("table[type='form']").attr("entryuuid");
+    classification=tr.attr("classification");
+    entryuuid=tr.attr("entryuuid");
+    value=$(this).is(':checked');
+    task="update";
+    $.post("../../interface/manageVocabEntry.php",
+        {
+            task: ""+task+"",
+            parentEntryUUID: ""+parentuuid+"",
+            code: ""+code+"",
+            codeType: ""+code_type+"",
+            entryUUID: ""+entryuuid+"",
+            classification: ""+classification+"",
+            value: ""+value+""
+        },
+        function(data)
+        {
+            window.alert(data)
+        }
+    );
 }
 function showFormDialog()
 {

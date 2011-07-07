@@ -44,7 +44,7 @@ include('/var/www/openemr/library/doctrine/init-em.php');
     }
 </style>
 
-<script src="/openemr/library/js/jquery-1.5.min.js" type="text/javascript"></script>
+<script src="/openemr/library/js/jquery-1.6.1.min.js" type="text/javascript"></script>
 <script src="/openemr/library/doctrine/ui/SNOMED/LOINCBrowser.js" type="text/javascript"></script>
 <script  type="text/javascript">
     function getAttrForElem(elem,attrName)
