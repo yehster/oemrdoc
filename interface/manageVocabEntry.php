@@ -35,12 +35,12 @@ function findOrCreateVocab($em,$code,$parent,$code_type,$classification,$seq)
     if(count($qryRes)===0)
     {
         $res = new $objType(null,$pat,$user);
-        $newItem=$PE->getItem()->addEntry($res);
+        $newItem=$parItem->addEntry($res);
         if($seq!=-1)
         {
             $newItem->setSeq($seq);
         }
-        $res->setvocabID($vocabID);
+        $res->setvocabID($code);
     }
     else
     {
@@ -75,20 +75,39 @@ if(isset($_REQUEST["codeType"]))
     $code_type=$_REQUEST["codeType"];
 }
 
+if(isset($_REQUEST["SEQ"]))
+{
+    $seq=$_REQUEST["SEQ"];
+}
 if(isset($_REQUEST["entryUUID"]))
 {
     $entryUUID=$_REQUEST["entryUUID"];
     if($entryUUID!="undefined")
     {
-        
+        $entry=$em->getRepository('library\doctrine\Entities\DocumentEntry')->find($entryUUID);
+
     }
     else 
     {
-        $entry=findOrCreateVocab($em,$code,$parent,$code_type,$classification,$seq);
+        $entry=findOrCreateVocab($em,$code,$parentEntry,$code_type,$classification,$seq);
     }
 }
+if(is_null($entry))
+{
+    header("HTTP/1.0 403 Forbidden");
+    echo "No Entry Specified";
+    return;
+}
 if($task==="update")
-{    
+{   
     echo $value;
+    if($value==="true")
+    {
+        echo " persisted ";
+        $em->persist($entry);
+        $em->flush();
+    }
+    echo $entry->getUUID();
+    
 }
 ?>

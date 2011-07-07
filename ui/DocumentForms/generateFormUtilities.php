@@ -5,7 +5,7 @@ include_once('/var/www/openemr/library/doctrine/ui/Editor/EditorConstants.php');
 function findVocabMappings($em,$code,$code_type)
 {
    $qb = $em->createQueryBuilder()
-        ->select("v")
+        ->select("v, vo.seq as seq")
         ->from("library\doctrine\Entities\VocabMapping as v, library\doctrine\Entities\VocabOrdering as vo")
         ->where("v.target_code=:tc")
         ->andWhere("v.target_code_type=:tt")
@@ -29,13 +29,14 @@ function generateSectionHeader($DOM,$parent,$entry)
     $tr->appendChild($th);
 }
 
-function addMappingRow($DOM,$tbody,$vm)
+function addMappingRow($DOM,$tbody,$vm,$seq)
 {
     $tr=$DOM->createElement("tr");
     $classification=$vm->getClassification();
     $tr->setAttribute("classification",$classification);
     $tr->setAttribute("code",$vm->getSource_code());
     $tr->setAttribute("code_type",$vm->getSource_code_type());
+    $tr->setAttribute("seq",$seq);
     
     $tbody->appendChild($tr);
     
@@ -62,8 +63,9 @@ function generateSectionEntries($em,$DOM,$entry,$tbody)
     $mappings=findVocabMappings($em,$entry->getCode(),$entry->getCode_type());
     for($i=0;$i<count($mappings);$i++)
     {
-        $vm=$mappings[$i];
-        addMappingRow($DOM,$tbody,$vm);
+        $vm=$mappings[$i][0];
+        $seq=$mappings[$i]['seq']*100 + $vm->getSeq()*10;
+        addMappingRow($DOM,$tbody,$vm,$seq);
     }
 }
 
