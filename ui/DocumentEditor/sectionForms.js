@@ -7,8 +7,18 @@ function formCheckBoxClicked()
     classification=tr.attr("classification");
     entryuuid=tr.attr("entryuuid");
     value=$(this).is(':checked');
-    task="update";
+    if(value)
+    {
+        task="update";        
+    }
+    else
+    {
+        task="clear";
+    }
+    label=tr.children("td[type='label']").text();
+
     seq=tr.attr("seq");
+    window.alert(seq);
     $.post("../../interface/manageVocabEntry.php",
         {
             task: ""+task+"",
@@ -18,7 +28,8 @@ function formCheckBoxClicked()
             entryUUID: ""+entryuuid+"",
             classification: ""+classification+"",
             value: ""+value+"",
-            seq: ""+seq+""
+            seq: ""+seq+"",
+            text: ""+label+""
         },
         function(data)
         {

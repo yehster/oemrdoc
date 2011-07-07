@@ -42,6 +42,7 @@ function addMappingRow($DOM,$tbody,$vm,$seq)
     
     $tdControl=$DOM->createElement("td");
     $tdLabel=$DOM->createElement("td",$vm->getText());
+    $tdLabel->setAttribute("type","label");
     $tr->appendChild($tdControl);
     $tr->appendChild($tdLabel);
     

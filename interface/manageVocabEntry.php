@@ -75,9 +75,14 @@ if(isset($_REQUEST["codeType"]))
     $code_type=$_REQUEST["codeType"];
 }
 
-if(isset($_REQUEST["SEQ"]))
+if(isset($_REQUEST["text"]))
 {
-    $seq=$_REQUEST["SEQ"];
+    $text=$_REQUEST["text"];
+}
+
+if(isset($_REQUEST["seq"]))
+{
+    $seq=intval($_REQUEST["seq"]);
 }
 if(isset($_REQUEST["entryUUID"]))
 {
@@ -87,7 +92,8 @@ if(isset($_REQUEST["entryUUID"]))
         $entry=$em->getRepository('library\doctrine\Entities\DocumentEntry')->find($entryUUID);
 
     }
-    else 
+    
+    if(is_null($entry)) 
     {
         $entry=findOrCreateVocab($em,$code,$parentEntry,$code_type,$classification,$seq);
     }
@@ -97,17 +103,21 @@ if(is_null($entry))
     header("HTTP/1.0 403 Forbidden");
     echo "No Entry Specified";
     return;
+
 }
-if($task==="update")
-{   
-    echo $value;
-    if($value==="true")
-    {
-        echo " persisted ";
+switch($task)
+{
+    case "update":
+        $entry->setText($text);
         $em->persist($entry);
         $em->flush();
-    }
-    echo $entry->getUUID();
+        echo $entry->getUUID();    
+        break;
     
+    case "clear":
+        $em->remove($entry);
+        $em->flush();
+        break;
 }
+
 ?>
