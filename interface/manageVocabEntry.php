@@ -87,7 +87,7 @@ if(isset($_REQUEST["seq"]))
 if(isset($_REQUEST["entryUUID"]))
 {
     $entryUUID=$_REQUEST["entryUUID"];
-    if($entryUUID!="undefined")
+    if(($entryUUID!=="undefined") and ($entryUUID!==""))
     {
         $entry=$em->getRepository('library\doctrine\Entities\DocumentEntry')->find($entryUUID);
 
@@ -119,5 +119,7 @@ switch($task)
         $em->flush();
         break;
 }
+
+@require_once("refreshCheck.php");
 
 ?>

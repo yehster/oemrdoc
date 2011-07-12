@@ -18,7 +18,6 @@ function formCheckBoxClicked()
     label=tr.children("td[type='label']").text();
 
     seq=tr.attr("seq");
-    window.alert(seq);
     $.post("../../interface/manageVocabEntry.php",
         {
             task: ""+task+"",
@@ -29,11 +28,15 @@ function formCheckBoxClicked()
             classification: ""+classification+"",
             value: ""+value+"",
             seq: ""+seq+"",
-            text: ""+label+""
+            text: ""+label+"",
+            refresh: "YES"
         },
         function(data)
         {
-            window.alert(data)
+             pos=data.indexOf("<",0);
+             uuid=data.substr(0,pos);
+             refreshEntry(parentuuid,data.substr(pos));
+             tr.attr("entryuuid",uuid);
         }
     );
 }
