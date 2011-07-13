@@ -77,7 +77,7 @@ if(isset($_REQUEST['docUUID']))
     function refreshEntry(uuid,data)
     {
         selector="[uuid='"+uuid+"']";
-        $(selector).html(data);
+        $(selector).replaceWith(data);
     }
 </script>
 <script src="UpdateNarrative.js"></script>

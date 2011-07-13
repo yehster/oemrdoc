@@ -1,4 +1,4 @@
-function formCheckBoxClicked()
+function formCheckBoxChanged()
 {
     tr=$(this).parents("tr[code]");
     code=tr.attr("code");
@@ -37,6 +37,19 @@ function formCheckBoxClicked()
              uuid=data.substr(0,pos);
              refreshEntry(parentuuid,data.substr(pos));
              tr.attr("entryuuid",uuid);
+             if(task=="update")
+                 {
+                     
+
+             if(classification=="multiple")
+                 {
+                     tr.siblings("[classification='exclusive']").find("input:checkbox:checked").removeAttr("checked").change();
+                 }
+             else if(classification=="exclusive")
+                 {
+                        tr.siblings().find("input:checkbox:checked").removeAttr("checked").change()                     
+                 }
+                 }
         }
     );
 }
@@ -53,7 +66,7 @@ function showFormDialog()
         function(data)
         {
             $("#sectionFormsDisplay").html(data);
-            $("#sectionFormsDisplay table[type='form'] tr[code] input[type='checkbox']").click(formCheckBoxClicked)
+            $("#sectionFormsDisplay table[type='form'] tr[code] input[type='checkbox']").change(formCheckBoxChanged)
         }
     );
 }
