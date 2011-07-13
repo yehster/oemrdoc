@@ -70,7 +70,7 @@ function generateSectionEntries($em,$DOM,$entry,$tbody)
     }
 }
 
-function generateSectionForm($em,$DOM,$parent,$entry)
+function generateSectionForm($em,$DOM,$DOMXPath,$parent,$entry)
 {
     $entryItem=$entry->getItem();
     
@@ -90,10 +90,20 @@ function generateSectionForm($em,$DOM,$parent,$entry)
         $parent->appendChild($span);
 
         }
+    if($entry->getType()===TYPE_NOMINATIVE)
+    {
+        $nodes=$DOMXPath->query("//tr[@code='".$entry->getvocabID()."']",$parent);
+        foreach($nodes as $node)
+        {
+            $input=$node->getElementsByTagName("INPUT");
+            $input->item(0)->setAttribute("checked","true");
+            $node->setAttribute("entryuuid",$entry->getUUID());
+        }
+    }
     $newParent=$span;
     foreach($entryItem->getItems() as $childItem)
     {
-        generateSectionForm($em,$DOM,$newParent,$childItem->getEntry());
+        generateSectionForm($em,$DOM,$DOMXPath,$newParent,$childItem->getEntry());
     }
 }
 ?>
