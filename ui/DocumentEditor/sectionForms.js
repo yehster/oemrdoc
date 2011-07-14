@@ -10,7 +10,7 @@ function formCheckBoxChanged()
                 {
                     otherBoxes.removeAttr("checked");
                     task="update";
-                    value=$(this).attr("location");
+                    value=$(this).attr("val");
                 }
                 else
                     {

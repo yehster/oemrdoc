@@ -40,7 +40,14 @@ namespace library\doctrine\Entities;
 
         public function getText()
         {
-            return $this->text."=".$this->value;
+            if($this->value=="Y")
+            {
+                return $this->text;    
+            }
+            elseif($this->value=="N")
+            {
+                return "NO ".$this->text;
+            }
         }
 
 

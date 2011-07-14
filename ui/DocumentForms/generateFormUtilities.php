@@ -55,6 +55,7 @@ function addMappingRow($DOM,$tbody,$vm,$seq)
             $cbRight=$DOM->createElement("INPUT");
             $cbRight->setAttribute("TYPE","checkbox");
             $cbRight->setAttribute("location","right");
+            $cbRight->setAttribute("val","N");
             $cbRight->setAttribute("entrytype",$classification);
             $tdControlRight->appendChild($cbRight);
         case "multiple":
@@ -63,6 +64,7 @@ function addMappingRow($DOM,$tbody,$vm,$seq)
             $checkbox->setAttribute("TYPE","checkbox");
             $checkbox->setAttribute("entrytype",$classification);
             $checkbox->setAttribute("location","left");
+            $checkbox->setAttribute("val","Y");
             $tdControl->appendChild($checkbox);
             break;
     }
@@ -111,6 +113,14 @@ function generateSectionForm($em,$DOM,$DOMXPath,$parent,$entry)
     }
     if($entry->getType()===TYPE_OBSERVATION)
     {
+        if($entry->getValue()=="Y")
+        {
+            $toCheck="left";
+        }
+        elseif($entry->getValue()=="N")
+        {
+            $toCheck="right";
+        }
         $nodes=$DOMXPath->query("//tr[@code='".$entry->getvocabID()."']",$parent);
         foreach($nodes as $node)
         {        
@@ -118,7 +128,8 @@ function generateSectionForm($em,$DOM,$DOMXPath,$parent,$entry)
             $inputs=$node->getElementsByTagName("INPUT");
             foreach($inputs as $input)
             {
-                if($input->getAttribute("location")=="left")
+                
+                if($input->getAttribute("location")==$toCheck)
                 {
                     $input->setAttribute("checked","true");
                 }

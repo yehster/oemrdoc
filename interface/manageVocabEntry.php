@@ -109,6 +109,7 @@ switch($task)
 {
     case "update":
         $entry->setText($text);
+        $entry->setValue($value);
         $em->persist($entry);
         $em->flush();
         echo $entry->getUUID();    
