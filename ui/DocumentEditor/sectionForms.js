@@ -36,7 +36,6 @@ function formCheckBoxChanged()
 
 
     label=tr.children("td[type='label']").text();
-
     seq=tr.attr("seq");
     $.post("../../interface/manageVocabEntry.php",
         {

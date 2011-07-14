@@ -25,8 +25,9 @@ function generateSectionHeader($DOM,$parent,$entry)
     $parent->appendChild($tr);
     
     $th=$DOM->createElement("TH",$entry->getText());
-    $th->setAttribute("COLSPAN","3");
     $tr->appendChild($th);
+    
+    return $tr;
 }
 
 function addMappingRow($DOM,$tbody,$vm,$seq)
@@ -67,17 +68,46 @@ function addMappingRow($DOM,$tbody,$vm,$seq)
             $checkbox->setAttribute("val","Y");
             $tdControl->appendChild($checkbox);
             break;
+        case "quantitative":
+            $tdControlRight=$DOM->createElement("td");
+            $tr->appendChild($tdControlRight);            
+            $input=$DOM->createElement("INPUT");
+            $input->setAttribute("TYPE","TEXT");
+            $input->setAttribute("entrytype",$classification);
+            $tdControlRight->appendChild($input);
+            break;
     }
 }
 
-function generateSectionEntries($em,$DOM,$entry,$tbody)
+function generateSectionEntries($em,$DOM,$entry,$tbody,$headerRow)
 {
     $mappings=findVocabMappings($em,$entry->getCode(),$entry->getCode_type());
+    $needsLabel=false;
     for($i=0;$i<count($mappings);$i++)
     {
         $vm=$mappings[$i][0];
         $seq=$mappings[$i]['seq']*100 + $vm->getSeq()*10;
         addMappingRow($DOM,$tbody,$vm,$seq);
+        if(($needsLabel==false) && (($vm->getClassification()=="normal") || ($vm->getClassification()=="abnormal")))
+        {
+            $needsLabel=true;
+        }
+    }
+        $ths=$headerRow->getElementsByTagName("TH");
+        $th=$ths->item(0);
+    
+    if($needsLabel)
+    {
+        $th->setAttribute("colspan","1");
+
+        $labelY=$DOM->createElement("TH","Y");
+        $headerRow->insertBefore($labelY,$th);
+        $labelN=$DOM->createElement("TH","N");
+        $headerRow->appendChild($labelN);
+    }
+    else {
+        $th->setAttribute("colspan","2");
+        
     }
 }
 
@@ -94,8 +124,9 @@ function generateSectionForm($em,$DOM,$DOMXPath,$parent,$entry)
         $formTBODY=$DOM->createELEMENT("TBODY");
         $formTable->appendChild($formTBODY);
         $formTable->setAttribute("type","form");
-        generateSectionHeader($DOM, $formTBODY, $entry);
-        generateSectionEntries($em,$DOM,$entry,$formTBODY);
+        $headerRow = generateSectionHeader($DOM, $formTBODY, $entry);
+        generateSectionEntries($em,$DOM,$entry,$formTBODY,$headerRow);
+        
         
         $span->appendChild($formTable);
         $parent->appendChild($span);
