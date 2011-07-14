@@ -25,7 +25,7 @@ function generateSectionHeader($DOM,$parent,$entry)
     $parent->appendChild($tr);
     
     $th=$DOM->createElement("TH",$entry->getText());
-    $th->setAttribute("COLSPAN","2");
+    $th->setAttribute("COLSPAN","3");
     $tr->appendChild($th);
 }
 
@@ -50,10 +50,19 @@ function addMappingRow($DOM,$tbody,$vm,$seq)
     {
         case "abnormal":
         case "normal":
+            $tdControlRight=$DOM->createElement("td");
+            $tr->appendChild($tdControlRight);
+            $cbRight=$DOM->createElement("INPUT");
+            $cbRight->setAttribute("TYPE","checkbox");
+            $cbRight->setAttribute("location","right");
+            $cbRight->setAttribute("entrytype",$classification);
+            $tdControlRight->appendChild($cbRight);
         case "multiple":
         case "exclusive":
             $checkbox=$DOM->createElement("INPUT");
             $checkbox->setAttribute("TYPE","checkbox");
+            $checkbox->setAttribute("entrytype",$classification);
+            $checkbox->setAttribute("location","left");
             $tdControl->appendChild($checkbox);
             break;
     }
