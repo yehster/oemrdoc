@@ -14,9 +14,8 @@ if (!empty($argc) && strstr($argv[0], basename(__FILE__))) {
 }
 include('/var/www/openemr/library/doctrine/init-em.php');
 
-function generateKeywords($em,$code)
+function generateKeywords($em,$code,$kwm)
 {
-	global $kwm;
         global $flushCount;
 	echo $code->getCodeText().':';
 	$search = array ("(",")",",");
@@ -27,15 +26,19 @@ function generateKeywords($em,$code)
 	$tok=strtok($text,' ');
         $count=0;
 
-
+        $retKWM=array();
         $kwme = array(); // a list of the keyword ID's for this code
 	while($tok!==false)
 	{
 
 		$tok=strtoupper($tok);
-		$kw=$kwm[$tok];
-		if($kw==null)
-		{
+                if(isset($kwm[$tok]))
+                {
+                    $kw=$kwm[$tok];
+                }
+                else {
+                    
+                
 			$kw=$em->getRepository('library\doctrine\Entities\Keyword')->findOneBy(array('content' => $tok));
 			if($kw==null)
 			{
@@ -49,9 +52,8 @@ function generateKeywords($em,$code)
 			{
 //				echo 'Queried:';
 			}
-			$kwm[$tok]=$kw;
-			echo 'adding:'.$tok.":".count($kwm).';'.PHP_EOL;
-		}
+                }
+                $retKWM[$tok]=$kw;
                 $kwme[$kw->getId()]=$kw;
            	$tok=strtok(' ');
 
@@ -80,7 +82,9 @@ function generateKeywords($em,$code)
             }
         }
         //$em->flush();
+        return $retKWM;
 }       echo PHP_EOL;
+
 echo date('h:i:s');
 
 //phpinfo();
@@ -90,11 +94,13 @@ echo get_include_path();
 	$kwm = array();
 $flushCount=0;
 $code = $em->getRepository('library\doctrine\Entities\Code')->find(1);
+$kwm=array();
+
 for($idx=$start;$idx<$end;$idx+= 1)
 {
 	if($code!==null)
 	{
-		generateKeywords($em,$code);
+		$kwm=generateKeywords($em,$code,$kwm);
 	}
 	echo 'CodeIndex:'.$idx .PHP_EOL;
         $code = $em->getRepository('library\doctrine\Entities\Code')->find($idx);

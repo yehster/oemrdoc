@@ -11,7 +11,10 @@
    Syntax recommendation http://www.w3.org/TR/REC-CSS2/
 */
 
-
+section span[entrytype] {
+    position: relative;
+    margin: 0.2em;
+}
 
 section {
     position: relative;
@@ -84,3 +87,12 @@ textarea[entrytype='Narrative'] {
         background-color: yellow;
         cursor: pointer;
     }
+    
+[contenteditable] {
+    border: 2px inset grey;
+    width: 80em;
+}
+
+[entrytype="Narrative"] {
+    display: inline;
+}

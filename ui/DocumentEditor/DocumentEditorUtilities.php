@@ -114,7 +114,8 @@ function createElement($DOM,$parent,$docEntry,$docItem)
             break;
         case TYPE_NARRATIVE:
             $narSpan=$DOM->createElement("SPAN");
-            $newElem=createTagElem($DOM,$docEntry,"TEXTAREA",$docEntry->getText());
+            $newElem=createTagElem($DOM,$docEntry,"textarea",$docEntry->getText());
+//            $newElem->setAttribute("contenteditable","");
             $narSpan->appendChild($newElem);
             $retVal=$narSpan;
             if(is_null($docEntry->getMetadata()))

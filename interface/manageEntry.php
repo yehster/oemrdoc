@@ -51,6 +51,7 @@ function findNominativeOrCreate($em,$PE,$vocabID,$pat,$user)
 $user = $_SESSION['authUser'];
 if($user==null)
 {
+    header("HTTP/1.0 403 Forbidden");
     echo "Error:no user set!";
     return;
 }
@@ -67,6 +68,7 @@ if(isset($_REQUEST['seq']))
 
 if($pat==null)
 {
+    header("HTTP/1.0 403 Forbidden");    
     echo "Error:no patient set!";
     return;
 }
@@ -176,12 +178,14 @@ if($EntryType=="problem")
             }
             else
             {
+                header("HTTP/1.0 403 Forbidden");
                 echo "error:"." No Parent Entry.";
                 return;
             }
         }
         else
         {
+            header("HTTP/1.0 403 Forbidden");
             echo  "error:"." No Patient.";
             return;
         }
