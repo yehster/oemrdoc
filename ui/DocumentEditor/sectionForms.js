@@ -1,20 +1,40 @@
 function formCheckBoxChanged()
 {
     tr=$(this).parents("tr[code]");
+    td=$(this).parent("td");
+    value=$(this).is(':checked');    
+    otherBoxes=td.siblings().find("input:checkbox");
+    if(otherBoxes.length>0)
+        {
+            if(value)
+                {
+                    otherBoxes.removeAttr("checked");
+                    task="update";
+                    value=$(this).attr("location");
+                }
+                else
+                    {
+                        task="clear";                
+                    }
+        }
+    else
+        {
+                if(value)
+            {
+                task="update";        
+            }
+            else
+            {
+                task="clear";
+            }
+        }
     code=tr.attr("code");
     code_type=tr.attr("code_type")
     parentuuid=$(this).parents("table[type='form']").attr("entryuuid");
     classification=tr.attr("classification");
     entryuuid=tr.attr("entryuuid");
-    value=$(this).is(':checked');
-    if(value)
-    {
-        task="update";        
-    }
-    else
-    {
-        task="clear";
-    }
+
+
     label=tr.children("td[type='label']").text();
 
     seq=tr.attr("seq");
@@ -59,6 +79,7 @@ function showFormDialog()
     entryUUID=$(this).attr("entryUUID");
     $("#sectionForm").attr("entryUUID",entryUUID);
     label=$(this).siblings(".LABEL").text();
+    $("#sectionFormsDisplay").html("");
     $.post("../DocumentForms/generateForm.php",
         {
             entryUUID: ""+entryUUID+""

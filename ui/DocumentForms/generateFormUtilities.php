@@ -109,6 +109,22 @@ function generateSectionForm($em,$DOM,$DOMXPath,$parent,$entry)
             $node->setAttribute("entryuuid",$entry->getUUID());
         }
     }
+    if($entry->getType()===TYPE_OBSERVATION)
+    {
+        $nodes=$DOMXPath->query("//tr[@code='".$entry->getvocabID()."']",$parent);
+        foreach($nodes as $node)
+        {        
+            $node->setAttribute("entryuuid",$entry->getUUID());            
+            $inputs=$node->getElementsByTagName("INPUT");
+            foreach($inputs as $input)
+            {
+                if($input->getAttribute("location")=="left")
+                {
+                    $input->setAttribute("checked","true");
+                }
+            }
+        }
+    }
     $newParent=$span;
     foreach($entryItem->getItems() as $childItem)
     {
