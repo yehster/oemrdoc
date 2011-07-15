@@ -126,7 +126,7 @@ switch($task)
                 }
              if($value!="")
              {
-                $entry->setValue(floatval($value));
+                $entry->setValue(floatval($value),$user);
              }
              else
              {
