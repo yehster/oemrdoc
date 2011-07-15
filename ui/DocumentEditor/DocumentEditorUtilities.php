@@ -2,6 +2,10 @@
 include_once('/var/www/openemr/library/doctrine/ui/Editor/EditorConstants.php');
 function createButton($DOM,$Elem,$docEntry,$text,$func)
 {
+    if($docEntry->isLocked())
+    {
+        return;
+    }
     $but=$DOM->createElement("BUTTON",$text);
     $but->setAttribute("FUNC",$func);
     $but->setAttribute("EntryUUID",$docEntry->getUUID());
@@ -115,6 +119,10 @@ function createElement($DOM,$parent,$docEntry,$docItem)
         case TYPE_NARRATIVE:
             $narSpan=$DOM->createElement("SPAN");
             $newElem=createTagElem($DOM,$docEntry,"textarea",$docEntry->getText());
+            if($docEntry->isLocked())
+            {
+                $newElem->setAttribute("disabled","true");
+            }
 //            $newElem->setAttribute("contenteditable","");
             $narSpan->appendChild($newElem);
             $retVal=$narSpan;
