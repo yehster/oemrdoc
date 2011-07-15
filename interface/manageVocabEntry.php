@@ -34,7 +34,7 @@ function findOrCreateVocab($em,$code,$parent,$code_type,$classification,$seq)
     $qryRes=$qb->getQuery()->getResult();
     if(count($qryRes)===0)
     {
-        $res = new $objType(null,$pat,$user);
+        $res = new $objType(null,$pat,$GLOBALS['user']);
         $newItem=$parItem->addEntry($res);
         if($seq!=-1)
         {
@@ -93,7 +93,7 @@ if(isset($_REQUEST["entryUUID"]))
 
     }
     
-    if(is_null($entry)) 
+    if(!isset($entry)) 
     {
         $entry=findOrCreateVocab($em,$code,$parentEntry,$code_type,$classification,$seq);
     }
@@ -108,10 +108,31 @@ if(is_null($entry))
 switch($task)
 {
     case "update":
-        $entry->setText($text);
+        $entry->setText($text,$user);
         if($entry->getType()==TYPE_OBSERVATION)
         {
-         $entry->setValue($value);
+                     $entry->setValue($value);
+        }
+        elseif($entry->getType()==TYPE_QUANTITATIVE)
+        {
+            if(isset($_REQUEST['units']))
+            {
+                $units=urldecode($_REQUEST['units']);
+            }
+             else {
+                    header("HTTP/1.0 403 Forbidden");
+                    echo "No Units Specified";
+                    return;    
+                }
+             if($value!="")
+             {
+                $entry->setValue(floatval($value));
+             }
+             else
+             {
+                 $entry->setValue(null);
+             }
+             $entry->setUnits($units);
         }
         $em->persist($entry);
         $em->flush();
@@ -124,6 +145,6 @@ switch($task)
         break;
 }
 
-@require_once("refreshCheck.php");
+require_once("refreshCheck.php");
 
 ?>

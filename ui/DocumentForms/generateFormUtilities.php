@@ -1,6 +1,6 @@
 <?php
 include_once('/var/www/openemr/library/doctrine/ui/Editor/EditorConstants.php');
-
+require_once("generateFormQuant.php");
 
 function findVocabMappings($em,$code,$code_type)
 {
@@ -75,6 +75,13 @@ function addMappingRow($DOM,$tbody,$vm,$seq)
             $input->setAttribute("TYPE","TEXT");
             $input->setAttribute("entrytype",$classification);
             $tdControlRight->appendChild($input);
+            
+            $sel = AddUnitSelector($DOM,$tdControlRight,$vm->getProperty());
+            if($sel!=null)
+            {
+                $sel->setAttribute("class","units");
+             }
+
             break;
     }
 }
@@ -165,6 +172,33 @@ function generateSectionForm($em,$DOM,$DOMXPath,$parent,$entry)
                     $input->setAttribute("checked","true");
                 }
             }
+        }
+    }
+    if($entry->getType()==TYPE_QUANTITATIVE)
+    {
+        $nodes=$DOMXPath->query("//tr[@code='".$entry->getvocabID()."']",$parent);
+        foreach($nodes as $node)
+        {        
+            $node->setAttribute("entryuuid",$entry->getUUID());            
+            $inputs=$node->getElementsByTagName("INPUT");
+            foreach($inputs as $input)
+            {
+                $input->setAttribute("value",$entry->getValue());
+            }
+            $select=$node->getElementsByTagName("SELECT");
+            foreach($select as $sel)
+            {
+                $options=$sel->getElementsByTagName("OPTION");
+                foreach($options as $opt)
+                {
+                    $foundOpt=$opt->getAttribute("units")==htmlentities(htmlentities($entry->getUnits()));
+                    if($foundOpt)
+                    {
+                        $opt->setAttribute("selected","true");
+                    }
+                }
+            }
+            
         }
     }
     $newParent=$span;
