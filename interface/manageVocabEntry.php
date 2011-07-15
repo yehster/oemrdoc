@@ -34,7 +34,7 @@ function findOrCreateVocab($em,$code,$parent,$code_type,$classification,$seq)
     $qryRes=$qb->getQuery()->getResult();
     if(count($qryRes)===0)
     {
-        $res = new $objType(null,$pat,$GLOBALS['user']);
+        $res = new $objType(null,$GLOBALS['pat'],$GLOBALS['user']);
         $newItem=$parItem->addEntry($res);
         if($seq!=-1)
         {

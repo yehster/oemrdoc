@@ -116,6 +116,14 @@ function generateSectionEntries($em,$DOM,$entry,$tbody,$headerRow)
         $th->setAttribute("colspan","2");
         
     }
+    if(count($mappings)>0)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 function generateSectionForm($em,$DOM,$DOMXPath,$parent,$entry)
@@ -132,10 +140,13 @@ function generateSectionForm($em,$DOM,$DOMXPath,$parent,$entry)
         $formTable->appendChild($formTBODY);
         $formTable->setAttribute("type","form");
         $headerRow = generateSectionHeader($DOM, $formTBODY, $entry);
-        generateSectionEntries($em,$DOM,$entry,$formTBODY,$headerRow);
+        $hasEntries=generateSectionEntries($em,$DOM,$entry,$formTBODY,$headerRow);
         
         
-        $span->appendChild($formTable);
+        if($hasEntries)
+        {
+            $span->appendChild($formTable);
+        }
         $parent->appendChild($span);
 
         }
