@@ -64,11 +64,12 @@ if(isset($_REQUEST['docUUID']))
 
     $footerSpan=$DOM->createElement("SPAN");
     $MainSpan->appendChild($footerSpan);
-    
-    $lockButton=$DOM->createElement("BUTTON","Lock Document");
-    $lockButton->setAttribute("FUNC","lock");
-    $footerSpan->appendChild($lockButton);
-    
+    if(!$doc->isLocked())
+    {
+        $lockButton=$DOM->createElement("BUTTON","Lock Document");
+        $lockButton->setAttribute("FUNC","lock");
+        $footerSpan->appendChild($lockButton);
+    }
 
     
 ?>

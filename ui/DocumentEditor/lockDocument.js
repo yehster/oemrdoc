@@ -29,7 +29,11 @@ function lockButtonClicked()
             },
             function(data)
             {
-              window.alert("Document Locked!\n"+data);  
+              if(data==docUUID)  
+                  {
+                      window.alert("Document Locked!\n");                
+                  }
+                  window.location.reload();
             }
         );
     }
