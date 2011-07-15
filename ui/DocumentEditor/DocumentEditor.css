@@ -10,7 +10,10 @@
    TODO customize this sample style
    Syntax recommendation http://www.w3.org/TR/REC-CSS2/
 */
-
+body
+{
+    background-color: #FEFDCF;
+}
 section span[entrytype] {
     position: relative;
     margin: 0.2em;

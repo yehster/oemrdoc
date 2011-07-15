@@ -17,6 +17,11 @@
     window.onload=setupEvents;
 
 </script>
+<style>
+    body {
+        background-color: #FEFDCF;
+    }
+</style>
 <?php
 
 include_once('/var/www/openemr/library/doctrine/init-em.php');
