@@ -13,6 +13,7 @@
 body
 {
     background-color: #FEFDCF;
+    font-family: sans-serif;
 }
 section span[entrytype] {
     position: relative;
@@ -23,6 +24,9 @@ section {
     position: relative;
     left: 10px;
     font-size:small;
+}
+.LABEL {
+        font-weight: bold;
 }
 button {
     font-size:small;
@@ -98,4 +102,15 @@ textarea[entrytype='Narrative'] {
 
 [entrytype="Narrative"] {
     display: inline;
+}
+
+input[type="TEXT"][entrytype='quantitative'] {
+    width: 2.5em;
+}
+table[type='form'] tr {
+    border: black;
+}
+
+table[type='form'] {
+    width: 20em;
 }
