@@ -35,13 +35,13 @@ function findHistoricalSections($em,$secs)
     }
 }
 
-function findReviewDoc($relDoc,$direction,$sections)
+function findReviewDoc($relDoc,$curDoc,$direction,$sections)
 {
     $qb=$GLOBALS['em']->createQueryBuilder();
     $qb->select('doc')
        ->from('library\doctrine\Entities\Document',"doc")
        ->where('doc.patient=:pat')
-       ->andWhere('doc.uuid!=:relDoc');
+       ->andWhere('doc.uuid!=:curDoc');
     if($direction<0)
     {
         $qb->andWhere('doc.modified<:relModified');
@@ -54,7 +54,7 @@ function findReviewDoc($relDoc,$direction,$sections)
         
         }
     $qb->setParameter("pat",$GLOBALS['pat']);
-    $qb->setParameter("relDoc",$relDoc->getUUID());
+    $qb->setParameter("curDoc",$curDoc);
     $qb->setParameter("relModified",$relDoc->getModified()->format(DateTIME::ISO8601));
     
     $results=$qb->getQuery()->getResult();
@@ -71,7 +71,6 @@ function findReviewDoc($relDoc,$direction,$sections)
         //loop through the documents until we find one that matches
         foreach($sections as $sec)
         {
-            echo $direction.":".$sec->getUUID().":sec<BR>";
             $sectionResults=findHistSection($sec,$results[0]->getUUID());
             foreach($sectionResults as $sr)
             {
@@ -80,7 +79,7 @@ function findReviewDoc($relDoc,$direction,$sections)
         }
         if(count($retSection)>0)
         {
-            $retVal['doc']=$results[0]->getUUID();
+            $retVal['doc']=$results[0];
             $retVal['sections']=$retSection;
             if(count($results)>($idx+1))
             {

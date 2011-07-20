@@ -24,12 +24,14 @@ function navigateReview()
 
 function updateReviewHistory(docUUID,sections,direction)
 {
+    curdocUUID= $("body").attr("docuuid");
 
     $.post("../Review/reviewHistorySections.php",
         {
             relDocUUID: ""+docUUID+"",
             direction:  ""+direction+"",
-            sectionUUIDs: ""+sections+""
+            sectionUUIDs: ""+sections+"",
+            curDocUUID: ""+curdocUUID+""
         },
         function(data)
         {

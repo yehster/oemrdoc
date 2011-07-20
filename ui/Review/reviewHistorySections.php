@@ -20,6 +20,19 @@ if(isset($_REQUEST['relDocUUID']))
         return;
     }
 }
+if(isset($_REQUEST['curDocUUID']))
+{
+    $curDocUUID=$_REQUEST['curDocUUID'];  
+}
+else
+{
+    header("HTTP/1.0 403 Forbidden"); 
+    echo  "Current Document not specified";
+    return;
+
+}
+
+
 
 
 if(isset($_REQUEST['sectionUUIDs']))
@@ -33,7 +46,7 @@ if(isset($_REQUEST['direction']))
 {
     // Positive = next, negative = previous
     $direction=intval($_REQUEST['direction']);
-    $reviewDoc=findReviewDoc($relDoc,$direction,$sections);
+    $reviewDoc=findReviewDoc($relDoc,$curDocUUID,$direction,$sections);
     
 }
 
@@ -43,7 +56,7 @@ if(isset($reviewDoc['seqDoc']))
 {
     $navSections[$direction]=$reviewDoc['seqDoc'];
 }
-$navSearch=findReviewDoc($relDoc,-($direction),$sections);
+$navSearch=findReviewDoc($reviewDoc['doc'],$curDocUUID,-($direction),$sections);
 if(isset($navSearch['doc']))
 {
     $navSections[-($direction)]=$navSearch['doc'];
@@ -52,20 +65,20 @@ if(isset($navSearch['doc']))
 if(isset($navSections[-1]))
 {
     $but=$DOM->createElement("BUTTON","PREV");
-    $but->setAttribute("relDoc",$reviewDoc['doc']);
+    $but->setAttribute("relDoc",$reviewDoc['doc']->getUUID());
     $but->setAttribute("direction","-1");
     echo $DOM->saveXML($but);
 }
 if(isset($navSections[1]))
 {
     $but=$DOM->createElement("BUTTON","NEXT");
-    $but->setAttribute("relDoc",$reviewDoc['doc']);
+    $but->setAttribute("relDoc",$reviewDoc['doc']->getUUID());
     $but->setAttribute("direction","1");
     echo $DOM->saveXML($but);
 }
 
 
-
+echo "<DIV>".$reviewDoc['doc']->getModified()->format(DateTIME::ISO8601)."</DIV>";
 foreach($reviewDoc['sections'] as $histSection)
 {
     $curSection=$DOM->createElement("SECTION");
