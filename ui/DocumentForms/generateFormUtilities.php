@@ -24,7 +24,7 @@ function generateSectionHeader($DOM,$parent,$entry)
     $tr=$DOM->createElement("TR");
     $parent->appendChild($tr);
     
-    $th=$DOM->createElement("TH",$entry->getText());
+    $th=$DOM->createElement("TH",htmlentities($entry->getText()));
     $tr->appendChild($th);
     
     return $tr;

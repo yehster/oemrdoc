@@ -1,3 +1,20 @@
+function dblClickHeader()
+{
+    tr=$(this).parent("tr");
+    sibs=tr.siblings("tr[classification='normal']");
+    if(sibs.length)
+        {
+            sibs.find("input:checkbox[val='Y']").attr("checked","checked").change();
+        }
+        else
+        {
+            sibs=tr.siblings("tr[classification='abnormal']");
+            sibs.find("input:checkbox[val='N']").attr("checked","checked").change();
+            
+        }
+    
+}
+
 function formCheckBoxChanged()
 {
     tr=$(this).parents("tr[code]");
@@ -89,10 +106,12 @@ function showFormDialog()
             $("#sectionFormsDisplay table[type='form'] tr[code] input[type='checkbox']").change(formCheckBoxChanged)
             $("#sectionFormsDisplay table[type='form'] tr[code] input[type='text'][entrytype='quantitative']").blur(updateQuantitative)
             $("#sectionFormsDisplay table[type='form'] tr[code] select.units").change(updateQuantitative)
+            $("#sectionFormsDisplay table[type='form'] th").dblclick(dblClickHeader)
 
         }
     );
 }
+
 function hideFormDialog()
 {
     $("#sectionForm").attr("hidden",true);    
