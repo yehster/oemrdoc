@@ -7,7 +7,7 @@ function updateNarrative()
 {
     uuid=$(this).attr("uuid");
     narText=this.value;
-    $.post("/openemr/library/doctrine/interface/manageEntry.php",
+    $.post("/openemr/library/doctrine/interface/manageNarrative.php",
     {
         docEntryUUID: ""+uuid+"",
         EntryType: "narrative",

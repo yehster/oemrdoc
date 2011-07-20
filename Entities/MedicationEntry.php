@@ -37,11 +37,11 @@ class MedicationEntry extends DocumentEntry
 	  * @OneToOne(targetEntity="RXNConcept")
 	  * @JoinColumn(name="attr2", referencedColumnName="RXAUI")
 	  */
-	protected $RXAUI;
+	protected $rxaui;
 
         public function setRXAUI($val)
         {
-            $this->RXAUI=$val;
+            $this->rxaui=$val;
         }
 
         public function similar($comp)
