@@ -1,18 +1,6 @@
 <?php
 
-function tokenize($str)
-{
-    $tokens = array();
-    $idx=0;
-    $tok = strtok($str," ");
-    while($tok!==false)
-    {
-        $tokens[$idx]=$tok;
-        $idx++;
-        $tok=strtok(" ");
-    }
-    return $tokens;
-}
+require_once('../../util/tokenize.php');
 
 function findCodesForKeyword($em,$kw)
 {

@@ -39,7 +39,10 @@ textarea[entrytype='Narrative'] {
     font-size:small;
     
 }
-
+#dialogReview
+{
+    z-index: 900;
+}
 
 .dialog
 {

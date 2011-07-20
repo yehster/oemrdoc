@@ -1,0 +1,20 @@
+/* 
+    Document   : reviewHistory
+    Created on : Jul 19, 2011, 11:26:55 PM
+    Author     : yehster
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+div[reviewtype] 
+{ 
+    position: relative;
+    left: 10px;
+
+}
+

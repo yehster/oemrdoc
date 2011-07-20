@@ -14,6 +14,8 @@ function updateNarrative()
         task: "update",
         content: ""+narText+""
     } );
+    //update anyother text areas that might also refer to this entry;
+    $("[entrytype='Narrative'][uuid='"+uuid+"']").val(narText);
 }
 
 function registerNarrativeEvents()

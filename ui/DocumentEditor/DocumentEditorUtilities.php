@@ -18,6 +18,9 @@ function addSectionControls($DOM,$Elem,$docEntry)
 {
     switch($docEntry->getText())
     {
+        case SECTION_AP:
+            createButton($DOM,$Elem,$docEntry,"Review","REVIEW");
+            break;
         case SECTION_PROBLEM_LIST:
             createButton($DOM,$Elem,$docEntry,"Add Problem","ADDPROB");
             break;

@@ -3,6 +3,8 @@
    @import "DocumentEditor.css";
    @import "medDialog.css";
    @import "sectionForms.css";
+   @import "../Review/reviewHistory.css";
+
 </style>
 <?php
 include_once("../../../sha1.js");
@@ -88,6 +90,8 @@ if(isset($_REQUEST['docUUID']))
 <script src="addNarrative.js"></script>
 <script src="manageMeds.js"></script>
 <script src="sectionForms.js"></script>
+<script src="dialogReview.js"></script>
+
 
 
 <script src="ajaxErrorHandler.js"></script>
@@ -101,6 +105,7 @@ if(isset($_REQUEST['docUUID']))
         registerAddNarrativeEvents();
         registerManageMedsEvents();
         registerSectionFormsEvents();
+        registerDialogReviewEvents();
         $(document).ajaxError(handleAjaxError);
         $("#status").click(function(){$(this).attr("hidden",true);});
     }
@@ -115,7 +120,7 @@ if(isset($_REQUEST['docUUID']))
                 echo $patient->displayName();
                 ?></title>
     </head>
-    <body>
+    <body docUUID='<?php echo $doc->getUUID()?>'>
         <section ID="problemDialog" class="dialog" hidden="true">
             <input type="text" id="txtProblem"/>
             <button id="useTxtProblem">Add Problem</button>
@@ -126,6 +131,8 @@ if(isset($_REQUEST['docUUID']))
         </section>
         <?php include("medLookupDialog.php"); ?>
         <?php require("dialogSectionForms.php"); ?>
+        <?php require("dialogReview.php"); ?>
+
     <?php
         echo $DOM->saveXML($MainSpan);
      ?>
