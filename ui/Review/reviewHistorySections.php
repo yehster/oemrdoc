@@ -82,7 +82,7 @@ echo "<DIV>".$reviewDoc['doc']->getModified()->format(DateTIME::ISO8601)."</DIV>
 foreach($reviewDoc['sections'] as $histSection)
 {
     $curSection=$DOM->createElement("SECTION");
-    displayHistoricalElements($DOM,$curSection,$histSection);
+    displayHistoricalElements($DOM,$curSection,$histSection,1);
     echo $DOM->saveXML($curSection);
 }
 

@@ -108,7 +108,7 @@ function findSections($sectionToks)
     
 }
 
-function displayHistoricalElements($DOM,$parent,$entry)
+function displayHistoricalElements($DOM,$parent,$entry,$depth)
 {
     $elemTop=$DOM->createElement("DIV");
     $elemTop->setAttribute("reviewuuid",$entry->getUUID());
@@ -116,6 +116,8 @@ function displayHistoricalElements($DOM,$parent,$entry)
     
     $cb=$DOM->createElement("INPUT");
     $cb->setAttribute("TYPE","checkbox");
+    $cb->setAttribute("DEPTH",$depth);
+    $cb->setAttribute("reviewuuid",$entry->getUUID());
     $cb->setAttribute("FUNC","review");
     $elemTop->appendChild($cb);
     
@@ -125,7 +127,7 @@ function displayHistoricalElements($DOM,$parent,$entry)
     $item=$entry->getItem();
     foreach($item->getItems() as $it)
     {
-        displayHistoricalElements($DOM,$elemTop,$it->getEntry());
+        displayHistoricalElements($DOM,$elemTop,$it->getEntry(),$depth+1);
     }
 }
 ?>

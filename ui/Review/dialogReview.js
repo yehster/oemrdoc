@@ -65,8 +65,32 @@ function showReviewDialog()
     );
         
 }
+
+function copyEntries()
+{
+    var copylist="";
+    $("#reviewHistory").find("input:checkbox[func='review']:checked").each(function(index)
+        {
+            copylist += $(this).attr('reviewuuid')+'|'+$(this).attr('depth')+'|'+index+"\n";
+        });
+    entryUUID=$('#dialogReview').attr("entryuuid");
+    $.post("../../interface/copyEntries.php",
+        {
+            parentUUID: ""+entryUUID+"",
+            task: "copy",
+            copylist: ""+copylist+"",
+            refresh: "YES"
+        },
+        function(data)
+        {
+            refreshEntry(entryUUID,data);
+        }
+    );
+}
+
 function registerDialogReviewEvents()
 {
     $("#closeReview").click(closeReview);
+    $("#copyEntries").click(copyEntries);
     $("button[func='REVIEW']").live({click: showReviewDialog});
 }
