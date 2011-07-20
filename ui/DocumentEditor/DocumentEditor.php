@@ -90,7 +90,7 @@ if(isset($_REQUEST['docUUID']))
 <script src="addNarrative.js"></script>
 <script src="manageMeds.js"></script>
 <script src="sectionForms.js"></script>
-<script src="dialogReview.js"></script>
+<script src="../Review/dialogReview.js"></script>
 
 
 
@@ -129,9 +129,9 @@ if(isset($_REQUEST['docUUID']))
             <section ID="problemSearch"/> </section>
         
         </section>
-        <?php include("medLookupDialog.php"); ?>
+        <?php require("medLookupDialog.php"); ?>
         <?php require("dialogSectionForms.php"); ?>
-        <?php require("dialogReview.php"); ?>
+        <?php require("../Review/dialogReview.php"); ?>
 
     <?php
         echo $DOM->saveXML($MainSpan);
