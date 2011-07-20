@@ -6,6 +6,10 @@ function createButton($DOM,$Elem,$docEntry,$text,$func)
     {
         return;
     }
+    if(isset($GLOBALS['review']))
+    {
+        return;
+    }
     $but=$DOM->createElement("BUTTON",$text);
     $but->setAttribute("FUNC",$func);
     $but->setAttribute("EntryUUID",$docEntry->getUUID());
@@ -121,6 +125,14 @@ function createElement($DOM,$parent,$docEntry,$docItem)
             break;
         case TYPE_NARRATIVE:
             $narSpan=$DOM->createElement("SPAN");
+            if(isset($GLOBALS['review']))
+            {
+                $newElem=createTagElem($DOM,$docEntry,"span",$docEntry->getText());
+                $narSpan->appendChild($newElem);
+                $parent->appendChild($narSpan);
+                $retVal=$narSpan;
+                break;
+            }
             $newElem=createTagElem($DOM,$docEntry,"textarea",$docEntry->getText());
             if($docEntry->isLocked())
             {

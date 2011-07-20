@@ -31,8 +31,11 @@ function reviewRecurse($em,$DOM,$parent,$DocItem,$depth)
             reviewRecurse($em,$DOM,$nextParent,$childItem,$depth+1);
     }
 }
+
+
 function generateReviewDOM($em,$DOM,$section)
 {
+    
     $retVal = $DOM->createElement("SPAN");
     $header=$DOM->createElement("TEXT",$section->getModified()->format(DateTime::COOKIE));
     $retVal->appendChild($header);

@@ -5,12 +5,17 @@ function closeReview()
 
 function updateReviewCheckBoxes()
 {
-    div=$(this).parent("div[reviewtype]");
-    otherCB=div.find("div").find("input:checkbox[func='review']");
+    div=$(this).parent("[uuid]");
+    if(div.length==0)
+        {
+            div=$(this).parent().parent("[uuid]");
+        }
+    otherCB=div.find("[uuid]").find("input:checkbox[func='review']");
     otherCB.attr("checked",$(this).is(":checked"));
     if($(this).is(":checked"))
         {
-            div.parents("div[reviewtype]").children("input:checkbox[func='review']").attr("checked",true);
+            div.parents("[uuid]").children("input:checkbox[func='review']").attr("checked",true);
+            div.parents("[uuid]").children().children("input:checkbox[func='review']").attr("checked",true);
         }
     
 }
@@ -20,6 +25,21 @@ function navigateReview()
     relDoc=$(this).attr("relDoc");
     direction=$(this).attr("direction");
     updateReviewHistory(relDoc,sections,direction);
+}
+function addCheckBoxReview()
+{
+    if($(this).children().length)
+        {
+           elem=$(this).children(":first-child");
+        }
+        else
+        {
+           elem=$(this);     
+        }
+    elem.prepend("<INPUT TYPE='CHECKBOX' func='review'>");
+    cb=elem.find("[func='review']").attr("reviewuuid",$(this).attr("uuid"));
+    cb.attr("depth",$(this).parents("[uuid]").length+1);
+    
 }
 
 function updateReviewHistory(docUUID,sections,direction)
@@ -36,8 +56,13 @@ function updateReviewHistory(docUUID,sections,direction)
         function(data)
         {
             $("#reviewHistory").html(data);
-            $("input:checkbox[func='review']").change(updateReviewCheckBoxes);
             $("button[reldoc]").click(navigateReview)
+            uuidEntries=
+            $("#reviewHistory").find("[uuid]").each(
+                addCheckBoxReview
+            );
+            $("input:checkbox[func='review']").change(updateReviewCheckBoxes);
+
         }
     );
     

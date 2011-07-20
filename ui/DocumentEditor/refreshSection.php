@@ -1,5 +1,5 @@
 <?php
-@include_once("DocumentEditorUtilities.php");
+include_once("DocumentEditorUtilities.php");
 
 function refreshSection($item)
 {

@@ -15,7 +15,7 @@ if(isset($_SESSION['pid']))
     $pat=$em->getRepository('library\doctrine\Entities\Patient')->find($patID);
     
 }
-if(is_null($pat))
+if(!isset($pat))
 {
     header("HTTP/1.0 403 Forbidden");
     echo "No patient specified!";

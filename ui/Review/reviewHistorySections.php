@@ -79,10 +79,26 @@ if(isset($navSections[1]))
 
 
 echo "<DIV>".$reviewDoc['doc']->getModified()->format(DateTIME::ISO8601)."</DIV>";
+$review=true;
+require_once("../DocumentEditor/DocumentEditorUtilities.php");
+function refreshSection($item,$DOM)
+{
+        $span=$DOM->createElement("SPAN");
+        $DOM->appendChild($span);
+        $DOMNode= populateEditorDOM($DOM,$span,$item,1);
+        return $DOMNode;
+}
+
+
+$DOMXPath = new \DOMXPath($DOM);
+
+
 foreach($reviewDoc['sections'] as $histSection)
 {
-    $curSection=$DOM->createElement("SECTION");
-    displayHistoricalElements($DOM,$curSection,$histSection,1);
+    
+//    $curSection=$DOM->createElement("SECTION");
+//    displayHistoricalElements($DOM,$curSection,$histSection,1);
+    $curSection=refreshSection($histSection->getItem(),$DOM);
     echo $DOM->saveXML($curSection);
 }
 

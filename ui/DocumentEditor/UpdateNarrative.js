@@ -20,5 +20,5 @@ function updateNarrative()
 
 function registerNarrativeEvents()
 {
-    $("[entrytype='Narrative']").live({blur: updateNarrative});
+    $("textarea[entrytype='Narrative']").live({blur: updateNarrative});
 }
