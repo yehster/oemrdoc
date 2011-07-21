@@ -1,4 +1,25 @@
 <?php
+function findHistSection($sec,$rootUUID)
+{
+        $qb= $GLOBALS['em']->createQueryBuilder()
+        ->select("sec")
+        ->from('library\doctrine\Entities\Section',"sec")
+        ->join('sec.item','item')
+        ->andWhere("sec.uuid!=:cur")
+        ->andWhere("sec.code=:code")
+        ->andWhere("sec.patient=:pat")
+        ->andWhere("sec.code_type=:ct")
+        ->andWhere("item.root=:root");
+    $qb->setParameter("cur",$sec->getUUID());
+    $qb->setParameter("pat",$sec->getPatient());
+    $qb->setParameter("ct",$sec->getCode_type());
+    $qb->setParameter("code",$sec->getCode());
+    $qb->setParameter("root",$rootUUID);
+
+    $qryRes=$qb->getQuery()->getResult();
+
+    return $qryRes;
+}
 
 function findReviewDoc($relDoc,$curDoc,$direction,$sections)
 {
