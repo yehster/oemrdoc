@@ -20,11 +20,13 @@ section span[entrytype] {
     margin: 0.1em;
 }
 
-section {
+section[entrytype='Section'] {
     position: relative;
     left: 10px;
     font-size:small;
+    max-width: 95%;
 }
+
 .LABEL {
         font-weight: bold;
 }
@@ -57,7 +59,7 @@ textarea[entrytype='Narrative'] {
         font-size:small;
         z-index: 1000;
         overflow: auto;
-        opacity: 0.9;
+        opacity: 0.98;
 
 }
 
@@ -74,7 +76,7 @@ textarea[entrytype='Narrative'] {
         font-size:small;
         z-index: 1000;
         overflow: auto;
-        opacity: 0.9;
+        opacity: 0.95;
 }
 
 #lockDialog

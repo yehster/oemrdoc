@@ -23,7 +23,7 @@ include_once('/var/www/openemr/library/doctrine/init-em.php');
                    {metadataUUID: \"\"+uuid+\"\"}, 
                    function(data){
             if(data.length >0) {
-            window.location.reload()
+            window.location='/openemr/library/doctrine/ui/DocumentEditor/DocumentEditor.php?docUUID='+data;
             }});
 ;");
         $spanDoctrine->appendChild($createButton);
