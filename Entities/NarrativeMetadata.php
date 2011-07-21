@@ -1,6 +1,6 @@
 <?php
 namespace library\doctrine\Entities;
-
+require_once("DocumentMetadata.php");
 /** @Entity */
 class NarrativeMetadata extends DocumentMetadata
 {
