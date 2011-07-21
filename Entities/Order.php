@@ -1,4 +1,5 @@
 <?php
+require("DocumentEntry.php");
 namespace library\doctrine\Entities;
   /**
   * @Entity
