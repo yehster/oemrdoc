@@ -15,6 +15,7 @@ define('SECTION_FAMILY_HISTORY','Family History');
 define('SECTION_SOCIAL_HISTORY','Social History');
 define('SECTION_MEDICATIONS','Medications');
 define('SECTION_AP','Assessment/Plan');
+define('SECTION_PAST_MEDICAL_HISTORY','Past Medical History');
 
 define('ATTR_CLASS','class');
 define('ATTR_UUID','uuid');
