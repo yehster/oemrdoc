@@ -31,9 +31,11 @@ findOrCreateMDCI($em,$hpi,$form);
 findOrCreateMDCI($em,$hpinar,$hpi);
 
 $pm = findOrCreateSection($em,'PMH','Past Medical History');
+$pm->setCode("11348-0","LOINC");
 findOrCreateMDCI($em,$pm,$form);
 
 $all = findOrCreateSection($em,'ALL','Allergies');
+$all->setCode("8658-7","LOINC");
 findOrCreateMDCI($em,$all,$form);
 
 $drugAllergy=findOrCreateSubsection($em,"ALL:DRUG","Drug Allergy",$all);
@@ -123,6 +125,7 @@ $rosIMM->setCode('IMM','ROS');
 
 
 $pe = findOrCreateSection($em,'PE','Physical Exam');
+$pe->setCode("22029-3","LOINC");
 findOrCreateMDCI($em,$pe,$form);
 
 $peVIT= findOrCreateSubsection($em,'PE:VIT','Physical Exam:Vital Signs',$pe,'34565-2','LOINC');

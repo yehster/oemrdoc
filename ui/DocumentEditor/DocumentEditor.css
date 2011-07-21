@@ -17,7 +17,7 @@ body
 }
 section span[entrytype] {
     position: relative;
-    margin: 0.2em;
+    margin: 0.1em;
 }
 
 section {
@@ -116,4 +116,10 @@ table[type='form'] tr {
 
 table[type='form'] {
     width: 19em;
+}
+
+section span[entrytype="Observation"],section span[entrytype="QuantitativeEntry"]
+
+{
+    border: 1px dotted black;
 }

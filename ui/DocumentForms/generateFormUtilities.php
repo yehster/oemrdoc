@@ -73,6 +73,8 @@ function addMappingRow($DOM,$tbody,$vm,$seq)
             $tr->appendChild($tdControlRight);            
             $input=$DOM->createElement("INPUT");
             $input->setAttribute("TYPE","TEXT");
+// TO Validate numeric input.
+//            $input->setAttribute("PATTERN",'[0-9]*[.][0-9]*');
             $input->setAttribute("entrytype",$classification);
             $tdControlRight->appendChild($input);
             

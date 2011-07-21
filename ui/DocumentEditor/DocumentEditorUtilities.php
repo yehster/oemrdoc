@@ -33,6 +33,7 @@ function addSectionControls($DOM,$Elem,$docEntry)
         case SECTION_FAMILY_HISTORY:
         case SECTION_REVIEW_OF_SYSTEMS:
         case SECTION_SOCIAL_HISTORY:
+            createButton($DOM,$Elem,$docEntry,"Review","REVIEW");
             createButton($DOM,$Elem,$docEntry,"Details",FUNC_SHOWFORM);
             break;
         case SECTION_MEDICATIONS:
