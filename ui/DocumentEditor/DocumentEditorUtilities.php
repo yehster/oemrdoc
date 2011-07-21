@@ -27,6 +27,7 @@ function addSectionControls($DOM,$Elem,$docEntry)
             break;
         case SECTION_PAST_MEDICAL_HISTORY:
             createButton($DOM,$Elem,$docEntry,"Add",FUNC_DETAILS);
+            createButton($DOM,$Elem,$docEntry,"Review","REVIEW");
             break;
         case SECTION_PROBLEM_LIST:
             createButton($DOM,$Elem,$docEntry,"Add Problem","ADDPROB");
