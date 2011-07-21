@@ -13,12 +13,12 @@ if(isset($_REQUEST['relDocUUID']))
     // This is the uuid of the document relative to which we should search for other documents.
     $relDocUUID=$_REQUEST['relDocUUID'];
     $relDoc=$em->getRepository('library\doctrine\Entities\Document')->find($relDocUUID);
-    if(!isset($relDoc))
-    {
-        header("HTTP/1.0 403 Forbidden"); 
-        echo  "Can't Find Document";
-        return;
-    }
+    if($relDoc==null)
+        {
+            header("HTTP/1.0 403 Forbidden"); 
+            echo  "Can't Find Document";
+            return;
+        }
 }
 if(isset($_REQUEST['curDocUUID']))
 {
@@ -56,10 +56,13 @@ if(isset($reviewDoc['seqDoc']))
 {
     $navSections[$direction]=$reviewDoc['seqDoc'];
 }
-$navSearch=findReviewDoc($reviewDoc['doc'],$curDocUUID,-($direction),$sections);
-if(isset($navSearch['doc']))
+if($reviewDoc['doc']!=null)
 {
-    $navSections[-($direction)]=$navSearch['doc'];
+    $navSearch=findReviewDoc($reviewDoc['doc'],$curDocUUID,-($direction),$sections);
+    if(isset($navSearch['doc']))
+    {
+        $navSections[-($direction)]=$navSearch['doc'];
+    }
 }
 
 if(isset($navSections[-1]))
@@ -77,7 +80,10 @@ if(isset($navSections[1]))
     echo $DOM->saveXML($but);
 }
 
-
+if($reviewDoc['doc']==null)
+{
+    return;
+}
 echo "<DIV>".$reviewDoc['doc']->getModified()->format(DateTIME::ISO8601)."</DIV>";
 $review=true;
 require_once("../DocumentEditor/DocumentEditorUtilities.php");

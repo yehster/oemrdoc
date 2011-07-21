@@ -1,39 +1,4 @@
 <?php
-function findHistSection($sec,$rootUUID)
-{
-        $qb= $GLOBALS['em']->createQueryBuilder()
-        ->select("sec")
-        ->from('library\doctrine\Entities\Section',"sec")
-        ->join('sec.item','item')
-        ->andWhere("sec.uuid!=:cur")
-        ->andWhere("sec.code=:code")
-        ->andWhere("sec.patient=:pat")
-        ->andWhere("sec.code_type=:ct")
-        ->andWhere("item.root=:root");
-    $qb->setParameter("cur",$sec->getUUID());
-    $qb->setParameter("pat",$sec->getPatient());
-    $qb->setParameter("ct",$sec->getCode_type());
-    $qb->setParameter("code",$sec->getCode());
-    $qb->setParameter("root",$rootUUID);
-
-    $qryRes=$qb->getQuery()->getResult();
-
-    return $qryRes;
-}
-
-function findDocuments($sections)
-{
-    $qb =$GLOBALS['em']->createQueryBuilder();
-}
-function findHistoricalSections($em,$secs)
-{
-    $retVal = array();
-    foreach($secs as $sec)
-    {
-        $currentSection = $em->getRepository('library\doctrine\Entities\Section')->find($sec);
-        
-    }
-}
 
 function findReviewDoc($relDoc,$curDoc,$direction,$sections)
 {
@@ -86,6 +51,11 @@ function findReviewDoc($relDoc,$curDoc,$direction,$sections)
                 $retVal['seqDoc']=$results[$idx+1];
             }
             return $retVal;
+        }
+        else
+        {
+            // If we don't have any matching sections, check the previous document
+            return findReviewDoc($results[0],$curDoc,$direction,$sections);
         }
     }
     return;
