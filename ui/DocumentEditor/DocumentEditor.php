@@ -124,14 +124,8 @@ if(isset($_REQUEST['docUUID']))
                 ?></title>
     </head>
     <body docUUID='<?php echo $doc->getUUID()?>'>
-        <section ID="problemDialog" class="dialog" hidden="true">
-            <input type="text" id="txtProblem"/>
-            <button id="useTxtProblem">Add Problem</button>
-            <button id="cancelProblem">Cancel</button>            
-            <section ID="problemFavorites"/> </section>
-            <section ID="problemSearch"/> </section>
-        
-        </section>
+
+        <?php require("problemDialog.php"); ?>
         <?php require("medLookupDialog.php"); ?>
         <?php require("dialogSectionForms.php"); ?>
         <?php require("../Review/dialogReview.php"); ?>

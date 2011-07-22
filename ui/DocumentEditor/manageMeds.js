@@ -29,13 +29,38 @@ function processResults(data)
     $("#medLoading").hide();
 
 }
-
+function useMedText()
+{
+    rxcui="";
+    rxaui="";
+    tty="";
+    drugStr=$("#txtMedication").val();
+        parentUUID=$("#medLookupDialog").attr("entryUUID");
+        $("#medLoading").show();
+        $.post("../../interface/manageMedication.php",
+            {
+                parentUUID: ""+ parentUUID + "",
+                text: ""+drugStr+"",
+                rxcui: ""+rxcui+"",
+                rxaui: ""+rxaui+"",
+                task: "create",
+                refresh: "YES"
+            },
+            function(data)
+            {
+                refreshEntry(parentUUID,data);
+                $("#medLoading").hide();
+                clearAndHideDialogMed()
+            });
+    clearAndHideDialogMed();
+}
 function clickDrug()
 {
     rxcui=$(this).attr("rxcui");
     rxaui=$(this).attr("rxaui");
     tty=$(this).attr("tty");
     drugStr=$(this).text();
+    $("#txtMedication").val(drugStr);
     if((tty=="SCD") || (tty=="SBD"))
     {
         parentUUID=$("#medLookupDialog").attr("entryUUID");
@@ -109,5 +134,6 @@ function registerManageMedsEvents()
 {
     $("button[func='MED']").live({click: startAddMed});
     $("#cancelMed").click(clearAndHideDialogMed);
+    $("#useMedText").click(useMedText);
     $("#txtMedication").keypress(txtMedKeyPress);
 }
