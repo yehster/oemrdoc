@@ -75,10 +75,21 @@ t=setTimeout(function() {
     },200)
 }
 
+function useTxtProblem()
+{
+    entryUUID=$("#problemDialog").attr("entryUUID");
+    code="";
+    codeType="";
+    text=$("#txtProblem").val();
+    createProblem(entryUUID,code,codeType,text);
+}
+
+
 
 function registerAddProblemEvents()
 {
     $("button[func='ADDPROB']").live({click: addProblemStart});
     $("#txtProblem").keypress(txtProblemKeyPress);
+    $("#useTxtProblem").click(useTxtProblem)
     $("#cancelProblem").click(clearAndHideProblemDialog);
 }
