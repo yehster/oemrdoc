@@ -91,7 +91,7 @@ function formCheckBoxChanged()
 }
 function showFormDialog()
 {
-    $("#sectionForm").attr("hidden",false);
+    $("#sectionForm").show();
     entryUUID=$(this).attr("entryUUID");
     $("#sectionForm").attr("entryUUID",entryUUID);
     label=$(this).siblings(".LABEL").text();
@@ -114,7 +114,7 @@ function showFormDialog()
 
 function hideFormDialog()
 {
-    $("#sectionForm").attr("hidden",true);    
+    $("#sectionForm").hide();    
 }
 
 function updateQuantitative()

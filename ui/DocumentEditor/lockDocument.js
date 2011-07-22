@@ -4,14 +4,14 @@ function ajaxLockDocument()
 }
 function lockDocument()
 {
-    $("#lockDialog").attr("hidden",false);
+    $("#lockDialog").show();
     $("#lockPass").select();
 
 }
 
 function lockButtonClicked()
 {
-    $("#lockDialog").attr("hidden",true);
+    $("#lockDialog").hide();
     if($(this).attr("ID")=="lockDocument")
     {
         hash=SHA1($("#lockPass").val());

@@ -126,7 +126,7 @@ section span[entrytype="Observation"],section span[entrytype="QuantitativeEntry"
     border: 1px dotted black;
 }
 
-[hidden='true']
+section[hidden='true']
 {
     display: none;
 }

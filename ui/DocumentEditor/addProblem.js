@@ -6,14 +6,14 @@
 function addProblemStart()
 {
     entryUUID=$(this).attr("entryUUID");
-    $("#problemDialog").attr("hidden",false);
+    $("#problemDialog").show();
     $("#problemDialog").attr("entryUUID",entryUUID);
     $("#txtProblem").select();
 }
 
 function clearAndHideProblemDialog()
 {
-    $("#problemDialog").attr("hidden",true);
+    $("#problemDialog").hide();
     $("#txtProblem").val("");
     $("#problemSearch").html("");
     

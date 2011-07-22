@@ -1,4 +1,4 @@
-<section id="medLookupDialog" class="dialog" hidden="true">
+<section id="medLookupDialog" class="dialog">
     <div id="medProblemLabel"> </div>
     <input type="text" id="txtMedication"/>
     <button id="cancelMed">Cancel</button>

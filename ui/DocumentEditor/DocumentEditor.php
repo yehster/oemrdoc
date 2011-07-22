@@ -31,7 +31,6 @@ if(isset($_REQUEST['docUUID']))
 
     $lockDialog=$DOM->createElement("SECTION");
     $lockDialog->setAttribute("ID","lockDialog");
-    $lockDialog->setAttribute("HIDDEN",true);    
     
     $divLockPwd=$DOM->createElement("DIV","Confirm that you want to lock this document by entering your password.");
     $lockDialog->appendChild($divLockPwd);
@@ -107,7 +106,11 @@ if(isset($_REQUEST['docUUID']))
         registerSectionFormsEvents();
         registerDialogReviewEvents();
         $(document).ajaxError(handleAjaxError);
-        $("#status").click(function(){$(this).attr("hidden",true);});
+        $("#status").click(function(){$(this).hide();});
+        $("#status").hide();
+
+        $(".dialog").hide();
+        $("#lockDialog").hide();
     }
     window.onload= registerControlEvents;
     window.unload= function() { $(document).unbind('ajaxError'); }

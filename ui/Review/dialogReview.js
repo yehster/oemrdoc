@@ -1,6 +1,6 @@
 function closeReview()
 {
-    $("#dialogReview").attr("hidden",true);
+    $("#dialogReview").hide();
 }
 
 function updateReviewCheckBoxes()
@@ -69,7 +69,7 @@ function updateReviewHistory(docUUID,sections,direction)
 }
 function showReviewDialog()
 {
-    $("#dialogReview").attr("hidden",false);
+    $("#dialogReview").show();
     sectionuuid=$(this).attr("entryuuid");
     $("#dialogReview").attr("sections",sectionuuid);
     $("#dialogReview").attr("entryuuid",sectionuuid);

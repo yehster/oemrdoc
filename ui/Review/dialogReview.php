@@ -1,4 +1,4 @@
-<section id="dialogReview" class="dialog" hidden="true">
+<section id="dialogReview" class="dialog">
     <button id="closeReview">close</button>
     <section id="reviewHistory"></section>
     <button id="copyEntries">copy</button>
