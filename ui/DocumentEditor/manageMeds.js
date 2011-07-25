@@ -108,12 +108,21 @@ function clickDrug()
 function lookupMed(searchString)
 {
     $("#medLoading").show();
+    currentTime=(new Date()).getTime();
     $.post("../Dictionary/lookupMedications.php",
         {
             searchString: ""+searchString+"",
             task: "MEDSEARCH"
         },
-        processResults
+        function()
+        {
+            prevTime=$("#medLoading").attr("prevTime");
+            if((prevTime==null) || prevTime < currentTime())
+                {
+                    $("#medLoading").attr("prevTime",currentTime);
+                    processResults(data);
+                }
+        }
         
     );
 }
