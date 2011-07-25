@@ -32,6 +32,7 @@ function addSectionControls($DOM,$Elem,$docEntry)
         case SECTION_PROBLEM_LIST:
             createButton($DOM,$Elem,$docEntry,"Add Problem","ADDPROB");
             break;
+        case SECTION_VITAL_SIGNS:
         case SECTION_PHYSICAL_EXAM:
         case SECTION_ALLERGIES:
         case SECTION_FAMILY_HISTORY:

@@ -12,15 +12,19 @@ function findOrCreateSubsection($em,$sd,$ld,$par,$code="",$codeType="")
 
 }
 
-function findOrCreateSection($em,$sd,$ld)
+function findOrCreateSection($em,$sd,$ld,$code="",$codeType="")
 {
     $sect = $em->getRepository('library\doctrine\Entities\SectionHeading')->findOneBy(array('shortDesc' => $sd));
     if($sect == null)
     {
         $sect = new library\doctrine\Entities\SectionHeading($sd,$ld);
         $em->persist($sect);
-        $em->flush();
     }
+    if($code!="")
+    {
+        $sect->setCode($code,$codeType);
+    }    
+    $em->flush();
     return $sect;
 }
 
@@ -51,6 +55,7 @@ function findOrCreateMDCI($em,$md,$parent)
     {
         $mdci=new library\doctrine\Entities\DocumentMetadataCollectionItem($md);
         $parent->addItem($mdci);
+        $em->flush();
     }
     return $mdci;
 }

@@ -11,6 +11,7 @@ if($form == NULL)
     $em->flush();
 }
 
-
+$VIT= findOrCreateSection($em,'VIT','Vital Signs','34565-2','LOINC');
+findOrCreateMDCI($em,$VIT,$form);
 
 ?>
