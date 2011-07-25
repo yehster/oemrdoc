@@ -144,7 +144,6 @@ include_once("OEMRProblem.php");
                     $this->OEMRListItem->setTitle($val);
                 }
             }
-            $this->modified= new \DateTime;
 
 	}
 
@@ -187,26 +186,6 @@ include_once("OEMRProblem.php");
 	  */
 	protected $OEMRListItem;
 
-        public function updateProperty($prop,$value)
-        {
-          if($this->isLocked()){return false;}            
-            if(($prop!="uuid") &&
-                 ($prop!="created") &&
-                 ($prop!="modified") &&
-                 ($prop!="author") &&
-                 ($prop!="metadata") &&
-                 ($prop!="patient") &&
-                 ($prop!="locked")
-                  )
-            {
-              if($this->$prop!=$value)
-              {
-                $this->$prop=$value;
-                $this->modified = new \DateTime();
-              }
-              return true;
-            }
-        }
 
         /**
          * @OneToOne(targetEntity="DocumentItem", mappedBy="entry",cascade={"persist","remove"})
@@ -263,9 +242,10 @@ include_once("OEMRProblem.php");
     }
 
     /** @PreUpdate */
-    public function preventUpdateOfLocked()
+    public function preUpdateEventHandler()
     {
-        
+     
+        // Prevent update of locked
         if($this->isLocked())
         {
             if(!$this->locking)
@@ -274,6 +254,9 @@ include_once("OEMRProblem.php");
             }
             $this->locking=false;
         }
+        
+        // update modified
+        $this->modified = new \DateTime;
     }
 
     

@@ -20,7 +20,6 @@ class QuantitativeEntry extends DocumentEntry
     
     public function setValue($val,$auth)
     {
-        $this->modified = new \DateTime;
         $this->auth = $auth;
         $this->value=$val;
     }

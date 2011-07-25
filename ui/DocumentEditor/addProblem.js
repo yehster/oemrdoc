@@ -41,23 +41,31 @@ function createProblem(parentUUID,code,codeType,text)
 
 function lookupProblem(searchString)
 {
+    currentTime=(new Date()).getTime();
     $.post("../Dictionary/lookupProblems.php",
         {
-            searchString: ""+searchString+""
+            searchString: ""+searchString+"",
         },
         function(data)
         {
-            $("#problemSearch").html(data);
-            $("#problemSearch td[type='CODETEXT']").click(
-            function(){
-                entryUUID=$("#problemDialog").attr("entryUUID");
-                code=$(this).attr("code");
-                codeType=$(this).attr("codetype")
-                text=$(this).text();
-                createProblem(entryUUID,code,codeType,text);
-            });
-            $("#problemSearch tr").mouseover(function(){$(this).addClass("highlight")});
-            $("#problemSearch tr").mouseout(function(){$(this).removeClass("highlight")});
+            prevTime=$("#problemSearch").attr("prevTime")
+            if((prevTime==null)||(currentTime > prevTime))
+            {
+                $("#problemSearch").html(data);
+                $("#problemSearch").attr("prevTime",currentTime);
+                $("#problemSearch td[type='CODETEXT']").click(
+                function(){
+                    entryUUID=$("#problemDialog").attr("entryUUID");
+                    code=$(this).attr("code");
+                    codeType=$(this).attr("codetype")
+                    text=$(this).text();
+                    createProblem(entryUUID,code,codeType,text);
+                }
+                );
+                $("#problemSearch tr").mouseover(function(){$(this).addClass("highlight")});
+                $("#problemSearch tr").mouseout(function(){$(this).removeClass("highlight")});
+
+            }
             
         }
     );

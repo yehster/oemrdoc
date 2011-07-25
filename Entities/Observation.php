@@ -16,7 +16,6 @@ namespace library\doctrine\Entities;
  
         public function setValue($val)
         {
-            $this->modified = new \DateTime();
             $this->value=$val;
         }
         

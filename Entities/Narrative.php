@@ -19,11 +19,6 @@ class Narrative extends DocumentEntry
             return $info;
         }
 
-        public function getTag()
-        {
-            return "TEXTAREA";
-        }
-
         public function similar($comp)
         {
             if(parent::similar($comp))
