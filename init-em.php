@@ -8,6 +8,12 @@ use Doctrine\ORM\EntityManager,
 
 
 set_include_path(get_include_path() . PATH_SEPARATOR . '/var/www/openemr');
+require_once("/var/www/openemr/sites/default/sqlconf.php");
+error_reporting("E_ALL & ~E_DEPRECATED");
+if($undefined==1)
+{
+    
+};
 
 session_name("OpenEMR");
 session_start();
@@ -84,11 +90,11 @@ $connectionParams = array(
     'dbname' => 'openemr',
     'user' => 'openemr',
     'password' => 'mydbpwd',
-    'host' => 'donaghy',
+    'host' => $GLOBALS[$dbase],
     'driver' => 'pdo_mysql',
 );
 
 $em = EntityManager::create($connectionParams, $config);
-$SESSION['em']=$em;
+$_SESSION['em']=$em;
 }
 ?>

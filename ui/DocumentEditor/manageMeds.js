@@ -114,12 +114,12 @@ function lookupMed(searchString)
             searchString: ""+searchString+"",
             task: "MEDSEARCH"
         },
-        function()
+        function(data)
         {
-            prevTime=$("#medLoading").attr("prevTime");
-            if((prevTime==null) || prevTime < currentTime())
+            prevTime=$("#medLookupDialog").attr("prevTime");
+            if((prevTime==null) || prevTime < currentTime)
                 {
-                    $("#medLoading").attr("prevTime",currentTime);
+                    $("#medLookupDialog").attr("prevTime",currentTime);
                     processResults(data);
                 }
         }
