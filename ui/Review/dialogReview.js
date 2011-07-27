@@ -15,7 +15,7 @@ function updateReviewCheckBoxes()
     if($(this).is(":checked"))
         {
             div.parents("[uuid]").children("input:checkbox[func='review']").attr("checked",true);
-            div.parents("[uuid]").children().children("input:checkbox[func='review']").attr("checked",true);
+            div.parents("[uuid]").children(":not([uuid])").children("input:checkbox[func='review']").attr("checked",true);
         }
     
 }
