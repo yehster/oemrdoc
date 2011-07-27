@@ -65,8 +65,8 @@ class QuantitativeEntry extends DocumentEntry
         {
         
             $retval = parent::copy($auth);
-            $retVal->setUnits($this->units);
-            $retVal->setValue($this->value);
+            $retval->setUnits($this->units);
+            $retval->setValue($this->value);
             return $retval;
         }
         
