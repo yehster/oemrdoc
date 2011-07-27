@@ -1,4 +1,5 @@
 <?php
+require_once("../Editor/EditorConstants.php");
 function findHistSection($sec,$rootUUID)
 {
         $qb= $GLOBALS['em']->createQueryBuilder()
@@ -58,9 +59,28 @@ function findReviewDoc($relDoc,$curDoc,$direction,$sections)
         foreach($sections as $sec)
         {
             $sectionResults=findHistSection($sec,$results[0]->getUUID());
-            foreach($sectionResults as $sr)
+            if(count($sectionResults)>0)
             {
-                $retSection[]=$sr;
+                foreach($sectionResults as $sr)
+                {
+                    $retSection[]=$sr;
+                }
+            }
+            else
+            {
+                $secItem=$sec->getItem();
+                foreach($secItem->getItems() as $item)
+                {
+                    $entry=$item->getEntry();
+                    if($entry->getType()==TYPE_SECTION)
+                    {
+                        $sectionResults=findHistSection($entry,$results[0]->getUUID());
+                        foreach($sectionResults as $sr)
+                        {
+                            $retSection[]=$sr;
+                        }                    
+                    }
+                }
             }
         }
         if(count($retSection)>0)

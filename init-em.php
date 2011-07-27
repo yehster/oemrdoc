@@ -5,6 +5,8 @@ use Doctrine\ORM\EntityManager,
     Doctrine\Common\Cache,
     Doctrine\ORM\Query\AST\Functions,
     Doctrine\ORM\Query\AST;
+
+
 set_include_path(get_include_path() . PATH_SEPARATOR . '/var/www/openemr');
 
 session_name("OpenEMR");
@@ -82,7 +84,7 @@ $connectionParams = array(
     'dbname' => 'openemr',
     'user' => 'openemr',
     'password' => 'mydbpwd',
-    'host' => 'localhost',
+    'host' => 'donaghy',
     'driver' => 'pdo_mysql',
 );
 
