@@ -8,7 +8,7 @@ include_once('/var/www/openemr/library/doctrine/init-em.php');
     <input type="text" id="txtProblem"/>
     <button id="useTxtProblem">Add Problem</button>
     <button id="cancelProblem">Cancel</button> 
-    <span id="medLoading"><img src="../loading.gif"></span>    
+    <span id="problemLoading"><img src="../loading.gif"></span>    
     <section ID="problemFavorites"/> </section>
     <section ID="problemSearch"/> </section>       
 </section>

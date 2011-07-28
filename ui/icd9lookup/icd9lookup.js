@@ -1,5 +1,7 @@
 function lookupProblem(searchString)
 {
+
+    $("#problemLoading").show();
     currentTime=(new Date()).getTime();
     $.post("../Dictionary/lookupProblems.php",
         {
@@ -7,6 +9,7 @@ function lookupProblem(searchString)
         },
         function(data)
         {
+            $("#problemLoading").hide();
             prevTime=$("#problemSearch").attr("prevTime")
             if((prevTime==null)||(currentTime > prevTime))
             {
@@ -35,5 +38,6 @@ t=setTimeout(function() {
 
 function registerICD9lookupEvents()
 {
+    $("#problemLoading").hide();
     $("#txtProblem").keypress(txtProblemKeyPress);
 }
