@@ -42,6 +42,7 @@ function createProblem(parentUUID,code,codeType,text)
 function lookupProblem(searchString)
 {
     currentTime=(new Date()).getTime();
+    $("#problemSearch").attr("prevTime",currentTime);
     $.post("../Dictionary/lookupProblems.php",
         {
             searchString: ""+searchString+"",
@@ -49,10 +50,9 @@ function lookupProblem(searchString)
         function(data)
         {
             prevTime=$("#problemSearch").attr("prevTime")
-            if((prevTime==null)||(currentTime > prevTime))
+            if((prevTime==null)||(currentTime >= prevTime))
             {
                 $("#problemSearch").html(data);
-                $("#problemSearch").attr("prevTime",currentTime);
                 $("#problemSearch td[type='CODETEXT']").click(
                 function(){
                     entryUUID=$("#problemDialog").attr("entryUUID");

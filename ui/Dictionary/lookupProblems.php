@@ -49,6 +49,14 @@ if(isset($_REQUEST["searchString"]))
 {
     $searchString= $_REQUEST["searchString"];    
 }
+if(isset($_REQUEST["codeSet"]))
+{
+    $codeSet=$_REQUEST["codeSet"];
+}
+else
+{
+    $codeSet="";
+}
 
     $DOM= new DOMDocument("1.0","utf-8");
     
@@ -59,7 +67,7 @@ if(isset($_REQUEST["searchString"]))
     $toks = tokenize($searchString);
     if(count($toks)==1)
     {
-        $keywords = findKeywords($em,$toks[0]);
+        $keywords = findKeywords($em,$toks[0],$codeSet);
         $maxMatch=$keywords[0]['qual'];
         $minMatch=$keywords[count($keywords)-1]['qual'];
         $tol=($maxMatch-$minMatch) / 2;
@@ -74,8 +82,12 @@ if(isset($_REQUEST["searchString"]))
         {
             $curKW = $keywords[$idx][0];
             $qual = $keywords[$idx]['qual'];
-            addKeyword($DOM,$tbody,$curKW,$qual);
             $codes = findCodesForKeyword($em,$curKW);
+            if(count($codes)>0)
+            {
+                addKeyword($DOM,$tbody,$curKW,$qual);
+
+            }
             for($cidx=0;$cidx<count($codes);$cidx++)
             {
                 addCodeResult($DOM,$tbody,$codes[$cidx]);

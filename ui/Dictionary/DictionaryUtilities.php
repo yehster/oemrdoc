@@ -2,17 +2,22 @@
 
 require_once('../../util/tokenize.php');
 
-function findCodesForKeyword($em,$kw)
+function findCodesForKeyword($em,$kw,$codeSet="")
 {
 
 
+    $csArray=array('2','3','9','16','V');
    $qb = $em->createQueryBuilder()
         ->select("code")
         ->from("library\doctrine\Entities\Code","code")
         ->from("library\doctrine\Entities\KeywordCodeAssociation", "kwa")
         ->where("kwa.code = code AND kwa.keyword=:kw");
-//    $qb->setParameter("kw",$arrKeywords[0]);
-
+   if($codeSet!="")
+   {
+        $qb->andWhere("code.code_text_short in ".$codeSet);
+   }
+//        $qb->setParameter("cs","('16')");
+        
    $qb->setParameter("kw",$kw->getId());
     $qry=$qb->getQuery();
     return $qry->getResult();

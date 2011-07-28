@@ -109,6 +109,7 @@ function lookupMed(searchString)
 {
     $("#medLoading").show();
     currentTime=(new Date()).getTime();
+    $("#medLookupDialog").attr("prevTime",currentTime);
     $.post("../Dictionary/lookupMedications.php",
         {
             searchString: ""+searchString+"",
@@ -117,9 +118,8 @@ function lookupMed(searchString)
         function(data)
         {
             prevTime=$("#medLookupDialog").attr("prevTime");
-            if((prevTime==null) || prevTime < currentTime)
+            if((prevTime==null) || prevTime <= currentTime)
                 {
-                    $("#medLookupDialog").attr("prevTime",currentTime);
                     processResults(data);
                 }
         }

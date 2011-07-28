@@ -49,5 +49,7 @@ class Code
         }
 
 
+        /** @Column(type="string")*/
+        private $code_text_short;
 }
 ?>
