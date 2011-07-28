@@ -1,4 +1,4 @@
-        <section ID="problemDialog" class="dialog" hidden="true">
+        <section ID="problemDialog" class="dialog">
             <input type="text" id="txtProblem"/>
             <button id="useTxtProblem">Add Problem</button>
             <button id="cancelProblem">Cancel</button>            
