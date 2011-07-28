@@ -67,7 +67,7 @@ else
     $toks = tokenize($searchString);
     if(count($toks)==1)
     {
-        $keywords = findKeywords($em,$toks[0],$codeSet);
+        $keywords = findKeywords($em,$toks[0]);
         $maxMatch=$keywords[0]['qual'];
         $minMatch=$keywords[count($keywords)-1]['qual'];
         $tol=($maxMatch-$minMatch) / 2;
@@ -82,7 +82,7 @@ else
         {
             $curKW = $keywords[$idx][0];
             $qual = $keywords[$idx]['qual'];
-            $codes = findCodesForKeyword($em,$curKW);
+            $codes = findCodesForKeyword($em,$curKW,$codeSet);
             if(count($codes)>0)
             {
                 addKeyword($DOM,$tbody,$curKW,$qual);
@@ -106,7 +106,7 @@ else
                 $kwarr[$tokIdx] = findKeywords($em,$toks[$tokIdx]);
                 $lastKW[$tokIdx]=null;
             }
-            $codes=findCodesForKwArr($em,$kwarr,$toks);
+            $codes=findCodesForKwArr($em,$kwarr,$toks,$codeSet);
             for($cidx=0;$cidx<count($codes);$cidx++)
             {
                 for($tokIdx=0;$tokIdx<count($toks);$tokIdx++)

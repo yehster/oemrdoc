@@ -4,10 +4,19 @@ function lookupProblem(searchString)
     $("#problemLoading").show();
     currentTime=(new Date()).getTime();
     $("#problemSearch").attr("prevTime",currentTime);
+    if($("#filter:checked").length)
+        {
+            codeSet="('2','3','9','16','V')";
+            
+        }
+        else
+            {
+                codeSet=""
+            }
     $.post("../Dictionary/lookupProblems.php",
         {
             searchString: ""+searchString+"",
-            codeSet: "('2','3','9','16','V')"
+            codeSet: ""+codeSet+""
         },
         function(data)
         {
@@ -41,4 +50,6 @@ function registerICD9lookupEvents()
 {
     $("#problemLoading").hide();
     $("#txtProblem").keypress(txtProblemKeyPress);
+    $("#filter").click(txtProblemKeyPress);
+    $("#txtProblem").select();
 }

@@ -6,8 +6,8 @@ include_once('/var/www/openemr/library/doctrine/init-em.php');
 </style>
 <section ID="problemDialog">
     <input type="text" id="txtProblem"/>
-    <button id="useTxtProblem">Add Problem</button>
-    <button id="cancelProblem">Cancel</button> 
+    <span>Filter</span>
+    <input type="checkbox" id="filter" checked="true"/>
     <span id="problemLoading"><img src="../loading.gif"></span>    
     <section ID="problemFavorites"/> </section>
     <section ID="problemSearch"/> </section>       

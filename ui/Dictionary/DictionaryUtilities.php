@@ -38,7 +38,7 @@ function findKeywords($em,$searchString)
 }
 
 
-function findCodesForKwArr($em,$kwarr,$tok)
+function findCodesForKwArr($em,$kwarr,$tok,$codeSet)
 {
     // need to fix scoring order
     $kwinList=array();
@@ -87,6 +87,10 @@ function findCodesForKwArr($em,$kwarr,$tok)
 // TODO: tweak sort ordering issues
      }
 
+   if($codeSet!="")
+   {
+        $qb->andWhere("cd.code_text_short in ".$codeSet);
+   }
      $qb->orderBy($orderByString,"DESC");
     $qry=$qb->getQuery();
     $res=$qry->getResult();
