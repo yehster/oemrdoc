@@ -19,7 +19,8 @@ session_name("OpenEMR");
 session_start();
 
 
-if(isset($_SESSION['em']))
+//if(isset($_SESSION['em']))
+if(false) // not sure about caching entity manager for session
 {
     $em=$_SESSION['em'];
 }
@@ -95,6 +96,6 @@ $connectionParams = array(
 );
 
 $em = EntityManager::create($connectionParams, $config);
-$_SESSION['em']=$em;
+//$_SESSION['em']=$em;
 }
 ?>
