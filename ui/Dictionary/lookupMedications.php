@@ -18,20 +18,19 @@ function lookupMedNames($em,$searchString)
     return $qry->getResult();
 }
 
-function lookupMedForms($em,$rel,$types,$rxcui,$rxaui=null)
+function lookupMedForms($em,$rel,$types,$id,$field)
 {
     $qb = $em->createQueryBuilder()
         ->select("co")
         ->from("library\doctrine\Entities\RXNConcept","co")
         ->from("library\doctrine\Entities\RXNRelationship", "rel")
-        ->where("(rel.RXCUI1=:cui)")
+        ->where("(rel.".$field."1=:id)")
         ->andWhere("rel.RXCUI2 = co.RXCUI")
         ->andWhere("rel.RELA = :rel")
         ->andWhere("co.TTY in(".$types.")")
         ->orderBy("co.TTY");
 
-    $qb->setParameter("cui",$rxcui);
-//    $qb->setParameter("aui",$rxaui);
+    $qb->setParameter("id",$id);
     $qb->setParameter("rel",$rel);
 
     $qry=$qb->getQuery();
@@ -44,14 +43,14 @@ function lookupMedForms($em,$rel,$types,$rxcui,$rxaui=null)
     return $res;
 }
 
-function lookupMedFormsJoin($em,$rel,$rel2,$types,$rxcui,$rxaui=null)
+function lookupMedFormsJoin($em,$rel,$rel2,$types,$id,$field)
 {
     $qb = $em->createQueryBuilder()
         ->select("co,count(rel2) as cnt")
         ->from("library\doctrine\Entities\RXNConcept","co")
         ->from("library\doctrine\Entities\RXNRelationship", "rel")
         ->from("library\doctrine\Entities\RXNRelationship", "rel2")
-        ->where("(rel.RXCUI1=:cui)")
+        ->where("(rel.".$field."1=:id)")
         ->andWhere("rel.RXCUI2 = co.RXCUI")
         ->andWhere("co.RXCUI=rel2.RXCUI1")    
         ->andWhere("rel.RELA = :rel")
@@ -60,8 +59,7 @@ function lookupMedFormsJoin($em,$rel,$rel2,$types,$rxcui,$rxaui=null)
         ->groupBy("co")
         ->orderby("cnt");
 
-    $qb->setParameter("cui",$rxcui);
-//    $qb->setParameter("aui",$rxaui);
+    $qb->setParameter("id",$id);
     $qb->setParameter("rel",$rel);
     $qb->setParameter("rel2",$rel2);
 
@@ -128,17 +126,25 @@ $maxRes=20;
             break;
      case "MEDSEMANTIC":
 //            $medForms= lookupMedForms($em,"has_ingredient","'SCDF','SBDF'",$rxcui,$rxaui);
-            $medForms= lookupMedFormsJoin($em,"has_ingredient","ingredient_of","'SCDF','SBDF'",$rxcui,$rxaui);
-            for($idx=0;$idx<count($medForms);$idx++)
+            $medForms= lookupMedFormsJoin($em,"has_ingredient","ingredient_of","'SCDF','SBDF'",$rxcui,"RXCUI");
+            $res= array_merge(lookupMedFormsJoin($em,"has_ingredient","ingredient_of","'SCDF','SBDF'",$rxaui,"RXAUI"),$medForms);
+            for($idx=0;$idx<count($res);$idx++)
             {
-                $curMed = $medForms[$idx][0];
+                $curMed = $res[$idx][0];
                 addMedName($DOM,$tbody,$curMed);
-                $medSem = lookupMedForms($em,"isa","'SCD','SBD'",$curMed->getRXCUI(),$curMed->getRXAUI());
+                $medSem = lookupMedForms($em,"isa","'SCD','SBD'",$curMed->getRXCUI(),"RXCUI");
                 for($formIdx=0;$formIdx<count($medSem);$formIdx++)
                 {
                     $curSem = $medSem[$formIdx];
                     addMedName($DOM,$tbody,$curSem);
                 }
+                $medSem = lookupMedForms($em,"isa","'SCD','SBD'",$curMed->getRXAUI(),"RXAUI");
+                for($formIdx=0;$formIdx<count($medSem);$formIdx++)
+                {
+                    $curSem = $medSem[$formIdx];
+                    addMedName($DOM,$tbody,$curSem);
+                }
+
             }
          break;
 }
