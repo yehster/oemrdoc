@@ -146,12 +146,5 @@ function registerManageMedsEvents()
     $("#cancelMed").click(clearAndHideDialogMed);
     $("#useMedText").click(useMedText);
     $("#txtMedication").keypress(txtMedKeyPress);
-        $("#medLookupDialog").keydown(function(e) {
-            var element = e.target.nodeName.toLowerCase();
-            if (element != 'input' && element != 'textarea') {
-                if (e.keyCode === 8) {
-                    return false;
-                }
-            }
-        });        
+        
 }

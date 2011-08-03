@@ -111,7 +111,16 @@ if(isset($_REQUEST['docUUID']))
 
         $(".dialog").hide();
         $("#lockDialog").hide();
-        
+        $(document).keypress(function(e) {
+            var element = e.target.nodeName.toLowerCase();
+            if (element != 'input' && element != 'textarea') {
+                if (e.keyCode === 8) {
+                    window.alert($(".dialog:visible").length);
+                    return false;
+                }
+            }
+        });
+
     }
     window.onload= registerControlEvents;
     window.unload= function() { $(document).unbind('ajaxError'); }
