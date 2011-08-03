@@ -111,6 +111,7 @@ if(isset($_REQUEST['docUUID']))
 
         $(".dialog").hide();
         $("#lockDialog").hide();
+        
     }
     window.onload= registerControlEvents;
     window.unload= function() { $(document).unbind('ajaxError'); }

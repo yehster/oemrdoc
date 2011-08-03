@@ -10,7 +10,6 @@ class Problem extends DocumentEntry
     public function __construct($md,$pat,$auth)
     {
         parent::__construct($md,$pat,$auth);
-        $this->OEMRListItem = new OEMRProblem($pat);
         
     }
 
@@ -22,7 +21,6 @@ class Problem extends DocumentEntry
        	public function setCode($val,$for)
 	{
             parent::setCode($val,$for);
-            $this->OEMRListItem->setDiagnosis($val,$for);
 	}
 
 
