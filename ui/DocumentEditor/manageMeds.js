@@ -110,6 +110,7 @@ function lookupMed(searchString)
     $("#medLoading").show();
     currentTime=(new Date()).getTime();
     $("#medLookupDialog").attr("prevTime",currentTime);
+    $("#medLookupDialog .back").attr("lastSearch",searchString);
     $.post("../Dictionary/lookupMedications.php",
         {
             searchString: ""+searchString+"",
@@ -139,6 +140,10 @@ t=setTimeout(function() {
 }
 
 
+function medBack()
+{
+    lookupMed($(this).attr("lastSearch"));
+}
 
 function registerManageMedsEvents()
 {
@@ -146,5 +151,6 @@ function registerManageMedsEvents()
     $("#cancelMed").click(clearAndHideDialogMed);
     $("#useMedText").click(useMedText);
     $("#txtMedication").keypress(txtMedKeyPress);
+    $("#medLookupDialog .back").click(medBack);
         
 }

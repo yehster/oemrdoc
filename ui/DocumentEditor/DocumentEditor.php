@@ -115,8 +115,12 @@ if(isset($_REQUEST['docUUID']))
             var element = e.target.nodeName.toLowerCase();
             if (element != 'input' && element != 'textarea') {
                 if (e.keyCode === 8) {
-                    window.alert($(".dialog:visible").length);
-                    return false;
+                    dialog=$(".dialog:visible");
+                    if(dialog.length>0)
+                        {
+                            dialog.find("button.back").click();
+                            return false;
+                        }
                 }
             }
         });
