@@ -9,8 +9,7 @@ class Problem extends DocumentEntry
 
     public function __construct($md,$pat,$auth)
     {
-        parent::__construct($md,$pat,$auth);
-        
+        parent::__construct($md,$pat,$auth);        
     }
 
         const classtype = "Problem";

@@ -1,7 +1,22 @@
 <?php
+require_once("../init-em.php");
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+function recurseEntries($entries,$item)
+{
+    $entries[]=$item->getEntry();
+    foreach($item->getItems() as $it)
+    {
+        recurseEntries($entries,$it);
+    }
+}
+
+
+function scanDocument($doc)
+{
+    $entries = array();
+    foreach($doc->getItems() as $item)
+    {
+        recurseEntries($entries,$item);    
+    }
+}
 ?>
