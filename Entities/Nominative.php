@@ -26,6 +26,17 @@ class Nominative extends DocumentEntry
             return $this->vocabID;
         }
 
+        public function similar($comp)
+        {
+            if($comp->getvocabID()!=$this->getvocabID())
+            {
+                return false;
+            }
+            else
+            {
+                return parent::similar($comp);
+            }
+        }        
 
 }
 ?>

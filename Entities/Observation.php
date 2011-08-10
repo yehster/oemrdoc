@@ -49,7 +49,17 @@ namespace library\doctrine\Entities;
             }
         }
 
-
+        public function similar($comp)
+        {
+            if($comp->getvocabID()!=$this->getvocabID())
+            {
+                return false;
+            }
+            else
+            {
+                return parent::similar($comp);
+            }
+        }
 
 
 

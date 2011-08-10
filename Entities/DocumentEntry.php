@@ -228,9 +228,22 @@ include_once("OEMRProblem.php");
             $copy->text=$this->text;
             $copy->setCode($this->getCode(),$this->getCode_type());
             $copy->metadata=$this->metadata;
-            
+            $copy->copiedFrom=$this;
             return $copy;
         }
+
+    
+        /**
+	* @ManyToOne(targetEntity="DocumentEntry")
+	* @JoinColumn(name="copiedFrom_id", referencedColumnName="uuid")
+	*/
+        protected $copiedFrom;
+        
+        public function getCopiedFrom()
+        {
+            return $this->copiedFrom;
+        }
+    
         
     /** @PreRemove */
     public function preventRemoveOfLocked()
@@ -241,6 +254,7 @@ include_once("OEMRProblem.php");
         }
     }
 
+    
     /** @PreUpdate */
     public function preUpdateEventHandler()
     {
