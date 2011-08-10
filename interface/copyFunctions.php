@@ -90,7 +90,7 @@ function copyEntries($em,$target,$sourceInfoArray,$user)
     {
         $sourceUUID=strtok($sourceInfo,"|");
         $sourceEntry = $em->getRepository('library\doctrine\Entities\DocumentEntry')->find($sourceUUID);
-        $depth=strtok("|");
+        $depth=intval(strtok("|"));
         $copy=findOrCopy($em,$target,$sourceEntry,$depth,$user);
 
     }

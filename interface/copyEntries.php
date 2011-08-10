@@ -20,8 +20,7 @@ else
     $tok = strtok($copylist,"\n");
     while($tok!==false)
     {
-        $toks[$idx]=$tok;
-        $idx++;
+        $toks[]=$tok;
         $tok=strtok("\n");
     }
     copyEntries($em,$parentEntry,$toks,$user);

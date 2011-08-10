@@ -36,6 +36,7 @@ class QuantitativeEntry extends DocumentEntry
         public function setvocabID($val)
         {
             $this->vocabID=$val;
+            $this->code=$val;
         }
 
         public function getvocabID()
@@ -69,6 +70,18 @@ class QuantitativeEntry extends DocumentEntry
             $retval->setValue($this->value,$auth);
             $retval->setvocabID($this->vocabID);
             return $retval;
+        }
+        
+        public function similar($comp)
+        {
+            if($comp->getvocabID()!=$this->getvocabID())
+            {
+                return false;
+            }
+            else
+            {
+                return parent::similar($comp);
+            }
         }
         
 }
