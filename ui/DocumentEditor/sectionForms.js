@@ -208,8 +208,6 @@ function registerCalculate()
 {
     $("tr[code='8302-2'] input[type='text']").blur(calculateBMI);
     $("tr[code='3141-9'] input[type='text']").blur(calculateBMI);
-
-
 }
 
 function registerSectionFormsEvents()
