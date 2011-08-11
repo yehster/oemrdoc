@@ -106,7 +106,12 @@ function createElement($DOM,$parent,$docEntry,$docItem)
                 $retVal=$DOM->createElement("OL"," ");
                 $newElem->appendChild($retVal);
             }
-            else
+            elseif($docEntry->getText()==SECTION_MEDICATIONS)
+            {
+                $retVal=$DOM->createElement("UL"," ");
+                $newElem->appendChild($retVal);              
+            }
+            else        
             {
                 $retVal=$newElem;
             }
