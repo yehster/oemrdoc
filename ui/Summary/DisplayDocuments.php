@@ -46,7 +46,8 @@ if(isset($_SESSION['pid']))
             {
                 $editorLink=$DOM->createElement("A",
                 $value->getMetadata()->getText()." ".
-                        $value->getModified()->format(DATE_COOKIE));
+                        $value->getModified()->format(DATE_COOKIE)."(".
+                        $value->getAuthor().")");
                 $link='/openemr/library/doctrine/ui/Editor/Editor.php?docUUID='.$value->getuuid();
                 $link='/openemr/library/doctrine/ui/DocumentEditor/DocumentEditor.php?docUUID='.$value->getuuid();
                 

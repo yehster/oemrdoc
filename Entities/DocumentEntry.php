@@ -212,7 +212,21 @@ include_once("OEMRProblem.php");
                 or ($comp->getCode_type()!=$this->getCode_type())
                 or ($comp->getCode()!=$this->getCode()))
                 { return false; }
-                return true;
+                if(isset($this->copiedFrom))
+                {
+                    if($this->copiedFrom===$comp)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    return true;
+                }
             }
 
             catch(Exception $e)
@@ -229,6 +243,7 @@ include_once("OEMRProblem.php");
             $copy->setCode($this->getCode(),$this->getCode_type());
             $copy->metadata=$this->metadata;
             $copy->copiedFrom=$this;
+            $copy->created=$this->created;
             return $copy;
         }
 

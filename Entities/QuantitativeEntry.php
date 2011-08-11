@@ -78,10 +78,11 @@ class QuantitativeEntry extends DocumentEntry
             {
                 return false;
             }
-            else
+            if($comp->getValue()!=$this->getValue())
             {
-                return parent::similar($comp);
+                return false;
             }
+            return parent::similar($comp);
         }
         
 }
