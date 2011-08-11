@@ -193,6 +193,13 @@ function calculateBMI()
                 {
                     height=height*0.0254; // 2.54 cm/inch
                 }
+                else
+                    {
+                        if(heightUnits=="cm")
+                            {
+                                height=height/100;
+                            }
+                    }
             if(weightUnits=="lbs")
                 {
                     weight = weight / 2.2;
@@ -207,7 +214,9 @@ function calculateBMI()
 function registerCalculate()
 {
     $("tr[code='8302-2'] input[type='text']").blur(calculateBMI);
+    $("tr[code='8302-2'] select.units").change(calculateBMI);
     $("tr[code='3141-9'] input[type='text']").blur(calculateBMI);
+    $("tr[code='3141-9'] select.units").change(calculateBMI);
 }
 
 function registerSectionFormsEvents()
