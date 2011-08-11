@@ -43,6 +43,7 @@ function lookupProblem(searchString)
 {
     currentTime=(new Date()).getTime();
     $("#problemSearch").attr("prevTime",currentTime);
+    $("#problemLoading").show();
     $.post("../Dictionary/lookupProblems.php",
         {
             searchString: ""+searchString+"",
@@ -64,7 +65,7 @@ function lookupProblem(searchString)
                 );
                 $("#problemSearch tr").mouseover(function(){$(this).addClass("highlight")});
                 $("#problemSearch tr").mouseout(function(){$(this).removeClass("highlight")});
-
+                $("#problemLoading").hide();
             }
             
         }
