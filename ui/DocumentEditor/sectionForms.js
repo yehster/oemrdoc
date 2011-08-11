@@ -107,7 +107,8 @@ function showFormDialog()
             $("#sectionFormsDisplay table[type='form'] tr[code] input[type='text'][entrytype='quantitative']").blur(updateQuantitative)
             $("#sectionFormsDisplay table[type='form'] tr[code] select.units").change(updateQuantitative)
             $("#sectionFormsDisplay table[type='form'] th").dblclick(dblClickHeader)
-
+            calculateBMI();
+            registerCalculate();
         }
     );
 }
@@ -177,10 +178,45 @@ function updateQuantitative()
 
 }
 
+function calculateBMI()
+{
+    height=$("tr[code='8302-2'] input[type='text']").val();
+    weight=$("tr[code='3141-9'] input[type='text']").val();
+
+    if((height == parseFloat(height)) && (weight == parseFloat(weight)))
+    {
+        if((height!=0) && (weight!=0))
+        {
+            heightUnits=$("tr[code='8302-2'] select.units").val();
+            weightUnits=$("tr[code='3141-9'] select.units").val();
+            if(heightUnits=="inches")
+                {
+                    height=height*0.0254; // 2.54 cm/inch
+                }
+            if(weightUnits=="lbs")
+                {
+                    weight = weight / 2.2;
+                }
+            BMI = weight/(height*height);
+            BMI = BMI.toFixed(1);
+            $("tr[code='39156-5'] input[type='text']").val(BMI).blur();
+        }
+    }
+}
+
+function registerCalculate()
+{
+    $("tr[code='8302-2'] input[type='text']").blur(calculateBMI);
+    $("tr[code='3141-9'] input[type='text']").blur(calculateBMI);
+
+
+}
+
 function registerSectionFormsEvents()
 {
     $("button[func='SHOWFORM']").live({click: showFormDialog});
     $("#closeSectionForm").click(hideFormDialog);
+    registerCalculate()
     
 }
 
