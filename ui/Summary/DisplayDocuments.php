@@ -11,7 +11,7 @@ include_once('/var/www/openemr/library/doctrine/init-em.php');
             $res = $qry->getResult();
             foreach($res as $value)
             {
-                $div=$DOM->createElement("OPTION",$value->getShortDesc());
+                $div=$DOM->createElement("OPTION",$value->getlongDesc());
                 $div->setAttribute("uuid",$value->getuuid());
                 $div->setAttribute("class","Metadata");
                 $sel->appendChild($div);
