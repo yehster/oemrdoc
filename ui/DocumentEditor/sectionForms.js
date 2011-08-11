@@ -214,7 +214,6 @@ function registerSectionFormsEvents()
 {
     $("button[func='SHOWFORM']").live({click: showFormDialog});
     $("#closeSectionForm").click(hideFormDialog);
-    registerCalculate()
     
 }
 
