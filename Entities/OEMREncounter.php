@@ -5,6 +5,12 @@ namespace library\doctrine\Entities;
  */
 class OEMREncounter {
 
+    public function __construct($pat)
+    {
+	$this->date = new \DateTime();
+        $this->patient = $pat;
+    }    
+    
         /**
 	 * @Id
 	 * @Column(name="encounter",type="integer")
@@ -17,5 +23,16 @@ class OEMREncounter {
 	* @JoinColumn(name="pid", referencedColumnName="pid")
 	*/
 	protected $patient;        
+
+	/** 
+	 * @Column(type="datetime") 
+	 */
+	protected $date;        
+        
+        /**
+         * @column(type="integer")
+         */
+        protected $provider_id;
+        
 }
 ?>
