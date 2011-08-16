@@ -2,7 +2,6 @@
 namespace library\doctrine\Entities;
 /** @Entity
  *  @Table(name="form_encounter")
- *  @InheritanceType("SINGLE_TABLE")
  */
 class OEMREncounter {
 

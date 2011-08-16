@@ -194,7 +194,20 @@ class Document
         }
 
 
-    /** @PreRemove */
+        
+	/**
+	* @ManyToOne(targetEntity="OEMREncounter")
+	* @JoinColumn(name="encounter_id", referencedColumnName="encounter")
+	*/
+        private $OEMREncounter;
+
+        public function getOEMREncounter()
+        {
+            return $this->OEMREncounter;
+        }
+        
+        
+        /** @PreRemove */
     public function verifyNotLocked()
     {
         if($this->isLocked())

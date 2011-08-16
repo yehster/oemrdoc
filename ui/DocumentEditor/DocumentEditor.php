@@ -127,7 +127,10 @@ if(isset($_REQUEST['docUUID']))
 
     }
     window.onload= registerControlEvents;
-    window.unload= function() { $(document).unbind('ajaxError'); }
+//    window.unload= function() 
+//    { 
+//        $(document).unbind('ajaxError'); 
+//    }
 </script>
 <html lang="en">
     <head>
