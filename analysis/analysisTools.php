@@ -20,5 +20,6 @@ function scanDocument($doc,$type=null)
     {
         recurseEntries($entries,$item,$type);    
     }
+    return $entries;
 }
 ?>

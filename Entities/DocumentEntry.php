@@ -186,7 +186,15 @@ include_once("OEMRProblem.php");
 	  */
 	protected $OEMRListItem;
 
-
+        public function getOEMRListItem()
+        {
+            return $this->OEMRListItem;
+        }
+        
+        public function setOEMRListItem($val)
+        {
+            $this->OEMRListItem=$val;
+        }
         /**
          * @OneToOne(targetEntity="DocumentItem", mappedBy="entry",cascade={"persist","remove"})
         */

@@ -82,6 +82,10 @@ class OEMRListItem {
             $this->enddate=$date;
         }
 
+        public function getEndDate()
+        {
+            return $this->enddate;
+        }
 
          /**
            * @Column(type="date")

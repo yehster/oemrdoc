@@ -1,5 +1,6 @@
 <?php
 require_once("manageParentEntry.php");
+require_once("../analysis/analyzeProblems.php");
 
 if(isset($_REQUEST["code"]))
 {
@@ -33,6 +34,7 @@ switch ($task)
         $prob->setCode($code,$codeTypeString);
         $prob->setText($text,$user);
         $newItem=$parentEntry->getItem()->addEntry($prob);
+        updateOEMRProblem($prob);
         $em->persist($prob);
         $em->flush();
 
