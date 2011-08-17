@@ -8,6 +8,7 @@ function addProblemStart()
     entryUUID=$(this).attr("entryUUID");
     $("#problemDialog").show();
     $("#problemDialog").attr("entryUUID",entryUUID);
+    lookupProblem("");
     $("#txtProblem").select();
 }
 
@@ -44,9 +45,11 @@ function lookupProblem(searchString)
     currentTime=(new Date()).getTime();
     $("#problemSearch").attr("prevTime",currentTime);
     $("#problemLoading").show();
+    if(searchString!="")
+    {
     $.post("../Dictionary/lookupProblems.php",
         {
-            searchString: ""+searchString+"",
+            searchString: ""+searchString+""
         },
         function(data)
         {
@@ -70,6 +73,36 @@ function lookupProblem(searchString)
             
         }
     );
+    }
+
+    // TODO: Clean up copy paste with favorites
+    $.post("../Dictionary/favoriteProblems.php",
+        {
+            searchString: ""+searchString+""
+        },
+        function(data)
+        {
+            prevTime=$("#problemFavorites").attr("prevTime")
+            if((prevTime==null)||(currentTime >= prevTime))
+            {
+                $("#problemFavorites").html(data);
+                $("#problemFavorites td[type='CODETEXT']").click(
+                function(){
+                    entryUUID=$("#problemDialog").attr("entryUUID");
+                    code=$(this).attr("code");
+                    codeType=$(this).attr("codetype")
+                    text=$(this).text();
+                    createProblem(entryUUID,code,codeType,text);
+                }
+                );
+                $("#problemFavorites tr").mouseover(function(){$(this).addClass("highlight")});
+                $("#problemFavorites tr").mouseout(function(){$(this).removeClass("highlight")});
+                $("#problemLoading").hide();
+            }
+            
+        }
+    )    
+        
 }
 
 var t;
@@ -79,7 +112,7 @@ clearTimeout(t);
 t=setTimeout(function() {
         searchString=$("#txtProblem").val();
         length=searchString.length;
-        $("#problemFavorites").text(searchString);
+        $("#problemFavoritess").text(searchString);
         lookupProblem(searchString);
     },200)
 }
