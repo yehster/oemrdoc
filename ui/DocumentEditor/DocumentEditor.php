@@ -71,7 +71,11 @@ if(isset($_REQUEST['docUUID']))
         $lockButton->setAttribute("FUNC","lock");
         $footerSpan->appendChild($lockButton);
     }
-
+    else
+    {
+        $signature=$DOM->createElement("DIV","Electronically Signed by ".$doc->getLockedBy()." at ".$doc->getModified()->format(DATE_COOKIE));
+        $footerSpan->appendChild($signature);
+    }
     
 ?>
 <script src="../../../js/jquery-1.6.1.min.js"></script>

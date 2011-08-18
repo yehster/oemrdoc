@@ -30,9 +30,10 @@ class OEMREncounter {
 	protected $date;        
         
         /**
-         * @column(type="integer")
+         * @Column(type="integer")
          */
         protected $provider_id;
+        
         
 }
 ?>

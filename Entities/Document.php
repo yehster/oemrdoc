@@ -95,6 +95,10 @@ class Document
          */
         protected $lockedBy;
         
+        public function getLockedBy()
+        {
+            return $this->lockedBy;
+        }
         
         /**
          * @Column(type="string")
