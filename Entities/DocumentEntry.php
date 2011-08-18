@@ -139,10 +139,6 @@ include_once("OEMRProblem.php");
             {
 		$this->text = $val;
 		$this->author = $auth;
-                if($this->OEMRListItem != null)
-                {
-                    $this->OEMRListItem->setTitle($val);
-                }
             }
 
 	}
@@ -181,7 +177,7 @@ include_once("OEMRProblem.php");
 
         
 	/**
-	  * @OneToOne(targetEntity="OEMRListItem",cascade={"persist", "remove", "merge"})
+	  * @OneToOne(targetEntity="OEMRListItem")
 	  * @JoinColumn(name="OEMRListItem", referencedColumnName="id")
 	  */
 	protected $OEMRListItem;
