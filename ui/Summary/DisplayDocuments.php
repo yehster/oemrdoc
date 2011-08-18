@@ -54,6 +54,11 @@ if(isset($_SESSION['pid']))
                 $editorLink->setAttribute("HREF",$link);
 //                $editorLink->setAttribute("target","_new");
                 $spanDoctrine->appendChild($editorLink);
+                if($value->isLocked())
+                {
+                    $locked=$DOM->createElement("SPAN"," signed(".$value->getLockedBy().")");
+                    $spanDoctrine->appendChild($locked);
+                }
                 $spanDoctrine->appendChild($DOM->createElement("BR"));
                 }
 }

@@ -73,7 +73,7 @@ if(isset($_REQUEST['docUUID']))
     }
     else
     {
-        $signature=$DOM->createElement("DIV","Electronically Signed by ".$doc->getLockedBy()." at ".$doc->getModified()->format(DATE_COOKIE));
+        $signature=$DOM->createElement("DIV","Electronically Signed by ".$doc->getLockedBy()." on ".$doc->getModified()->format(DATE_COOKIE));
         $footerSpan->appendChild($signature);
     }
     
