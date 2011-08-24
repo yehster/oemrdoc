@@ -107,10 +107,23 @@ function showFormDialog()
             $("#sectionFormsDisplay table[type='form'] tr[code] input[type='text'][entrytype='quantitative']").blur(updateQuantitative)
             $("#sectionFormsDisplay table[type='form'] tr[code] select.units").change(updateQuantitative)
             $("#sectionFormsDisplay table[type='form'] th").dblclick(dblClickHeader)
+            $("#sectionFormsDisplay table[type='form'] tr[code] td[type='label']").dblclick(dblClickLabel)
             calculateBMI();
             registerCalculate();
         }
     );
+}
+
+function getCodeRow(child)
+{
+    return $(child).parents("tr[code]");
+}
+
+function dblClickLabel()
+{
+    codeRow = getCodeRow(this);
+    code = codeRow.attr("code");
+    window.alert(code);
 }
 
 function hideFormDialog()
