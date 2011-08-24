@@ -11,7 +11,8 @@ include_once("OEMRProblem.php");
    "nar" = "Narrative", "prob"="Problem", "med"="MedicationEntry",
    "nom" = "Nominative",
    "quant" = "QuantitativeEntry",
-   "shn" = "ShortNarrative" })
+   "shn" = "ShortNarrative",
+   "img" = "ImageEntry" })
  */
  class DocumentEntry
  {
