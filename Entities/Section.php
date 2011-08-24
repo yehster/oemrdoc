@@ -12,18 +12,6 @@ class Section extends DocumentEntry
             return self::classtype;
         }
 
-        public function getTagInfo()
-        {
-            $info = " id='".$this->getUUID()."' "." class='".self::classtype."'";
-            return $info;
-        }
-
-        public function getTag()
-        {
-            return "DIV";
-        }
-
-
 } 
 
  ?>

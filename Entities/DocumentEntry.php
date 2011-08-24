@@ -10,7 +10,8 @@ include_once("OEMRProblem.php");
  *  @DiscriminatorMap({"sect" = "Section", "obs" = "Observation", "ord" = "Order",
    "nar" = "Narrative", "prob"="Problem", "med"="MedicationEntry",
    "nom" = "Nominative",
-   "quant" = "QuantitativeEntry" })
+   "quant" = "QuantitativeEntry",
+   "shn" = "ShortNarrative" })
  */
  class DocumentEntry
  {
