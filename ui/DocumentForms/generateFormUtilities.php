@@ -68,6 +68,16 @@ function addMappingRow($DOM,$tbody,$vm,$seq)
             $checkbox->setAttribute("location","left");
             $checkbox->setAttribute("val","Y");
             $tdControl->appendChild($checkbox);
+            // add a hidden text field
+            $freeTextDiv=$DOM->createElement("DIV");
+            $freeTextDiv->setAttribute("class","TableDivFreeText");
+            $freeTextDiv->setAttribute("style","display:none;");
+            $freeText=$DOM->createElement("input");
+            $freeText->setAttribute("type","text");
+            $freeText->setAttribute("class","TableFreeText");
+            $freeTextDiv->appendChild($freeText);
+            
+            $tdLabel->appendChild($freeTextDiv);
             break;
         case "quantitative":
             $tdControlRight=$DOM->createElement("td");

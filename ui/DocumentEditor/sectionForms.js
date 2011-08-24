@@ -124,6 +124,7 @@ function dblClickLabel()
     codeRow = getCodeRow(this);
     code = codeRow.attr("code");
     window.alert(code);
+    $(this).find(".TableDivFreeText").show();
 }
 
 function hideFormDialog()

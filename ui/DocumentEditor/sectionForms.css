@@ -26,3 +26,12 @@ tr[classification='abnormal']
     background-color: lightpink;
 }
 
+.TableFreeText
+{
+    width: 100%;
+}
+
+.TableDivFreeText
+{
+    padding-right: 6px;
+}
