@@ -103,11 +103,13 @@ function showFormDialog()
         function(data)
         {
             $("#sectionFormsDisplay").html(data);
-            $("#sectionFormsDisplay table[type='form'] tr[code] input[type='checkbox']").change(formCheckBoxChanged)
-            $("#sectionFormsDisplay table[type='form'] tr[code] input[type='text'][entrytype='quantitative']").blur(updateQuantitative)
-            $("#sectionFormsDisplay table[type='form'] tr[code] select.units").change(updateQuantitative)
-            $("#sectionFormsDisplay table[type='form'] th").dblclick(dblClickHeader)
-            $("#sectionFormsDisplay table[type='form'] tr[code] td[type='label']").dblclick(dblClickLabel)
+            $("#sectionFormsDisplay table[type='form'] tr[code] input[type='checkbox']").change(formCheckBoxChanged);
+            $("#sectionFormsDisplay table[type='form'] tr[code] input[type='text'][entrytype='quantitative']").blur(updateQuantitative);
+            $("#sectionFormsDisplay table[type='form'] tr[code] select.units").change(updateQuantitative);
+            $("#sectionFormsDisplay table[type='form'] th").dblclick(dblClickHeader);
+            $("#sectionFormsDisplay table[type='form'] tr[code] td[type='label']").dblclick(dblClickLabel);
+            $("#sectionFormsDisplay table[type='form'] tr[code] td[type='label'] input[type='text'].TableFreeText").blur(updateShortText);
+
             calculateBMI();
             registerCalculate();
         }
@@ -121,16 +123,48 @@ function getCodeRow(child)
 
 function dblClickLabel()
 {
-    codeRow = getCodeRow(this);
-    code = codeRow.attr("code");
-    codetype = codeRow.attr("code");
-
-    seq=codeRow.attr("seq");
     
     div=$(this).find(".TableDivFreeText").show();
     text=div.find("input[type=text].TableFreeText");
     text.focus();
-    text.blur(function(){window.alert($(this).val())});
+}
+
+function updateShortText()
+{
+    
+    task="update";
+    codeRow = getCodeRow(this);
+    code = codeRow.attr("code");
+    code_type = codeRow.attr("code_type");
+    seq=codeRow.attr("seq") + 1;
+    
+    value = $(this).val();
+
+    parentuuid=$(this).parents("table[type='form']").attr("entryuuid");
+    
+    
+    // create or update a new ShortNarrative for this row.
+    
+    $.post("../../interface/manageFormShortNarrative.php",
+    {
+            task: ""+task+"",
+            parentUUID: ""+parentuuid+"",
+            code: ""+code+"",
+            codeType: ""+code_type+"",
+            value: ""+value+"",
+            seq: ""+seq+"",
+            refresh: "YES"
+        
+    },
+    manageShortNarrativeReturn
+    );
+    
+    
+}
+
+function manageShortNarrativeReturn(data)
+{
+    window.alert(data);
 }
 
 function hideFormDialog()
