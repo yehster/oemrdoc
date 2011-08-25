@@ -123,8 +123,14 @@ function dblClickLabel()
 {
     codeRow = getCodeRow(this);
     code = codeRow.attr("code");
-    window.alert(code);
-    $(this).find(".TableDivFreeText").show();
+    codetype = codeRow.attr("code");
+
+    seq=codeRow.attr("seq");
+    
+    div=$(this).find(".TableDivFreeText").show();
+    text=div.find("input[type=text].TableFreeText");
+    text.focus();
+    text.blur(function(){window.alert($(this).val())});
 }
 
 function hideFormDialog()
