@@ -70,6 +70,10 @@ class OEMRListItem {
             $this->begdate=$date;
         }
 
+        public function getBegDate()
+        {
+            return $this->begdate;
+        }
 
 
          /**

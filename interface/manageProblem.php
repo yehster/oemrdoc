@@ -34,7 +34,11 @@ switch ($task)
         $prob->setCode($code,$codeTypeString);
         $prob->setText($text,$user);
         $newItem=$parentEntry->getItem()->addEntry($prob);
-        updateOEMRProblem($prob);
+        $oli=updateOEMRProblem($prob);
+        if(($oli->getBegDate()==null) || $oli->getBegDate()<new \DateTime)
+        {
+            $oli->setBegDate(new \DateTime);
+        }
         $em->persist($prob);
         $em->flush();
 
