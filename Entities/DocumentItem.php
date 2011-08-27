@@ -119,8 +119,21 @@ namespace library\doctrine\Entities;
                 }
                 if($seq!==-1)
                 {
-                    $this->items->add($obj);
                     $obj->setSeq($seq);
+                    if($seq>=$lastSeq)
+                    {
+                        $this->items->add($obj);
+                    }
+                    else
+                    {
+                        // Otherwise we have to find the correct position for this item.
+                        $this->items->add($obj);
+                        for($idx=count($this->items)-2;(($idx>=0) && ($this->items[$idx]->getSeq()>=$seq)) ;$idx--)
+                        {
+                            $this->items[$idx+1]=$this->items[$idx];
+                            $this->items[$idx]=$obj;
+                        }
+                    }
                 }
                 else
                 {
