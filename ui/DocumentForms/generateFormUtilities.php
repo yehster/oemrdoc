@@ -161,8 +161,9 @@ function generateSectionForm($em,$DOM,$DOMXPath,$parent,$entry)
             $span->appendChild($formTable);
         }
         $parent->appendChild($span);
+        $newParent=$span;
 
-        }
+    }
     if($entry->getType()===TYPE_NOMINATIVE)
     {
         $nodes=$DOMXPath->query("//tr[@code='".$entry->getvocabID()."']",$parent);
@@ -225,7 +226,31 @@ function generateSectionForm($em,$DOM,$DOMXPath,$parent,$entry)
             
         }
     }
-    $newParent=$span;
+    if($entry->getType()==TYPE_SHORT_NARRATIVE)
+    {
+        $nodes=$DOMXPath->query("//tr[@code='".$entry->getvocabID()."']",$parent);
+        foreach($nodes as $node)
+        {        
+            $divs=$node->getElementsByTagName("DIV");
+            foreach($divs as $div)
+            {
+                
+                if($div->getAttribute("class")=="TableDivFreeText")
+                {
+                    $div->setAttribute("style","");
+                    $inputs=$div->getElementsByTagName("INPUT");
+                    foreach($inputs as $input)
+                    {
+                        if($input->getAttribute("type")=="text")
+                        {
+                            $input->setAttribute("value",$entry->getText());
+                        }
+                    }
+                }
+            }
+        }
+        
+    }
     foreach($entryItem->getItems() as $childItem)
     {
         generateSectionForm($em,$DOM,$DOMXPath,$newParent,$childItem->getEntry());

@@ -142,7 +142,7 @@ function updateShortText()
 
     parentuuid=$(this).parents("table[type='form']").attr("entryuuid");
     
-    
+    classification="ShortNarrative";
     // create or update a new ShortNarrative for this row.
     
     $.post("../../interface/manageFormShortNarrative.php",
@@ -151,6 +151,7 @@ function updateShortText()
             parentUUID: ""+parentuuid+"",
             code: ""+code+"",
             codeType: ""+code_type+"",
+            classification: ""+classification+"",
             value: ""+value+"",
             seq: ""+seq+"",
             refresh: "YES"
@@ -164,7 +165,11 @@ function updateShortText()
 
 function manageShortNarrativeReturn(data)
 {
-    window.alert(data);
+    pos=data.indexOf("<",0);
+    uuid=data.substr(0,pos);
+    refreshEntry(parentuuid,data.substr(pos));
+//    tr.attr("entryuuid",uuid);
+
 }
 
 function hideFormDialog()
