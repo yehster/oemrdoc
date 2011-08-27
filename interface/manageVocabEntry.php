@@ -47,11 +47,12 @@ if(isset($_REQUEST["entryUUID"]))
 
     }
     
-    if(!isset($entry)) 
-    {
-        $entry=findOrCreateVocab($em,$code,$parentEntry,$code_type,$classification,$seq);
-    }
 }
+if(!isset($entry)) 
+{
+    $entry=findOrCreateVocab($em,$code,$parentEntry,$code_type,$classification,$seq);    
+}
+
 if(is_null($entry))
 {
     header("HTTP/1.0 403 Forbidden");

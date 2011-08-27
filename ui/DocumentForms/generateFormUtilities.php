@@ -238,10 +238,10 @@ function generateSectionForm($em,$DOM,$DOMXPath,$parent,$entry)
                 if($div->getAttribute("class")=="TableDivFreeText")
                 {
                     $div->setAttribute("style","");
-                    $inputs=$div->getElementsByTagName("INPUT");
+                    $inputs=$div->getElementsByTagName("input");
                     foreach($inputs as $input)
                     {
-                        if($input->getAttribute("type")=="text")
+                        if($input->getAttribute("class")=="TableFreeText")
                         {
                             $input->setAttribute("value",$entry->getText());
                         }

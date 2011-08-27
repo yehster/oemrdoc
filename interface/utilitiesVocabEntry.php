@@ -17,7 +17,7 @@ function classToType($class)
     }
 }
 
-function findOrCreateVocab($em,$code,$parent,$code_type,$classification,$seq)
+function findOrCreateVocab($em,$code,$parent,$code_type,$classification,$seq=-1)
 {
 
     $parItem=$parent->getItem();
@@ -36,10 +36,13 @@ function findOrCreateVocab($em,$code,$parent,$code_type,$classification,$seq)
     if(count($qryRes)===0)
     {
         $res = new $objType(null,$GLOBALS['pat'],$GLOBALS['user']);
-        $newItem=$parItem->addEntry($res);
         if($seq!=-1)
         {
-            $newItem->setSeq($seq);
+            $newItem=$parItem->addEntry($res,$seq);
+        }
+        else
+        {
+            $newItem=$parItem->addEntry($res);
         }
         $res->setvocabID($code);
     }

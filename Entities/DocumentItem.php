@@ -96,16 +96,16 @@ namespace library\doctrine\Entities;
 	private $items;
 	// These are the child items of a parent document item
 
-        public function addEntry($entry)
+        public function addEntry($entry,$seq=-1)
         {
 
             $newItem = new DocumentItem($this->root,null,$entry->getPatient(),$entry->getAuthor());
             $newItem->setEntry($entry);
-            $this->addItem($newItem);
+            $this->addItem($newItem,$seq);
             return $newItem;
         }
 
-	public function addItem($obj)
+	public function addItem($obj,$seq=-1)
 	{
 		$obj->setParent($this);
                 $lastItem=$this->items->last();
@@ -117,8 +117,16 @@ namespace library\doctrine\Entities;
                 {
                     $lastSeq=0;
                 }
-		$this->items->add($obj);
-		$obj->setSeq($lastSeq+1);
+                if($seq!==-1)
+                {
+                    $this->items->add($obj);
+                    $obj->setSeq($seq);
+                }
+                else
+                {
+                    $this->items->add($obj);
+                    $obj->setSeq($lastSeq+1);
+                }
 	}
 
         public function getItems()

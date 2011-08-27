@@ -136,7 +136,7 @@ function updateShortText()
     codeRow = getCodeRow(this);
     code = codeRow.attr("code");
     code_type = codeRow.attr("code_type");
-    seq=codeRow.attr("seq") + 1;
+    seq=parseInt(codeRow.attr("seq")) + 1;
     
     value = $(this).val();
 
