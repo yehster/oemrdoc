@@ -96,7 +96,13 @@ class VocabMapping {
          * @Column(type="string")
          */
         protected $classification;
-
+        /**
+         * types of classifications
+         * FormEntries
+         * { normal, abnormal, exclusive, multiple, text }
+         */
+        
+        
         public function getClassification()
         {
             return $this->classification;

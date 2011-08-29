@@ -41,12 +41,15 @@ function addMappingRow($DOM,$tbody,$vm,$seq)
     $tr->setAttribute("seq",$seq);
     
     $tbody->appendChild($tr);
+    if($classification!="text")
+    {
     
-    $tdControl=$DOM->createElement("td");
-    $tdLabel=$DOM->createElement("td",$vm->getText());
-    $tdLabel->setAttribute("type","label");
-    $tr->appendChild($tdControl);
-    $tr->appendChild($tdLabel);
+        $tdControl=$DOM->createElement("td");
+        $tdLabel=$DOM->createElement("td",$vm->getText());
+        $tdLabel->setAttribute("type","label");
+        $tr->appendChild($tdControl);
+        $tr->appendChild($tdLabel);
+    }
     
     switch ($classification)
     {
@@ -95,6 +98,18 @@ function addMappingRow($DOM,$tbody,$vm,$seq)
                 $sel->setAttribute("class","units");
              }
 
+            break;
+        case "text":
+            $tdText=$DOM->createElement("td");
+    
+            $tdText->setAttribute("colspan","3");
+            
+            $input=$DOM->createElement("input");
+            $input->setAttribute("type","text");
+            $input->setAttribute("class","TableFreeText");
+
+            $tdText->appendChild($input);
+            $tr->appendChild($tdText);
             break;
     }
 }

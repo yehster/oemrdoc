@@ -13,9 +13,15 @@ function clickLOINC()
     sourceCode=loinc_num;
     if(st=="Qn")
         {
-            mode = "quantitative";
+            classification = "quantitative";
+            type="VocabComponent";
+
         }
-    type="VocabComponent";
+        else
+            {
+                classification = "text";
+                type="FormEntry";
+            }
     text=str;
             $.post("/openemr/library/doctrine/ui/SNOMED/manageVocab.php",
                 {
@@ -26,7 +32,7 @@ function clickLOINC()
                     text: ""+text+"",
                     type: ""+type+"",
                     property: ""+property+"",
-                    classification: ""+mode+"",
+                    classification: ""+classification+"",
                     mode: "create"
                 },
                 function(data) {
