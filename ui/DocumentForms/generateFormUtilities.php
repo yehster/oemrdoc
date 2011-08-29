@@ -103,6 +103,7 @@ function addMappingRow($DOM,$tbody,$vm,$seq)
             $tdText=$DOM->createElement("td");
     
             $tdText->setAttribute("colspan","3");
+            $tdText->setAttribute("type","FreeText");
             
             $input=$DOM->createElement("input");
             $input->setAttribute("type","text");
@@ -247,6 +248,7 @@ function generateSectionForm($em,$DOM,$DOMXPath,$parent,$entry)
         foreach($nodes as $node)
         {        
             $divs=$node->getElementsByTagName("DIV");
+            $found=false;
             foreach($divs as $div)
             {
                 
@@ -259,9 +261,22 @@ function generateSectionForm($em,$DOM,$DOMXPath,$parent,$entry)
                         if($input->getAttribute("class")=="TableFreeText")
                         {
                             $input->setAttribute("value",$entry->getText());
+                            $found=true;
                         }
                     }
                 }
+            }
+            if(!$found)
+            {
+                $inputs=$node->getElementsByTagName("input");
+                    foreach($inputs as $input)
+                    {
+                        if($input->getAttribute("class")=="TableFreeText")
+                        {
+                            $input->setAttribute("value",$entry->getText());
+                        }
+                    }
+                
             }
         }
         

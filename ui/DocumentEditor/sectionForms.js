@@ -109,6 +109,8 @@ function showFormDialog()
             $("#sectionFormsDisplay table[type='form'] th").dblclick(dblClickHeader);
             $("#sectionFormsDisplay table[type='form'] tr[code] td[type='label']").dblclick(dblClickLabel);
             $("#sectionFormsDisplay table[type='form'] tr[code] td[type='label'] input[type='text'].TableFreeText").blur(updateShortText);
+            $("#sectionFormsDisplay table[type='form'] tr[code] td[type='FreeText'] input[type='text'].TableFreeText").blur(updateShortText);
+
 
             calculateBMI();
             registerCalculate();
