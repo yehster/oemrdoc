@@ -137,6 +137,7 @@ function createElement($DOM,$parent,$docEntry,$docItem)
             break;
         case TYPE_NARRATIVE:
             $narSpan=$DOM->createElement("SPAN");
+            $narSpan->setAttribute("class","NarSpan");
             if(isset($GLOBALS['review']))
             {
                 $newElem=createTagElem($DOM,$docEntry,"span",$docEntry->getText());

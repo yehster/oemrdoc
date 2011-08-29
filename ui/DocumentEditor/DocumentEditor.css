@@ -27,11 +27,20 @@ section[entrytype='Section'] {
     max-width: 95%;
 }
 
+button{
+    margin:0;
+    padding: 0;
+}
+
+span.NarSpan
+{
+    display: block;
+}
 .LABEL {
         font-weight: bold;
 }
 button {
-    font-size:small;
+    font-size: xx-small;
 }
 .label {
     font-size: large;
