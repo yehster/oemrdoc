@@ -12,18 +12,6 @@ class VocabComponent extends VocabMapping
         return "VocabComponent";
     }
 
-      /** @Column(type="string",name="attr1") */
-      protected $property;    
-      
-      public function setProperty($val)
-      {
-          $this->property=$val;
-      }
-
-      public function getProperty()
-      {
-          return $this->property;
-      }
       
 }
 ?>
