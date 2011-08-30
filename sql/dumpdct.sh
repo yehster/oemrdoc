@@ -1,0 +1,1 @@
+mysqldump -uroot -p openemr dct_document_entries dct_document_items dct_document_metadata dct_document_metadata_collection_items dct_documents dct_keyword_code_map dct_keywords dct_observation_metadata dct_statuses dct_vocab_mappings dct_vocab_ordering
