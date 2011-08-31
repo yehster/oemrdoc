@@ -9,6 +9,8 @@ define('TYPE_QUANTITATIVE','QuantitativeEntry');
 define('TYPE_SHORT_NARRATIVE','ShortNarrative');
 
 
+define('SECTION_CHIEF_COMPLAINT',"Chief Complaint");
+define('SECTION_HPI',"History of Present Illness");
 define('SECTION_PHYSICAL_EXAM',"Physical Exam");
 define('SECTION_REVIEW_OF_SYSTEMS',"Review of Systems");
 define('SECTION_PROBLEM_LIST',"Problem List");
