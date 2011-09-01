@@ -22,6 +22,8 @@ function addSectionControls($DOM,$Elem,$docEntry)
 {
     switch($docEntry->getText())
     {
+        case SECTION_CHIEF_COMPLAINT:
+        case SECTION_HPI:
         case SECTION_AP:
             createButton($DOM,$Elem,$docEntry,"Review","REVIEW");
             break;
