@@ -1,6 +1,7 @@
 <?php
 namespace library\doctrine\Entities;
-  /**
+require_once("DocumentEntry.php");
+/**
   * @Entity
   */
  class Observation extends DocumentEntry
