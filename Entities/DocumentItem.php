@@ -101,6 +101,7 @@ namespace library\doctrine\Entities;
 
             $newItem = new DocumentItem($this->root,null,$entry->getPatient(),$entry->getAuthor());
             $newItem->setEntry($entry);
+            $entry->setItem($newItem);
             $this->addItem($newItem,$seq);
             return $newItem;
         }
@@ -162,6 +163,7 @@ namespace library\doctrine\Entities;
         public function setEntry($entry)
 	{
 		$this->entry=$entry;
+                $entry->setItem($this);
 	}
 
 	/**

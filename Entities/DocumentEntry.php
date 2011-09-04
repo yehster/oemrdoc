@@ -203,6 +203,11 @@ include_once("OEMRProblem.php");
             return $this->item;
         }
         
+        public function setItem($val)
+        {
+            $this->item=$val;
+        }
+        
 
         public function getParentEntry()
         {
