@@ -1,3 +1,24 @@
+<script>
+    function removeDocument(uuid)
+    {
+        $("#deleteConfirm").attr("deleteUUID",uuid);
+        $("#deleteConfirm").show();
+        $("#deleteConfirmPassword").focus();
+    }
+    function deleteCancel()
+    {
+        $("#deleteConfirm").attr("deleteUUID","");
+        $("#deleteConfirm").hide();
+    }
+</script>
+<section id="deleteConfirm" style="display:none; position:absolute; z-index: 1000; background-color: white; border-style: solid;">
+    Please enter your password to confirm removal of document:
+    <div>
+        <input id="deleteConfirmPassword" type="password"/>
+        <button id="deleteConfirmButton">remove</button>
+        <button id="deleteCancelButton" onclick="deleteCancel()">cancel</button>
+    </div>
+</section>
 <?php
 include_once('/var/www/openemr/library/doctrine/init-em.php');
     $DOM = new DOMDocument("1.0","utf-8");
@@ -37,6 +58,7 @@ if(isset($_SESSION['pid']))
         ->select("d")
         ->from("library\doctrine\Entities\Document","d")
         ->where("d.patient = ?1")
+        ->andWhere("d.removed is NULL")
         ->orderBy("d.modified","DESC");
     $qb->setParameter(1,$pat);
     $qry=$qb->getQuery();
@@ -59,8 +81,13 @@ if(isset($_SESSION['pid']))
                     $locked=$DOM->createElement("SPAN"," signed(".$value->getLockedBy().")");
                     $spanDoctrine->appendChild($locked);
                 }
-                $spanDoctrine->appendChild($DOM->createElement("BR"));
+                else {
+                    $remove=$DOM->createElement("BUTTON","remove");
+                    $remove->setAttribute("onclick","removeDocument('".$value->getuuid()."');");
+                    $spanDoctrine->appendChild($remove);
                 }
+                $spanDoctrine->appendChild($DOM->createElement("BR"));
+             }
 }
 
 echo $DOM->saveXML($spanDoctrine);

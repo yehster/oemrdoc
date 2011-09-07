@@ -12,7 +12,8 @@ include_once("OEMRProblem.php");
    "nom" = "Nominative",
    "quant" = "QuantitativeEntry",
    "shn" = "ShortNarrative",
-   "img" = "ImageEntry" })
+   "img" = "ImageEntry",
+   "medsig" = "MedicationSIG" })
  */
  class DocumentEntry
  {

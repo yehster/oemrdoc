@@ -18,6 +18,16 @@ function createButton($DOM,$Elem,$docEntry,$text,$func)
     return $but;
             
 }
+function createLabel($DOM,$parent,$docEntry,$text,$type)
+{
+    $label=$DOM->createElement("SPAN",$text);
+    $label->setAttribute("type",$type);
+    $label->setAttribute("EntryUUID",$docEntry->getUUID());
+    $label->setAttribute(ATTR_ENTRY_TYPE,$docEntry->getType());
+    
+    $parent->appendChild($label);
+    return $label;
+}
 function addSectionControls($DOM,$Elem,$docEntry)
 {
     switch($docEntry->getText())
@@ -132,8 +142,10 @@ function createElement($DOM,$parent,$docEntry,$docItem)
             $parent->appendChild($newElem);
             break;
         case TYPE_MEDICATION_ENTRY:
-            $newElem=createTagElem($DOM,$docEntry,"SPAN",htmlentities($docEntry->getText()));
+            $newElem=createTagElem($DOM,$docEntry,"SPAN");
+            createLabel($DOM,$newElem,$docEntry,htmlentities($docEntry->getText()),"LABEL");
             createButton($DOM,$newElem,$docEntry,"del",FUNC_DELETE);
+            createButton($DOM,$newElem,$docEntry,"sig",FUNC_SIG);
             $retVal=$newElem;
             $parent->appendChild($newElem);
             break;

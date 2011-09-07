@@ -55,5 +55,25 @@ class MedicationEntry extends DocumentEntry
             }
             return false;
         }
+        
+        public function getSIG()
+        {
+            $retval=null;
+            foreach($this->getItem()->getItems() as $item)
+            {
+                if($item->getEntry()->getType()=="MedicationSIG")
+                {
+                    $retval=$item->getEntry();
+                }
+            }
+            if($retval==null)
+            {
+                $retval=new MedicationSIG;
+                $this->getItem()->addEntry($retval,1);
+            }
+            return $retval;
+        }
+        
+
 }
 ?>

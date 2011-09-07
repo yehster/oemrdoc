@@ -74,6 +74,7 @@ class Document
         {
             return $this->modified;
         }
+        
 	
 	/** 
 	 * @Column(type="datetime") 
@@ -209,6 +210,23 @@ class Document
         {
             return $this->OEMREncounter;
         }
+
+        /** 
+	 * @Column(type="datetime") 
+	 */
+        protected $removed;
+        
+        /**
+         * @Column(type="string")
+         */
+        protected $removedBy;
+        
+        public function removeDocument($user)
+        {
+            $this->verifyNotLocked();
+            $this->removedBy=$user;
+            $this->removed= new \DateTime;
+        }
         
         
         /** @PreRemove */
@@ -219,6 +237,27 @@ class Document
             throw new Exception("Cannot Remove Locked Entry");
         }
     }
+
+    /** @PreUpdate */
+    public function preUpdateEventHandler()
+    {
+     
+        // Prevent update of locked
+        if($this->isLocked())
+        {
+            if(!$this->locking)
+            {
+                throw new \Exception("Cannot Update Locked Entry");
+            }
+            $this->locking=false;
+        }
+        
+        // update modified
+        $this->modified = new \DateTime;
+    }
+
+    
  }
+
  
  ?>

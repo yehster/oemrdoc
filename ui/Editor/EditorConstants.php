@@ -36,6 +36,7 @@ define('ID_REVIEW_CURRENT','reviewcurrent');
 define('FUNC_DELETE','DELETE');
 define('FUNC_DETAILS','DETAILS');
 define('FUNC_MED','MED');
+define('FUNC_SIG','SIG');
 define('FUNC_SHOWFORM','SHOWFORM');
 
 ?>

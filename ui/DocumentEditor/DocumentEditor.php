@@ -94,6 +94,7 @@ if(isset($_REQUEST['docUUID']))
 <script src="manageMeds.js"></script>
 <script src="sectionForms.js"></script>
 <script src="../Review/dialogReview.js"></script>
+<script src="MedicationForms/manageMedSIG.js"></script>
 
 
 
@@ -109,6 +110,8 @@ if(isset($_REQUEST['docUUID']))
         registerManageMedsEvents();
         registerSectionFormsEvents();
         registerDialogReviewEvents();
+        registerManageMedsEvents();        
+        
         $(document).ajaxError(handleAjaxError);
         $("#status").click(function(){$(this).hide();});
         $("#status").hide();
@@ -136,7 +139,7 @@ if(isset($_REQUEST['docUUID']))
 //        $(document).unbind('ajaxError'); 
 //    }
 </script>
-<html lang="en">
+<html>
     <head>
         <meta charset="utf-8"/>
         <title><?php echo $doc->getMetadata()->getLongDesc().":";
@@ -150,6 +153,8 @@ if(isset($_REQUEST['docUUID']))
         <?php require("medLookupDialog.php"); ?>
         <?php require("dialogSectionForms.php"); ?>
         <?php require("../Review/dialogReview.php"); ?>
+        <?php require("MedicationForms/medSIGDialog.php"); ?>
+        
 
     <?php
         echo $DOM->saveXML($MainSpan);
