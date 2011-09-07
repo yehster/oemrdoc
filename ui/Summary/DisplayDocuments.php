@@ -1,4 +1,4 @@
-<script src="/openemr/library/sha1.js"></script>
+
 <script>
     function removeDocument(uuid)
     {
@@ -14,7 +14,7 @@
     function deleteConfirm()
     {
         deleteUUID=$("#deleteConfirm").attr("deleteUUID");
-        passwordHash=SHA1($("#deleteConfirmPassword").val(""));
+        passwordHash=SHA1($("#deleteConfirmPassword").val());
         $("#deleteConfirmPassword").val("");
         window.alert(passwordHash);
     }
