@@ -13,10 +13,24 @@
     }
     function deleteConfirm()
     {
-        deleteUUID=$("#deleteConfirm").attr("deleteUUID");
-        passwordHash=SHA1($("#deleteConfirmPassword").val());
+        docUUID=$("#deleteConfirm").attr("deleteUUID");
+        hash=SHA1($("#deleteConfirmPassword").val());
         $("#deleteConfirmPassword").val("");
-        window.alert(passwordHash);
+
+        $.post("/openemr/library/doctrine/interface/removeDocument.php",
+            {
+                docUUID: ""+docUUID+"",
+                password: ""+hash+""
+            },
+            function(data)
+            {
+              if(data==docUUID)  
+                  {
+                      window.alert("Document Removed\n");                
+                  }
+                  window.location.reload();
+            }
+        );
     }
 </script>
 <section id="deleteConfirm" style="display:none; position:absolute; z-index: 1000; background-color: white; border-style: solid; border-width: 1px;">

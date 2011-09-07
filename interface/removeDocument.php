@@ -1,12 +1,11 @@
 <?php
 include_once('../init-em.php');
-$lockedMessage="Cannot relock a document.";
+$lockedMessage="Cannot remove a locked document.";
 require_once('util/verifyDocumentOperation.php');
-
 try
 {
     $em->beginTransaction();
-    $doc->lock($user);
+    $doc->removeDocument($user);
     $em->flush();
     $em->commit();
 }
