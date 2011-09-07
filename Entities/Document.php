@@ -111,6 +111,8 @@ class Document
          */
         protected $lockHash;
         
+        protected $locking;
+        
         public function lock($user)
         {
             if($this->locked!=null)
@@ -119,6 +121,7 @@ class Document
             }
             $this->lockedBy=$user;
             $this->locked= new \DateTime;
+            $this->locking=true;
             $DOM = new \DOMDocument;
             $doc=$DOM->createElement("DOCUMENT");
             $doc->setAttribute("uuid",$this->getUUID());

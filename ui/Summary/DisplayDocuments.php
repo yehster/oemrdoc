@@ -1,3 +1,4 @@
+<script src="/openemr/library/sha1.js"></script>
 <script>
     function removeDocument(uuid)
     {
@@ -10,12 +11,19 @@
         $("#deleteConfirm").attr("deleteUUID","");
         $("#deleteConfirm").hide();
     }
+    function deleteConfirm()
+    {
+        deleteUUID=$("#deleteConfirm").attr("deleteUUID");
+        passwordHash=SHA1($("#deleteConfirmPassword").val(""));
+        $("#deleteConfirmPassword").val("");
+        window.alert(passwordHash);
+    }
 </script>
-<section id="deleteConfirm" style="display:none; position:absolute; z-index: 1000; background-color: white; border-style: solid;">
+<section id="deleteConfirm" style="display:none; position:absolute; z-index: 1000; background-color: white; border-style: solid; border-width: 1px;">
     Please enter your password to confirm removal of document:
     <div>
         <input id="deleteConfirmPassword" type="password"/>
-        <button id="deleteConfirmButton">remove</button>
+        <button id="deleteConfirmButton" onclick="deleteConfirm()">remove</button>
         <button id="deleteCancelButton" onclick="deleteCancel()">cancel</button>
     </div>
 </section>
