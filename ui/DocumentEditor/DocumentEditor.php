@@ -76,6 +76,9 @@ if(isset($_REQUEST['docUUID']))
         $signature=$DOM->createElement("DIV","Electronically Signed by ".$doc->getLockedBy()." on ".$doc->getModified()->format(DATE_COOKIE));
         $footerSpan->appendChild($signature);
     }
+
+    
+    require_once("DocumentInfoUtilities.php");
     
 ?>
 <script src="../../../js/jquery-1.6.1.min.js"></script>
@@ -93,6 +96,7 @@ if(isset($_REQUEST['docUUID']))
 <script src="addNarrative.js"></script>
 <script src="manageMeds.js"></script>
 <script src="sectionForms.js"></script>
+<script src="DocumentInfoUtilities.js"></script>
 <script src="../Review/dialogReview.js"></script>
 <script src="MedicationForms/manageMedSIG.js"></script>
 
@@ -111,6 +115,7 @@ if(isset($_REQUEST['docUUID']))
         registerSectionFormsEvents();
         registerDialogReviewEvents();
         registerManageMedsEvents();        
+        registerDocumentInfoEvents();
         
         $(document).ajaxError(handleAjaxError);
         $("#status").click(function(){$(this).hide();});
@@ -156,7 +161,9 @@ if(isset($_REQUEST['docUUID']))
         <?php require("MedicationForms/medSIGDialog.php"); ?>
         
 
+     
     <?php
+        echo $DOM->saveXML($infoSpan);
         echo $DOM->saveXML($MainSpan);
      ?>
     </body>

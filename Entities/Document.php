@@ -20,6 +20,8 @@ class Document
 	$this->uuid=uuid_create();
 	$this->created = new \DateTime();
 	$this->modified = new \DateTime();
+        $this->dateofservice= new \DateTime();
+        
         $this->patient = $pat;
         $this->author = $aut;
         $this->metadata = $md;
@@ -101,6 +103,21 @@ class Document
             return $this->lockedBy;
         }
         
+        /**
+         * @Column(type="datetime")
+         */
+        protected $dateofservice;
+        
+        public function getDateofservice()
+        {
+            return $this->dateofservice;
+        }
+        
+        public function setDateofservice($val)
+        {
+            $this->dateofservice=$val;
+        }
+
         /**
          * @Column(type="string")
          */
