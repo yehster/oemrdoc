@@ -11,12 +11,22 @@
         $("#deleteConfirm").attr("deleteUUID","");
         $("#deleteConfirm").hide();
     }
+    function handleAjaxError(event,XHR,settings,thrownError)
+    {
+        msg = "Error:"  + XHR.responseText + ":" +settings.url + ":"+ thrownError;
+        window.alert(msg);
+        window.status=msg;
+        $("#deleteConfirm").hide();        
+    }
+
     function deleteConfirm()
     {
         docUUID=$("#deleteConfirm").attr("deleteUUID");
         hash=SHA1($("#deleteConfirmPassword").val());
         $("#deleteConfirmPassword").val("");
-
+        $(document).unbind('ajaxError'); 
+        $(document).ajaxError(handleAjaxError);        
+        
         $.post("/openemr/library/doctrine/interface/removeDocument.php",
             {
                 docUUID: ""+docUUID+"",
