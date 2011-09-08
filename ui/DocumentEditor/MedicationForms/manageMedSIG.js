@@ -15,7 +15,7 @@ function AddMedSIGWithUUID(medName,MedUUID)
 
 
 
-function registerManageMedsEvents()
+function registerManageSIGMedsEvents()
 {
     $("button[func='SIG']").live({click: startAddMedSIG});
         

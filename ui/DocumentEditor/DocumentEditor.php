@@ -114,7 +114,7 @@ if(isset($_REQUEST['docUUID']))
         registerManageMedsEvents();
         registerSectionFormsEvents();
         registerDialogReviewEvents();
-        registerManageMedsEvents();        
+        registerManageSIGMedsEvents();        
         registerDocumentInfoEvents();
         
         $(document).ajaxError(handleAjaxError);
