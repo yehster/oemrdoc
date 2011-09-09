@@ -73,7 +73,9 @@ if(isset($_REQUEST['docUUID']))
     }
     else
     {
-        $signature=$DOM->createElement("DIV","Electronically Signed by ".$doc->getLockedBy()." on ".$doc->getModified()->format(DATE_COOKIE));
+        $lockedBy=$doc->getLockedBy();
+        $lockedUser=$em->getRepository("library\doctrine\Entities\OEMRUser")->findOneBy(array("username"=>$lockedBy));
+        $signature=$DOM->createElement("DIV","Electronically Signed by ".$lockedUser->getLname().",".$lockedUser->getFname()." on ".$doc->getModified()->format(DATE_COOKIE));
         $footerSpan->appendChild($signature);
     }
 

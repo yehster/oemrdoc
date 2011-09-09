@@ -16,6 +16,34 @@ class OEMRUser {
          */
         protected $username;
 
+        /**
+         * @Column(type="string")
+         */
+        protected $fname;
+
+        public function getFname()
+        {
+            return $this->fname;
+        }
+        
+        /**
+         * @Column(type="string")
+         */
+        protected $mname;
+        public function getMname()
+        {
+            return $this->mname;
+        }
+        
+        /**
+         * @Column(type="string")
+         */
+        protected $lname;
+        public function getLname()
+        {
+            return $this->lname;
+        }
+        
         
         /**
          * @Column(type="string")
