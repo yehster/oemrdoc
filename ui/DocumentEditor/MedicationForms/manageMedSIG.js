@@ -12,11 +12,14 @@ function AddMedSIGWithUUID(medName,MedUUID)
     $("#medSIGDialog").show();
 }
 
-
+function cancelMedSIG()
+{
+    $("#medSIGDialog").hide();
+}
 
 
 function registerManageSIGMedsEvents()
 {
     $("button[func='SIG']").live({click: startAddMedSIG});
-        
+    $("#cancelMedSIG").click(cancelMedSIG);
 }
