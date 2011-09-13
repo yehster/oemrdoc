@@ -1,0 +1,12 @@
+delimiter $$
+
+CREATE TABLE `dct_drug_attributes` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `RXCUI` varchar(45) DEFAULT NULL,
+  `ATN` varchar(45) DEFAULT NULL,
+  `ATV` varchar(4000) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UNIQUENESS_RXCUI_ATN` (`RXCUI`,`ATN`),
+  KEY `RXCUI` (`RXCUI`)
+) ENGINE=InnoDB AUTO_INCREMENT=185925 DEFAULT CHARSET=utf8$$
+
