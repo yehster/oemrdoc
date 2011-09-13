@@ -8,5 +8,14 @@
 // ==/UserScript==
 
 links=document.getElementsByTagName('a');
-window.alert(links.length);
-links[1].click();
+//window.alert(links.length);
+//window.alert(window.location);
+
+if(window.location=="http://www.icd9data.com/")
+    {
+        for(idx=0;idx<links.length;idx++)
+        {
+            if(links[idx].href="http://www.icd9data.com/2011/Volume1/default.htm");          
+        }
+    
+    }
