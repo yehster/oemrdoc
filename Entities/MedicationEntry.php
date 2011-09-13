@@ -32,6 +32,11 @@ class MedicationEntry extends DocumentEntry
         {
             $this->rxcui=$val;
         }
+        
+        public function getRXCUI()
+        {
+            return $this->rxcui;
+        }
 
 	/**
 	  * @OneToOne(targetEntity="RXNConcept")
@@ -39,6 +44,11 @@ class MedicationEntry extends DocumentEntry
 	  */
 	protected $rxaui;
 
+        public function getRXAUI()
+        {
+            return $this->rxaui;
+        }
+        
         public function setRXAUI($val)
         {
             $this->rxaui=$val;

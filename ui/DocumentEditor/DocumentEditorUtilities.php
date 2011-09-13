@@ -143,7 +143,10 @@ function createElement($DOM,$parent,$docEntry,$docItem)
             break;
         case TYPE_MEDICATION_ENTRY:
             $newElem=createTagElem($DOM,$docEntry,"SPAN");
-            createLabel($DOM,$newElem,$docEntry,htmlentities($docEntry->getText()),"LABEL");
+            $newElem->setAttribute("rxcui",$docEntry->getRXCUI());
+            $newElem->setAttribute("rxaui",$docEntry->getRXAUI()->getRXAUI());
+            
+            $label=createLabel($DOM,$newElem,$docEntry,htmlentities($docEntry->getText()),"LABEL");
             createButton($DOM,$newElem,$docEntry,"del",FUNC_DELETE);
             createButton($DOM,$newElem,$docEntry,"sig",FUNC_SIG);
             $retVal=$newElem;
