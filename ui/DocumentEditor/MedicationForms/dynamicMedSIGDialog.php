@@ -73,7 +73,14 @@ function generateMedSIGDialog($DOM,$medEntry)
     }
     else
     {
-        $sigUnits->setAttribute("value",$ddf);
+        if($drta==="OPH")
+        {
+            $sigUnits->setAttribute("value","gtt");
+        }
+        else
+        {
+            $sigUnits->setAttribute("value",$ddf);
+        }
     }
     
     $sigRoute=createInput($DOM,$sigInput,"SIGRoute");
