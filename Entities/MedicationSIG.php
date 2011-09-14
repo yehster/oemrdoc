@@ -11,7 +11,16 @@ class MedicationSIG extends DocumentEntry
         {
             return self::classtype;
         }
-    
+        public function copy($auth)
+        {
+            $retVal=parent::copy($auth);
+            $retVal->schedule = $this->schedule;
+            $retVal->route = $this->route;
+            $retVal->units = $this->units;
+            $retVal->quantity = $this->quantity;
+            
+            return $retVal;
+        }    
     
         /** @Column(type="string",name="attr1") */
         protected $route;
@@ -28,16 +37,16 @@ class MedicationSIG extends DocumentEntry
         
         
         /** @Column(type="string",name="attr2") */
-        protected $frequency;
+        protected $schedule;
 
-        public function setFrequency($val)
+        public function setSchedule($val)
         {
-            $this->frequency=$val;
+            $this->schedule=$val;
         }
 
         public function getFrequency()
         {
-            return $this->frequency();
+            return $this->schedule();
         }
         
         /** @Column(type="string",name="attr3") */
@@ -74,9 +83,9 @@ class MedicationSIG extends DocumentEntry
         public function updateFromObject($sigObject)
         {
             $this->setQuantity($sigObject->getQuantity());
-            $this->getQuantity($sigObject->getUnits());            
+            $this->setQuantity($sigObject->getUnits());            
             $this->setRoute($sigObject->getRoute());
-            $this->getFrequency($sigObject->getFrequency());
+            $this->setFrequency($sigObject->getSchedule());
 
         }
 }

@@ -1,0 +1,1 @@
+delete from rxnconso where rxcui in (select rxcui from RXNSAT where ATN='RXN_OBSOLETED');

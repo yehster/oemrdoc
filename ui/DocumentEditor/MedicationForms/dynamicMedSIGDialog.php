@@ -56,9 +56,10 @@ function generateMedSIGDialog($DOM,$medEntry)
     $sigQty=createInput($DOM,$sigInput,"SIGQty");
     $sigUnits=createInput($DOM,$sigInput,"SIGUnits");
     $loc=strpos($dst,'/');
-    if($loc)
-    {
         echo $dst;
+        if($loc)
+    {
+
         if(strpos($dst,"units"))
         {
             $sigUnits->setAttribute("value","units");        
@@ -70,12 +71,20 @@ function generateMedSIGDialog($DOM,$medEntry)
                 $sigUnits->setAttribute("value","mL");                    
             }
         }
+        elseif($drta==="INH")
+        {
+                $sigUnits->setAttribute("value","puffs");                                
+        }
     }
     else
     {
         if($drta==="OPH")
         {
             $sigUnits->setAttribute("value","gtt");
+        }
+        elseif($drta==="INH")
+        {
+            
         }
         else
         {
@@ -87,7 +96,7 @@ function generateMedSIGDialog($DOM,$medEntry)
     $sigRoute->setAttribute("value",$drta);
     
     
-    $sigFrequency=createInput($DOM,$sigInput,"SIGFrequency");
+    $sigFrequency=createInput($DOM,$sigInput,"SIGSchedule");
     
     
     return $retval;
