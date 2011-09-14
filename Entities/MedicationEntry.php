@@ -66,19 +66,19 @@ class MedicationEntry extends DocumentEntry
             return false;
         }
         
-        public function getSIG()
+        public function getSIGs()
         {
-            $retval=null;
+            $retval=array();
             foreach($this->getItem()->getItems() as $item)
             {
                 if($item->getEntry()->getType()=="MedicationSIG")
                 {
-                    $retval=$item->getEntry();
+                    $retval[]=$item->getEntry();
                 }
             }
-            if($retval==null)
+            if(count($retval))
             {
-                $retval=new MedicationSIG;
+                $retval[]=new MedicationSIG;
                 $this->getItem()->addEntry($retval,1);
             }
             return $retval;
