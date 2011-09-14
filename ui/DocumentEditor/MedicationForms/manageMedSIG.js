@@ -9,6 +9,15 @@ function AddMedSIGWithUUID(medName,MedUUID)
 {
     $("#medSIGLabel").html(medName);
     $("#medSIGDialog").attr("parentEntryUUID",MedUUID);
+    $.post("MedicationForms/displayMedSIGdialog.php",
+        {
+            medEntryUUID: ""+MedUUID+""
+        },
+        function(data)
+        {
+            $("#medSIGDialog").html(data);
+        }
+    );
     $("#medSIGDialog").show();
 }
 
@@ -21,5 +30,5 @@ function cancelMedSIG()
 function registerManageSIGMedsEvents()
 {
     $("button[func='SIG']").live({click: startAddMedSIG});
-    $("#cancelMedSIG").click(cancelMedSIG);
+
 }
