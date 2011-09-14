@@ -9,6 +9,19 @@ function createInput($DOM,$parent,$class)
     $parent->appendChild($retval);
     return $retval;
 }
+
+function findAttribute($arrAtt,$atn)
+{
+    for($idx=0;$idx<count($arrAtt);$idx++)
+    {
+        if($arrAtt[$idx]->getATN()==$atn)
+        {
+            return $arrAtt[$idx]->getATV();
+        }
+    }
+    return null;
+}
+
 function generateMedSIGDialog($DOM,$medEntry)
 {
     // Display Drug Info at top, then the input fields
@@ -34,10 +47,40 @@ function generateMedSIGDialog($DOM,$medEntry)
     $sigInput->setAttribute("class","SIGInput");
     $retval->appendChild($sigInput);
     
-    createInput($DOM,$sigInput,"SIGQty");
+    $attributes=$GLOBALS['em']->getRepository('library\doctrine\Entities\RXNORM\DrugAttribute')->findByrxcui($medEntry->getRXCUI());
+
+    $dst=findAttribute($attributes,"DST");
+    $ddf=findAttribute($attributes,"DDF");
+    $drta=findAttribute($attributes,"DRTA");
+
+    $sigQty=createInput($DOM,$sigInput,"SIGQty");
+    $sigUnits=createInput($DOM,$sigInput,"SIGUnits");
+    $loc=strpos($dst,'/');
+    if($loc)
+    {
+        echo $dst;
+        if(strpos($dst,"units"))
+        {
+            $sigUnits->setAttribute("value","units");        
+        }
+        elseif(strpos($dst,"mg"))
+        {
+            if(strpos($dst,"mL"))
+            {
+                $sigUnits->setAttribute("value","mL");                    
+            }
+        }
+    }
+    else
+    {
+        $sigUnits->setAttribute("value",$ddf);
+    }
+    
+    $sigRoute=createInput($DOM,$sigInput,"SIGRoute");
+    $sigRoute->setAttribute("value",$drta);
     
     
-    
+    $sigFrequency=createInput($DOM,$sigInput,"SIGFrequency");
     
     
     return $retval;
