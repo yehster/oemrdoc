@@ -76,7 +76,7 @@ function createInputs($DOM,$parent,$medSIG, $dst, $drta, $ddf)
    
 }
 
-function generateMedSIGDialog($DOM,$medEntry)
+function generateMedSIGDialog($DOM,$medEntry,$pat,$auth)
 {
     // Display Drug Info at top, then the input fields
     $retval=$DOM->createElement("section");
@@ -107,7 +107,7 @@ function generateMedSIGDialog($DOM,$medEntry)
     $ddf=findAttribute($attributes,"DDF");
     $drta=findAttribute($attributes,"DRTA");
 
-    $SIGs=$medEntry->getSIGs();
+    $SIGs=$medEntry->getSIGs($pat,$auth);
     foreach($SIGs as $SIG)
     {
         createInputs($DOM,$sigInput,$SIG, $dst, $drta, $ddf);

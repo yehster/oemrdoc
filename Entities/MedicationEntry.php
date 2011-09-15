@@ -66,7 +66,7 @@ class MedicationEntry extends DocumentEntry
             return false;
         }
         
-        public function getSIGs()
+        public function getSIGs($pat,$auth)
         {
             $retval=array();
             $entryItem=$this->getItem();
@@ -81,7 +81,7 @@ class MedicationEntry extends DocumentEntry
             }
             if(count($retval)===0)
             {
-                $newMedSIG=new MedicationSIG(null,null,null);
+                $newMedSIG=new MedicationSIG(null,$pat,$auth);
                 $GLOBALS['em']->persist($newMedSIG);
 
                 $this->getItem()->addEntry($newMedSIG,1);
@@ -89,6 +89,11 @@ class MedicationEntry extends DocumentEntry
                 $GLOBALS['em']->flush();
             }
             return $retval;
+        }
+        
+        public function addSIG()
+        {
+            
         }
         
 

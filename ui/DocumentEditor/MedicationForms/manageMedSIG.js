@@ -28,9 +28,15 @@ function closeMedSIG()
     $("#medSIGDialog").hide();
 }
 
+function saveSIGInfo()
+{
+    parent=$(this).parent("section.SIGInput");
+    window.alert("yo!");
+}
 
 function registerManageSIGMedsEvents()
 {
     $("button[func='SIG']").live({click: startAddMedSIG});
+    $("section.SIGInput input").live({blur: saveSIGInfo});
 
 }
