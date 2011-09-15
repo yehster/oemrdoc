@@ -1,24 +1,5 @@
 <?php
 require_once("manageParentEntry.php");
-if(isset($_REQUEST['qty']))
-{
-    $qty=floatval($_REQUEST['qty']);
-}
-
-if(isset($_REQUEST['units']))
-{
-    $units=$_REQUEST['units'];
-}
-
-if(isset($_REQUEST['route']))
-{
-    $route=$_REQUEST['route'];
-}
-
-if(isset($_REQUEST['schedule']))
-{
-    $schedule = $_REQUEST['schedule'];
-}
 
 if(isset($_REQUEST['medSIGUUID']))
 {
@@ -35,10 +16,30 @@ switch($task)
             echo "No MedSIG Entry";
             return;
         }           
-        $medSIG->setQuantity($qty);
-        $medSIG->setUnits($units);
-        $medSIG->setRoute($route);
-        $medSIG->setSchedule($schedule);
+        if(isset($_REQUEST['qty']))
+        {
+            $qty=floatval($_REQUEST['qty']);
+            $medSIG->setQuantity($qty);
+        }
+
+        if(isset($_REQUEST['units']))
+        {
+            $units=$_REQUEST['units'];
+            $medSIG->setUnits($units);
+        }
+
+        if(isset($_REQUEST['route']))
+        {
+            $route=$_REQUEST['route'];
+            $medSIG->setRoute($route);
+        }
+
+        if(isset($_REQUEST['schedule']))
+        {
+            $schedule = $_REQUEST['schedule'];
+            $medSIG->setSchedule($schedule);
+        }
+
         $em->flush();
         break;
 }

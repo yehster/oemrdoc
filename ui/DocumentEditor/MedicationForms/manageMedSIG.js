@@ -31,7 +31,9 @@ function closeMedSIG()
 function saveSIGInfo()
 {
     parent=$(this).parent("section.SIGInput");
-    window.alert("yo!");
+    value=$(this).val();
+    attribute=$(this).attr("class");
+    window.alert(value+":"+attribute);
 }
 
 function registerManageSIGMedsEvents()

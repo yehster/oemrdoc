@@ -24,17 +24,27 @@ function findAttribute($arrAtt,$atn)
 
 function createInputs($DOM,$parent,$medSIG, $dst, $drta, $ddf)
 {
-    $sigQty=createInput($DOM,$parent,"SIGQty");
-    $sigUnits=createInput($DOM,$parent,"SIGUnits");
+    $sigQty=createInput($DOM,$parent,"qty");
+    
+    $sigUnits=createInput($DOM,$parent,"units");
 
-    $sigRoute=createInput($DOM,$parent,"SIGRoute");
-    $sigRoute->setAttribute("value",$drta);
+    $sigRoute=createInput($DOM,$parent,"route");
+    if(($medSIG->getRoute()==="") or ($medSIG->getRoute==null))
+    {
+        $sigRoute->setAttribute("value",$drta);
+    }
+    else
+    {
+        $sigRoute->setAttribute("value",$medSIG->getRoute());
+    }
     
     
-    $sigFrequency=createInput($DOM,$parent,"SIGSchedule");
-     $loc=strpos($dst,'/');
+    $sigSchedule=createInput($DOM,$parent,"schedule");
+    
+    
+    $loc=strpos($dst,'/');
         echo $dst;
-        if($loc)
+    if($loc)
     {
 
         if(strpos($dst,"units"))
