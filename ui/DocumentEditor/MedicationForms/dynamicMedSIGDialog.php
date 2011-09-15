@@ -32,6 +32,7 @@ function createInputs($DOM,$parent,$medSIG, $dst, $drta, $ddf)
     if(($medSIG->getRoute()==="") or ($medSIG->getRoute==null))
     {
         $sigRoute->setAttribute("value",$drta);
+        $medSIG->setRoute($drta);
     }
     else
     {
@@ -90,6 +91,7 @@ function generateMedSIGDialog($DOM,$medEntry,$pat,$auth)
 {
     // Display Drug Info at top, then the input fields
     $retval=$DOM->createElement("section");
+    $retval->setAttribute("entrytype",$medEntry->getType());
     $retval->setAttribute("entryuuid",$medEntry->getUUID());
     
     $drugInfo=$DOM->createElement("section");

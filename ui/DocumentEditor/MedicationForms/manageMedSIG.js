@@ -31,9 +31,28 @@ function closeMedSIG()
 function saveSIGInfo()
 {
     parent=$(this).parent("section.SIGInput");
+    medEntry=parent.parent("section[entrytype]");
     value=$(this).val();
     attribute=$(this).attr("class");
-    window.alert(value+":"+attribute);
+    medSIGUUID=parent.attr("entryuuid");
+    parentUUID=medEntry.attr("entryuuid");
+    window.alert(medSIGUUID+":"+parentUUID);
+    params=    {
+        task:   "update",
+        
+        parentUUID: ""+parentUUID+"",
+        medSIGUUID: ""+medSIGUUID+"",
+        refresh: "YES"
+    };
+    params[attribute]=value;
+    $.post("../../interface/med/manageMedSIG.php",
+        params,
+         function(data)
+         {
+             refreshEntry(entryUUID,data);
+         }
+    )
+    
 }
 
 function registerManageSIGMedsEvents()

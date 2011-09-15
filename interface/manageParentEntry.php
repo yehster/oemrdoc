@@ -1,6 +1,6 @@
 <?php
 require_once('/var/www/openemr/library/doctrine/init-em.php');
-require_once('../ui/Editor/EditorUtilities.php');
+require_once('/var/www/openemr/library/doctrine/ui/Editor/EditorUtilities.php');
 require_once('checkAuth.php');
 
 if(isset($_REQUEST["task"]))

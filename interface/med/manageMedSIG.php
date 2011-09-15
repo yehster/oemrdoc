@@ -1,5 +1,5 @@
 <?php
-require_once("manageParentEntry.php");
+require_once("../manageParentEntry.php");
 
 if(isset($_REQUEST['medSIGUUID']))
 {
@@ -44,5 +44,5 @@ switch($task)
         break;
 }
 
-require_once("refreshCheck.php");
+require_once("/var/www/openemr/library/doctrine/interface/refreshCheck.php");
 ?>
