@@ -22,40 +22,17 @@ function findAttribute($arrAtt,$atn)
     return null;
 }
 
-function generateMedSIGDialog($DOM,$medEntry)
+function createInputs($DOM,$parent,$medSIG, $dst, $drta, $ddf)
 {
-    // Display Drug Info at top, then the input fields
-    $retval=$DOM->createElement("section");
-    $retval->setAttribute("entryuuid",$medEntry->getUUID());
-    
-    $drugInfo=$DOM->createElement("section");
-    $drugInfo->setAttribute("class","SIGdrugInfo");
-    
-    $retval->appendChild($drugInfo);
-    
-    $drugLabel=$DOM->createElement("span",$medEntry->getText());
-    $drugInfo->appendChild($drugLabel);
-    
-    
-    $cancelButton=$DOM->createElement("button","cancel");
-    $cancelButton->setAttribute("class","cancelSIG");
-    $drugInfo->appendChild($cancelButton);
-    
-    //alternate drug info?
+    $sigQty=createInput($DOM,$parent,"SIGQty");
+    $sigUnits=createInput($DOM,$parent,"SIGUnits");
 
-    $sigInput=$DOM->createElement("section");
-    $sigInput->setAttribute("class","SIGInput");
-    $retval->appendChild($sigInput);
+    $sigRoute=createInput($DOM,$parent,"SIGRoute");
+    $sigRoute->setAttribute("value",$drta);
     
-    $attributes=$GLOBALS['em']->getRepository('library\doctrine\Entities\RXNORM\DrugAttribute')->findByrxcui($medEntry->getRXCUI());
-
-    $dst=findAttribute($attributes,"DST");
-    $ddf=findAttribute($attributes,"DDF");
-    $drta=findAttribute($attributes,"DRTA");
-
-    $sigQty=createInput($DOM,$sigInput,"SIGQty");
-    $sigUnits=createInput($DOM,$sigInput,"SIGUnits");
-    $loc=strpos($dst,'/');
+    
+    $sigFrequency=createInput($DOM,$parent,"SIGSchedule");
+     $loc=strpos($dst,'/');
         echo $dst;
         if($loc)
     {
@@ -92,13 +69,45 @@ function generateMedSIGDialog($DOM,$medEntry)
         }
     }
     
-    $sigRoute=createInput($DOM,$sigInput,"SIGRoute");
-    $sigRoute->setAttribute("value",$drta);
+    
+    $sigSave=$DOM->createElement("BUTTON","save");
+    $parent->appendChild($sigSave);
+   
+}
+
+function generateMedSIGDialog($DOM,$medEntry)
+{
+    // Display Drug Info at top, then the input fields
+    $retval=$DOM->createElement("section");
+    $retval->setAttribute("entryuuid",$medEntry->getUUID());
+    
+    $drugInfo=$DOM->createElement("section");
+    $drugInfo->setAttribute("class","SIGdrugInfo");
+    
+    $retval->appendChild($drugInfo);
+    
+    $drugLabel=$DOM->createElement("span",$medEntry->getText());
+    $drugInfo->appendChild($drugLabel);
     
     
-    $sigFrequency=createInput($DOM,$sigInput,"SIGSchedule");
+    $closeButton=$DOM->createElement("button","close");
+    $closeButton->setAttribute("class","closeSIG");
+    $drugInfo->appendChild($closeButton);
     
+    //alternate drug info?
+
+    $sigInput=$DOM->createElement("section");
+    $sigInput->setAttribute("class","SIGInput");
+    $retval->appendChild($sigInput);
     
+    $attributes=$GLOBALS['em']->getRepository('library\doctrine\Entities\RXNORM\DrugAttribute')->findByrxcui($medEntry->getRXCUI());
+
+    $dst=findAttribute($attributes,"DST");
+    $ddf=findAttribute($attributes,"DDF");
+    $drta=findAttribute($attributes,"DRTA");
+
+    
+    createInputs($DOM,$sigInput,$medSIG, $dst, $drta, $ddf);
     return $retval;
 }
 

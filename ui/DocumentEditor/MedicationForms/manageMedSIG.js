@@ -16,14 +16,14 @@ function AddMedSIGWithUUID(medName,MedUUID)
         function(data)
         {
             $("#medSIGDialog").html(data);
-            $("#medSIGDialog .cancelSIG").click(cancelMedSIG);
+            $("#medSIGDialog .closeSIG").click(closeMedSIG);
             $("#medSIGDialog").show();
         }
     );
 
 }
 
-function cancelMedSIG()
+function closeMedSIG()
 {
     $("#medSIGDialog").hide();
 }
