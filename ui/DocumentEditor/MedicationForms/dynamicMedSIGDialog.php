@@ -72,6 +72,7 @@ function createInputs($DOM,$parent,$medSIG, $dst, $drta, $ddf)
     
     $sigSave=$DOM->createElement("BUTTON","save");
     $parent->appendChild($sigSave);
+    $parent->setAttribute("entryUUID",$medSIG->getUUID());
    
 }
 
@@ -106,8 +107,11 @@ function generateMedSIGDialog($DOM,$medEntry)
     $ddf=findAttribute($attributes,"DDF");
     $drta=findAttribute($attributes,"DRTA");
 
-    
-    createInputs($DOM,$sigInput,$medSIG, $dst, $drta, $ddf);
+    $SIGs=$medEntry->getSIGs();
+    foreach($SIGs as $SIG)
+    {
+        createInputs($DOM,$sigInput,$SIG, $dst, $drta, $ddf);
+    }
     return $retval;
 }
 
