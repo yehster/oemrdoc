@@ -44,9 +44,9 @@ class MedicationSIG extends DocumentEntry
             $this->schedule=$val;
         }
 
-        public function getFrequency()
+        public function getSchedule()
         {
-            return $this->schedule();
+            return $this->schedule;
         }
         
         /** @Column(type="string",name="attr3") */
@@ -85,8 +85,16 @@ class MedicationSIG extends DocumentEntry
             $this->setQuantity($sigObject->getQuantity());
             $this->setQuantity($sigObject->getUnits());            
             $this->setRoute($sigObject->getRoute());
-            $this->setFrequency($sigObject->getSchedule());
+            $this->setSchedule($sigObject->getSchedule());
 
+        }
+        
+        public function getText()
+        {
+            return $this->quantity ." ".
+                    $this->units ." ".
+                    $this->route ." ".
+                    $this->schedule;
         }
 }
 ?>

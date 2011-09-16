@@ -22,26 +22,8 @@ function findAttribute($arrAtt,$atn)
     return null;
 }
 
-function createInputs($DOM,$parent,$medSIG, $dst, $drta, $ddf)
+function determineUnits($dst,$ddf)
 {
-    $sigQty=createInput($DOM,$parent,"qty");
-    
-    $sigUnits=createInput($DOM,$parent,"units");
-
-    $sigRoute=createInput($DOM,$parent,"route");
-    if(($medSIG->getRoute()==="") or ($medSIG->getRoute==null))
-    {
-        $sigRoute->setAttribute("value",$drta);
-        $medSIG->setRoute($drta);
-    }
-    else
-    {
-        $sigRoute->setAttribute("value",$medSIG->getRoute());
-    }
-    
-    
-    $sigSchedule=createInput($DOM,$parent,"schedule");
-    
     
     $loc=strpos($dst,'/');
         echo $dst;
@@ -50,25 +32,25 @@ function createInputs($DOM,$parent,$medSIG, $dst, $drta, $ddf)
 
         if(strpos($dst,"units"))
         {
-            $sigUnits->setAttribute("value","units");        
+            return "units";
         }
         elseif(strpos($dst,"mg"))
         {
             if(strpos($dst,"mL"))
             {
-                $sigUnits->setAttribute("value","mL");                    
+                return "mL";                    
             }
         }
         elseif($drta==="INH")
         {
-                $sigUnits->setAttribute("value","puffs");                                
+                return "puffs";                                
         }
     }
     else
     {
         if($drta==="OPH")
         {
-            $sigUnits->setAttribute("value","gtt");
+            return "gtt";
         }
         elseif($drta==="INH")
         {
@@ -76,9 +58,51 @@ function createInputs($DOM,$parent,$medSIG, $dst, $drta, $ddf)
         }
         else
         {
-            $sigUnits->setAttribute("value",$ddf);
+            return $ddf;
         }
+    }    
+}
+
+function createInputs($DOM,$parent,$medSIG, $dst, $drta, $ddf)
+{
+    $sigQty=createInput($DOM,$parent,"qty");
+    if(($medSIG->getQuantity()!=="") and ($medSIG->getQuantity()!=null))
+    {
+        $sigQty->setAttribute("value",$medSIG->getQuantity());
     }
+    
+    $sigUnits=createInput($DOM,$parent,"units");
+
+    $sigRoute=createInput($DOM,$parent,"route");
+    if(($medSIG->getRoute()==="") or ($medSIG->getRoute()==null))
+    {
+        $sigRoute->setAttribute("value",$drta);
+        $medSIG->setRoute($drta);
+        $GLOBALS['em']->flush();
+    }
+    else
+    {
+        $sigRoute->setAttribute("value",$medSIG->getRoute());
+    }
+    
+    
+    if(($medSIG->getUnits()==="") or ($medSIG->getUnits()==null))
+    {
+        $units=determineUnits($dst,$ddf);
+        $medSIG->setUnits($units);
+        $sigUnits->setAttribute("value",$units);
+        $GLOBALS['em']->flush();
+    }
+    else
+    {
+        $sigUnits->setAttribute("value",$medSIG->getUnits());                
+    }
+    $sigSchedule=createInput($DOM,$parent,"schedule");
+    if(($medSIG->getSchedule()!=="") && ($medSIG->getSchedule()!=null))
+    {
+        $sigSchedule->setAttribute("value",$medSIG->getSchedule());
+    }
+
     
     
     $sigSave=$DOM->createElement("BUTTON","save");
