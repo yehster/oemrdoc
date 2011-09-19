@@ -5,6 +5,17 @@ function startAddMedSIG()
     AddMedSIGWithUUID(medElement.text(),entryUUID);
 }
 
+function setSIGQtyFromTable()
+{
+     $("input.qty").val($(this).text())
+     $("input.qty").blur();
+}
+
+function setSIGScheduleFromTable()
+{
+     $("input.schedule").val($(this).text())
+     $("input.schedule").blur();  
+}
 function AddMedSIGWithUUID(medName,MedUUID)
 {
     $("#medSIGLabel").html(medName);
@@ -18,6 +29,9 @@ function AddMedSIGWithUUID(medName,MedUUID)
             $("#medSIGDialog").html(data);
             $("#medSIGDialog .closeSIG").click(closeMedSIG);
             $("#medSIGDialog").show();
+            
+            $("#medSIGDialog table.SIGQtyOptions td").click(setSIGQtyFromTable);
+            $("#medSIGDialog table.SIGScheduleOptions td").click(setSIGScheduleFromTable);
         }
     );
 

@@ -152,7 +152,11 @@ function scheduleOptions($DOM,$parent)
     
     $table->setAttribute("class","SIGScheduleOptions");
     
-    $options = array("once a day","twice a day","three times a day","four times a day");
+    $options = array("once a day","twice a day","three times a day","four times a day"
+        ,"every other day"
+        ,"in the morning"
+        ,"in the evening"
+        ,"at bedtime");
     for($idx=0;$idx<count($options);$idx++)
     {
         $td=$DOM->createElement("td",$options[$idx]);
