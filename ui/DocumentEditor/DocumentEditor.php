@@ -4,7 +4,7 @@
    @import "medDialog.css";
    @import "sectionForms.css";
    @import "../Review/reviewHistory.css";
-
+   @import "MedicationForms/MedSIGdialog.css";
 </style>
 <?php
 include_once('/var/www/openemr/library/doctrine/init-em.php');

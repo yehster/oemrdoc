@@ -1,13 +1,15 @@
 <?php
 function createInput($DOM,$parent,$class)
 {
-    $retval = $DOM->createElement("input");
-    $retval->setAttribute("type","text");
-    $retval->setAttribute("class",$class);
+    $input = $DOM->createElement("input");
+    $input->setAttribute("type","text");
+    $input->setAttribute("class",$class);
     
+    $td=$DOM->createElement("td");
+    $td->appendChild($input);
     
-    $parent->appendChild($retval);
-    return $retval;
+    $parent->appendChild($td);
+    return $input;
 }
 
 function findAttribute($arrAtt,$atn)
@@ -65,6 +67,10 @@ function determineUnits($dst,$ddf)
 
 function createInputs($DOM,$parent,$medSIG, $dst, $drta, $ddf)
 {
+    $tr=$DOM->createElement("tr");
+    $parent->appendChild($tr);
+    $parent=$tr;
+    
     $sigQty=createInput($DOM,$parent,"qty");
     if(($medSIG->getQuantity()!=="") and ($medSIG->getQuantity()!=null))
     {
@@ -105,12 +111,85 @@ function createInputs($DOM,$parent,$medSIG, $dst, $drta, $ddf)
 
     
     
-    $sigSave=$DOM->createElement("BUTTON","save");
-    $parent->appendChild($sigSave);
     $parent->setAttribute("entryUUID",$medSIG->getUUID());
    
 }
 
+
+function createInputHeader($DOM,$table)
+{
+    $tr=$DOM->createElement("tr");
+    
+    $table->appendChild($tr);
+    
+    $tr->appendChild($DOM->createElement("th","QTY"));
+    $tr->appendChild($DOM->createElement("th","UNITS"));
+    $tr->appendChild($DOM->createElement("th","ROUTE"));
+    $tr->appendChild($DOM->createElement("th","SCHEDULE"));
+    
+}
+
+function qtyOptions($DOM,$parent)
+{
+    $table=$DOM->createElement("table");
+    $parent->appendChild($table);
+    
+    $table->setAttribute("class","SIGQtyOptions");
+    
+    for($idx=1;$idx<=5;$idx++)
+    {
+        $td=$DOM->createElement("td",$idx);
+        $tr=$DOM->createElement("tr");
+        $tr->appendChild($td);
+        $table->appendChild($tr);
+    }
+}
+
+function scheduleOptions($DOM,$parent)
+{
+    $table=$DOM->createElement("table");
+    $parent->appendChild($table);
+    
+    $table->setAttribute("class","SIGScheduleOptions");
+    
+    $options = array("once a day","twice a day","three times a day","four times a day");
+    for($idx=0;$idx<count($options);$idx++)
+    {
+        $td=$DOM->createElement("td",$options[$idx]);
+        $tr=$DOM->createElement("tr");
+        $tr->appendChild($td);
+        $table->appendChild($tr);
+    }
+}
+
+
+function createSIGControls($DOM,$table)
+{
+    $tr=$DOM->createElement("tr");
+    $tr->setAttribute("class","SIGControls");
+    $table->appendChild($tr);
+    
+    // createQTY options
+    $tdQTY=$DOM->createElement("td");
+    $tr->appendChild($tdQTY);
+    
+    qtyOptions($DOM,$tdQTY);
+
+    // createUnits options
+    $tdUnits=$DOM->createElement("td");
+    $tr->appendChild($tdUnits);
+
+    // createRoute options
+    $tdRoute=$DOM->createElement("td");
+    $tr->appendChild($tdRoute);
+    
+    // createSchedule Options
+    // createUnits options
+    $tdSchedule=$DOM->createElement("td");
+    $tr->appendChild($tdSchedule);
+    
+    scheduleOptions($DOM,$tdSchedule);
+}
 function generateMedSIGDialog($DOM,$medEntry,$pat,$auth)
 {
     // Display Drug Info at top, then the input fields
@@ -144,10 +223,17 @@ function generateMedSIGDialog($DOM,$medEntry,$pat,$auth)
     $drta=findAttribute($attributes,"DRTA");
 
     $SIGs=$medEntry->getSIGs($pat,$auth);
+    $sigTable=$DOM->createElement("table");
+    $sigTable->setAttribute("class","SIGTable");
+    $sigInput->appendChild($sigTable);
+    
+    createInputHeader($DOM,$sigTable);
     foreach($SIGs as $SIG)
     {
-        createInputs($DOM,$sigInput,$SIG, $dst, $drta, $ddf);
+        createInputs($DOM,$sigTable,$SIG, $dst, $drta, $ddf);
     }
+    createSIGControls($DOM, $sigTable);
+    
     return $retval;
 }
 

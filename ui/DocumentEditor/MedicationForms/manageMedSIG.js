@@ -30,13 +30,13 @@ function closeMedSIG()
 
 function saveSIGInfo()
 {
-    parent=$(this).parent("section.SIGInput");
-    medEntry=parent.parent("section[entrytype]");
+    parent=$(this).parents("section.SIGInput");
+    medEntry=$(this).parents("section[entrytype='MedicationEntry']");
     value=$(this).val();
     attribute=$(this).attr("class");
-    medSIGUUID=parent.attr("entryuuid");
+    medSIGUUID=$(this).parents("tr[entryuuid]").attr("entryuuid");
     parentUUID=medEntry.attr("entryuuid");
-    window.alert(medSIGUUID+":"+parentUUID);
+
     params=    {
         task:   "update",
         
