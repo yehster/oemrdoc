@@ -32,6 +32,9 @@ function AddMedSIGWithUUID(medName,MedUUID)
             
             $("#medSIGDialog table.SIGQtyOptions td").click(setSIGQtyFromTable);
             $("#medSIGDialog table.SIGScheduleOptions td").click(setSIGScheduleFromTable);
+            $("#medSIGDialog tr.SIGControls table td").mouseover(function(){$(this).addClass("highlight")});
+            $("#medSIGDialog tr.SIGControls table td").mouseout(function(){$(this).removeClass("highlight")});
+            
         }
     );
 

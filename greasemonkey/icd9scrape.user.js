@@ -11,7 +11,7 @@ links=document.getElementsByTagName('a');
 //window.alert(links.length);
 //window.alert(window.location);
 
-if(window.location=="http://www.icd9data.com/")
+if(window.location.href=="http://www.icd9data.com/")
     {
         for(idx=0;idx<links.length;idx++)
         {
