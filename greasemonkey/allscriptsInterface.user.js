@@ -40,6 +40,20 @@ function resetInfo()
 }
 
 //TODO: Can I add a dialog div that displays the drugs from OpenEMR?
+function findPatientInfo()
+{
+    text=$(this).html()
+    marker="top.window.parent.left_nav.setPatient("
+    loc=text.indexOf(marker);
+    if(loc>=0)
+    {
+        //window.alert(text);
+        end=text.indexOf(")",loc)
+        rest=text.substr(loc+marker.length,end-(loc+marker.length));
+        window.alert(rest)
+        
+    }
+}
 
 var loc=window.location.href;
 if(loc.indexOf(pages['interstitial'])>=0)
@@ -59,7 +73,5 @@ if(loc.indexOf(pages['oemrMain'])>=0)
 
 if(loc.indexOf(pages['oemrDemo'])>=0)
     {
-        titleFrame=unsafeWindow.top;
-//        curPat=unsafeWindow.$("#current_patient",unsafeWindow.parent.title);
-        window.alert(unsafeWindow.$(titleFrame).html());
+        $("script[language='JavaScript']").each(findPatientInfo);
     }
