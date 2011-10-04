@@ -16,6 +16,7 @@ var pages={
     addPatient: "/AddPatient.aspx?Mode=Add",
     def: "/default.aspx",
     allergy: "/PatientAllergy.aspx",
+    Login: "/Login.aspx",
     oemrMain: "/openemr/interface/main/main_title.php",
     oemrDemo: "openemr/interface/patient_file/summary/demographics.php"
 }
@@ -24,7 +25,8 @@ var asContID={
     lblPatientName: "ctl00_lblPatientName",
     txtPatLNAME: "ctl00_ContentPlaceHolder1_PatientSearch_txtLastName_text",
     txtPatFNAME: "ctl00_ContentPlaceHolder1_PatientSearch_txtFirstName_text",
-    txtPatDOB: "ctl00_ContentPlaceHolder1_PatientSearch_rdiDOB_text"
+    txtPatDOB: "ctl00_ContentPlaceHolder1_PatientSearch_rdiDOB_text",
+    tblViewPatients: "ctl00_ContentPlaceHolder1_grdViewPatients_ctl00"
 }
 
 
@@ -60,6 +62,7 @@ function findPatientInfo()
     loc=text.indexOf(marker);
     if(loc>=0)
     {
+        resetInfo();
         //window.alert(text);
         end=text.indexOf(")",loc)
         rest=text.substr(loc+marker.length,end-(loc+marker.length));
@@ -88,15 +91,26 @@ function findPatientInfo()
         GM_setValue("patientDOBMonth",DOBMonth);
         GM_setValue("patientDOBDay",DOBDay);
         
-        window.alert(fname+":"+DOBYear +"/"+DOBMonth+"/"+DOBDay);
         
     }
 }
 
+function safeClick(id)
+{
+        var element = document.getElementById(id);
+        if (element != null)
+        {
+            element.click();
+        }
+
+}
 function patDOB()
 {
-    retVal= GM_getValue("patientDOBMonth")+"/"+GM_getValue("patientDOBDay")+"/"+ GM_getValue("patientDOBYear");
-    retVal.replace(" ","");
+    retVal=GM_getValue("patientDOBMonth");
+    retVal=retVal.concat("/");
+    retVal=retVal.concat(GM_getValue("patientDOBDay").substr(0,2))
+    retVal=retVal.concat("/")
+    retVal=retVal.concat(GM_getValue("patientDOBYear"));
     return retVal;
  
 }
@@ -105,10 +119,23 @@ function asPopulateAndSearchPatientInfo()
 {
     $("#"+asContID['txtPatLNAME']).val(GM_getValue("patientLNAME"));
     $("#"+asContID['txtPatFNAME']).val(GM_getValue("patientFNAME"));
-    window.alert(patDOB());
-    $("#"+asContID['txtPatDOB']).val(patDOB());
+
+
 }
 
+function asFindPatientInResults()
+{
+    myHTML=$(this).html();
+    foundPatient=myHTML.indexOf(GM_getValue("patientLNAME")+", "+GM_getValue("patientFNAME"));
+    if(foundPatient>=0)
+        {
+            foundDOB=myHTML.indexOf(patDOB(),foundPatient);
+            if(foundDOB>=0)
+                {
+                    safeClick($(this).find("input[id]").attr("id"));
+                }
+        }
+}
 var loc=window.location.href;
 if(loc.indexOf(pages['interstitial'])>=0)
     {
@@ -120,23 +147,31 @@ if(loc.indexOf(pages['interstitial'])>=0)
     
     }
 
-if(loc.indexOf(pages['def'])>=0)
+
+
+if((loc.indexOf(pages['def'])>=0) || (loc.indexOf(pages['Login'])>=0))
     {
 //        if(GM_getValue("patientFound")=="not started")
         {
-            asPopulateAndSearchPatientInfo();
-            window.alert($("#"+asContID['lblPatientName']).text());
+            $(document).ready(asPopulateAndSearchPatientInfo());
         }
+        tblViewPatients=$("#"+asContID['tblViewPatients']);
+        if(tblViewPatients.length>0)
+            {
+                rows=tblViewPatients.find("tbody tr");
+                rows.each(asFindPatientInResults);
+            }
     }
 
 
 
 if(loc.indexOf(pages['oemrMain'])>=0)
     {
+        allScriptsLink="<a href='https://eprescribe.allscripts.com/default.aspx' target='Allscripts' class='css_button_small' style='float:right;'>"+"<span>Allscripts</span>"+"</a>";
+        $("#current_patient_block").append(allScriptsLink);
     }
 
 if(loc.indexOf(pages['oemrDemo'])>=0)
     {
-        resetInfo();
         $("script[language='JavaScript']").each(findPatientInfo);
     }
