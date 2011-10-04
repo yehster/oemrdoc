@@ -80,9 +80,9 @@ function findPatientInfo()
         DOB=dobSTR.substr(start,(dobSTR.indexOf(AgeHeader)-start));
         DOB.replace(" ","");
         DOBParts=DOB.split("-");
-        DOBYear=DOBParts[0];
-        DOBMonth=DOBParts[1];
-        DOBDay=DOBParts[2];
+        DOBYear=DOBParts[0].substr(0,4);
+        DOBMonth=DOBParts[1].substr(0,2);
+        DOBDay=DOBParts[2].substr(0,2);
 
         GM_setValue("patientFNAME",fname);
         GM_setValue("patientLNAME",lname);
@@ -108,7 +108,7 @@ function patDOB()
 {
     retVal=GM_getValue("patientDOBMonth");
     retVal=retVal.concat("/");
-    retVal=retVal.concat(GM_getValue("patientDOBDay").substr(0,2))
+    retVal=retVal.concat(GM_getValue("patientDOBDay"))
     retVal=retVal.concat("/")
     retVal=retVal.concat(GM_getValue("patientDOBYear"));
     return retVal;
