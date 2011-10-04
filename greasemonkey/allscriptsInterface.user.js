@@ -149,7 +149,7 @@ if(loc.indexOf(pages['interstitial'])>=0)
 
 
 
-if((loc.indexOf(pages['def'])>=0) || (loc.indexOf(pages['Login'])>=0))
+if((loc.toLowerCase().indexOf(pages['def'])>=0) || (loc.indexOf(pages['Login'])>=0))
     {
 //        if(GM_getValue("patientFound")=="not started")
         {
