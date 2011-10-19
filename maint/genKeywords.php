@@ -14,7 +14,7 @@ if (!empty($argc) && strstr($argv[0], basename(__FILE__))) {
 }
 include('/var/www/openemr/library/doctrine/init-em.php');
 
-function generateKeywords($em,$code,$kwm)
+function generateKeywords($em,$code)
 {
         global $flushCount;
 	echo $code->getCodeText().':';
@@ -32,31 +32,17 @@ function generateKeywords($em,$code,$kwm)
 	{
 
 		$tok=strtoupper($tok);
-                if(isset($kwm[$tok]))
-                {
-                    $kw=$kwm[$tok];
-                }
-                else {
-                    
-                
-			$kw=$em->getRepository('library\doctrine\Entities\Keyword')->findOneBy(array('content' => $tok));
-			if($kw==null)
-			{
-//				echo 'generating:'.$tok.PHP_EOL;
-				$kw= new library\doctrine\Entities\Keyword($tok);
-				$em->persist($kw);
-				$em->flush();
-                                $flushCount=0;
-			}
-			else
-			{
-//				echo 'Queried:';
-			}
-                }
+                $kw=$em->getRepository('library\doctrine\Entities\Keyword')->findOneBy(array('content' => $tok));
+                if($kw==null)
+		{
+                    $kw= new library\doctrine\Entities\Keyword($tok);
+                    $em->persist($kw);
+		    $em->flush();
+                    $flushCount=0;
+		}
                 $retKWM[$tok]=$kw;
                 $kwme[$kw->getId()]=$kw;
            	$tok=strtok(' ');
-
         }
         // at this point $kwme contains the list of keywords that need to be mapped to this code
         $queryStr="select kwa from library\doctrine\Entities\KeywordCodeAssociation kwa where kwa.code=".$code->getId();
@@ -91,16 +77,14 @@ echo date('h:i:s');
 //echo $cache;
 
 echo get_include_path();
-	$kwm = array();
 $flushCount=0;
 $code = $em->getRepository('library\doctrine\Entities\Code')->find(1);
-$kwm=array();
 
 for($idx=$start;$idx<$end;$idx+= 1)
 {
 	if($code!==null)
 	{
-		$kwm=generateKeywords($em,$code,$kwm);
+		$kwm=generateKeywords($em,$code);
 	}
 	echo 'CodeIndex:'.$idx .PHP_EOL;
         $code = $em->getRepository('library\doctrine\Entities\Code')->find($idx);

@@ -41,6 +41,19 @@ function clickRow()
 }
 
 var loc=window.location.href;
+$(document).ready(
+    function()
+    {
+
+$("body").append("<DIV id='gmData'>"+window.name+"</DIV>");
+    $('#gmData').append(unsafeWindow.top.frames.length);
+    for(idx=0;idx<unsafeWindow.top.frames.length;idx++)
+        {
+            info=unsafeWindow.top.frames[idx].name;
+            $('#gmData').append("<div>"+info+"</div>")
+        }
+    });
+/*
 if(loc.indexOf(pages['logon'])>=0)
     {
         $(document).ready(clickLogon);
@@ -60,3 +73,4 @@ else if(loc.indexOf(pages['patientSelect'])>=0)
             }
     
     }
+*/

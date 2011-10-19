@@ -1,0 +1,1 @@
+"\Program Files\MySQL\MySQL Server 5.5\bin\mysqldump.exe" -d -uroot -p openemr dct_document_entries  dct_document_items  dct_document_metadata  dct_document_metadata_collection_items  dct_documents  dct_drug_attributes  dct_drug_route_options  dct_keyword_code_map  dct_keywords  dct_observation_metadata  dct_statuses  dct_vocab_mappings  dct_vocab_ordering  rxnnames
