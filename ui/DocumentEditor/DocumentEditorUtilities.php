@@ -18,6 +18,26 @@ function createButton($DOM,$Elem,$docEntry,$text,$func)
     return $but;
             
 }
+function createText($DOM,$Elem,$docEntry,$func)
+{
+    if($docEntry->isLocked())
+    {
+        return;
+    }
+    if(isset($GLOBALS['review']))
+    {
+        return;
+    }
+    $txt=$DOM->createElement("INPUT");
+    $txt->setAttribute("type","text");
+    $txt->setAttribute("FUNC",$func);
+    $txt->setAttribute("EntryUUID",$docEntry->getUUID());
+    $txt->setAttribute(ATTR_ENTRY_TYPE,$docEntry->getType());
+    $Elem->appendChild($txt);
+    return $txt;
+    
+}
+
 function createLabel($DOM,$parent,$docEntry,$text,$type)
 {
     $label=$DOM->createElement("SPAN",$text);
@@ -30,19 +50,25 @@ function createLabel($DOM,$parent,$docEntry,$text,$type)
 }
 function addSectionControls($DOM,$Elem,$docEntry)
 {
+    $span=$DOM->createElement("SPAN");
+    $span->setAttribute("FUNC","controlGroup");
+    $Elem->appendChild($span);
+    
     switch($docEntry->getText())
     {
         case SECTION_CHIEF_COMPLAINT:
         case SECTION_HPI:
         case SECTION_AP:
-            createButton($DOM,$Elem,$docEntry,"Review","REVIEW");
+            createButton($DOM,$span,$docEntry,"Review","REVIEW");
             break;
         case SECTION_PAST_MEDICAL_HISTORY:
-            createButton($DOM,$Elem,$docEntry,"Add",FUNC_DETAILS);
-            createButton($DOM,$Elem,$docEntry,"Review","REVIEW");
+            createButton($DOM,$span,$docEntry,"Add",FUNC_DETAILS);
+            createButton($DOM,$span,$docEntry,"Review","REVIEW");
             break;
         case SECTION_PROBLEM_LIST:
-            createButton($DOM,$Elem,$docEntry,"Add Problem","ADDPROB");
+            createText($DOM,$span,$docEntry,"ADDPROB");
+            createButton($DOM,$span,$docEntry,"Add Problem" ,"ADDPROB");
+
             break;
         case SECTION_VITAL_SIGNS:
         case SECTION_PHYSICAL_EXAM:
@@ -50,12 +76,12 @@ function addSectionControls($DOM,$Elem,$docEntry)
         case SECTION_FAMILY_HISTORY:
         case SECTION_REVIEW_OF_SYSTEMS:
         case SECTION_SOCIAL_HISTORY:
-            createButton($DOM,$Elem,$docEntry,"Details",FUNC_SHOWFORM);
-            createButton($DOM,$Elem,$docEntry,"Review","REVIEW");
+            createButton($DOM,$span,$docEntry,"Details",FUNC_SHOWFORM);
+            createButton($DOM,$span,$docEntry,"Review","REVIEW");
             break;
         case SECTION_MEDICATIONS:
-            createButton($DOM,$Elem,$docEntry,"med",FUNC_MED);
-            createButton($DOM,$Elem,$docEntry,"Review","REVIEW");
+            createButton($DOM,$span,$docEntry,"med",FUNC_MED);
+            createButton($DOM,$span,$docEntry,"Review","REVIEW");
             break;
     }
 }

@@ -1,8 +1,6 @@
 <?php
 include_once('/var/www/openemr/library/doctrine/init-em.php');
 
-session_name("OpenEMR");
-session_start();
 
 if(isset($_REQUEST['entryUUID']))
 {

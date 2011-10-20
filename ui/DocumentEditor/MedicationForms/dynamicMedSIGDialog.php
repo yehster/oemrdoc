@@ -24,7 +24,7 @@ function findAttribute($arrAtt,$atn)
     return null;
 }
 
-function determineUnits($dst,$ddf)
+function determineUnits($dst,$ddf,$drta)
 {
     
     $loc=strpos($dst,'/');
@@ -94,7 +94,7 @@ function createInputs($DOM,$parent,$medSIG, $dst, $drta, $ddf)
     
     if(($medSIG->getUnits()==="") or ($medSIG->getUnits()==null))
     {
-        $units=determineUnits($dst,$ddf);
+        $units=determineUnits($dst,$ddf,$drta);
         $medSIG->setUnits($units);
         $sigUnits->setAttribute("value",$units);
         $GLOBALS['em']->flush();

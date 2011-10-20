@@ -4,6 +4,10 @@ if(isset($_REQUEST['content']))
 {
         $content = $_REQUEST['content'];
 }
+else
+{
+    $content="";
+}
 
     if($task=="create")
     {

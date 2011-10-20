@@ -7,11 +7,14 @@ if (!empty($argc) && strstr($argv[0], basename(__FILE__))) {
         $start = $argv[1];
         if($argc>2)
         {
-         $end = $argv[2];
+            $end=intval($start)+intval($argv[2]);
         }
     }
 
 }
+
+echo $start.":".$end.PHP_EOL;
+
 include('/var/www/openemr/library/doctrine/init-em.php');
 
 function generateKeywords($em,$code)
@@ -81,8 +84,10 @@ function generateKeywords($em,$code)
             }
         }
         $em->flush();
+        
         return $retKWM;
 }       echo PHP_EOL;
+
 
 echo date('h:i:s');
 

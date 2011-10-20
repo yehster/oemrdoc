@@ -3,16 +3,27 @@ include_once('/var/www/openemr/library/doctrine/init-em.php');
 
 function lookupMedNames($em,$searchString)
 {
+    
     $orderClause = "MATCHQUALITY('".$searchString."',mn.str)";
     $qb = $em->createQueryBuilder()
         ->select("mn,".$orderClause." as qual")
         ->from("library\doctrine\Entities\MedName","mn")
         ->where("mn.str like :startsWith")
-        ->andWhere("mn.str like :contains")
         ->orderBy("qual DESC, mn.str");
 
-    $qb->setParameter("startsWith",$searchString[0]."%");
-    $qb->setParameter("contains","%".$searchString[1]."%");
+    if(strlen($searchString)==0)
+    {
+        $qb->setParameter("startsWith","%");    
+    }
+    else
+    {
+        $qb->setParameter("startsWith",$searchString[0]."%");    
+    }
+    if(strlen($searchString)>1)
+    {
+        $qb->andWhere("mn.str like :contains");
+        $qb->setParameter("contains","%".$searchString[1]."%");
+    }
 
     $qry=$qb->getQuery();
     return $qry->getResult();
