@@ -1,0 +1,1 @@
+insert into rxnnames (RXAUI,RXCUI,STR,TTY) select RXAUI,RXCUI,STR,TTY from RXNCONSO where SAB='RXNORM' and TTY in ( 'BN',  'BPCK', 'GPCK', 'IN');
