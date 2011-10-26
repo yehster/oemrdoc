@@ -5,6 +5,7 @@
    @import "sectionForms.css";
    @import "../Review/reviewHistory.css";
    @import "MedicationForms/MedSIGdialog.css";
+   @import "AddProblem/TextAddProblem.css";
 </style>
 <?php
 include_once('/var/www/openemr/library/doctrine/init-em.php');
@@ -101,7 +102,7 @@ if(isset($_REQUEST['docUUID']))
 <script src="DocumentInfoUtilities.js"></script>
 <script src="../Review/dialogReview.js"></script>
 <script src="MedicationForms/manageMedSIG.js"></script>
-
+<script src="AddProblem/TextAddProblem.js"></script>
 
 
 <script src="ajaxErrorHandler.js"></script>
@@ -118,6 +119,7 @@ if(isset($_REQUEST['docUUID']))
         registerDialogReviewEvents();
         registerManageSIGMedsEvents();        
         registerDocumentInfoEvents();
+        registerTextAddProblemEvents();
         
         $(document).ajaxError(handleAjaxError);
         $("#status").click(function(){$(this).hide();});
@@ -138,7 +140,13 @@ if(isset($_REQUEST['docUUID']))
                 }
             }
         });
-
+        if(top!==null)
+            {
+                if(top.document.title!==document.title)
+                    {
+                        top.document.title="OpenEMR:"+document.title;                      
+                    }
+            }
     }
     window.onload= registerControlEvents;
 //    window.unload= function() 

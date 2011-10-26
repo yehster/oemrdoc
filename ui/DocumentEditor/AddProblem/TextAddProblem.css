@@ -1,0 +1,26 @@
+/* 
+    Document   : TextAddProblem
+    Created on : Oct 26, 2011, 6:19:55 PM
+    Author     : yehster
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+span[func='controlGroup']
+{
+    position: absolute;
+    overflow: visible;
+}
+div[func='probDisplay']
+{
+    position:absolute;
+    background: white;
+    width: 800px;
+    z-index: 999;
+    top: 25px;
+}
