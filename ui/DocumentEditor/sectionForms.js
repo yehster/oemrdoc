@@ -117,6 +117,56 @@ function showFormDialog()
         }
     );
 }
+function getFormDiv(button)
+{
+    parentDiv=$(button).parent("span").parent("div:first");
+    df=parentDiv.siblings("div.displayForm");
+    if(df.length==0)
+        {
+            dfDiv=document.createElement("div");
+            dfDiv.setAttribute("class","displayForm");
+            dfDisplay=document.createElement("div");
+            dfDisplay.setAttribute("class","displayDiv");
+            dfDiv.appendChild(dfDisplay);
+            parentDiv.after(dfDiv);
+            df=parentDiv.siblings("div.displayForm");
+            $(df).hide();
+        }
+   return df;
+}
+function showFormDialog2()
+{
+    display=getFormDiv(this);
+    
+    entryUUID=$(this).attr("entryUUID");
+    display.attr("entryUUID",entryUUID);
+    displayDiv=display.find("div.displayDiv");
+    label=$(this).siblings(".LABEL").text();
+    displayDiv.html("");
+    display.toggle();
+    $.post("../DocumentForms/generateForm.php",
+        {
+            entryUUID: ""+entryUUID+""
+        },
+        function(data)
+        {
+            displayDiv.html(data);
+            table=displayDiv.find("table[type='form']");
+            table.find("tr[code] input[type='checkbox']").change(formCheckBoxChanged);
+            table.find("tr[code] input[type='text'][entrytype='quantitative']").blur(updateQuantitative);
+            table.find("tr[code] select.units").change(updateQuantitative);
+            table.find("th").dblclick(dblClickHeader);
+            table.find("td[type='label']").dblclick(dblClickLabel);
+            table.find("tr[code] td[type='label'] input[type='text'].TableFreeText").blur(updateShortText);
+            table.find("tr[code] td[type='FreeText'] input[type='text'].TableFreeText").blur(updateShortText);
+
+
+            calculateBMI();
+            registerCalculate();
+        }
+    );
+}
+
 
 function getCodeRow(child)
 {
@@ -282,7 +332,7 @@ function registerCalculate()
 
 function registerSectionFormsEvents()
 {
-    $("button[func='SHOWFORM']").live({click: showFormDialog});
+    $("button[func='SHOWFORM']").live({click: showFormDialog2});
     $("#closeSectionForm").click(hideFormDialog);
     
 }

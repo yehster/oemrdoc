@@ -37,3 +37,13 @@ tr[classification='abnormal']
 {
     padding-right: 6px;
 }
+.displayForm
+{
+    display:block;
+    clear: both;
+    z-index: 999;
+    background-color: white;
+    opacity:1;
+    
+    
+}

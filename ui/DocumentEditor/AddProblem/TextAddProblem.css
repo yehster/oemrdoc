@@ -30,9 +30,13 @@ div[func='probDisplay']
 }
 div[func='probDisplay'] table
 {
-    float: left;
-    position: relative;
+    width: 100%;
 }
+div[func='probDisplay'] td.code
+{
+    text-align: right;
+}
+
 
 div.closeDiv
 {

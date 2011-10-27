@@ -20,17 +20,13 @@ function setupProblemDisplay(textControl)
             parent.find("input").before(div);
             retVal=parent.find("div[func='probDisplay']");
         }
-   width= $(document).width() - $(parent).width()-200;
+   width= $(document).width() - $(parent).width()-$(parent).offset().left - 50;
    retVal.attr("computedWidth",width);
    retVal.width(width);
    retVal.show();
    return retVal;
 }
 
-function sizeProblemDisplay(display)
-{
-    
-}
 function createProblem2(parentUUID,code,codeType,text)
 {
     $.post("../../interface/manageProblem.php",
@@ -110,6 +106,15 @@ function luProblem(searchString)
         );
 }
 
+function evtButAddProblem()
+{
+    entryUUID=$(this).parents("[UUID]:first").attr("UUID");
+    code="";
+    codeType="";
+    text=$("input[type='text'][func='ADDPROB']").val();
+    createProblem2(entryUUID,code,codeType,text);
+}
+
 function evtChangeTextAddProblem()
 {
     display=setupProblemDisplay(this);
@@ -141,4 +146,9 @@ function registerTextAddProblemEvents()
             keyup:evtChangeTextAddProblem,
             focus:evtFocusTextAddProblem,
             blur: evtBlurTextAddProblem});
+    $("button[func='ADDPROB']").live(
+        {
+            click:evtButAddProblem
+        }
+    )
 }
