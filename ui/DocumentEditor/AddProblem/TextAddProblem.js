@@ -20,10 +20,17 @@ function setupProblemDisplay(textControl)
             parent.find("input").before(div);
             retVal=parent.find("div[func='probDisplay']");
         }
+   width= $(document).width() - $(parent).width()-200;
+   retVal.attr("computedWidth",width);
+   retVal.width(width);
    retVal.show();
    return retVal;
 }
 
+function sizeProblemDisplay(display)
+{
+    
+}
 function createProblem2(parentUUID,code,codeType,text)
 {
     $.post("../../interface/manageProblem.php",
@@ -58,6 +65,13 @@ function codeClick()
     window.alert($(this).text());
 }
 
+function setProblemDisplayWidth()
+{
+    display=$("div[func='probDisplay']");
+//    window.alert(display.attr("computedWidth"));
+    display.width(parseInt(display.attr("computedWidth")));
+}
+
 function closeProblemDiv()
 {
     $("div[func='probDisplay']").hide();
@@ -66,7 +80,8 @@ function updateProblemList(html)
 {
     display=$("#listProblems");
     display.html(html);
-
+    setProblemDisplayWidth();
+    
     display.find("tr[id] td[type='CODETEXT']").mouseover(function(){$(this).addClass("highlight")}).mouseout(function(){$(this).removeClass("highlight")}).click(addProblem);
     display.find("tr td.CODE").click(codeClick);
 }
@@ -74,6 +89,7 @@ function updateFavoritesList(html)
 {
     display=$("#favoriteProblems");
     display.html(html);
+    setProblemDisplayWidth();
 
     display.find("tr[id] td[type='CODETEXT']").mouseover(function(){$(this).addClass("highlight")}).mouseout(function(){$(this).removeClass("highlight")}).click(addProblem);
     display.find("tr td.CODE").click(codeClick);

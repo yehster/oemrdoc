@@ -18,7 +18,6 @@ span[func='controlGroup']
 }
 div[func='probDisplay']
 {
-    width:800px;
     position:fixed;
     background: white;
     z-index: 999;
