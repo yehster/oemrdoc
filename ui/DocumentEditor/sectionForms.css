@@ -15,9 +15,13 @@ table[type='form'] {
     float: left;
     cursor: pointer;
     border: 1px solid;
-    padding: 1px;
+    padding: 0px;
+    margin: 0px;
 }
-
+table[type='form'] td { 
+    border: 0px;
+    padding: 0px;
+}
 tr[classification='normal']
 {
     background-color: lightgreen;
@@ -30,7 +34,7 @@ tr[classification='abnormal']
 
 .TableFreeText
 {
-    width: 100%;
+    width: 99%;
 }
 
 .TableDivFreeText
