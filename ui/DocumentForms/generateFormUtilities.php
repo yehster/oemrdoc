@@ -162,7 +162,7 @@ function generateSectionForm($em,$DOM,$DOMXPath,$parent,$entry)
     if($entry->getType()===TYPE_SECTION)
     {
         $span=$DOM->createElement("SPAN");
-        
+        $span->setAttribute("class","formSpan");
         $formTable=$DOM->createElement("TABLE");
         $formTable->setAttribute("entryuuid",$entry->getUUID());
         $formTBODY=$DOM->createELEMENT("TBODY");

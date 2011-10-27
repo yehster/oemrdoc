@@ -10,9 +10,13 @@
    TODO customize this sample style
    Syntax recommendation http://www.w3.org/TR/REC-CSS2/
 */
+.formSpan
+{
+    float:left;
+}
 
 table[type='form'] { 
-    float: left;
+    background-color: white;
     cursor: pointer;
     border: 1px solid;
     padding: 0px;
@@ -43,10 +47,8 @@ tr[classification='abnormal']
 }
 .displayForm
 {
-    display:block;
-    clear: both;
     z-index: 999;
-    background-color: white;
+    background-color:#F0F0F0;
     opacity:1;
     
     
