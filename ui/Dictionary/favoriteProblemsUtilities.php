@@ -6,10 +6,12 @@ function findFavoriteProblems($searchStr)
     $toks = tokenize($searchStr);
     // to do use keyword/match quality matching instead of partial text
     $qb=$GLOBALS['em']->createQueryBuilder()
-        ->select("code")
+        ->select("code, count(prob) p")
         ->from("library\doctrine\Entities\Code","code")
         ->from("library\doctrine\Entities\Problem", "prob")
-        ->where("prob.code=code.code");
+        ->where("prob.code=code.code")
+        ->groupBy("code")
+        ->orderBy("p","desc");
     
     for($idx=0;$idx<count($toks);$idx++)
     {

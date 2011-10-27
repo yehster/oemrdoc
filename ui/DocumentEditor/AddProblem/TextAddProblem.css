@@ -18,9 +18,25 @@ span[func='controlGroup']
 }
 div[func='probDisplay']
 {
-    position:absolute;
+    width:800px;
+    position:fixed;
     background: white;
-    width: 800px;
     z-index: 999;
-    top: 25px;
+
+    top: 1px;
+    right: 1px;
+    height: 99%;
+    border: 1px solid black;
+    overflow: auto;
+}
+div[func='probDisplay'] table
+{
+    float: left;
+    position: relative;
+}
+
+div.closeDiv
+{
+    position: relative;
+    float:right;
 }

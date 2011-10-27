@@ -95,7 +95,6 @@ if(isset($_REQUEST['docUUID']))
 <script src="UpdateNarrative.js"></script>
 <script src="deleteEntry.js"></script>
 <script src="lockDocument.js"></script>
-<script src="addProblem.js"></script>
 <script src="addNarrative.js"></script>
 <script src="manageMeds.js"></script>
 <script src="sectionForms.js"></script>
@@ -112,7 +111,6 @@ if(isset($_REQUEST['docUUID']))
         registerNarrativeEvents();
         registerDeleteEntryEvents();
         registerLockEvents();
-        registerAddProblemEvents();
         registerAddNarrativeEvents();
         registerManageMedsEvents();
         registerSectionFormsEvents();
@@ -164,7 +162,6 @@ if(isset($_REQUEST['docUUID']))
     </head>
     <body docUUID='<?php echo $doc->getUUID()?>'>
 
-        <?php require("problemDialog.php"); ?>
         <?php require("medLookupDialog.php"); ?>
         <?php require("dialogSectionForms.php"); ?>
         <?php require("../Review/dialogReview.php"); ?>

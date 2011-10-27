@@ -28,7 +28,7 @@ else
     
     foreach($codes as $code)
     {
-        addCodeResult($DOM,$tbody,$code);
+        addCodeResult($DOM,$tbody,$code[0]);
     }
     
     echo $DOM->saveXML($table);
