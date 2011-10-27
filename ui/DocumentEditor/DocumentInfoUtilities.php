@@ -2,6 +2,7 @@
 
     $infoSpan= $DOM->createElement("SPAN");
     $dateOfServiceLabel = $DOM->createElement("SPAN","Date of service:");
+    $dateOfServiceLabel->setAttribute("class","LABEL");
     $infoSpan->appendChild($dateOfServiceLabel);
     
     if($doc->getDateofservice()!=null)
