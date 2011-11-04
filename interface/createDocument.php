@@ -22,7 +22,14 @@ if($pat!=null)
         $md=$em->getRepository('library\doctrine\Entities\DocumentMetadata')->find($metadataUUID);
         if($md!=null)
         {
+            $OEMREnc=null;
             $doc = new library\doctrine\Entities\Document($pat,$user,$md);
+            if(isset($_SESSION['encounter']))
+            {
+                $encID=intval($_SESSION['encounter']);
+                $OEMREnc=$em->getRepository('library\doctrine\Entities\OEMREncounter')->findOneBy(array('encounter'=>$encID,'patient'=>$patID));               
+                $doc->setOEMREncounter($OEMREnc);
+            }
             $em->persist($doc);
             $em->flush();
         }

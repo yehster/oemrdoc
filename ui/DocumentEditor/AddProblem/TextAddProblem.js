@@ -92,6 +92,7 @@ function updateFavoritesList(html)
 }
 function luProblem(searchString)
 {
+        lookupTimer=null;
         $.post("../Dictionary/lookupProblems.php",
         {
             searchString: ""+searchString+""
@@ -115,10 +116,18 @@ function evtButAddProblem()
     createProblem2(entryUUID,code,codeType,text);
 }
 
+var lookupTimer=null;
 function evtChangeTextAddProblem()
 {
     display=setupProblemDisplay(this);
-    luProblem($(this).val());
+    if(lookupTimer!=null)
+        {
+            clearTimeout(lookupTimer);
+        }
+    statement="luProblem('"+$(this).val()+"');";
+    
+    lookupTimer=setTimeout(statement,100);
+    
 }
 function evtFocusTextAddProblem()
 {

@@ -12,6 +12,7 @@
 */
 .formSpan
 {
+    background-color:white;
     float:left;
 }
 
@@ -50,6 +51,6 @@ tr[classification='abnormal']
     z-index: 999;
     background-color:#F0F0F0;
     opacity:1;
-    
+    clear:right;
     
 }

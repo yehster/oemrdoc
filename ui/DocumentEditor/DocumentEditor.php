@@ -64,7 +64,7 @@ if(isset($_REQUEST['docUUID']))
         populateEditorDOM($DOM,$MainSpan,$docItem,1);
     }    
 
-    $footerSpan=$DOM->createElement("SPAN");
+    $footerSpan=$DOM->createElement("footer");
     $MainSpan->appendChild($footerSpan);
     if(!$doc->isLocked())
     {
@@ -145,12 +145,26 @@ if(isset($_REQUEST['docUUID']))
                         top.document.title="OpenEMR:"+document.title;                      
                     }
             }
+        // If there is only one details section, then display it.
+        formButtons=$("button[func='SHOWFORM']");
+        if(formButtons.length==1)
+            {
+                $(document).ready(function() {formButtons.click()});
+            }
     }
     window.onload= registerControlEvents;
-//    window.unload= function() 
-//    { 
-//        $(document).unbind('ajaxError'); 
-//    }
+    
+    function checkAjaxActive()
+    {
+    }
+
+    window.onbeforeunload= function()
+    {
+        if($.active>0)
+            {
+                $(document).unbind('ajaxError'); 
+            }
+    }
 </script>
 <html>
     <head>

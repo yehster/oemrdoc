@@ -16,7 +16,7 @@ class OEMREncounter {
 	 * @Column(name="encounter",type="integer")
          * @GeneratedValue
 	 */
-	protected $id;    
+	protected $encounter;    
 
 	/**
 	* @ManyToOne(targetEntity="Patient")
