@@ -88,7 +88,7 @@ function updateFavoritesList(html)
     setProblemDisplayWidth();
 
     $("#favoriteProblems tr[id] td[type='CODETEXT']").mouseover(function(){$(this).addClass("highlight")}).mouseout(function(){$(this).removeClass("highlight")}).click(addProblem);
-    display.find("tr td.CODE").click(codeClick);
+    $("#favoriteProblems tr td.CODE").click(codeClick);
 }
 function luProblem(searchString)
 {
