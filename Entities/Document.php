@@ -231,6 +231,10 @@ class Document
             return $this->OEMREncounter;
         }
 
+        public function setOEMREncounter($val)
+        {
+            $this->OEMREncounter=$val;
+        }
         /** 
 	 * @Column(type="datetime") 
 	 */

@@ -13,7 +13,8 @@ include_once("OEMRProblem.php");
    "quant" = "QuantitativeEntry",
    "shn" = "ShortNarrative",
    "img" = "ImageEntry",
-   "medsig" = "MedicationSIG" })
+   "medsig" = "MedicationSIG",
+   "bill" = "BillingEntry"})
  */
  class DocumentEntry
  {

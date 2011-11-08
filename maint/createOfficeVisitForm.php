@@ -196,5 +196,8 @@ findOrCreateMDCI($em,$apnar,$ap);
 $prob = findOrCreateSection($em,'PROB','Problem List');
 findOrCreateMDCI($em,$prob,$ap);
 
+$billing = findOrCreateSection($em,'BILL','Billing');
+findOrCreateMDCI($em,$billing,$form);
+
 $em->flush();
 ?>
