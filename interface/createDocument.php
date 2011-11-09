@@ -27,8 +27,11 @@ if($pat!=null)
             if(isset($_SESSION['encounter']))
             {
                 $encID=intval($_SESSION['encounter']);
-                $OEMREnc=$em->getRepository('library\doctrine\Entities\OEMREncounter')->findOneBy(array('encounter'=>$encID,'patient'=>$patID));               
-                $doc->setOEMREncounter($OEMREnc);
+                if($encID!=0)
+                {
+                    $OEMREnc=$em->getRepository('library\doctrine\Entities\OEMREncounter')->findOneBy(array('encounter'=>$encID,'patient'=>$patID));               
+                    $doc->setOEMREncounter($OEMREnc);
+                }
             }
             $em->persist($doc);
             $em->flush();
