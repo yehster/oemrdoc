@@ -1,6 +1,6 @@
-function processDocumentFinished()
+function processDocumentFinished(data)
 {
-    window.alert("finished");
+    window.alert(data);
 }
 function evtButtonBillingClick()
 {
