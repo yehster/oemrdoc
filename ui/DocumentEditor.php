@@ -18,7 +18,8 @@ include_once('DocumentUtilities.php');
         }
         if($doc==null)
         {
-            echo "Document:".$docUUID;
+            header("HTTP/1.0 403 Forbidden");    
+            echo "Document:".$docUUID. " not found";
             return;
         }
         $EditorDOM = new DOMDocument("1.0","utf-8");
