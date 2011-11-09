@@ -102,6 +102,7 @@ if(isset($_REQUEST['docUUID']))
 <script src="../Review/dialogReview.js"></script>
 <script src="MedicationForms/manageMedSIG.js"></script>
 <script src="AddProblem/TextAddProblem.js"></script>
+<script src="Billing/BillingFunctions.js"></script>
 
 
 <script src="ajaxErrorHandler.js"></script>
@@ -118,6 +119,7 @@ if(isset($_REQUEST['docUUID']))
         registerManageSIGMedsEvents();        
         registerDocumentInfoEvents();
         registerTextAddProblemEvents();
+        registerBillingEvents();
         
         $(document).ajaxError(handleAjaxError);
         $("#status").click(function(){$(this).hide();});

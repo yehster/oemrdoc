@@ -21,7 +21,7 @@ define('SECTION_MEDICATIONS','Medications');
 define('SECTION_AP','Assessment/Plan');
 define('SECTION_PAST_MEDICAL_HISTORY','Past Medical History');
 define('SECTION_VITAL_SIGNS','Vital Signs');
-
+define('SECTION_BILLING','Billing');
 
 define('ATTR_CLASS','class');
 define('ATTR_UUID','uuid');
@@ -38,5 +38,6 @@ define('FUNC_DETAILS','DETAILS');
 define('FUNC_MED','MED');
 define('FUNC_SIG','SIG');
 define('FUNC_SHOWFORM','SHOWFORM');
+define('FUNC_PROC','PROCESS');
 
 ?>

@@ -83,6 +83,9 @@ function addSectionControls($DOM,$Elem,$docEntry)
             createButton($DOM,$span,$docEntry,"med",FUNC_MED);
             createButton($DOM,$span,$docEntry,"Review","REVIEW");
             break;
+        case SECTION_BILLING:
+            createButton($DOM,$span,$docEntry,"Process",FUNC_PROC);
+            break;
     }
 }
 
