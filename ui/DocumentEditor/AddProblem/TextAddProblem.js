@@ -75,11 +75,19 @@ function closeProblemDiv()
 function updateProblemList(html)
 {
     display=$("#listProblems");
-    display.html(html);
-    setProblemDisplayWidth();
+    loc=html.indexOf("|");
+    reqTime=html.substr(0,loc);
+    displayData=html.substr(loc+1);
+    prevReq=parseInt($("#listProblems").attr("reqTime"));
+    if(parseInt(reqTime)>=prevReq)
+        {
+            $("#listProblems").attr("reqTime",reqTime);
+            display.html(html);
+            setProblemDisplayWidth();
     
-    display.find("tr[id] td[type='CODETEXT']").mouseover(function(){$(this).addClass("highlight")}).mouseout(function(){$(this).removeClass("highlight")}).click(addProblem);
-    display.find("tr td.CODE").click(codeClick);
+            display.find("tr[id] td[type='CODETEXT']").mouseover(function(){$(this).addClass("highlight")}).mouseout(function(){$(this).removeClass("highlight")}).click(addProblem);
+            display.find("tr td.CODE").click(codeClick);          
+        }
 }
 function updateFavoritesList(html)
 {
@@ -92,10 +100,13 @@ function updateFavoritesList(html)
 }
 function luProblem(searchString)
 {
+        
         lookupTimer=null;
+        requestTime=new Date().getTime();
         $.post("../Dictionary/lookupProblems.php",
         {
-            searchString: ""+searchString+""
+            searchString: ""+searchString+"",
+            requestTime: requestTime
         },
         updateProblemList
         );

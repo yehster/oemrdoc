@@ -38,6 +38,10 @@ else
 {
     $codeSet="";
 }
+if(isset($_REQUEST["requestTime"]))
+{
+    $requestTime=intval($_REQUEST["requestTime"]);
+}
 
     $DOM= new DOMDocument("1.0","utf-8");
     
@@ -102,6 +106,10 @@ else
                 addCodeResult($DOM,$tbody,$curCode);
             }
 
+        }
+        if(isset($requestTime))
+        {
+            echo $requestTime."|";
         }
         echo $DOM->saveXML($table);
     }
