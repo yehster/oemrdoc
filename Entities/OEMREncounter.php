@@ -18,6 +18,10 @@ class OEMREncounter {
 	 */
 	protected $encounter;    
 
+        public function getEncounter()
+        {
+            return $this->encounter;
+        }
 	/**
 	* @ManyToOne(targetEntity="Patient")
 	* @JoinColumn(name="pid", referencedColumnName="pid")
