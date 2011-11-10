@@ -9,6 +9,15 @@ if($user==null)
     echo "No user set!";
     return;
 }
+$doctrineUser=$em->getRepository('library\doctrine\Entities\User')->findOneBy(array("username"=>$user));
+
+if($doctrineUser==null)
+{
+    header("HTTP/1.0 403 Forbidden");    
+    echo "Invalid User!";
+    return;    
+}
+
 if(isset($_SESSION['pid']))
 {
     $patID=$_SESSION['pid'];

@@ -84,10 +84,11 @@ if(isset($_REQUEST['docUUID']))
     require_once("DocumentInfoUtilities.php");
     
 ?>
-<script src="../../../js/jquery-1.6.4.min.js"></script>
+<script src="../../../js/jquery-1.7.min.js"></script>
 <script>
     function refreshEntry(uuid,data)
     {
+
         selector="[uuid='"+uuid+"']";
         $(selector).replaceWith(data);
     }

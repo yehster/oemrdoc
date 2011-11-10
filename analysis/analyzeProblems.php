@@ -5,6 +5,7 @@ require_once("analysisTools.php");
 
 function updateOEMRProblem(\library\doctrine\Entities\Problem $dep)
 {
+    $oli=null;
     if($dep->getOEMRListItem()===null)
     {
         $qb=$GLOBALS["em"]->createQueryBuilder()

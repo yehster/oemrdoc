@@ -1,5 +1,6 @@
 <?php
 namespace library\doctrine\Entities;
+
 /** @Entity
  *  @Table(name="form_encounter")
  */
@@ -22,7 +23,8 @@ class OEMREncounter {
         {
             return $this->encounter;
         }
-	/**
+
+        /**
 	* @ManyToOne(targetEntity="Patient")
 	* @JoinColumn(name="pid", referencedColumnName="pid")
 	*/
@@ -35,9 +37,13 @@ class OEMREncounter {
         
         /**
          * @Column(type="integer")
-         */
-        protected $provider_id;
+         */      
+        protected $provider_id;   
         
+        public function getProvider_id()
+        {
+            return $this->provider_id;
+        }
         
 }
 ?>

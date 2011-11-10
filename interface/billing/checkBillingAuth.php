@@ -8,5 +8,14 @@ if($user==null)
     return;
 }
 
+$doctrineUser=$em->getRepository('library\doctrine\Entities\User')->findOneBy(array("username"=>$user));
+
+if($doctrineUser==null)
+{
+    header("HTTP/1.0 403 Forbidden");    
+    echo "Invalid User!";
+    return;    
+}
+
 
 ?>

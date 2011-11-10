@@ -1,6 +1,12 @@
 function processDocumentFinished(data)
 {
-    window.alert(data);
+    billing=$("section[name='Billing']");
+    status=billing.children("div.billingInfo");
+    if(status.length==0)
+        {
+            status=$("<div class='billingInfo'></div>").appendTo(billing);
+        }
+    status.html(data);
 }
 function evtButtonBillingClick()
 {

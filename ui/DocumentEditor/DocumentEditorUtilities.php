@@ -110,7 +110,7 @@ function createElement($DOM,$parent,$docEntry,$docItem)
     {
         case TYPE_SECTION:
             $newElem=createTagElem($DOM,$docEntry,"SECTION");
-            
+            $newElem->setAttribute("name",$docEntry->getText());
             // Determine if we should hide an empty section
             $parentItem=$docItem->getParent();
             if($parentItem!=null)

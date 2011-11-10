@@ -76,13 +76,14 @@ function updateProblemList(html)
 {
     display=$("#listProblems");
     loc=html.indexOf("|");
-    reqTime=html.substr(0,loc);
+    reqTime=parseInt(html.substr(0,loc));
     displayData=html.substr(loc+1);
     prevReq=parseInt($("#listProblems").attr("reqTime"));
-    if(parseInt(reqTime)>=prevReq)
+    prevReq=isNaN(prevReq) ? 0 : prevReq;
+    if(reqTime>=prevReq)
         {
             $("#listProblems").attr("reqTime",reqTime);
-            display.html(html);
+            display.html(displayData);
             setProblemDisplayWidth();
     
             display.find("tr[id] td[type='CODETEXT']").mouseover(function(){$(this).addClass("highlight")}).mouseout(function(){$(this).removeClass("highlight")}).click(addProblem);

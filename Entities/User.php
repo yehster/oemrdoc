@@ -18,8 +18,9 @@ class User
 	}
 
 
-	/** @Column(type="string",length=255) */
-	private $username;
+	/** @Column(type="string") */
+	protected $username;
+        
 	function getUsername()
 	{
 		return $this->username;

@@ -1,6 +1,7 @@
 <?php
 
 require_once("checkBillingAuth.php");
+require_once("billingUtilities.php");
 
 if(isset($_REQUEST['docUUID']))
 {
@@ -41,5 +42,8 @@ if($doc->getOEMREncounter()==null)
     $em->flush();
 
 }
+
+// create a billing entries for the problems in this document.
+syncProblems($em,$doc);
 
 ?>

@@ -32,7 +32,7 @@ if(isset($_REQUEST["searchString"]))
 }
 if(isset($_REQUEST["codeSet"]))
 {
-    $codeSet=$_REQUEST["codeSet"];
+    $codeSet=$_REQUEST["codeSet"]; 
 }
 else
 {
@@ -41,6 +41,8 @@ else
 if(isset($_REQUEST["requestTime"]))
 {
     $requestTime=intval($_REQUEST["requestTime"]);
+    echo $requestTime."|";
+   
 }
 
     $DOM= new DOMDocument("1.0","utf-8");
@@ -106,10 +108,6 @@ if(isset($_REQUEST["requestTime"]))
                 addCodeResult($DOM,$tbody,$curCode);
             }
 
-        }
-        if(isset($requestTime))
-        {
-            echo $requestTime."|";
         }
         echo $DOM->saveXML($table);
     }

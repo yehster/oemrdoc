@@ -3,20 +3,25 @@
  * and open the template in the editor.
  */
 
-
 function deleteEntry()
 {
     entryUUID=$(this).attr("entryUUID");
     $.post("../../interface/deleteEntry.php",
-        {entryUUID: ""+entryUUID,
-         refresh: "YES"},
-         function(data)
-         {
-            pos=data.indexOf("<",0);
+        {
+            entryUUID: ""+entryUUID+"",
+            refresh: "YES"
+        },
+        function(data)
+        {
+
+            pos=data.indexOf("|");
             uuid=data.substr(0,pos);
-            refreshEntry(uuid,data.substr(pos));
-         }
-    );
+            uuid=$.trim(uuid);
+            newHTML=data.substr(pos+1);
+            selector="[uuid='"+uuid+"']";         
+            $(selector).replaceWith(newHTML);
+        }
+        );
         
 }
 function registerDeleteEntryEvents()
