@@ -20,9 +20,5 @@ function evtButtonBillingClick()
 }
 function registerBillingEvents()
 {
-     $("button[func='PROCESS']").live(
-        {
-            click: evtButtonBillingClick
-        }
-    )   
+     $("button[func='PROCESS']").on("click", evtButtonBillingClick);
 }

@@ -162,14 +162,11 @@ function evtBlurTextAddProblem()
 }
 function registerTextAddProblemEvents()
 {
-    $("input[type='text'][func='ADDPROB']").live(
-            {
-            keyup:evtChangeTextAddProblem,
-            focus:evtFocusTextAddProblem,
-            blur: evtBlurTextAddProblem});
-    $("button[func='ADDPROB']").live(
-        {
-            click:evtButAddProblem
-        }
-    )
+    $("section").on(
+        {keyup: evtChangeTextAddProblem,
+         focus: evtFocusTextAddProblem,
+         blur:evtBlurTextAddProblem}
+         ,"input[type='text'][func='ADDPROB']");
+        
+    $("section").on("click","button[func='ADDPROB']",evtButAddProblem);
 }
