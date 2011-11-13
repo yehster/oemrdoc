@@ -35,9 +35,9 @@ if(isset($_REQUEST['refresh']))
     $request=$_REQUEST['refresh'];
     if($request==="YES")
     {
-        echo $parentItem->getEntry()->getUUID()."|";
         require_once("../ui/DocumentEditor/refreshSection.php");
-        refreshSection($parentItem);
+        echo json_encode(array("uuid"=>$parentItem->getEntry()->getUUID(),
+            "html"=>refreshSection($parentItem)));
         return;
     }
 }

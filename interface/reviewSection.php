@@ -2,7 +2,7 @@
 
 require_once("manageParentEntry.php");
 require_once("../ui/DocumentEditor/refreshSection.php");
-refreshSection($parentEntry->getItem());
+echo refreshSection($parentEntry->getItem());
 
 return;
 

@@ -6,7 +6,7 @@ function refreshSection($item)
         $docEntryDOM =  new DOMDocument("1.0","utf-8");
         $span=$docEntryDOM->createElement("SPAN");
         $DOMNode= populateEditorDOM($docEntryDOM,$span,$item,2);
-        echo $docEntryDOM->saveXML($DOMNode);
+        return $docEntryDOM->saveXML($DOMNode);
 
 }
 ?>

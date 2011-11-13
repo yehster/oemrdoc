@@ -6,7 +6,7 @@ if(isset($_REQUEST['refresh']))
     if($request==="YES")
     {
         require_once("/var/www/openemr/library/doctrine/ui/DocumentEditor/refreshSection.php");
-        refreshSection($parentEntry->getItem());
+        echo refreshSection($parentEntry->getItem());
         return;
     }
 }

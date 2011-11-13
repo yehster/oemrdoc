@@ -13,14 +13,10 @@ function deleteEntry()
         },
         function(data)
         {
-
-            pos=data.indexOf("|");
-            uuid=data.substr(0,pos);
-            uuid=$.trim(uuid);
-            newHTML=data.substr(pos+1);
+            uuid=data.uuid;
             selector="[uuid='"+uuid+"']";         
-            $(selector).replaceWith(newHTML);
-        }
+            $(selector).replaceWith(data.html);
+        },"json"
         );
         
 }
