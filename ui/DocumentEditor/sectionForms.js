@@ -71,7 +71,7 @@ function formCheckBoxChanged()
         {
              pos=data.indexOf("<",0);
              uuid=data.substr(0,pos);
-             refreshEntry(parentuuid,data.substr(pos));
+
              tr.attr("entryuuid",uuid);
              if(task=="update")
                  {
@@ -86,6 +86,15 @@ function formCheckBoxChanged()
                         tr.siblings().find("input:checkbox:checked").removeAttr("checked").change()                     
                  }
                  }
+                 
+             formDiv=$(tr).parents("div.displayForm");
+             formDiv.detach();
+             //             refreshEntry(parentuuid,data.substr(pos));
+             newHTML=$(data.substr(pos));
+             peuuid=newHTML.attr("uuid");
+             refreshEntry(peuuid,newHTML);
+             $("[uuid='"+formDiv.attr("entryUUID")+"']").find("div:first").after(formDiv);
+    
         }
     );
 }
