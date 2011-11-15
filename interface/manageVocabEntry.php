@@ -89,6 +89,12 @@ switch($task)
              }
              $entry->setUnits($units);
         }
+        // To do improve allergy entry check
+        if(strpos($parentEntry->getText(),"Allergy"))
+        {
+            require_once("../analysis/analyzeAllergy.php");
+            updateOEMRAllergy($entry);
+        }
         $em->persist($entry);
         $em->flush();
         echo $entry->getUUID();    
