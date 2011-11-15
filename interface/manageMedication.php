@@ -1,5 +1,6 @@
 <?php
 require_once("manageParentEntry.php");
+require_once("../analysis/analyzeMedication.php");
 
 if(isset($_REQUEST['rxcui']))
 {
@@ -32,6 +33,11 @@ switch ($task)
 
         
         $newItem=$parentEntry->getItem()->addEntry($med);
+        $oli=updateOEMRMedication($med);
+        if(($oli->getBegDate()==null) || $oli->getBegDate()<new \DateTime)
+        {
+            $oli->setBegDate(new \DateTime);
+        }
         $em->persist($med);
         $em->flush();
 

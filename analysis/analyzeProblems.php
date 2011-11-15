@@ -11,10 +11,11 @@ function updateOEMRProblem(\library\doctrine\Entities\Problem $dep)
         $qb=$GLOBALS["em"]->createQueryBuilder()
         ->select("p")
         ->from("library\doctrine\Entities\OEMRProblem","p")
-        ->where("p.diagnosis=:diag")
+        ->where("p.diagnosis=:diag and p.patient=:pat")
         ->orderBy("p.date","DESC");
 
         $qb->setParameter("diag",$dep->getCode_type().":".$dep->getCode());
+        $qb->setParameter("pat",$dep->getPatient());
         
         $res=$qb->getQuery()->getResult();
         
