@@ -149,6 +149,9 @@ function createElement($DOM,$parent,$docEntry,$docItem)
             }
             elseif($docEntry->getText()==SECTION_MEDICATIONS)
             {
+                $reviewDiv=$DOM->createElement("DIV"," ");
+                $reviewDiv->setAttribute("id","medReview");
+                $newElem->appendChild($reviewDiv);
                 $retVal=$DOM->createElement("UL"," ");
                 $newElem->appendChild($retVal);              
             }
