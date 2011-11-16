@@ -168,6 +168,7 @@ if(isset($_REQUEST['docUUID']))
                 $(document).unbind('ajaxError'); 
             }
     }
+    var patID=<?php echo $_SESSION['pid'];?>;
 </script>
 <html>
     <head>

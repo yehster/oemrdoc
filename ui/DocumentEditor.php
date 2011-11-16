@@ -285,7 +285,7 @@ function addProblem() {
         registerFormEvents();
     }
     window.onload= registerControlEvents;
-    var patID=<?php echo $_SESSION['pid'];?>
+
 </script>
 
 
