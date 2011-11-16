@@ -153,6 +153,7 @@ function createElement($DOM,$parent,$docEntry,$docItem)
                 $reviewDiv->setAttribute("id","medReview");
                 $newElem->appendChild($reviewDiv);
                 $retVal=$DOM->createElement("UL"," ");
+                $retVal->setAttribute("id","medicationsList");
                 $newElem->appendChild($retVal);              
             }
             else        
