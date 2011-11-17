@@ -7,6 +7,7 @@ define('TYPE_MEDICATION_ENTRY',"MedicationEntry");
 define('TYPE_NOMINATIVE',"Nominative");
 define('TYPE_QUANTITATIVE','QuantitativeEntry');
 define('TYPE_SHORT_NARRATIVE','ShortNarrative');
+define('TYPE_MED_SIG','MedicationSIG');
 
 
 define('SECTION_CHIEF_COMPLAINT',"Chief Complaint");

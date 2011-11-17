@@ -185,6 +185,11 @@ function createElement($DOM,$parent,$docEntry,$docItem)
             $retVal=$newElem;
             $parent->appendChild($newElem);
             break;
+        case TYPE_MED_SIG:
+            $newElem=createTagElem($DOM,$docEntry,"DIV",htmlentities($docEntry->getText()));
+            $retVal=$newElem;
+            $parent->appendChild($newElem);
+            break;
         case TYPE_NARRATIVE:
             $narSpan=$DOM->createElement("SPAN");
             $narSpan->setAttribute("class","NarSpan");
