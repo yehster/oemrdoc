@@ -155,6 +155,8 @@ if(isset($_REQUEST['docUUID']))
                 $(document).ready(function() {formButtons.click()});
             }
     }
+    var patID=<?php echo $_SESSION['pid'];?>;
+
     window.onload= registerControlEvents;
     
     function checkAjaxActive()
@@ -168,7 +170,6 @@ if(isset($_REQUEST['docUUID']))
                 $(document).unbind('ajaxError'); 
             }
     }
-    var patID=<?php echo $_SESSION['pid'];?>;
 </script>
 <html>
     <head>
