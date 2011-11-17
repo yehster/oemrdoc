@@ -8,7 +8,7 @@ $sel=$DOM->createElement("SELECT");
    $qb = $em->createQueryBuilder()
         ->select("fso")
         ->from("library\doctrine\Entities\OEMR\OEMRFSOption","fso")
-        ->orderBy("fso.fs_category", "asc")
+        ->orderBy("fso.fs_category", "desc")
         ->addOrderBy("fso.fs_option","asc");
 
     $qry=$qb->getQuery();
