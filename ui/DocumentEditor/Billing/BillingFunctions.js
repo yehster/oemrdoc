@@ -25,7 +25,14 @@ function evtSelectCode()
     params=$(this).val().split("|");
     codeType=params[0];
     codeVal=params[1];
-    window.alert(codeType+":"+codeVal);
+    $.post("../../interface/billing/processDocument.php",
+    {
+        docUUID: docUUID,
+        codeType: codeType,
+        codeVal: codeVal
+    },
+        processDocumentFinished
+    );
 }
 
 function addBillingControls()
@@ -43,7 +50,7 @@ function addBillingControls()
         function(data)
         {
             cptOptions.html(data);
-            $("span.cptOptions").on({change: evtSelectCode},"select");
+            $("span.cptOptions").on({click: evtSelectCode},"option");
 
         }
     )

@@ -29,6 +29,8 @@ if($doc->getOEMREncounter()==null)
     $_POST['form_date']=date("Y-m-d",$doc->getDateofservice()->getTimestamp());
     $_POST['mode']="new";
     $_POST['form_sensitivity']="normal";
+    
+    // TODO: fix hard coded values for billing
     $_POST['pc_catid']=5;
     $_POST['facility_id']=3;
     $_POST['billing_facility']=3;
@@ -45,5 +47,15 @@ if($doc->getOEMREncounter()==null)
 
 // create a billing entries for the problems in this document.
 syncProblems($em,$doc);
+
+if(isset($_REQUEST['codeType']))
+{
+    if(isset($_REQUEST['codeVal']))
+    {
+        $codeType=$_REQUEST['codeType'];
+        $codeVal=$_REQUEST['codeVal'];
+        echo $codeType.":".$codeVal;
+    }
+}
 
 ?>
