@@ -13,10 +13,12 @@ $sel=$DOM->createElement("SELECT");
 
     $qry=$qb->getQuery();
     $res=$qry->getResult();
+    $opt=$DOM->createElement("option","Choose Visit Level");
+    $sel->appendChild($opt);
     for($idx=0;$idx<count($res);$idx++)
     {
         $curFSO=$res[$idx];
-        $opt=$DOM->createElement("option",$curFSO->getOption());
+        $opt=$DOM->createElement("option",$curFSO->getOption()."-".$curFSO->getCategory());
         $opt->setAttribute("value",$curFSO->getCode());
         $sel->appendChild($opt);
     }

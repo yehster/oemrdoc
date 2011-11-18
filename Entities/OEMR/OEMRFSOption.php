@@ -21,6 +21,10 @@ class OEMRFSOption{
      */
     protected $fs_category;
     
+    public function getCategory()
+    {
+        return substr($this->fs_category,1);
+    }
     /**
      * @Column(type="text")
      */
@@ -28,7 +32,7 @@ class OEMRFSOption{
     
     public function getOption()
     {
-        return $this->fs_option;
+        return substr($this->fs_option,1);
     }
 }
 ?>
