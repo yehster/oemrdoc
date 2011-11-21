@@ -15,6 +15,7 @@ function syncProblems($em,$document)
     $enc=$document->getOEMREncounter();
     $patient=$document->getPatient();
     $pid=$patient->getPID();
+    $retval=array();
     foreach($res as $problem)
     {
         if($problem->getCode_type()=="ICD9")
@@ -29,25 +30,24 @@ function syncProblems($em,$document)
         
             if($billingProblem==null)
             {
-                echo "creating problem";
                 $billingProblem=new library\doctrine\Entities\OEMRBillingEntry($enc,$GLOBALS['doctrineUser']);
                 $billingProblem->setPID($pid);
                 $billingProblem->setCode($problem->getCode());
                 $billingProblem->setCode_type($problem->getCode_type());
                 $em->persist($billingProblem);
             }
-            echo "|".$enc->getProvider_id()."|";
             $billingProblem->setCode_text($problem->getText());
             $billingProblem->setProvider_id($enc->getProvider_id());
             $billingProblem->setAuthorized(1);
             $billingProblem->setGroupname("Default");
             $billingProblem->setUnits(1);
             $billingProblem->setFee(0);
+            $retval[]=$billingProblem;
             $em->flush();
         }
 
     }
-    echo "Problems Added:".count($res);
+    return $retval;
 }
 
 ?>

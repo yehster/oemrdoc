@@ -51,7 +51,8 @@ class OEMRBillingEntry{
         {
             return $this->code;
         }
-	/**
+        
+        /**
 	 * @Column(type="string") 
  	 */
 	protected $code_type;
@@ -77,6 +78,11 @@ class OEMRBillingEntry{
             $this->code_text=$val;
         }
         
+        public function getCode_text()
+        {
+            return $this->code_text;
+        }
+        
         /**
          * @Column(type="float")
          */        
@@ -90,6 +96,11 @@ class OEMRBillingEntry{
 	 * @Column(type="string") 
  	 */
         protected $justify;
+        
+        public function setJustify($val)
+        {
+            $this->justify=$val;
+        }
         
 	/**
 	* @ManyToOne(targetEntity="OEMREncounter")
@@ -105,7 +116,6 @@ class OEMRBillingEntry{
         public function setProvider_id($val)
         {
             $this->provider_id=$val;
-            echo $this->provider_id;
         }
         
         /**

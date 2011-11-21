@@ -46,7 +46,7 @@ if($doc->getOEMREncounter()==null)
 }
 
 // create a billing entries for the problems in this document.
-syncProblems($em,$doc);
+$problems=syncProblems($em,$doc);
 
 if(isset($_REQUEST['codeType']))
 {
@@ -54,6 +54,10 @@ if(isset($_REQUEST['codeType']))
     {
         $codeType=$_REQUEST['codeType'];
         $codeVal=$_REQUEST['codeVal'];
+        // we need to create or change the procedure code for this request
+        require_once("CPTUtilities.php");
+        billForCPT($em,$doc,$codeVal,$codeType,$problems);
+        
         echo $codeType.":".$codeVal;
     }
 }
