@@ -45,6 +45,15 @@ class Patient
 	/** @Column(type="date") */
 	protected $DOB;
 
+        
+	/** @Column(type="string") */
+        protected $pricelevel;
+        
+        public function getPricelevel()
+        {
+            return $this->pricelevel;
+        }
+        
 	function getDOB()
 	{
 		return $this->dob;
