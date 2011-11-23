@@ -181,16 +181,18 @@ if(isset($_REQUEST['docUUID']))
     </head>
     <body docUUID='<?php echo $doc->getUUID()?>'>
 
-        <?php require("medLookupDialog.php"); ?>
-        <?php require("dialogSectionForms.php"); ?>
-        <?php require("../Review/dialogReview.php"); ?>
-        <?php require("MedicationForms/medSIGDialog.php"); ?>
         
 
      
     <?php
         echo $DOM->saveXML($infoSpan);
         echo $DOM->saveXML($MainSpan);
-     ?>
+
+    ?>
+        <?php require("medLookupDialog.php"); ?>
+        <?php require("dialogSectionForms.php"); ?>
+        <?php require("../Review/dialogReview.php"); ?>
+        <?php require("MedicationForms/medSIGDialog.php"); ?>
+        
     </body>
 </html>
