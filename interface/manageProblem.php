@@ -39,10 +39,15 @@ switch ($task)
         {
             $oli->setBegDate(new \DateTime);
         }
+
+        if(isset($_REQUEST['addNarrative']) && ($_REQUEST['addNarrative']=="YES"))
+        {
+                    $newNarrative=new library\doctrine\Entities\Narrative(null, $pat, $user);
+                    $newNarItem=$newItem->addEntry($newNarrative);
+                    $em->persist($newNarrative);
+        }
         $em->persist($prob);
         $em->flush();
-
-        
         break;
 }
 

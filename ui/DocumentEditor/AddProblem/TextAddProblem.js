@@ -27,7 +27,7 @@ function setupProblemDisplay(textControl)
    return retVal;
 }
 
-function createProblem2(parentUUID,code,codeType,text)
+function createProblem(parentUUID,code,codeType,text)
 {
     $.post("../../interface/manageProblem.php",
     {
@@ -36,7 +36,9 @@ function createProblem2(parentUUID,code,codeType,text)
         codeType: ""+codeType+"",
         text: ""+text+"",
         task: "create",
-        refresh: "YES"
+        refresh: "YES",
+        addNarrative: "YES"
+        
     },
     function(data)
     {
@@ -50,7 +52,7 @@ function addProblem()
                     code=$(this).attr("code");
                     codeType=$(this).attr("codetype")
                     text=$(this).text();
-                    createProblem2(entryUUID,code,codeType,text);
+                    createProblem(entryUUID,code,codeType,text);
                     display=$("div[func='probDisplay']");
                     display.hide();
 
@@ -125,7 +127,7 @@ function evtButAddProblem()
     code="";
     codeType="";
     text=$("input[type='text'][func='ADDPROB']").val();
-    createProblem2(entryUUID,code,codeType,text);
+    createProblem(entryUUID,code,codeType,text);
 }
 
 var lookupTimer=null;
