@@ -2,6 +2,7 @@
 include('/var/www/openemr/library/doctrine/init-em.php');
 require_once("../../../common/checkInfo.php");
 
+
 $DOM=new DOMDocument("1.0","utf-8");
 $sel=$DOM->createElement("SELECT");
 

@@ -79,16 +79,13 @@ function billForCPT($em,$document, $codeVal, $codeType,$justify)
                 $cpt->setCode($codeVal);
                 $cpt->setCode_type($codeType);
                 $em->persist($cpt);
-                echo "<BR>CPT created:".$codeVal;
     }
     elseif(count($code)==1)
     {
         $cpt=$code[0];
         $cpt->setCode($codeVal);
-        echo "<BR>CPT updated";
     }
         $dct_code=$em->getRepository('library\doctrine\Entities\Code')->findOneBy(array('code'=>$codeVal,'code_type'=>codeTypeID($codeType)));
-        echo $codeVal."|".$codeType;
         $price=$em->getRepository('library\doctrine\Entities\OEMR\OEMRPrice')->findOneBy(array('pr_id'=>$dct_code->getId(),'pr_level'=>$patient->getPricelevel(),'pr_selector'=>''));
             $cpt->setProvider_id($enc->getProvider_id());
             $cpt->setAuthorized(1);

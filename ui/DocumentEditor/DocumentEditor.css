@@ -144,3 +144,12 @@ footer
 {
     clear:left;
 }
+
+.cptOptions select
+{
+    font-size: x-small;
+}
+span[func='controlGroup']
+{
+    font: x-small;
+}

@@ -58,8 +58,8 @@ if(isset($_REQUEST['codeType']))
         require_once("CPTUtilities.php");
         billForCPT($em,$doc,$codeVal,$codeType,$problems);
         
-        echo $codeType.":".$codeVal;
     }
 }
 
+echo "<BR><BR>Document Billed!";
 ?>
