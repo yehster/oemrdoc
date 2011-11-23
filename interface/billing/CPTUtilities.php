@@ -53,6 +53,18 @@ function findCPTinGroup($em,$document,$code,$codeType)
     
 }
 
+function codeTypeID($ct)
+{
+    if($ct=="CPT4")
+    {
+        return 1;
+    }
+    elseif($ct="HCPCS")
+    {
+        return 3;
+    }
+}
+
 function billForCPT($em,$document, $codeVal, $codeType,$justify)
 {
     $code=findCPTinGroup($em,$document,$codeVal,$codeType);
@@ -75,11 +87,16 @@ function billForCPT($em,$document, $codeVal, $codeType,$justify)
         $cpt->setCode($codeVal);
         echo "<BR>CPT updated";
     }
+        $dct_code=$em->getRepository('library\doctrine\Entities\Code')->findOneBy(array('code'=>$codeVal,'code_type'=>codeTypeID($codeType)));
+        echo $codeVal."|".$codeType;
+        $price=$em->getRepository('library\doctrine\Entities\OEMR\OEMRPrice')->findOneBy(array('pr_id'=>$dct_code->getId(),'pr_level'=>$patient->getPricelevel(),'pr_selector'=>''));
             $cpt->setProvider_id($enc->getProvider_id());
             $cpt->setAuthorized(1);
-            $cpt->setGroupname("Default");
+            $cpt->setActivity(1);
             $cpt->setUnits(1);
-            $cpt->setFee(0);
+            $cpt->setGroupname("Default");
+            $cpt->setCode_text($dct_code->getCodeText());
+            $cpt->setFee($price->getPrice());
 
     $cptJustifyString="";
     foreach($justify as $prob)

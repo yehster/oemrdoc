@@ -39,6 +39,7 @@ function syncProblems($em,$document)
             $billingProblem->setCode_text($problem->getText());
             $billingProblem->setProvider_id($enc->getProvider_id());
             $billingProblem->setAuthorized(1);
+            $billingProblem->setActivity(1);           
             $billingProblem->setGroupname("Default");
             $billingProblem->setUnits(1);
             $billingProblem->setFee(0);
