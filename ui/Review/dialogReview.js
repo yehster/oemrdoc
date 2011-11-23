@@ -76,7 +76,7 @@ function showReviewDialog()
     // setup History section of the dialog
     updateReviewHistory($("body").attr("docuuid"),sectionuuid,-1);
     
-    
+/*    
     // setup the editor section of the 
     $.post("../../interface/reviewSection.php",
     {
@@ -88,7 +88,7 @@ function showReviewDialog()
         $("#reviewCurrent").html(data);
     }
     );
-        
+*/        
 }
 
 function copyEntries()

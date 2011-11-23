@@ -251,7 +251,7 @@ include_once("OEMRProblem.php");
         public function copy($auth)
         {
             $type = get_class($this);
-            $copy = new $type($this->md,$this->patient,$auth);
+            $copy = new $type($this->metadata,$this->patient,$auth);
             $copy->text=$this->text;
             $copy->setCode($this->getCode(),$this->getCode_type());
             $copy->metadata=$this->metadata;
