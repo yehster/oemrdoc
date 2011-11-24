@@ -59,6 +59,7 @@ if(isset($_REQUEST['codeType']))
         billForCPT($em,$doc,$codeVal,$codeType,$problems);
         
     }
+    $_SESSION['encounter']=$doc->getOEMREncounter()->getEncounter();
 }
 
 echo "<BR><BR>Document Billed!";
