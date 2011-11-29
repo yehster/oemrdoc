@@ -1,11 +1,3 @@
-function processOEMRFeeSheet(data)
-{
-        status=billing.children("div.billingInfo");
-        tableBegin=data.indexOf("<table cellspacing='5'>");
-        tableEnd=data.indexOf("</table>",tableBegin);
-        tableStr=data.substr(tableBegin,tableEnd-tableBegin);
-        billingTable=$(tableStr).appendTo(status);
-}
 function processDocumentFinished(data)
 {
     billing=$("section[name='Billing']");
@@ -14,12 +6,6 @@ function processDocumentFinished(data)
         {
             status=$("<div class='billingInfo'></div>").appendTo(billing);
         }
-    $.get("../../../../interface/patient_file/encounter/load_form.php",
-    {
-        formname: "fee_sheet"
-    },
-    processOEMRFeeSheet
-    );
     status.html(data);
 }
 
