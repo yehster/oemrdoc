@@ -95,12 +95,15 @@ function billForCPT($em,$document, $codeVal, $codeType,$justify)
             $cpt->setCode_text($dct_code->getCodeText());
             $cpt->setFee($price->getPrice());
 
-    $cptJustifyString="";
-    foreach($justify as $prob)
+    if($cpt->getJustify()=="")
     {
-        $cptJustifyString.=$prob->getCode().":";
+        $cptJustifyString="";
+        foreach($justify as $prob)
+        {
+            $cptJustifyString.=$prob->getCode().":";
+        }
+        $cpt->setJustify($cptJustifyString);    
     }
-    $cpt->setJustify($cptJustifyString);
     $em->flush();
 
     

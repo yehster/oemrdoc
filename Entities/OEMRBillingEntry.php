@@ -22,6 +22,10 @@ class OEMRBillingEntry{
 	 */
 	protected $id;
 
+        public function getId()
+        {
+            return $this->id;
+        }
         /**
          * @Column(type="datetime")
          */
@@ -105,6 +109,11 @@ class OEMRBillingEntry{
         {
             $this->fee=$val;
         }
+        
+        function getFee()
+        {
+            return $this->fee;
+        }
 	/**
 	 * @Column(type="string") 
  	 */
@@ -113,6 +122,11 @@ class OEMRBillingEntry{
         public function setJustify($val)
         {
             $this->justify=$val;
+        }
+        
+        public function getJustify()
+        {
+            return $this->justify;
         }
         
 	/**
