@@ -16,7 +16,10 @@ function FeeSheetRender($DOM,$parent,$OEMREnc)
 
     foreach($OEMREnc->getBillingEntries() as $BE)
     {
-        FeeSheetRenderLineItem($DOM,$tbody,$BE,$diags);
+        if(strpos($BE->getCode_type(),"ICD")===false)
+        {
+            FeeSheetRenderLineItem($DOM,$tbody,$BE,$diags);
+        }
     }
     
     return $table;
@@ -26,6 +29,8 @@ function RenderJustify($DOM,$parent,$justify,$diagnoses)
 {
     foreach($diagnoses as $diag)
     {
+        $lblDiag=$DOM->createElement("span",$diag);
+        $parent->appendChild($lblDiag);
         $cbDiag=$DOM->createElement("input");
         $cbDiag->setAttribute("value",$diag);
         $cbDiag->setAttribute("type","checkbox");
@@ -49,7 +54,12 @@ function FeeSheetRenderLineItem($DOM,$parent,$OEMRBE,$diags)
     if(($OEMRBE->getCode_type()=="CPT4") || ($OEMRBE->getCode_type()=="HCPCS"))
     {
         $strFee=sprintf("%.2f",$OEMRBE->getFee());
-        $tdFee=$DOM->createElement("td",$strFee);
+        $txtFee=$DOM->createElement("input");
+        $txtFee->setAttribute("value",$strFee);
+        $txtFee->setAttribute("type","text");
+        
+        $tdFee=$DOM->createElement("td");
+        $tdFee->appendChild($txtFee);
         $row->appendChild($tdFee);
         $tdJustify=$DOM->createElement("td");
         RenderJustify($DOM,$tdJustify,$OEMRBE->getJustify(),$diags);

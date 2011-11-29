@@ -9,16 +9,7 @@ function processDocumentFinished(data)
     status.html(data);
 }
 
-function evtButtonBillingClick()
-{
-    docUUID=$("body").attr("docUUID");
-    $.post("../../interface/billing/processDocument.php",
-        {
-            docUUID: docUUID
-        },
-        processDocumentFinished
-    );
-}
+
 function evtSelectCode()
 {
     docUUID=$("body").attr("docUUID");
@@ -33,6 +24,17 @@ function evtSelectCode()
     },
         processDocumentFinished
     );
+}
+
+function displayBilling()
+{
+    docUUID=$("body").attr("docUUID");
+    $.post("../../interface/billing/processDocument.php",
+    {
+        docUUID: docUUID
+    },
+        processDocumentFinished
+    );    
 }
 
 function addBillingControls()
@@ -60,6 +62,5 @@ function addBillingControls()
 
 function registerBillingEvents()
 {
-     $("button[func='PROCESS']").on("click", evtButtonBillingClick);
      addBillingControls();
 }

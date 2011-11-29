@@ -84,7 +84,7 @@ if(isset($_REQUEST['docUUID']))
     require_once("DocumentInfoUtilities.php");
     
 ?>
-<script src="../../../js/jquery-1.7.min.js"></script>
+<script src="../../../js/jquery-1.7.1.min.js"></script>
 <script>
     function refreshEntry(uuid,data)
     {
@@ -104,7 +104,7 @@ if(isset($_REQUEST['docUUID']))
 <script src="MedicationForms/manageMedSIG.js"></script>
 <script src="AddProblem/TextAddProblem.js"></script>
 <script src="Billing/BillingFunctions.js"></script>
-
+<script src="Billing/FeeSheet.js"></script>
 
 <script src="ajaxErrorHandler.js"></script>
 <script>
@@ -121,6 +121,7 @@ if(isset($_REQUEST['docUUID']))
         registerDocumentInfoEvents();
         registerTextAddProblemEvents();
         registerBillingEvents();
+        registerFeeSheetEvents();
         
         $(document).ajaxError(handleAjaxError);
         $("#status").click(function(){$(this).hide();});
@@ -153,6 +154,10 @@ if(isset($_REQUEST['docUUID']))
         if(formButtons.length==1)
             {
                 $(document).ready(function() {formButtons.click()});
+            }
+        if($("section[name='Billing']").length>0)
+            {
+                displayBilling();
             }
     }
     var patID=<?php echo $_SESSION['pid'];?>;
