@@ -15,6 +15,7 @@ if(isset($_REQUEST['DiagCode']))
 {
     $diagCode=$_REQUEST['DiagCode'];
 }
+
 if(isset($_REQUEST['Justify']))
 {
     $justify=$_REQUEST['Justify'];
@@ -41,8 +42,19 @@ if(isset($_REQUEST['Justify']))
     $em->flush();
     echo $strJust;
 }
+if(isset($_REQUEST['Fee']))
+{
+    $OEMRBE->setFee(floatval($_REQUEST['Fee']));
+    $em->flush();
+    echo $OEMRBE->getFee();
+}
 
-
+if(isset($_REQUEST['Modifier']))
+{
+    $OEMRBE->setModifier($_REQUEST['Modifier']);
+    $em->flush();
+    echo $OEMRBE->getModifier();
+}
 
 
 

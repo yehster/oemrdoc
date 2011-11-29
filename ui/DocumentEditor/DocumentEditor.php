@@ -6,6 +6,7 @@
    @import "../Review/reviewHistory.css";
    @import "MedicationForms/MedSIGdialog.css";
    @import "AddProblem/TextAddProblem.css";
+   @import "StatusInfo/StatusInfo.css";
 </style>
 <?php
 include_once('/var/www/openemr/library/doctrine/init-em.php');
@@ -105,6 +106,7 @@ if(isset($_REQUEST['docUUID']))
 <script src="AddProblem/TextAddProblem.js"></script>
 <script src="Billing/BillingFunctions.js"></script>
 <script src="Billing/FeeSheet.js"></script>
+<script src="StatusInfo/StatusInfo.js"></script>
 
 <script src="ajaxErrorHandler.js"></script>
 <script>
@@ -194,6 +196,7 @@ if(isset($_REQUEST['docUUID']))
         echo $DOM->saveXML($MainSpan);
 
     ?>
+        <?php require("StatusInfo/StatusInfo.php"); ?>
         <?php require("medLookupDialog.php"); ?>
         <?php require("dialogSectionForms.php"); ?>
         <?php require("../Review/dialogReview.php"); ?>

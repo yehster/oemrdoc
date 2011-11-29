@@ -204,6 +204,20 @@ class OEMRBillingEntry{
         protected $user;
         
         
+	/**
+	 * @Column(type="string") 
+ 	 */
+        protected $modifier;
+        
+        public function getModifier()
+        {
+            return $this->modifier;
+        }
+
+        public function setModifier($val)
+        {
+            $this->modifier=$val;
+        }        
 }
 ?>
 

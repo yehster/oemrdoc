@@ -1,0 +1,13 @@
+
+#StatusInfo { 
+    display: none;
+        position: fixed;
+        top:5px;
+        right: 10px;
+    top: 1em;
+    left: 1em;
+    background-color:#FFFFFF;
+    border:1px solid #999999;
+
+}
+

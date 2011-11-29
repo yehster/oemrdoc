@@ -1,4 +1,6 @@
 <?php
+$FeeSheetHeaders=array("Code","Mod","Fee","Justify");
+        
 function FeeSheetRender($DOM,$parent,$OEMREnc)
 {
     $table=$DOM->createElement("TABLE");
@@ -6,6 +8,15 @@ function FeeSheetRender($DOM,$parent,$OEMREnc)
     $tbody=$DOM->createElement("TBODY");
     $table->appendChild($tbody);
     $diags=array();
+    
+    $trHeader=$DOM->createElement("tr");
+    $tbody->appendChild($trHeader);
+
+    foreach($GLOBALS['FeeSheetHeaders'] as $head)
+    {
+        $td=$DOM->createElement("th",$head);
+        $trHeader->appendChild($td);
+    }
     foreach($OEMREnc->getBillingEntries() as $BE)
     {
         if(strpos($BE->getCode_type(),"ICD")!==false)
@@ -16,7 +27,7 @@ function FeeSheetRender($DOM,$parent,$OEMREnc)
 
     foreach($OEMREnc->getBillingEntries() as $BE)
     {
-        if(strpos($BE->getCode_type(),"ICD")===false)
+//        if(strpos($BE->getCode_type(),"ICD")===false)
         {
             FeeSheetRenderLineItem($DOM,$tbody,$BE,$diags);
         }
@@ -51,13 +62,23 @@ function FeeSheetRenderLineItem($DOM,$parent,$OEMRBE,$diags)
     $parent->appendChild($row);
     $tdCode=$DOM->createElement("td",$OEMRBE->getCode());
     $row->appendChild($tdCode);
-    if(($OEMRBE->getCode_type()=="CPT4") || ($OEMRBE->getCode_type()=="HCPCS"))
+    
+    $txtMod=$DOM->createElement("input");
+    $txtMod->setAttribute("type","text");
+    $txtMod->setAttribute("class","mod");
+    $txtMod->setAttribute("value",$OEMRBE->getModifier());
+    
+    $tdMod=$DOM->createElement("td");
+    $tdMod->appendChild($txtMod);
+    $row->appendChild($tdMod);
+    
+        if(($OEMRBE->getCode_type()=="CPT4") || ($OEMRBE->getCode_type()=="HCPCS"))
     {
         $strFee=sprintf("%.2f",$OEMRBE->getFee());
         $txtFee=$DOM->createElement("input");
         $txtFee->setAttribute("value",$strFee);
         $txtFee->setAttribute("type","text");
-        
+        $txtFee->setAttribute("class","fee");
         $tdFee=$DOM->createElement("td");
         $tdFee->appendChild($txtFee);
         $row->appendChild($tdFee);
