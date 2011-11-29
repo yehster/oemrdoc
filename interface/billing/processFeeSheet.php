@@ -18,8 +18,28 @@ if(isset($_REQUEST['DiagCode']))
 if(isset($_REQUEST['Justify']))
 {
     $justify=$_REQUEST['Justify'];
-echo $diagCode.":".$justify;
-    
+    $needle=$diagCode.":";
+    $strJust=$OEMRBE->getJustify();
+    $diagLoc=strpos($strJust,$needle);
+    if($justify=="true")
+    {
+        if($diagLoc===false)
+        {
+            $strJust=$OEMRBE->getJustify().$needle;
+        }
+        
+    }
+    else
+    {
+        if($diagLoc!==false)
+        {
+            $strJust=substr($OEMRBE->getJustify(),0,$diagLoc);
+            $strJust.=substr($OEMRBE->getJustify(),$diagLoc+strlen($needle));
+        }
+    }
+    $OEMRBE->setJustify($strJust);
+    $em->flush();
+    echo $strJust;
 }
 
 
