@@ -3,6 +3,7 @@
 require_once("checkBillingAuth.php");
 require_once("billingUtilities.php");
 require_once("../../common/checkDocument.php");
+require_once("$doctrineroot/ui/DocumentEditor/Billing/FeeSheetRendering.php");
 
 if(isset($_SESSION['pid']))
 {
@@ -52,4 +53,8 @@ if(isset($_REQUEST['codeType']))
 }
 
 echo "<BR><BR>Document Billed!";
+$DOM = new DOMDocument("1.0","utf-8");
+$table=FeeSheetRender($DOM,$DOM,$doc->getOEMREncounter());
+
+echo $DOM->saveXML($table);
 ?>

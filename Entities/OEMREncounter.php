@@ -45,5 +45,15 @@ class OEMREncounter {
             return $this->provider_id;
         }
         
-}
+	/**
+	* @OneToMany(targetEntity="OEMRBillingEntry", mappedBy="encounter" )
+	* @OrderBy({"code_type" = "ASC","code"="ASC"})
+	*/
+        protected $billingEntries;
+        
+        public function getBillingEntries()
+        {
+            return $this->billingEntries;
+        }
+        }
 ?>

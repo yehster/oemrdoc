@@ -58,6 +58,7 @@ class OEMRBillingEntry{
 	protected $code_type;
 	// is this an icd-9 code, or a LOINC code etc.
 
+        
         public function getCode_type()
         {
             return $this->code_type;
@@ -68,6 +69,18 @@ class OEMRBillingEntry{
             $this->code_type=$val;
         }
 
+        public function getCodeTypeText()
+        {
+            switch ($this->code_type) 
+            {
+                    case "1":
+                        return "CPT4";
+                        break;
+                    case "2":
+                        return "ICD9";
+                        break;
+            }
+        }
 	/**
 	 * @Column(type="string") 
  	 */

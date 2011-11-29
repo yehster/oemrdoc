@@ -9,10 +9,10 @@ use Doctrine\ORM\EntityManager,
 
 set_include_path(get_include_path() . PATH_SEPARATOR . '/var/www/openemr');
 require_once("/var/www/openemr/sites/default/sqlconf.php");
+$doctrineroot="/var/www/openemr/library/doctrine";
 
 session_name("OpenEMR");
 session_start();
-
 
 //if(isset($_SESSION['em']))
 if(false) // not sure about caching entity manager for session
