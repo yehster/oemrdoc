@@ -1,6 +1,7 @@
 <?php
 include('/var/www/openemr/library/doctrine/init-em.php');
-require_once("../../../common/checkInfo.php");
+require_once("$doctrineroot/common/checkInfo.php");
+require_once("$doctrineroot/common/checkDocument.php");
 
 
 $DOM=new DOMDocument("1.0","utf-8");
@@ -20,10 +21,19 @@ $sel=$DOM->createElement("SELECT");
     {
         $curFSO=$res[$idx];
         $opt=$DOM->createElement("option",$curFSO->getOption()."-".$curFSO->getCategory());
-        $opt->setAttribute("value",$curFSO->getCode());
+        $optVal=$curFSO->getCode();
+        $opt->setAttribute("value",$optVal);
+        $codeVals=explode("|",$optVal);
+        if($doc->getOEMREncounter()->isCodeBilled($codeVals[1]))
+        {
+            $opt->setAttribute("selected","true");
+        }
         $sel->appendChild($opt);
     }
-
+    if($doc->getOEMREncounter()->isBilled())
+    {
+        $sel->setAttribute("disabled","true");
+    }
 
 echo $DOM->saveXML($sel);
 

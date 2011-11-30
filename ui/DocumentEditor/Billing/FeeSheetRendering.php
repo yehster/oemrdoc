@@ -36,7 +36,7 @@ function FeeSheetRender($DOM,$parent,$OEMREnc)
     return $table;
 }
 
-function RenderJustify($DOM,$parent,$justify,$diagnoses)
+function RenderJustify($DOM,$parent,$justify,$diagnoses,$billed)
 {
     foreach($diagnoses as $diag)
     {
@@ -49,12 +49,19 @@ function RenderJustify($DOM,$parent,$justify,$diagnoses)
         {
             $cbDiag->setAttribute("checked","true");
         }
+        if($billed)
+        {
+            $cbDiag->setAttribute("disabled","true");
+        }
+        
         $parent->appendChild($cbDiag);
     }
 }
 
 function FeeSheetRenderLineItem($DOM,$parent,$OEMRBE,$diags)
 {
+    
+    $billed=$OEMRBE->getBilled()>0;
     
     $row=$DOM->createElement("tr");
     $row->setAttribute("class","billing");
@@ -67,6 +74,10 @@ function FeeSheetRenderLineItem($DOM,$parent,$OEMRBE,$diags)
     $txtMod->setAttribute("type","text");
     $txtMod->setAttribute("class","mod");
     $txtMod->setAttribute("value",$OEMRBE->getModifier());
+    if($billed)
+    {
+        $txtMod->setAttribute("disabled","true");
+    }
     
     $tdMod=$DOM->createElement("td");
     $tdMod->appendChild($txtMod);
@@ -79,11 +90,15 @@ function FeeSheetRenderLineItem($DOM,$parent,$OEMRBE,$diags)
         $txtFee->setAttribute("value",$strFee);
         $txtFee->setAttribute("type","text");
         $txtFee->setAttribute("class","fee");
+        if($billed)
+        {
+            $txtFee->setAttribute("disabled","true");
+        }        
         $tdFee=$DOM->createElement("td");
         $tdFee->appendChild($txtFee);
         $row->appendChild($tdFee);
         $tdJustify=$DOM->createElement("td");
-        RenderJustify($DOM,$tdJustify,$OEMRBE->getJustify(),$diags);
+        RenderJustify($DOM,$tdJustify,$OEMRBE->getJustify(),$diags,$billed);
         $row->appendChild($tdJustify);
 
     }

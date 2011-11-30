@@ -186,6 +186,13 @@ class OEMRBillingEntry{
             $this->billed=$val;
         }
 
+        
+        public function getBilled()
+        {
+            return $this->billed;
+        }
+        
+        
         /**
 	 * @Column(type="integer")
 	 */
@@ -218,6 +225,17 @@ class OEMRBillingEntry{
         {
             $this->modifier=$val;
         }        
+
+    /** @PreUpdate */
+    public function preUpdateEventHandler()
+    {
+     
+        // Prevent update of locked
+        if($this->getBilled()==1)
+        {
+            throw new \Exception("Cannot Update Entry, already billed");
+        }
+    }        
 }
 ?>
 

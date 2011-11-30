@@ -55,5 +55,33 @@ class OEMREncounter {
         {
             return $this->billingEntries;
         }
+        
+        public function isBilled()
+        {
+            foreach($this->billingEntries as $be)
+            {
+                if($be->getBilled()>0)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
+        
+        protected $allCodes=null;
+        public function isCodeBilled($code)
+        {
+            if($this->allCodes==null)
+            {
+                $this->allCodes="";
+                foreach($this->billingEntries as $be)
+                {
+                    $this->allCodes.="[".$be->getCode()."]";
+                }                
+            }
+            return (strpos($this->allCodes,"[".$code."]")!==false);
+        }
+
+}
+        
 ?>
