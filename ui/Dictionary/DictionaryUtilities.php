@@ -17,7 +17,7 @@ function findCodesForKeyword($em,$kw,$codeSet="")
         $qb->andWhere("code.code_text_short in ".$codeSet);
    }
 //        $qb->setParameter("cs","('16')");
-        
+    $qb->orderBy("code.code","ASC");
    $qb->setParameter("kw",$kw->getId());
     $qry=$qb->getQuery();
     return $qry->getResult();
@@ -92,6 +92,7 @@ function findCodesForKwArr($em,$kwarr,$tok,$codeSet)
         $qb->andWhere("cd.code_text_short in ".$codeSet);
    }
      $qb->orderBy($orderByString,"DESC");
+     $qb->addOrderBy("cd.code","ASC");
     $qry=$qb->getQuery();
     $res=$qry->getResult();
     return $res;
