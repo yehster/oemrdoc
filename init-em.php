@@ -53,25 +53,18 @@ class MatchQualityNode extends Doctrine\ORM\Query\AST\Functions\FunctionNode
 
 }
 
-//require 'Doctrine/Common/Cache/ApcCache.php';
-//require 'Doctrine/Common/Cache/AbstractCache.php';
-//require 'library/doctrine/Entities/ORMPatient.php';
 $classLoader = new \Doctrine\Common\ClassLoader();
 $classLoader->register();
 
-$memcache = new Memcache();
-$memcache->connect('127.0.0.1', 11211);
-$memcache->flush();
 
 $config = new Configuration;
-$cache = new Doctrine\Common\Cache\MemcacheCache;
-$cache->setMemcache($memcache);
-$config->setMetadataCacheImpl($cache);
-// apc cache?
+$cacheDriver = new \Doctrine\Common\Cache\ApcCache();
+$cacheDriver->save('cache_id', 'my_data');
+$config->setMetadataCacheImpl($cacheDriver);
 
 $driverImpl = $config->newDefaultAnnotationDriver('/var/www/openemr'.'/library/doctrine/Entities');
 $config->setMetadataDriverImpl($driverImpl);
-$config->setQueryCacheImpl($cache);
+$config->setQueryCacheImpl($cacheDriver);
 
 
 $config->setProxyDir('/var/www/openemr'.'/library/doctrine/Proxies');
@@ -91,6 +84,5 @@ $connectionParams = array(
 );
 
 $em = EntityManager::create($connectionParams, $config);
-//$_SESSION['em']=$em;
 }
 ?>
