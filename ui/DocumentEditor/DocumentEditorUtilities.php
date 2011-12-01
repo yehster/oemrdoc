@@ -88,6 +88,37 @@ function addSectionControls($DOM,$Elem,$docEntry)
     }
 }
 
+function medSigText($DOM,$docEntry,$parent,$func,$value) 
+{
+    $retval=$DOM->createElement("INPUT");
+    $retval->setAttribute("TYPE","TEXT");
+    $retval->setAttribute("EntryUUID",$docEntry->getUUID());
+    $retval->setAttribute("value",$value);
+    $retval->setAttribute("func",$func);
+    $parent->appendChild($retval);
+    
+    return $retval;
+}
+
+function createMedSigEntry($DOM,$docEntry,$parent)
+{
+    if($docEntry->isLocked())
+    {
+        $retVal=createTagElem($DOM,$docEntry,"DIV",$docEntry->getText());
+    }
+    else
+    {
+        $retVal=createTagElem($DOM,$docEntry,"DIV");
+        medSigText($DOM,$docEntry,$retVal,"QTY",$docEntry->getQuantity());
+
+        medSigText($DOM,$docEntry,$retVal,"UNITS",$docEntry->getUnits());
+        medSigText($DOM,$docEntry,$retVal,"ROUTE",$docEntry->getRoute());
+        
+        medSigText($DOM,$docEntry,$retVal,"SCHEDULE",$docEntry->getSchedule());
+    }
+    $parent->appendChild($retVal);    
+    return $retVal;
+}
 
 function createTagElem($DOM,$docEntry,$tag,$text="")
 {
@@ -185,9 +216,10 @@ function createElement($DOM,$parent,$docEntry,$docItem)
             $parent->appendChild($newElem);
             break;
         case TYPE_MED_SIG:
-            $newElem=createTagElem($DOM,$docEntry,"DIV",htmlentities($docEntry->getText()));
-            $retVal=$newElem;
-            $parent->appendChild($newElem);
+
+            $retval=createMedSigEntry($DOM,$docEntry,$parent);
+            
+
             break;
         case TYPE_NARRATIVE:
             $narSpan=$DOM->createElement("SPAN");
