@@ -24,7 +24,7 @@ if(isset($_REQUEST['docUUID']))
 }
     $DOM = new DOMDocument("1.0","utf-8");
     $MainSpan=$DOM->createElement("SPAN");
-
+    $MainSpan->setAttribute("id","main");
     $status=$DOM->createElement("SECTION"," ");
     $status->setAttribute("ID","status");
     $status->setAttribute("hidden",true);
@@ -103,6 +103,7 @@ if(isset($_REQUEST['docUUID']))
 <script src="DocumentInfoUtilities.js"></script>
 <script src="../Review/dialogReview.js"></script>
 <script src="MedicationForms/manageMedSIG.js"></script>
+<script src="MedicationForms/updateMedSIG.js"></script>
 <script src="AddProblem/TextAddProblem.js"></script>
 <script src="Billing/BillingFunctions.js"></script>
 <script src="Billing/FeeSheet.js"></script>
@@ -124,6 +125,7 @@ if(isset($_REQUEST['docUUID']))
         registerTextAddProblemEvents();
         registerBillingEvents();
         registerFeeSheetEvents();
+        registerUpdateSIGMedsEvents();
         
         $(document).ajaxError(handleAjaxError);
         $("#status").click(function(){$(this).hide();});
