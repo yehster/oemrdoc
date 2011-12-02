@@ -96,5 +96,6 @@ class MedicationSIG extends DocumentEntry
                     $this->route ." ".
                     $this->schedule;
         }
+        
 }
 ?>

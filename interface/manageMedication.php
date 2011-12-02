@@ -1,6 +1,7 @@
 <?php
 require_once("manageParentEntry.php");
 require_once("../analysis/analyzeMedication.php");
+require_once("$doctrineroot/interface/med/defaultSIGValues.php");
 
 if(isset($_REQUEST['rxcui']))
 {
@@ -32,7 +33,9 @@ switch ($task)
         $med->setRXAUI($rxaui);
         
         $newItem=$parentEntry->getItem()->addEntry($med);
-        $med->getSIGs($pat,$user);
+        $sig=$med->getSIGs($pat,$user);
+
+        setDefaultSIGValues($em,$sig,$med);
         $oli=updateOEMRMedication($med);
         if(($oli->getBegDate()==null) || $oli->getBegDate()<new \DateTime)
         {

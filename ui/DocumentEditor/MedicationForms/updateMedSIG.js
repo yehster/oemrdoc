@@ -38,7 +38,16 @@ function displayMedSigSelector()
 {
     divInfo=$(this).find(".sigInfoSelector");
     divInfo.show();
-    divInfo.html("Hello World!");
+    medSIGUUID=$(this).attr("uuid");
+    $.post("MedicationForms/medSigOptions.php",
+            {
+                medSIGUUID: medSIGUUID               
+            },
+            function(data)
+            {
+              divInfo.html(data);
+            }
+            );
 }
 function hideMedSigSelector()
 {
@@ -54,8 +63,8 @@ function registerUpdateSIGMedsEvents()
                   },
                 "div[entrytype='MedicationSIG'] input[type='text']");
     $("#main").on({
-        mouseover: displayMedSigSelector,
-        mouseout: hideMedSigSelector
+        focus: displayMedSigSelector,
+        blur: hideMedSigSelector
             
     },
     "div[entrytype='MedicationSIG']"

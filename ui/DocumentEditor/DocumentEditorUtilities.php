@@ -110,7 +110,7 @@ function createMedSigEntry($DOM,$docEntry,$parent)
     {
         $retVal=createTagElem($DOM,$docEntry,"DIV");
         medSigText($DOM,$docEntry,$retVal,"qty",$docEntry->getQuantity());
-
+        
         medSigText($DOM,$docEntry,$retVal,"units",$docEntry->getUnits());
         medSigText($DOM,$docEntry,$retVal,"route",$docEntry->getRoute());
         

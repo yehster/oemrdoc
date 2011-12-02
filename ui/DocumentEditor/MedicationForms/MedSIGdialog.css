@@ -11,7 +11,7 @@
    Syntax recommendation http://www.w3.org/TR/REC-CSS2/
 */
 
-input.qty,input[func='qty']
+input.qty,input[func='qty'],div[func='qty']
 {
     width: 2em;
 }
@@ -37,4 +37,8 @@ table.SIGTable
     border-spacing: 0px;
     padding: 0px;
     border-collapse: collapse;
+}
+.sigOption
+{
+    float: left;
 }
