@@ -11,22 +11,22 @@
    Syntax recommendation http://www.w3.org/TR/REC-CSS2/
 */
 
-input.qty
+input.qty,input[func='qty']
 {
     width: 2em;
 }
 
-input.units
+input.units,input[func='units']
 {
     width: 6em;
 }
 
-input.route
+input.route,input[func='route']
 {
     width: 6em;
 }
 
-input.schedule
+input.schedule,input[func='schedule']
 {
     width: 15em;
 }

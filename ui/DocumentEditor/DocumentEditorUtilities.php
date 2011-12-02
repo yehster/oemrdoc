@@ -109,12 +109,12 @@ function createMedSigEntry($DOM,$docEntry,$parent)
     else
     {
         $retVal=createTagElem($DOM,$docEntry,"DIV");
-        medSigText($DOM,$docEntry,$retVal,"QTY",$docEntry->getQuantity());
+        medSigText($DOM,$docEntry,$retVal,"qty",$docEntry->getQuantity());
 
-        medSigText($DOM,$docEntry,$retVal,"UNITS",$docEntry->getUnits());
-        medSigText($DOM,$docEntry,$retVal,"ROUTE",$docEntry->getRoute());
+        medSigText($DOM,$docEntry,$retVal,"units",$docEntry->getUnits());
+        medSigText($DOM,$docEntry,$retVal,"route",$docEntry->getRoute());
         
-        medSigText($DOM,$docEntry,$retVal,"SCHEDULE",$docEntry->getSchedule());
+        medSigText($DOM,$docEntry,$retVal,"schedule",$docEntry->getSchedule());
     }
     $parent->appendChild($retVal);    
     return $retVal;

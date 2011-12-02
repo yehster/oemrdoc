@@ -1,5 +1,10 @@
+var statMsgTO=null;
 function ShowStatusMessage(msg)
 {
+    if(statMsgTO!=null)
+        {
+            clearTimeout(statMsgTO);
+        }
     $("#StatusInfo").html(msg).show();
-    setTimeout("$('#StatusInfo').hide();",2000);
+    statMsgTO=setTimeout("$('#StatusInfo').hide();",2000);
 }
