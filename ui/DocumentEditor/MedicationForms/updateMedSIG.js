@@ -30,7 +30,7 @@ function sigTextBlur()
         params,
          function(data)
          {
-             refreshEntry(entryUUID,data);
+             refreshEntry(parentUUID,data);
          }
     )
 }

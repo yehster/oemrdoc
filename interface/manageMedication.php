@@ -35,7 +35,7 @@ switch ($task)
         $newItem=$parentEntry->getItem()->addEntry($med);
         $sig=$med->getSIGs($pat,$user);
 
-        setDefaultSIGValues($em,$sig,$med);
+        setDefaultSIGValues($em,$sig[0],$med);
         $oli=updateOEMRMedication($med);
         if(($oli->getBegDate()==null) || $oli->getBegDate()<new \DateTime)
         {
