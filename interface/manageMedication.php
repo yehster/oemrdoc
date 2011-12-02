@@ -30,9 +30,9 @@ switch ($task)
         $med->setText($text,$user);
         $med->setRXCUI($rxcui);
         $med->setRXAUI($rxaui);
-
         
         $newItem=$parentEntry->getItem()->addEntry($med);
+        $med->getSIGs($pat,$user);
         $oli=updateOEMRMedication($med);
         if(($oli->getBegDate()==null) || $oli->getBegDate()<new \DateTime)
         {

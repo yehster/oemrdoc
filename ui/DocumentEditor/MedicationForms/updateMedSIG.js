@@ -12,11 +12,11 @@ function sigTextBlur()
 {
     ShowStatusMessage("BLUR:"+$(this).attr("FUNC"));
     parent=$(this).parents("section.SIGInput");
-    medEntry=$(this).parents("section[entrytype='MedicationEntry']");
+    medEntry=$(this).parents("[entrytype='MedicationEntry']");
     value=$(this).val();
     attribute=$(this).attr("func");
     medSIGUUID=$(this).parents("div[entrytype='MedicationSIG']").attr("uuid");
-    parentUUID=medEntry.attr("entryuuid");
+    parentUUID=medEntry.attr("uuid");
 
     params=    {
         task:   "update",
@@ -31,9 +31,20 @@ function sigTextBlur()
          function(data)
          {
              refreshEntry(entryUUID,data);
-            ShowStatusMessage(data);
          }
     )
+}
+function displayMedSigSelector()
+{
+    divInfo=$(this).find(".sigInfoSelector");
+    divInfo.show();
+    divInfo.html("Hello World!");
+}
+function hideMedSigSelector()
+{
+    divInfo=$(this).find(".sigInfoSelector");
+    divInfo.hide();
+    
 }
 function registerUpdateSIGMedsEvents()
 {
@@ -42,4 +53,11 @@ function registerUpdateSIGMedsEvents()
                     blur: sigTextBlur
                   },
                 "div[entrytype='MedicationSIG'] input[type='text']");
+    $("#main").on({
+        mouseover: displayMedSigSelector,
+        mouseout: hideMedSigSelector
+            
+    },
+    "div[entrytype='MedicationSIG']"
+    );            
 }

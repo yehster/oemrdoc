@@ -115,6 +115,9 @@ function createMedSigEntry($DOM,$docEntry,$parent)
         medSigText($DOM,$docEntry,$retVal,"route",$docEntry->getRoute());
         
         medSigText($DOM,$docEntry,$retVal,"schedule",$docEntry->getSchedule());
+        $sigInfoSelector=$DOM->createElement("DIV");
+        $sigInfoSelector->setAttribute("class","sigInfoSelector");
+        $retVal->appendChild($sigInfoSelector);
     }
     $parent->appendChild($retVal);    
     return $retVal;
@@ -217,8 +220,8 @@ function createElement($DOM,$parent,$docEntry,$docItem)
             break;
         case TYPE_MED_SIG:
 
-            $retval=createMedSigEntry($DOM,$docEntry,$parent);
-            
+            $retVal=createMedSigEntry($DOM,$docEntry,$parent);
+            $newElem=$retVal;
 
             break;
         case TYPE_NARRATIVE:

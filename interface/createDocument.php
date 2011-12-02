@@ -29,8 +29,12 @@ if($pat!=null)
                 $encID=intval($_SESSION['encounter']);
                 if($encID!=0)
                 {
-                    $OEMREnc=$em->getRepository('library\doctrine\Entities\OEMREncounter')->findOneBy(array('encounter'=>$encID,'patient'=>$patID));               
-                    $doc->setOEMREncounter($OEMREnc);
+                    $OEMREnc=$em->getRepository('library\doctrine\Entities\OEMREncounter')->findOneBy(array('encounter'=>$encID,'patient'=>$patID)); 
+                    // If the encounter here 
+                    if(!$OEMREnc->isBilled())
+                    {
+                        $doc->setOEMREncounter($OEMREnc);                   
+                    }
                 }
             }
             $em->persist($doc);
