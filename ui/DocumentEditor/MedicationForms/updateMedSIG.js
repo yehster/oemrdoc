@@ -64,26 +64,29 @@ function selectorSchedule()
 function displayMedSigSelector()
 {
     divInfo=$(this).find(".sigInfoSelector");
-    divInfo.show();
-    medSIGUUID=$(this).attr("uuid");
-    $.post("MedicationForms/medSigOptions.php",
-            {
-                medSIGUUID: medSIGUUID               
-            },
-            function(data)
-            {
-              divInfo.html(data);
-              divInfo.find("div[func='qty'] td").click(selectorQty);
-              divInfo.find("div[func='schedule'] td").click(selectorSchedule);
-            }
+    if(divInfo.html().length==0)
+        {
+            medSIGUUID=$(this).attr("uuid");
+            $.post("MedicationForms/medSigOptions.php",
+                {
+                    medSIGUUID: medSIGUUID               
+                },
+                function(data)
+                {
+                divInfo.html(data);
+                divInfo.find("div[func='qty'] td").click(selectorQty);
+                divInfo.find("div[func='schedule'] td").click(selectorSchedule);
+                }
             );
+        }
+divInfo.show();
 }
 
 
 function hideMedSigSelector()
 {
     
-    divInfo=$(this).siblings(".sigInfoSelector");
+    divInfo=$(this).find(".sigInfoSelector");
     divInfo.hide();
     
 }
@@ -95,7 +98,8 @@ function registerUpdateSIGMedsEvents()
                   },
                 "div[entrytype='MedicationSIG'] input[type='text']");
     $("#main").on({
-        focus: displayMedSigSelector
+        mouseover: displayMedSigSelector,
+        mouseout: hideMedSigSelector
 
     },
     "div[entrytype='MedicationSIG']"
