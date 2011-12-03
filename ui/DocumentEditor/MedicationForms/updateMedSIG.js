@@ -30,7 +30,7 @@ function sigTextBlur()
         params,
          function(data)
          {
-             refreshEntry(parentUUID,data);
+             //refreshEntry(parentUUID,data);
          }
     )
 }
@@ -46,11 +46,15 @@ function displayMedSigSelector()
             function(data)
             {
               divInfo.html(data);
+              divInfo.find("div[func='qty'] td").click(function() { window.alert($(this).text());});
+              divInfo.find("div[func='schedule'] td").click(function() { window.alert($(this).text());});
             }
             );
 }
+
 function hideMedSigSelector()
 {
+    
     divInfo=$(this).find(".sigInfoSelector");
     divInfo.hide();
     
@@ -63,8 +67,7 @@ function registerUpdateSIGMedsEvents()
                   },
                 "div[entrytype='MedicationSIG'] input[type='text']");
     $("#main").on({
-        focus: displayMedSigSelector,
-        blur: hideMedSigSelector
+        focus: displayMedSigSelector
             
     },
     "div[entrytype='MedicationSIG']"

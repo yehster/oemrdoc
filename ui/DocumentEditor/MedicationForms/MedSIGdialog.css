@@ -42,3 +42,14 @@ table.SIGTable
 {
     float: left;
 }
+.sigInfoSelector
+{
+    background-color: white;
+    opacity: 1;
+    z-index: 10;
+}
+
+.sigInfoSelector table
+{
+    border: 1px black;
+}
