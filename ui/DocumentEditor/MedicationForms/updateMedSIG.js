@@ -76,6 +76,11 @@ function displayMedSigSelector()
                 divInfo.html(data);
                 divInfo.find("div[func='qty'] td").click(selectorQty);
                 divInfo.find("div[func='schedule'] td").click(selectorSchedule);
+                divInfo.find("td").on(
+                    {
+                        mouseover: function() {$(this).addClass("highlight");},
+                        mouseout: function() {$(this).removeClass("highlight");}
+                    });
                 }
             );
         }
@@ -99,6 +104,7 @@ function registerUpdateSIGMedsEvents()
                 "div[entrytype='MedicationSIG'] input[type='text']");
     $("#main").on({
         mouseover: displayMedSigSelector,
+        focus: displayMedSigSelector,
         mouseout: hideMedSigSelector
 
     },

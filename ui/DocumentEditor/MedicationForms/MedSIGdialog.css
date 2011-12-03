@@ -41,15 +41,18 @@ table.SIGTable
 .sigOption
 {
     float: left;
-}
-.sigInfoSelector
-{
-    background-color: white;
+    background: white;
     opacity: 1;
     z-index: 10;
+    margin: 0px;
+    padding: 5px;
 }
 
-.sigInfoSelector table
+.sigOption[func='qty'] table
 {
-    border: 1px black;
+    width: 100%;
+}
+.sigOption[func='qty'] td
+{
+    text-align: center;
 }
