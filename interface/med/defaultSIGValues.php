@@ -16,9 +16,10 @@ function determineUnits($dst,$ddf,$drta)
 {
     
     $loc=strpos($dst,'/');
+    doctrine_log("DST:".$dst);
     if($loc)
     {
-
+        
         if(strpos($dst,"units"))
         {
             return "units";

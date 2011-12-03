@@ -10,20 +10,23 @@ function sigTextFocus()
 
 function sigTextBlur()
 {
-    ShowStatusMessage("BLUR:"+$(this).attr("FUNC"));
-    parent=$(this).parents("section.SIGInput");
-    medEntry=$(this).parents("[entrytype='MedicationEntry']");
-    value=$(this).val();
-    attribute=$(this).attr("func");
-    medSIGUUID=$(this).parents("div[entrytype='MedicationSIG']").attr("uuid");
+    updateSigFromElement(this);
+}
+
+function updateSigFromElement(elem)
+{
+    parent=$(elem).parents("section.SIGInput");
+    medEntry=$(elem).parents("[entrytype='MedicationEntry']");
+    value=$(elem).val();
+    attribute=$(elem).attr("func");
+    medSIGUUID=$(elem).parents("div[entrytype='MedicationSIG']").attr("uuid");
     parentUUID=medEntry.attr("uuid");
 
     params=    {
         task:   "update",
         
         parentUUID: ""+parentUUID+"",
-        medSIGUUID: ""+medSIGUUID+"",
-        refresh: "YES"
+        medSIGUUID: ""+medSIGUUID+""
     };
     params[attribute]=value;
     $.post("../../interface/med/manageMedSIG.php",
@@ -33,6 +36,27 @@ function sigTextBlur()
              //refreshEntry(parentUUID,data);
          }
     )
+    
+}
+
+
+function selectorQty()
+{
+    value=$(this).text();
+    sigDIV=$(this).parents("[entrytype='MedicationSIG']");
+    qtyCtrl=sigDIV.find("input[func='qty']");
+    qtyCtrl.val(value);
+    updateSigFromElement(qtyCtrl);
+}
+
+
+function selectorSchedule()
+{
+    value=$(this).text();
+    sigDIV=$(this).parents("[entrytype='MedicationSIG']");
+    qtyCtrl=sigDIV.find("input[func='schedule']");
+    qtyCtrl.val(value);
+    updateSigFromElement(qtyCtrl);
 }
 function displayMedSigSelector()
 {
@@ -46,11 +70,12 @@ function displayMedSigSelector()
             function(data)
             {
               divInfo.html(data);
-              divInfo.find("div[func='qty'] td").click(function() { window.alert($(this).text());});
-              divInfo.find("div[func='schedule'] td").click(function() { window.alert($(this).text());});
+              divInfo.find("div[func='qty'] td").click(selectorQty);
+              divInfo.find("div[func='schedule'] td").click(selectorSchedule);
             }
             );
 }
+
 
 function hideMedSigSelector()
 {

@@ -26,7 +26,14 @@ require_once 'Doctrine/Common/ClassLoader.php';
 require_once 'Doctrine/ORM/Query/AST/Node.php';
 require_once 'Doctrine/ORM/Query/AST/Functions/FunctionNode.php';
 
-
+$logLocation="/var/log/doctrine/info.log";
+function doctrine_log($text)
+{
+$fhLog=fopen($GLOBALS['logLocation'],'a');
+fwrite($fhLog,$text);
+fclose($fhLog);
+    
+}
 class MatchQualityNode extends Doctrine\ORM\Query\AST\Functions\FunctionNode
 {
     public $SearchExpression = null;
@@ -79,7 +86,7 @@ $connectionParams = array(
     'dbname' => 'openemr',
     'user' => 'openemr',
     'password' => 'mydbpwd',
-    'host' => 'donaghy',
+    'host' => 'brain',
     'driver' => 'pdo_mysql',
 );
 
