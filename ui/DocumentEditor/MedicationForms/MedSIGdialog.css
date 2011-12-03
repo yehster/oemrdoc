@@ -45,7 +45,7 @@ table.SIGTable
     opacity: 1;
     z-index: 10;
     margin: 0px;
-    padding: 5px;
+    padding:0px;
 }
 
 .sigOption[func='qty'] table
