@@ -11,6 +11,7 @@ function sigTextFocus()
 function sigTextBlur()
 {
     updateSigFromElement(this);
+    info=$(this).siblings(".sigInfoSelector");
 }
 
 function updateSigFromElement(elem)
@@ -44,9 +45,10 @@ function selectorQty()
 {
     value=$(this).text();
     sigDIV=$(this).parents("[entrytype='MedicationSIG']");
-    qtyCtrl=sigDIV.find("input[func='qty']");
-    qtyCtrl.val(value);
-    updateSigFromElement(qtyCtrl);
+    Ctrl=sigDIV.find("input[func='qty']");
+    Ctrl.val(value);
+    updateSigFromElement(Ctrl);
+    Ctrl.focus();
 }
 
 
@@ -54,9 +56,10 @@ function selectorSchedule()
 {
     value=$(this).text();
     sigDIV=$(this).parents("[entrytype='MedicationSIG']");
-    qtyCtrl=sigDIV.find("input[func='schedule']");
-    qtyCtrl.val(value);
-    updateSigFromElement(qtyCtrl);
+    Ctrl=sigDIV.find("input[func='schedule']");
+    Ctrl.val(value);
+    updateSigFromElement(Ctrl);
+    Ctrl.focus();
 }
 function displayMedSigSelector()
 {
@@ -80,7 +83,7 @@ function displayMedSigSelector()
 function hideMedSigSelector()
 {
     
-    divInfo=$(this).find(".sigInfoSelector");
+    divInfo=$(this).siblings(".sigInfoSelector");
     divInfo.hide();
     
 }
@@ -93,7 +96,7 @@ function registerUpdateSIGMedsEvents()
                 "div[entrytype='MedicationSIG'] input[type='text']");
     $("#main").on({
         focus: displayMedSigSelector
-            
+
     },
     "div[entrytype='MedicationSIG']"
     );            
