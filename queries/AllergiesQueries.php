@@ -1,14 +1,21 @@
 <?php
 
-function findAllergies($em,$pat)
+function findSubEntries($em,$pat,$code,$code_type)
 {
         $qb=$em->createQueryBuilder()
-        ->select("m")
-        ->from("library\doctrine\Entities\MedicationEntry","m")
-        ->where("m.patient=:pat")
-        ->groupBy("m.text")
-        ->orderBy("m.modified","desc");
+        ->select("i.items")
+        ->from("library\doctrine\Entities\DocumentEntry","d")
+        ->join("d.item","i")
+        ->where("d.patient=:pat")
+        ->andWhere("d.code=:code")
+        ->andWhere("d.code_type:=code_type")
+        ->groupBy("a.text")
+        ->orderBy("a.modified","desc");
+        
+        // Specify parameters for the parent entry
         $qb->setParameter("pat",$pat);
+        $qb->setParameter("code",$code);
+        $qb->setParameter("code_type",$code_type);
         return $qb->getQuery()->getResult();
 }
 ?>
