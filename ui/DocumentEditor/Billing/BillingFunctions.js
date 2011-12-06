@@ -40,6 +40,10 @@ function displayBilling()
 function addBillingControls()
 {
     label=$("span.LABEL:contains('Billing')");
+    if(label.length==0)
+    {
+        return;
+    }
     controlGroup=label.siblings("span[func='controlGroup']");
     cptOptions=controlGroup.find("span.cptOptions");
     docUUID=$("body").attr("docUUID");

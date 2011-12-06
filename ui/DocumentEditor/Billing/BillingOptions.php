@@ -24,13 +24,13 @@ $sel=$DOM->createElement("SELECT");
         $optVal=$curFSO->getCode();
         $opt->setAttribute("value",$optVal);
         $codeVals=explode("|",$optVal);
-        if($doc->getOEMREncounter()->isCodeBilled($codeVals[1]))
+        if(($doc->getOEMREncounter()!=null) && ($doc->getOEMREncounter()->isCodeBilled($codeVals[1])))
         {
             $opt->setAttribute("selected","true");
         }
         $sel->appendChild($opt);
     }
-    if($doc->getOEMREncounter()->isBilled())
+    if(($doc->getOEMREncounter()!=null) && $doc->getOEMREncounter()->isBilled())
     {
         $sel->setAttribute("disabled","true");
     }
