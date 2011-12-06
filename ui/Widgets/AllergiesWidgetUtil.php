@@ -7,7 +7,9 @@ function echoDoctrineAllergies()
     $patID=$_SESSION['pid'];
     $pat=$GLOBALS['em']->getRepository('library\doctrine\Entities\Patient')->find($patID);    
     $allList = listAllergies($DOM,$GLOBALS['em'],$pat,"A8380263","SNOMED");
+    $foodAll = listAllergies($DOM,$GLOBALS['em'],$pat,"A7873398","SNOMED");
     echo $DOM->saveXML($allList);    
+    echo $DOM->saveXML($foodAll);
 }
 
 function listAllergies($DOM,$em,$pat,$code,$code_type)
