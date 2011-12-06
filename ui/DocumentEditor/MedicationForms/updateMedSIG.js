@@ -4,7 +4,6 @@
  */
 function sigTextFocus()
 {
-    ShowStatusMessage($(this).attr("FUNC"));
     
 }
 
@@ -27,14 +26,13 @@ function updateSigFromElement(elem)
         task:   "update",
         
         parentUUID: ""+parentUUID+"",
-        medSIGUUID: ""+medSIGUUID+""
+        medSIGUUID: ""+medSIGUUID+"",
     };
     params[attribute]=value;
     $.post("../../interface/med/manageMedSIG.php",
         params,
          function(data)
          {
-             //refreshEntry(parentUUID,data);
          }
     )
     
