@@ -249,6 +249,10 @@ function createElement($DOM,$parent,$docEntry,$docItem)
             }
             $parent->appendChild($narSpan);
             break;
+        case TYPE_DOC_LINK:
+            $newElem=createTagElem($DOM,$docEntry,"SPAN",htmlentities("LINKED ENTRY"));
+            $retVal=$newElem;
+            break;
         case TYPE_OBSERVATION:
         default:
             $newElem=createTagElem($DOM,$docEntry,"SPAN",htmlentities($docEntry->getText()));

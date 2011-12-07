@@ -8,7 +8,7 @@ define('TYPE_NOMINATIVE',"Nominative");
 define('TYPE_QUANTITATIVE','QuantitativeEntry');
 define('TYPE_SHORT_NARRATIVE','ShortNarrative');
 define('TYPE_MED_SIG','MedicationSIG');
-
+define('TYPE_DOC_LINK','DocumentLink');
 
 define('SECTION_CHIEF_COMPLAINT',"Chief Complaint");
 define('SECTION_HPI',"History of Present Illness");

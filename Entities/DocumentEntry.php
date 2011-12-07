@@ -14,7 +14,8 @@ include_once("OEMRProblem.php");
    "shn" = "ShortNarrative",
    "img" = "ImageEntry",
    "medsig" = "MedicationSIG",
-   "bill" = "BillingEntry"})
+   "bill" = "BillingEntry",
+   "link" = "DocumentLink"})
  */
  class DocumentEntry
  {
@@ -27,6 +28,7 @@ include_once("OEMRProblem.php");
         $this->patient = $pat;
         $this->author = $auth;
         $this->locked = null;
+        $this->statusHistory = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     const classtype = "DocumentEntry";
@@ -272,6 +274,13 @@ include_once("OEMRProblem.php");
             return $this->copiedFrom;
         }
     
+    
+      /**
+	* @OneToMany(targetEntity="EntryStatus", mappedBy="entry")
+	* @OrderBy({"modified" = "ASC"})
+	*/
+        protected $statusHistory;
+        
         
     /** @PreRemove */
     public function preventRemoveOfLocked()
