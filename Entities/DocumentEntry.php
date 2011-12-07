@@ -1,6 +1,7 @@
 <?php
 namespace library\doctrine\Entities;
 include_once("OEMRProblem.php");
+include_once("EntryStatus.php");
 
 /** @Entity 
  *  @Table(name="dct_document_entries")
@@ -277,10 +278,29 @@ include_once("OEMRProblem.php");
     
       /**
 	* @OneToMany(targetEntity="EntryStatus", mappedBy="entry")
-	* @OrderBy({"modified" = "ASC"})
+	* @OrderBy({"modified" = "DESC"})
 	*/
         protected $statusHistory;
         
+        
+        public function getStatus()
+        {
+            if(count($statusHistory)>0)
+            {
+                return $this->statusHistory[0];
+            }
+            else
+            {
+                if(isset($SESSION['authUser']))
+                {
+                    $auth=$SESSION['authUser'];
+                }
+                
+                $status = new EntryStatus($this,$auth,STATUS_ACTIVE);
+                $this->statusHistory->add($status);
+                return $this->statusHistory[0];
+            }
+        }
         
     /** @PreRemove */
     public function preventRemoveOfLocked()

@@ -5,11 +5,11 @@ namespace library\doctrine\Entities;
  *  @Table(name="dct_entry_statuses")
  */
 class EntryStatus {
-    public function __construct($entry,integer $stat,$auth)
+    public function __construct($entry,$auth,integer $stat)
     {
 	$this->uuid=uuid_create();
         $this->author = $auth;       
-
+        
 	$this->created = new \DateTime();
 	$this->modified = new \DateTime();
         $this->entry=$entry;
