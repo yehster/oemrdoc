@@ -27,7 +27,7 @@ function ListMeds($DOM,$em,$pat)
             }
             $stat=$cur->getStatus();
             $history=$cur->getStatusHistory();
-            $info=count($history);
+            $info=$history->get(0)->getStatus();
             $medLI->appendChild($DOM->createElement("SPAN",$info));
             $list->appendChild($medLI);
     }
