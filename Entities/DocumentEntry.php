@@ -49,7 +49,7 @@ include_once("EntryStatusCodes.php");
         }
 
         /**
-	 * @OneToMany(targetEntity="EntryStatus", mappedBy="entry")
+	 * @OneToMany(targetEntity="EntryStatus", mappedBy="entry", cascade={"remove"})
          * @OrderBy({"modified"="DESC"})
 	 */
         protected $statusHistory;
