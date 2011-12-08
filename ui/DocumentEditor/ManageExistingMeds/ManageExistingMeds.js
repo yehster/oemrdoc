@@ -10,11 +10,12 @@ function addExisting(existingUUID,parentUUID)
             {
                 copySourceUUID: existingUUID,
                 parentUUID: parentUUID,
-                task: ""
+                task: "",
+                refresh: "YES"
             },
             function(data)
             {
-                ShowStatusMessage(data)
+                refreshEntry(parentUUID,data);
             }
             );
     

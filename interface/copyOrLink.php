@@ -13,10 +13,10 @@ if(isset($_REQUEST['copySourceUUID']))
     $copySourceUUID = $_REQUEST["copySourceUUID"];
     $copySource =$em->getRepository('library\doctrine\Entities\DocumentEntry')->find($copySourceUUID);
 }
+// TODO: Check to see if a copy or a link to this entry already exists.  If So, then abort.
 
 if($copySource->getItem()->getRoot()!=$parentEntry->getItem()->getRoot())
 {
-    echo "copy";
     $copy = $copySource->copy($user);
     $parentEntry->getItem()->addEntry($copy);
     if($copySource->getType()=="MedicationEntry")
@@ -31,9 +31,10 @@ if($copySource->getItem()->getRoot()!=$parentEntry->getItem()->getRoot())
 }
 else
 {
-    echo "link";
     $link = new library\doctrine\Entities\DocumentLink($md,$pat,$user,$copySource);
     $parentEntry->getItem()->addEntry($link);
     $em->flush();
 }
+
+require_once("refreshCheck.php");
 ?>
