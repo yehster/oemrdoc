@@ -1,8 +1,7 @@
 <?php
 namespace library\doctrine\Entities;
 include_once("OEMRProblem.php");
-include_once("EntryStatus.php");
-
+include_once("EntryStatusCodes.php");
 /** @Entity 
  *  @Table(name="dct_document_entries")
  *  @HasLifecycleCallbacks
@@ -29,7 +28,7 @@ include_once("EntryStatus.php");
         $this->patient = $pat;
         $this->author = $auth;
         $this->locked = null;
-        $this->statusHistory = new \Doctrine\Common\Collections\ArrayCollection();
+//        $this->statusHistory = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     const classtype = "DocumentEntry";
@@ -49,13 +48,25 @@ include_once("EntryStatus.php");
             return $this->uuid;
         }
 
+        /**
+	 * @OneToMany(targetEntity="EntryStatus", mappedBy="entry")
+         * @OrderBy({"modified"="DESC"})
+	 */
+        protected $statusHistory;
 
+        public function getStatusHistory()
+        {
+            return $this->statusHistory;
+        }
+        
         /**
 	* @ManyToOne(targetEntity="DocumentMetadata")
 	* @JoinColumn(name="metadata_id", referencedColumnName="uuid")
 	*/
         protected $metadata;
 
+
+        
         public function getMetadata()
         {
             return $this->metadata;
@@ -276,18 +287,15 @@ include_once("EntryStatus.php");
         }
     
     
-      /**
-	* @OneToMany(targetEntity="EntryStatus", mappedBy="entry")
-	* @OrderBy({"modified" = "DESC"})
-	*/
-        protected $statusHistory;
+
         
         
         public function getStatus()
         {
-            if(count($statusHistory)>0)
+            if(count($this->getStatusHistory())>0)
             {
-                return $this->statusHistory[0];
+                $sh=$this->getStatusHistory();
+                return $sh[0];
             }
             else
             {
@@ -296,9 +304,12 @@ include_once("EntryStatus.php");
                     $auth=$SESSION['authUser'];
                 }
                 
-                $status = new EntryStatus($this,$auth,STATUS_ACTIVE);
-                $this->statusHistory->add($status);
-                return $this->statusHistory[0];
+                $status = new EntryStatus($this,$this->author,STATUS_ACTIVE);
+                $this->status_history = new \Doctrine\Common\Collections\ArrayCollection();
+                $this->getStatusHistory()->add($status);
+                $GLOBALS['em']->persist($status);
+                $GLOBALS['em']->flush();
+                return $status;
             }
         }
         

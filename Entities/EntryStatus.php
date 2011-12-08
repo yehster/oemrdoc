@@ -1,11 +1,12 @@
 <?php
 namespace library\doctrine\Entities;
 
-/** @Entity 
- *  @Table(name="dct_entry_statuses")
+/** 
+ * @Entity 
+ * @Table(name="dct_entry_statuses")
  */
 class EntryStatus {
-    public function __construct($entry,$auth,integer $stat)
+    public function __construct($entry,$auth, $stat)
     {
 	$this->uuid=uuid_create();
         $this->author = $auth;       
@@ -61,16 +62,16 @@ class EntryStatus {
         return $this->modified;
     }    
 
-	/**
-	  * @ManyToOne(targetEntity="DocumentEntry", cascade={"persist"})
-	  * @JoinColumn(name="entry_id", referencedColumnName="uuid")
-	  */
-	protected $entry;
+    /**
+     * @ManyToOne(targetEntity="DocumentEntry", inversedBy="statusHistory")
+     * @JoinColumn(name="entry_id", referencedColumnName="uuid")
+     */
+    protected $entry;
 
-        public function getEntry()
-	{
-		return $this->entry;
-	}    
+    public function getEntry()
+    {
+            return $this->entry;
+    }    
 
     /**
      * @Column(type="integer") 

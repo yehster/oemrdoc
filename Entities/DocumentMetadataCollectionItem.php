@@ -46,7 +46,7 @@ namespace library\doctrine\Entities;
 	}
 
 	/**
-	  * @ManyToOne(targetEntity="DocumentMetadata")
+	  * @ManyToOne(targetEntity="DocumentMetadata", inversedBy="items")
 	  * @JoinColumn(name="parent_id", referencedColumnName="uuid")
 	  */
         protected $parent;

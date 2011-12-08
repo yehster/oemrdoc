@@ -130,7 +130,7 @@ class OEMRBillingEntry{
         }
         
 	/**
-	* @ManyToOne(targetEntity="OEMREncounter")
+	* @ManyToOne(targetEntity="OEMREncounter", inversedBy="billingEntries")
 	* @JoinColumn(name="encounter", referencedColumnName="encounter")
 	*/        
         protected $encounter;
@@ -205,7 +205,7 @@ class OEMRBillingEntry{
  
         
 	/**
-	* @ManyToOne(targetEntity="user")
+	* @ManyToOne(targetEntity="User")
 	* @JoinColumn(name="user", referencedColumnName="id")
 	*/        
         protected $user;

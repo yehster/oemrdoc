@@ -25,6 +25,10 @@ function ListMeds($DOM,$em,$pat)
                 $sigInfo=$DOM->createElement("DIV",$sig->getText());
                 $medLI->appendChild($sigInfo);
             }
+            $stat=$cur->getStatus();
+            $history=$cur->getStatusHistory();
+            $info=count($history);
+            $medLI->appendChild($DOM->createElement("SPAN",$info));
             $list->appendChild($medLI);
     }
     return $list;

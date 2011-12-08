@@ -1,7 +1,8 @@
 <?php
 namespace library\doctrine\Entities;
 include_once('DocumentEntry.php');
- /**
+ 
+/**
   * @Entity
   */
 class MedicationEntry extends DocumentEntry
