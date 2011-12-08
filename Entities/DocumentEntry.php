@@ -276,7 +276,7 @@ include_once("EntryStatusCodes.php");
 
     
         /**
-	* @ManyToOne(targetEntity="DocumentEntry")
+	* @ManyToOne(targetEntity="DocumentEntry",inversedBy="copiedTo")
 	* @JoinColumn(name="copiedFrom_id", referencedColumnName="uuid")
 	*/
         protected $copiedFrom;
@@ -285,6 +285,12 @@ include_once("EntryStatusCodes.php");
         {
             return $this->copiedFrom;
         }
+        
+        /**
+         *
+         * @OneToMany(targetEntity="DocumentEntry",mappedBy="copiedFrom")
+         */
+        protected $copiedTo;
     
     
 
