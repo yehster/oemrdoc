@@ -82,11 +82,12 @@ $config->setAutoGenerateProxyClasses(true);
 
 $config->addCustomNumericFunction("MATCHQUALITY", "MatchQualityNode");
 
+$host=$GLOBALS['sqlconf']["host"];
 $connectionParams = array(
     'dbname' => 'openemr',
     'user' => 'openemr',
     'password' => 'mydbpwd',
-    'host' => 'brain',
+    'host' => $host,
     'driver' => 'pdo_mysql',
 );
 
