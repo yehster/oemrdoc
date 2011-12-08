@@ -31,7 +31,7 @@ if($copySource->getItem()->getRoot()!=$parentEntry->getItem()->getRoot())
 }
 else
 {
-    $link = new library\doctrine\Entities\DocumentLink($md,$pat,$user,$copySource);
+    $link = new library\doctrine\Entities\DocumentLink($copySource->getMetadata(),$pat,$user,$copySource);
     $parentEntry->getItem()->addEntry($link);
     $em->flush();
 }

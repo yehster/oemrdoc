@@ -256,8 +256,14 @@ function createElement($DOM,$parent,$docEntry,$docItem)
             {
                 // TO DO: Need to recurse to children of linked Entries
                 $linkedElem=createElement($DOM,$retVal,$docEntry->getLinkedEntry(),$docEntry->getItem());
+                $parent->appendChild($newElem);
             }
-            $parent->appendChild($newElem);
+            else {
+                // Skip empty link and clean up orphans.
+                $GLOBALS['em']->remove($docEntry);
+                $GLOBALS['em']->flush();
+                
+            }
             break;
         case TYPE_OBSERVATION:
         default:
