@@ -29,6 +29,11 @@ class DocumentLink  extends DocumentEntry
         {
             return $this->linked_entry;
         }
+        
+        public function copy($auth)
+        {
+            return $this->linked_entry->copy($auth);
+        }
 }
 
 ?>

@@ -19,6 +19,7 @@ function ListMeds($DOM,$em,$pat)
     {
             $cur=$meds[$idx];
             $medLI=$DOM->createElement("li",$cur->getText());
+            $medLI->setAttribute("entryUUID",$cur->getUUID());
             $sigs=$cur->getSIGs();
             foreach($sigs as $sig)
             {
@@ -26,9 +27,6 @@ function ListMeds($DOM,$em,$pat)
                 $medLI->appendChild($sigInfo);
             }
             $stat=$cur->getStatus();
-            $history=$cur->getStatusHistory();
-            $info=$history->get(0)->getStatus();
-            $medLI->appendChild($DOM->createElement("SPAN",$info));
             $list->appendChild($medLI);
     }
     return $list;

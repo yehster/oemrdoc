@@ -11,13 +11,31 @@ function showMedDialog()
     $("#txtMedication").select();
     
 }
+
+function loadExistingMeds()
+{
     
+    $.post("../Widgets/MedicationsWidget.php",
+        {
+            patientID:patID
+        }
+        ,function(data)
+        {
+            $("#existingMeds").html(data);
+            registerExistingMedsEvents();
+        }
+    );
+    
+    
+}
+
 function startAddMed()
 {
     showMedDialog();
     entryUUID=$(this).attr("entryUUID");
     $("#medLookupDialog").attr("entryUUID",entryUUID);
     $("#medProblemLabel").text($(this).siblings("span").text());
+    loadExistingMeds();
 }
 function processResults(data)
 {

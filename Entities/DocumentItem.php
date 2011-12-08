@@ -62,6 +62,10 @@ namespace library\doctrine\Entities;
             $this->root = $val;
         }
 
+        public function getRoot()
+        {
+            return $this->root;
+        }
 	/** 
 	 * @Column(type="datetime") 
 	 */

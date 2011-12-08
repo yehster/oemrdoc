@@ -252,6 +252,12 @@ function createElement($DOM,$parent,$docEntry,$docItem)
         case TYPE_DOC_LINK:
             $newElem=createTagElem($DOM,$docEntry,"SPAN",htmlentities("LINKED ENTRY"));
             $retVal=$newElem;
+            if($docEntry->getLinkedEntry()!=null)
+            {
+                // TO DO: Need to recurse to children of linked Entries
+                $linkedElem=createElement($DOM,$retVal,$docEntry->getLinkedEntry(),$docEntry->getItem());
+            }
+            $parent->appendChild($newElem);
             break;
         case TYPE_OBSERVATION:
         default:
