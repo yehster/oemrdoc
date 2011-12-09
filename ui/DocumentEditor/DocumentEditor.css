@@ -69,6 +69,7 @@ textarea[entrytype='Narrative'] {
         z-index: 1000;
         overflow: auto;
         opacity: 0.98;
+        display: none;
 
 }
 
@@ -102,6 +103,7 @@ textarea[entrytype='Narrative'] {
         z-index: 1000;
         overflow: auto;
         opacity: 0.95;
+        display: none;
 }
 
     .highlight {
