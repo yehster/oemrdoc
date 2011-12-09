@@ -83,6 +83,10 @@ class EntryStatus {
         return $this->status;
     }    
     
+    public function getText()
+    {
+        return $this->status > 0 ? "Active" : "Discontinued";
+    }
 }
     
 

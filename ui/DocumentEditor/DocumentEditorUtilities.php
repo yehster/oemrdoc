@@ -126,7 +126,18 @@ function createMedSigEntry($DOM,$docEntry,$parent)
     $parent->appendChild($retVal);    
     return $retVal;
 }
-
+function createStatusControls($DOM,$docEntry,$parent,$status)
+{
+    
+        $statusElem=$DOM->createElement("SPAN");
+        $statusElem->setAttribute("class","entryStatus");
+        $statText=$DOM->createElement("SPAN",$status->getText());
+        $statusElem->appendChild($statText);
+        $modDate=$DOM->createElement("SPAN",$status->getModified()->format("m/d/y"));
+        
+        $statusElem->appendChild($modDate);
+        $parent->appendChild($statusElem);    
+}
 function createTagElem($DOM,$docEntry,$tag,$text="")
 {
     $retVal=$DOM->createElement($tag,$text);
@@ -282,7 +293,11 @@ function createElement($DOM,$parent,$docEntry,$docItem)
             $parent->appendChild($newElem);
     }
 
-
+    $sh=$docEntry->getStatusHistory();
+    if(count($sh)>0)
+    {
+        createStatusControls($DOM,$docEntry,$newElem,$sh[0]);
+    }
     return array($newElem,$retVal);
         
 }

@@ -4,7 +4,6 @@ function updateMedStatus()
     row=$(this).parents("tr[medUUID]").eq(0);
     medUUID=row.attr("medUUID");
     parentUUID=row.parents(".existingMeds").attr("sectionuuid");
-    window.alert(parentUUID+":"+func);
     $.post("/openemr/library/doctrine/interface/med/updateStatus.php",
         {
             medUUID: medUUID,
