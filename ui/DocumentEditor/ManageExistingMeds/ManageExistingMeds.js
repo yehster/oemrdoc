@@ -24,3 +24,19 @@ function registerExistingMedsEvents()
 {
     $("#existingMeds li").click(existingMedClicked)
 }
+
+function updateExistingMedDisplay()
+{
+    $(".existingMeds").html("hello world!");
+    sectionUUID=$(".existingMeds").attr("sectionUUID");
+    $.post("../MedReview/MedicationReview.php",
+        {
+            patientID:patID,
+            sectionUUID: sectionUUID
+        },
+        function(data)
+        {
+            $(".existingMeds").html(data);           
+        }
+    );
+}

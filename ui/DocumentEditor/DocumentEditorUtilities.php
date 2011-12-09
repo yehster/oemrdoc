@@ -79,6 +79,10 @@ function addSectionControls($DOM,$Elem,$docEntry)
             createButton($DOM,$span,$docEntry,"Details",FUNC_SHOWFORM);
             createButton($DOM,$span,$docEntry,"Review","REVIEW");
             break;
+        case SECTION_DRUG_ALLERGIES:
+        case SECTION_FOOD_ALLERGIES:
+            createButton($DOM,$span,$docEntry,"Add",FUNC_DETAILS);
+            break;
         case SECTION_MEDICATIONS:
             createButton($DOM,$span,$docEntry,"med",FUNC_MED);
             createButton($DOM,$span,$docEntry,"Review","REVIEW");
@@ -182,14 +186,20 @@ function createElement($DOM,$parent,$docEntry,$docItem)
             }
             elseif($docEntry->getText()==SECTION_MEDICATIONS)
             {
-                $reviewDiv=$DOM->createElement("DIV"," ");
-                $reviewDiv->setAttribute("id","medReview");
-                $newElem->appendChild($reviewDiv);
+                if(!$docEntry->isLocked())
+                {
+                    $script=$DOM->createElement("SCRIPT","updateExistingMedDisplay();");
+                    $existingDisplay=$DOM->createElement("SECTION"," ");
+                    $existingDisplay->setAttribute("class","existingMeds");
+                    $existingDisplay->setAttribute("sectionUUID",$docEntry->getUUID());
+                    $newElem->appendChild($existingDisplay);
+                    $newElem->appendChild($script);
+                }
                 $retVal=$DOM->createElement("UL"," ");
                 $retVal->setAttribute("id","medicationsList");
                 $newElem->appendChild($retVal);              
             }
-            else        
+            else         
             {
                 $retVal=$newElem;
             }

@@ -83,7 +83,7 @@ if(isset($_REQUEST['docUUID']))
 
     
     require_once("DocumentInfoUtilities.php");
-    
+    require("StatusInfo/StatusInfo.php"); 
 ?>
 <script src="../../../js/jquery-1.7.1.min.js"></script>
 <script>
@@ -199,7 +199,7 @@ if(isset($_REQUEST['docUUID']))
         echo $DOM->saveXML($MainSpan);
 
     ?>
-        <?php require("StatusInfo/StatusInfo.php"); ?>
+
         <?php require("medLookupDialog.php"); ?>
         <?php require("dialogSectionForms.php"); ?>
         <?php require("../Review/dialogReview.php"); ?>

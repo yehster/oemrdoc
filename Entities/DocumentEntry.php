@@ -311,14 +311,19 @@ include_once("EntryStatusCodes.php");
                 }
                 
                 $status = new EntryStatus($this,$this->author,STATUS_ACTIVE);
-                $this->status_history = new \Doctrine\Common\Collections\ArrayCollection();
                 $this->getStatusHistory()->add($status);
                 $GLOBALS['em']->persist($status);
                 $GLOBALS['em']->flush();
                 return $status;
             }
         }
-        
+        public function setStatus($val)
+        {
+                $status = new EntryStatus($this,$this->author,$val);
+                $this->getStatusHistory()->add($status);
+                $GLOBALS['em']->persist($status);
+                $GLOBALS['em']->flush();
+        }
     /** @PreRemove */
     public function preventRemoveOfLocked()
     {
