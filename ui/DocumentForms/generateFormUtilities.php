@@ -1,5 +1,5 @@
 <?php
-include_once('/var/www/openemr/library/doctrine/ui/Editor/EditorConstants.php');
+require_once("$doctrineroot/common/EditorConstants.php");
 require_once("generateFormQuant.php");
 
 function findVocabMappings($em,$code,$code_type)

@@ -8,6 +8,7 @@
    @import "AddProblem/TextAddProblem.css";
    @import "StatusInfo/StatusInfo.css";
 </style>
+<script src="/openemr/library/doctrine/ui/InfoReview/InfoReview.js"></script>
 <?php
 include_once('/var/www/openemr/library/doctrine/init-em.php');
 include_once("../../../sha1.js");
@@ -110,6 +111,7 @@ if(isset($_REQUEST['docUUID']))
 <script src="StatusInfo/StatusInfo.js"></script>
 <script src="ManageExistingMeds/ManageExistingMeds.js"></script>
 <script src="EntryStatus/StatusUtils.js"></script>
+
 
 <script src="ajaxErrorHandler.js"></script>
 <script>
