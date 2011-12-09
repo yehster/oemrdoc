@@ -1,5 +1,6 @@
 <?php
 include_once('/var/www/openemr/library/doctrine/ui/Editor/EditorConstants.php');
+require_once("$doctrineroot/ui/DocumentEditor/EntryStatus/StatusUtils.php");
 function createButton($DOM,$Elem,$docEntry,$text,$func)
 {
     if($docEntry->isLocked())
@@ -126,19 +127,7 @@ function createMedSigEntry($DOM,$docEntry,$parent)
     $parent->appendChild($retVal);    
     return $retVal;
 }
-function createStatusControls($DOM,$docEntry,$parent,$status)
-{
-    
-        $statusElem=$DOM->createElement("SPAN");
-        $statusElem->setAttribute("class","entryStatus");
-        $statText=$DOM->createElement("SPAN",$status->getText());
-        $statText->setAttribute("value",$status->getStatus());
-        $statusElem->appendChild($statText);
-        $modDate=$DOM->createElement("SPAN",$status->getModified()->format("m/d/y"));
-        
-        $statusElem->appendChild($modDate);
-        $parent->appendChild($statusElem);    
-}
+
 function createTagElem($DOM,$docEntry,$tag,$text="")
 {
     $retVal=$DOM->createElement($tag,$text);

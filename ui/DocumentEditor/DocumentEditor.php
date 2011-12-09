@@ -109,6 +109,7 @@ if(isset($_REQUEST['docUUID']))
 <script src="Billing/FeeSheet.js"></script>
 <script src="StatusInfo/StatusInfo.js"></script>
 <script src="ManageExistingMeds/ManageExistingMeds.js"></script>
+<script src="EntryStatus/StatusUtils.js"></script>
 
 <script src="ajaxErrorHandler.js"></script>
 <script>
