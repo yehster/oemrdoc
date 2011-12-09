@@ -1,5 +1,5 @@
 <?php
-include_once('/var/www/openemr/library/doctrine/ui/Editor/EditorConstants.php');
+include_once("$doctrineroot/common/EditorConstants.php");
 require_once("$doctrineroot/ui/DocumentEditor/EntryStatus/StatusUtils.php");
 function createButton($DOM,$Elem,$docEntry,$text,$func)
 {

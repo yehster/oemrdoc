@@ -49,6 +49,5 @@ if(isset($_REQUEST['docUUID']))
         
     }
 }
-echo $patID.':'.$docUUID;
 
 ?>

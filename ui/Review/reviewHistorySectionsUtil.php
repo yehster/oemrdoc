@@ -1,5 +1,5 @@
 <?php
-require_once("../Editor/EditorConstants.php");
+require_once("$doctrineroot/common/EditorConstants.php");
 function findHistSection($sec,$rootUUID)
 {
         $qb= $GLOBALS['em']->createQueryBuilder()
