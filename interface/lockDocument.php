@@ -1,8 +1,9 @@
 <?php
-include_once('../init-em.php');
+include_once('/var/www/openemr/library/doctrine/init-em.php');
 $lockedMessage="Cannot relock a document.";
 require_once('util/verifyDocumentOperation.php');
 require_once("$doctrineroot/interface/med/syncMedsForLock.php");
+
 
 try
 {
@@ -10,8 +11,7 @@ try
     echo $user;
     
     syncMedsForLock($em,$doc,$user);
-// Skip locking temporarily to test med sync;
-//    $doc->lock($user);
+    $doc->lock($user);
     $em->flush();
     $em->commit();
 }

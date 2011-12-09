@@ -1,5 +1,5 @@
 <?php
-include_once('/var/www/openemr/library/doctrine/ui/Editor/EditorConstants.php');
+include_once("$doctrineroot/common/EditorConstants.php");
 
 function CreateEditorElement($DOM,$DocEntry,$tag,$parent=null,$text=null)
 {

@@ -1,6 +1,8 @@
 <?php
-@require_once("$doctrineroot/queries/MedicationQueries.php");
-@require_once("$doctrineroot/common/EditorConstants.php");
+require_once("$doctrineroot/queries/MedicationQueries.php");
+require_once("$doctrineroot/common/EditorConstants.php");
+require_once("$doctrineroot/Entities/EntryStatusCodes.php");
+
 function findMedSection($items)
 {
     if($items==null)
@@ -11,7 +13,6 @@ function findMedSection($items)
     foreach($items as $item)
     {
         $entry=$item->getEntry();
-        echo $entry->getText();
         if(($entry->getType()==TYPE_SECTION) && ($entry->getText()==SECTION_MEDICATIONS))
         {
             return $item;
@@ -40,8 +41,22 @@ function syncMedsForLock($em,$doc,$user)
         return;
     }
     // We need to find the active meds which are not already part of the current document.
-    $missingMeds=findMedications($em,$doc->getPatient(),$doc);
-    echo "Missing count=".count($missingMeds)."|";
+        echo "here";
+        $missingMeds=findMedications($em,$doc->getPatient(),$doc);
+    foreach($missingMeds as $med)
+    {
+        $copy=$med->copy($user);
+        $newItem=$medSection->addEntry($copy);
+        $em->persist($copy);
+        $copy->setStatus(STATUS_AUTO_ACTIVE);
+        foreach($med->getItem()->getItems() as $subItem)
+        {
+
+            $subCopy=$subItem->getEntry()->copy($user);
+            $em->persist($subCopy);
+            $newItem->addEntry($subCopy);
+        }
+    }
     
 }
 ?>
