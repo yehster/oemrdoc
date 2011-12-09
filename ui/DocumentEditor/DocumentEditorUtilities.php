@@ -307,6 +307,10 @@ function populateEditorDOM($DOM,$parent,$docItem,$depth)
 {
     $docEntry = $docItem->getEntry();
     $vals = createElement($DOM, $parent, $docEntry,$docItem);
+    if($docEntry->getType()==TYPE_DOC_LINK)
+    {
+        $docItem=$docEntry->getLinkedEntry()->getItem();
+    }
     $parentElem = $vals[1];
        if(($parentElem->tagName=="UL") || ($parentElem->tagName=="OL"))
         {
