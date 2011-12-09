@@ -7,6 +7,8 @@ require_once("$doctrineroot/interface/med/syncMedsForLock.php");
 try
 {
     $em->beginTransaction();
+    echo $user;
+    
     syncMedsForLock($em,$doc,$user);
 // Skip locking temporarily to test med sync;
 //    $doc->lock($user);
