@@ -28,7 +28,7 @@ include_once("EntryStatusCodes.php");
         $this->patient = $pat;
         $this->author = $auth;
         $this->locked = null;
-//        $this->statusHistory = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->statusHistory = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     const classtype = "DocumentEntry";

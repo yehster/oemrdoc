@@ -1,4 +1,6 @@
 <?php
 define('STATUS_ACTIVE',0x1000);
+define('STATUS_CONFIRMED',0x0100);
 define('STATUS_INACTIVE',-0x1000);
+define('STATUS_DISCONTINUED',-0x0100);
 ?>
