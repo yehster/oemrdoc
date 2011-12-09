@@ -1,6 +1,6 @@
 <?php
 
-function findSubEntries($em,$pat,$code,$code_type)
+function findSubEntries($em,$pat,$code,$code_type,$root=null)
 {
         $qb=$em->createQueryBuilder()
         ->select("d")
@@ -19,7 +19,12 @@ function findSubEntries($em,$pat,$code,$code_type)
         $qb->andWhere("ct is null");
 //        ->groupBy("a.text")
 //        ->orderBy("a.modified","desc");
-        
+        if($root!=null)
+        {
+            $qb->join("d.item","it");
+            $qb->andWhere("it.root != :rt");
+            $qb->setParameter("rt",$root);
+        }        
         // Specify parameters for the parent entry
         $qb->setParameter("pat",$pat);
         $qb->setParameter("code",$code);
