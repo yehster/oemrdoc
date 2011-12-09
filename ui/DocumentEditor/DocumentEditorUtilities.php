@@ -203,8 +203,10 @@ function createElement($DOM,$parent,$docEntry,$docItem)
             }
             elseif (isAllergySection($docEntry))
             {
-                
-                createAllergyReview($DOM,$newElem,$docEntry);
+                if(!$docEntry->isLocked())
+                {
+                    createAllergyReview($DOM,$newElem,$docEntry);
+                }
                 $retVal=$newElem;
             }
             else
