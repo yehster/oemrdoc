@@ -165,8 +165,8 @@ class Document
             $entryElem=$DOM->createElement("entry");
             $entryElem->setAttribute("uuid",$entry->getUUID());
             $entryElem->setAttribute("text",$entry->getText());
-            $entryElem->setAttribute("modified",$entry->getModified());
-            $entryElem->setAttribute("created",$entry->getCreated());
+            $entryElem->setAttribute("modified",$entry->getModified()->format("m/d/y H:i:s"));
+            $entryElem->setAttribute("created",$entry->getCreated()->format("m/d/y H:i:s"));
             $entryElem->setAttribute("author",$entry->getAuthor());
             
             $itemElem->appendChild($entryElem);

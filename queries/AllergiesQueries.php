@@ -7,11 +7,16 @@ function findSubEntries($em,$pat,$code,$code_type)
         ->from("library\doctrine\Entities\DocumentEntry","d")
         ->join("d.item","i")
         ->join("i.parent","pi")
-        ->join("pi.entry","t")
-        ->where("d.patient=:pat")
+        ->join("pi.entry","t");
+        $qb->leftJoin("d.statusHistory","sh");
+        $qb->leftJoin("d.copiedTo","ct");        
+        $qb->where("d.patient=:pat")
         ->andWhere("t.patient=:pat")
         ->andWhere("t.code=:code")
         ->andWhere("t.code_type=:code_type");
+        $qb->andWhere("(sh.status>0 and sh.modified=(select max(es.modified) from library\doctrine\Entities\EntryStatus as es where es.entry=d))"
+                       ."or (sh is null)");
+        $qb->andWhere("ct is null");
 //        ->groupBy("a.text")
 //        ->orderBy("a.modified","desc");
         

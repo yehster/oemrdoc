@@ -1,6 +1,7 @@
 <?php
 include_once("$doctrineroot/common/EditorConstants.php");
 require_once("$doctrineroot/ui/DocumentEditor/EntryStatus/StatusUtils.php");
+require_once("$doctrineroot/ui/DocumentEditor/AllergyInfo/AllergyInfo.php");
 function createButton($DOM,$Elem,$docEntry,$text,$func)
 {
     if($docEntry->isLocked())
@@ -200,7 +201,13 @@ function createElement($DOM,$parent,$docEntry,$docItem)
                 $retVal->setAttribute("id","medicationsList");
                 $newElem->appendChild($retVal);              
             }
-            else         
+            elseif (isAllergySection($docEntry))
+            {
+                
+                createAllergyReview($DOM,$newElem,$docEntry);
+                $retVal=$newElem;
+            }
+            else
             {
                 $retVal=$newElem;
             }
