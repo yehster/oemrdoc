@@ -41,8 +41,7 @@ function syncMedsForLock($em,$doc,$user)
         return;
     }
     // We need to find the active meds which are not already part of the current document.
-        echo "here";
-        $missingMeds=findMedications($em,$doc->getPatient(),$doc);
+    $missingMeds=findMedications($em,$doc->getPatient(),$doc);
     foreach($missingMeds as $med)
     {
         $copy=$med->copy($user);
