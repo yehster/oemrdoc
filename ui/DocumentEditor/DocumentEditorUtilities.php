@@ -132,6 +132,7 @@ function createStatusControls($DOM,$docEntry,$parent,$status)
         $statusElem=$DOM->createElement("SPAN");
         $statusElem->setAttribute("class","entryStatus");
         $statText=$DOM->createElement("SPAN",$status->getText());
+        $statText->setAttribute("value",$status->getStatus());
         $statusElem->appendChild($statText);
         $modDate=$DOM->createElement("SPAN",$status->getModified()->format("m/d/y"));
         
