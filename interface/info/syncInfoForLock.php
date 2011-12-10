@@ -1,9 +1,8 @@
 <?php
-require_once("$doctrineroot/queries/MedicationQueries.php");
+require_once("$doctrineroot/queries/AllergiesQueries.php");
 require_once("$doctrineroot/common/EditorConstants.php");
 require_once("$doctrineroot/Entities/EntryStatusCodes.php");
-
-function findMedSection($items)
+function findSection($items,$code,$code_type)
 {
     if($items==null)
     {
@@ -12,19 +11,24 @@ function findMedSection($items)
     $itemsQueue=array();
     foreach($items as $item)
     {
+
         $entry=$item->getEntry();
-        if(($entry->getType()==TYPE_SECTION) && ($entry->getText()==SECTION_MEDICATIONS))
+        echo $entry->getText();
+        if(($entry->getType()==TYPE_SECTION) && ($entry->getCode()==$code)&& ($entry->getCode_type()==$code_type))
         {
             return $item;
         }
         else
         {
-            $itemsQueue[]=$item;
+            foreach($item->getItems() as $subItem)
+            {
+                $itemsQueue[]=$subItem;            
+            }
         }
     }
     if(count($itemsQueue)>0)
     {
-            return findMedSection($itemsQueue);
+            return findSection($itemsQueue,$code,$code_type);
     }
     else
     {
@@ -33,29 +37,24 @@ function findMedSection($items)
 }
 function syncInfoForLock($em,$doc,$user,$code,$code_type)
 {
-    return;
-    echo count($doc->getItems());
-    $medSection = findMedSection($doc->getItems());
-    if($medSection==null)
+     echo count($doc->getItems());
+    
+    $infoSection = findSection($doc->getItems(),$code,$code_type);
+    if($infoSection==null)
     {
         echo "Oops";
         return;
     }
     // We need to find the active meds which are not already part of the current document.
-    $missingMeds=findMedications($em,$doc->getPatient(),$doc);
-    foreach($missingMeds as $med)
+        $missingInfo=findSubEntries($em,$doc->getPatient(),$code,$code_type,$doc);
+        echo count($missingInfo);
+        echo $infoSection->getEntry()->getText();
+    foreach($missingInfo as $info)
     {
-        $copy=$med->copy($user);
-        $newItem=$medSection->addEntry($copy);
+        $copy=$info->copy($user);
+        $newItem=$infoSection->addEntry($copy);
         $em->persist($copy);
         $copy->setStatus(STATUS_AUTO_ACTIVE);
-        foreach($med->getItem()->getItems() as $subItem)
-        {
-
-            $subCopy=$subItem->getEntry()->copy($user);
-            $em->persist($subCopy);
-            $newItem->addEntry($subCopy);
-        }
     }
     
 }
