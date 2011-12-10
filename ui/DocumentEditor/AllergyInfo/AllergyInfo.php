@@ -9,7 +9,7 @@ function createAllergyReview($DOM,$parent,$entry)
 {
     $review=$DOM->createElement("SECTION"," ");
     $review->setAttribute("class","infoReview");
-    $review->setAttribute("infoUUID",$entry->getUUID());
+    $review->setAttribute("infoReviewUUID",$entry->getUUID());
     $parent->appendChild($review);
     $script=$DOM->createElement("SCRIPT","updateInfoReviewSection('".$entry->getPatient()->getID()."','".$entry->getUUID()."');");
     $parent->appendChild($script);

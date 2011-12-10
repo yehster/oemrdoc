@@ -4,6 +4,7 @@
    @import "medDialog.css";
    @import "sectionForms.css";
    @import "../Review/reviewHistory.css";
+   @import "../InfoReview/InfoReview.css";
    @import "MedicationForms/MedSIGdialog.css";
    @import "AddProblem/TextAddProblem.css";
    @import "StatusInfo/StatusInfo.css";

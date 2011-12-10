@@ -30,9 +30,11 @@ $logLocation="/var/log/doctrine/info.log";
 function doctrine_log($text)
 {
 $fhLog=fopen($GLOBALS['logLocation'],'a');
-fwrite($fhLog,$text);
-fclose($fhLog);
-    
+if($fhLog!==false)
+{
+    fwrite($fhLog,$text."\n");
+    fclose($fhLog);
+}    
 }
 class MatchQualityNode extends Doctrine\ORM\Query\AST\Functions\FunctionNode
 {

@@ -321,6 +321,13 @@ include_once("EntryStatusCodes.php");
         {
                 $status = new EntryStatus($this,$this->author,$val);
                 $this->getStatusHistory()->add($status);
+                if($val<0)
+                {
+                    if($this->OEMRListItem!=null)
+                    {
+                        $this->OEMRListItem->setEndDate(new \DateTime);
+                    }
+                }
                 $GLOBALS['em']->persist($status);
                 $GLOBALS['em']->flush();
         }

@@ -1,0 +1,12 @@
+
+.infoReview{
+    cursor: pointer;
+}
+.infoReviewControls { 
+    display: none;
+}
+
+span span.entryStatus
+{
+    display: none;
+}
