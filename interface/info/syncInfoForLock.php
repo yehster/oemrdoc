@@ -31,8 +31,10 @@ function findMedSection($items)
         return null;
     }
 }
-function syncMedsForLock($em,$doc,$user)
+function syncInfoForLock($em,$doc,$user,$code,$code_type)
 {
+    return;
+    echo count($doc->getItems());
     $medSection = findMedSection($doc->getItems());
     if($medSection==null)
     {
