@@ -271,6 +271,7 @@ include_once("EntryStatusCodes.php");
             $copy->metadata=$this->metadata;
             $copy->copiedFrom=$this;
             $copy->created=$this->created;
+            $copy->setOEMRListItem($this->getOEMRListItem());
             return $copy;
         }
 
