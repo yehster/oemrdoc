@@ -29,7 +29,6 @@ function lockButtonClicked()
             },
             function(data)
             {
-                window.alert(data);
               if(data==docUUID)  
                   {
                       window.alert("Document Locked!\n");                

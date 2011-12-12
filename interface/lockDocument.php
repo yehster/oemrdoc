@@ -9,18 +9,19 @@ require_once("$doctrineroot/interface/info/syncInfoForLock.php");
 try
 {
     $em->beginTransaction();
-    echo $doc->getUUID();
     syncInfoForLock($em,$doc,$user,"A8380263","SNOMED");
     syncInfoForLock($em,$doc,$user,"A7873398","SNOMED");
     syncMedsForLock($em,$doc,$user);
     $doc->lock($user);
     $em->flush();
     $em->commit();
+    echo $doc->getUUID();
 }
 catch(exception $e)
 {
     $em->rollback();
     throw $e;
 }
+
 
 ?>

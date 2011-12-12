@@ -13,7 +13,6 @@ function findSection($items,$code,$code_type)
     {
 
         $entry=$item->getEntry();
-        echo $entry->getText();
         if(($entry->getType()==TYPE_SECTION) && ($entry->getCode()==$code)&& ($entry->getCode_type()==$code_type))
         {
             return $item;
@@ -37,7 +36,6 @@ function findSection($items,$code,$code_type)
 }
 function syncInfoForLock($em,$doc,$user,$code,$code_type)
 {
-     echo count($doc->getItems());
     
     $infoSection = findSection($doc->getItems(),$code,$code_type);
     if($infoSection==null)
@@ -47,8 +45,6 @@ function syncInfoForLock($em,$doc,$user,$code,$code_type)
     }
     // We need to find the active meds which are not already part of the current document.
         $missingInfo=findSubEntries($em,$doc->getPatient(),$code,$code_type,$doc);
-        echo count($missingInfo);
-        echo $infoSection->getEntry()->getText();
     foreach($missingInfo as $info)
     {
         $copy=$info->copy($user);
