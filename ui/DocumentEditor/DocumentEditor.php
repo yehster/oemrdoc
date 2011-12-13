@@ -93,7 +93,9 @@ if(isset($_REQUEST['docUUID']))
     {
 
         selector="[uuid='"+uuid+"']";
-        $(selector).replaceWith(data);
+        jqElem=$(selector);
+        jqElem.replaceWith(data);
+        reregisterEvents(jqElem);
     }
 </script>
 <script src="UpdateNarrative.js"></script>
@@ -112,10 +114,14 @@ if(isset($_REQUEST['docUUID']))
 <script src="StatusInfo/StatusInfo.js"></script>
 <script src="ManageExistingMeds/ManageExistingMeds.js"></script>
 <script src="EntryStatus/StatusUtils.js"></script>
-
+<script src="NarrativeShortcuts/NarrativeShortcuts.js"></script>
 
 <script src="ajaxErrorHandler.js"></script>
 <script>
+    function reregisterEvents(parent)
+    {
+        registerNarrativeShortcuts(parent);
+    }
     function registerControlEvents()
     {
         registerNarrativeEvents();
@@ -131,6 +137,7 @@ if(isset($_REQUEST['docUUID']))
         registerBillingEvents();
         registerFeeSheetEvents();
         registerUpdateSIGMedsEvents();
+        registerNarrativeShortcuts(null);
         
         $(document).ajaxError(handleAjaxError);
         $("#status").click(function(){$(this).hide();});
