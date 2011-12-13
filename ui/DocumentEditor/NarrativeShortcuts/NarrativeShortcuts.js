@@ -19,8 +19,6 @@ function registerNarrativeShortcuts(parent)
         {
 
             toBind= parent.find("textarea");
-            window.alert(parent.html());
-            window.alert(toBind.length);        
         }
     toBind.keypress(narrativeKeyPress);
 }

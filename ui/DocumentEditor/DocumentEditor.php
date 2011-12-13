@@ -93,9 +93,8 @@ if(isset($_REQUEST['docUUID']))
     {
 
         selector="[uuid='"+uuid+"']";
-        jqElem=$(selector);
-        jqElem.replaceWith(data);
-        reregisterEvents(jqElem);
+        $(selector).replaceWith(data);
+        reregisterEvents($(selector));
     }
 </script>
 <script src="UpdateNarrative.js"></script>
