@@ -10,15 +10,17 @@ function narrativeKeyPress(evt)
 function registerNarrativeShortcuts(parent)
 {
 
-    selector="textarea[entrytype='Narrative']";
+    selector="[entrytype='Narrative']";
     if(parent==null)
         {
            toBind= $(selector);
         }
         else
         {
-            window.alert("rebinding");
-            toBind= parent.find(selector);
+
+            toBind= parent.find("textarea");
+            window.alert(parent.html());
+            window.alert(toBind.length);        
         }
     toBind.keypress(narrativeKeyPress);
 }
