@@ -71,8 +71,16 @@ class Patient
         public function displayNarrative()
         {
             $age = date_diff(new \DateTime,$this->DOB);
-
-            $ageStr= $age->format("%y")." year-old";
+            $years=$age->format("%y");
+            if(intval($years)>=3)
+            {
+                $ageStr= $years." year-old";
+            }
+            else
+            {
+                $months=intval($year)*12 +intval($age->format("%m"));
+                $ageStr=$months." month-old";
+            }
             return $this->fname . " " . $this->lname ." is a " . "$ageStr " . strtolower($this->sex);
         }
 	function display()
