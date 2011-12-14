@@ -68,6 +68,10 @@ class Patient
             return $this->lname .',' . $this->fname . ' ' . $this->mname;
         }
 
+        public function displayNarrative()
+        {
+            return $this->fname . " " . $this->lname ." is a " . " age " . " sex ";
+        }
 	function display()
 	{
 

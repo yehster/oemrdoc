@@ -96,6 +96,7 @@ if(isset($_REQUEST['docUUID']))
         $(selector).replaceWith(data);
         reregisterEvents($(selector));
     }
+    var patID=<?php echo $_SESSION['pid'];?>;
 </script>
 <script src="UpdateNarrative.js"></script>
 <script src="deleteEntry.js"></script>
@@ -175,7 +176,7 @@ if(isset($_REQUEST['docUUID']))
                 displayBilling();
             }
     }
-    var patID=<?php echo $_SESSION['pid'];?>;
+
 
     window.onload= registerControlEvents;
     
