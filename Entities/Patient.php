@@ -70,8 +70,10 @@ class Patient
 
         public function displayNarrative()
         {
-            $ageStr = "10";
-            return $this->fname . " " . $this->lname ." is a " . " $ageStr " . strtolower($this->sex);
+            $age = date_diff(new \DateTime,$this->DOB);
+
+            $ageStr= $age->format("%y")." year-old";
+            return $this->fname . " " . $this->lname ." is a " . "$ageStr " . strtolower($this->sex);
         }
 	function display()
 	{
