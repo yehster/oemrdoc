@@ -70,7 +70,8 @@ class Patient
 
         public function displayNarrative()
         {
-            return $this->fname . " " . $this->lname ." is a " . " age " . " sex ";
+            $ageStr = "10";
+            return $this->fname . " " . $this->lname ." is a " . " $ageStr " . strtolower($this->sex);
         }
 	function display()
 	{
