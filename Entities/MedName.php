@@ -54,7 +54,7 @@ class MedName {
     }
 
     /**
-     *  @OneToOne(targetEntity="MedNameUsage", mappedBy="mn", cascade{"persist"})
+     *  @OneToOne(targetEntity="MedNameUsage", mappedBy="mn", cascade={"persist"})
      */
     protected $usage;
     
