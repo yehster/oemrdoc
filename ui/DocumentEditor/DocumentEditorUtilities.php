@@ -91,6 +91,9 @@ function addSectionControls($DOM,$Elem,$docEntry)
             break;
         case SECTION_BILLING:
             break;
+        case SECTION_STUDIES:
+            createButton($DOM,$span,$docEntry,"Add",FUNC_DETAILS);
+            break;
     }
 }
 
@@ -234,7 +237,6 @@ function createElement($DOM,$parent,$docEntry,$docItem)
             
             $label=createLabel($DOM,$newElem,$docEntry,htmlentities($docEntry->getText()),"LABEL");
             createButton($DOM,$newElem,$docEntry,"del",FUNC_DELETE);
-            createButton($DOM,$newElem,$docEntry,"sig",FUNC_SIG);
             $retVal=$newElem;
             $parent->appendChild($newElem);
             break;

@@ -26,6 +26,7 @@ define('SECTION_AP','Assessment/Plan');
 define('SECTION_PAST_MEDICAL_HISTORY','Past Medical History');
 define('SECTION_VITAL_SIGNS','Vital Signs');
 define('SECTION_BILLING','Billing');
+define('SECTION_STUDIES',"Studies");
 
 define('ATTR_CLASS','class');
 define('ATTR_UUID','uuid');
