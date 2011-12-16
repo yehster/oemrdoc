@@ -53,6 +53,19 @@ class MedName {
         return $this->TTY;
     }
 
-
+    /**
+     *  @OneToOne(targetEntity="MedNameUsage", mappedBy="mn", cascade{"persist"})
+     */
+    protected $usage;
+    
+    public function getUsage()
+    {
+        if($this->usage==null)
+        {
+            $this->usage=new MedNameUsage($this);
+            $GLOBALS['em']->persist($this->usage);
+        }
+        return $this->usage;
+    }
 }
 ?>

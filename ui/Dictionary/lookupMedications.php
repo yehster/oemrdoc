@@ -3,13 +3,24 @@ include_once('/var/www/openemr/library/doctrine/init-em.php');
 
 function lookupMedNames($em,$searchString)
 {
-    
+    if(strlen($searchString)==0)
+    {
+        return;
+    }
     $orderClause = "MATCHQUALITY('".$searchString."',mn.str)";
     $qb = $em->createQueryBuilder()
-        ->select("mn,".$orderClause." as qual")
+        ->select("mn,".$orderClause." as qual, mnu")
         ->from("library\doctrine\Entities\MedName","mn")
-        ->where("mn.str like :startsWith")
-        ->orderBy("qual DESC, mn.str");
+        ->leftJoin("mn.usage","mnu")
+        ->where("mn.str like :startsWith");
+    if(strlen($searchString)>1)
+    {
+        $qb->andWhere("mn.str like :contains");
+        $qb->setParameter("contains","%".$searchString[1]."%");
+    }        
+       $qb->OrderBy("mnu.frequency","DESC")        
+        ->addOrderBy("qual","DESC")
+        ->addOrderBy("mn.str","ASC");
 
     if(strlen($searchString)==0)
     {
@@ -19,11 +30,7 @@ function lookupMedNames($em,$searchString)
     {
         $qb->setParameter("startsWith",$searchString[0]."%");    
     }
-    if(strlen($searchString)>1)
-    {
-        $qb->andWhere("mn.str like :contains");
-        $qb->setParameter("contains","%".$searchString[1]."%");
-    }
+
 
     $qry=$qb->getQuery();
     return $qry->getResult();
@@ -137,6 +144,7 @@ $maxRes=20;
             break;
      case "MEDSEMANTIC":
 //            $medForms= lookupMedForms($em,"has_ingredient","'SCDF','SBDF'",$rxcui,$rxaui);
+         
             $medForms= lookupMedFormsJoin($em,"has_ingredient","ingredient_of","'SCDF','SBDF'",$rxcui,"RXCUI");
             $res= array_merge(lookupMedFormsJoin($em,"has_ingredient","ingredient_of","'SCDF','SBDF'",$rxaui,"RXAUI"),$medForms);
             for($idx=0;$idx<count($res);$idx++)
@@ -157,6 +165,9 @@ $maxRes=20;
                 }
 
             }
+            $medName=$em->getRepository("library\doctrine\Entities\MedName")->find($rxaui);
+            $medName->getUsage()->increment();
+            $em->flush();
          break;
 }
 echo $DOM->saveXML($table);
