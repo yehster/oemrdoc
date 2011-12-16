@@ -2,33 +2,13 @@
 include_once('/var/www/openemr/library/doctrine/init-em.php');
 include_once('DictionaryUtilities.php');
 require_once('problemsLayout.php');
+require_once('lookupProblemsUtil.php');
 
-function addKeyword($DOM,$tbody,$keyword,$qual=0)
-{
-    $row=$DOM->createElement("tr");
-    $tbody->appendChild($row);
-    
-    $tdKeyword=$DOM->createElement("TD",$keyword->getContent());
-    $tdQual=$DOM->createElement("TD",$qual);
-    
-    $row->appendChild($tdKeyword);
-    $row->appendChild($tdQual);
-}
-function addKeywordContent($DOM,$tbody,$keyword)
-{
-    $row=$DOM->createElement("tr");
-    $tbody->appendChild($row);
-    
-    $tdKeyword=$DOM->createElement("TD",$keyword);
-    
-    $row->appendChild($tdKeyword);
-
-}
 
 
 if(isset($_REQUEST["searchString"]))
 {
-    $searchString= $_REQUEST["searchString"];    
+    $searchString= trim($_REQUEST["searchString"]);    
 }
 if(isset($_REQUEST["codeSet"]))
 {
@@ -46,39 +26,26 @@ if(isset($_REQUEST["requestTime"]))
 }
 
     $DOM= new DOMDocument("1.0","utf-8");
-    
+    if(strlen($searchString)==0)
+    {
+        return;
+    }
     $table=$DOM->createElement("TABLE");
     $tbody=$DOM->createElement("TBODY");
     $table->appendChild($tbody);
     
-    $toks = tokenize($searchString);
+    $toks = explode(" ",trim($searchString));
     if(count($toks)==1)
     {
-        $keywords = findKeywords($em,$toks[0]);
-        $maxMatch=$keywords[0]['qual'];
-        $minMatch=$keywords[count($keywords)-1]['qual'];
-        $tol=($maxMatch-$minMatch) / 2;
-        if(strlen($toks[0])==1)
+        // is the a 
+        $searchReq=$toks[0];
+        if( preg_match("/^[VE0-9][0-9]{0,2}[.]?/",$searchReq))
         {
-            $maxRes=20;
+            findProblemsByCodeNum($em,$DOM,$tbody,$searchReq);
         }
-        else {
-            $maxRes=9999;
-        }
-        for($idx=0;$idx<count($keywords) and ((($keywords[$idx]['qual']) - $maxMatch + $tol) >= 0) and $idx<$maxRes;$idx++)
+        else
         {
-            $curKW = $keywords[$idx][0];
-            $qual = $keywords[$idx]['qual'];
-            $codes = findCodesForKeyword($em,$curKW,$codeSet);
-            if(count($codes)>0)
-            {
-                addKeyword($DOM,$tbody,$curKW,$qual);
-
-            }
-            for($cidx=0;$cidx<count($codes);$cidx++)
-            {
-                addCodeResult($DOM,$tbody,$codes[$cidx]);
-            }
+            findProblemsForKeyword($em,$DOM,$tbody,$searchReq);
         }
         echo $DOM->saveXML($table);
     }
