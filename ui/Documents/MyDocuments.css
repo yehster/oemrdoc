@@ -15,7 +15,12 @@ body {
     background-color: #FEFDCF;
     font-family: sans-serif;
 }
+
 tr[docUUID]
 {
     cursor: pointer;
+}
+td.patient
+{
+    font-weight: bold;
 }
