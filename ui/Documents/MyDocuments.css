@@ -1,0 +1,21 @@
+/* 
+    Document   : MyDocuments
+    Created on : Dec 18, 2011, 11:12:06 PM
+    Author     : yehster
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+body { 
+    background-color: #FEFDCF;
+    font-family: sans-serif;
+}
+tr[docUUID]
+{
+    cursor: pointer;
+}

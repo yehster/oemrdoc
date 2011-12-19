@@ -82,6 +82,7 @@ function lookupMedFormsJoin($em,$rel,$rel2,$types,$id,$field)
     $qb->setParameter("rel2",$rel2);
 
     $qry=$qb->getQuery();
+    error_log($qry->getSQL());
     $res=$qry->getResult();
     if(count($res)==0)
     {
