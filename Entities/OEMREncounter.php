@@ -45,11 +45,55 @@ class OEMREncounter {
             return $this->provider_id;
         }
         
-	/**
+	/** 
+	 * @Column(type="datetime") 
+	 */
+        protected $onset_date;
+        
+        
+	/** 
+	 * @Column(type="string") 
+	 */
+        protected $reason;
+        
+        
+	/** 
+	 * @Column(type="string") 
+	 */
+        protected $facility;
+        
+        /**
+         * @Column(type="integer")
+         */  
+        protected $pc_catid;
+        
+        /**
+         * @Column(type="integer")
+         */  
+        protected $facility_id;
+        
+        /**
+         * @Column(type="integer")
+         */  
+        protected $billing_facility;
+
+        /** 
+	 * @Column(type="string") 
+	 */
+        protected $sensitivity;
+        
+        /** 
+	 * @Column(type="string") 
+	 */        
+        protected $referral_source;
+        
+        /**
 	* @OneToMany(targetEntity="OEMRBillingEntry", mappedBy="encounter" )
 	* @OrderBy({"code_type" = "ASC","code"="ASC"})
 	*/
         protected $billingEntries;
+        
+
         
         public function getBillingEntries()
         {
