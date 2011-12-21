@@ -121,6 +121,7 @@ if(isset($_REQUEST['docUUID']))
     function reregisterEvents(parent)
     {
         registerNarrativeShortcuts(parent);
+        registerTextAddProblemEvents(parent);
     }
     function registerControlEvents()
     {

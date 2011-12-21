@@ -127,7 +127,16 @@ function evtButAddProblem()
     code="";
     codeType="";
     text=$("input[type='text'][func='ADDPROB']").val();
-    createProblem(entryUUID,code,codeType,text);
+    // Check to see if this code is in the problem list.
+    tdICD9=$("#listProblems").find("td:contains('"+text+"')");
+    if(tdICD9.length>0)
+    {
+        sib=tdICD9.siblings("[type='CODETEXT']");
+        code=$(sib).attr("code");
+        codeType=$(sib).attr("codetype")
+        text=$(sib).text();
+    }
+    createProblem(entryUUID,code,codeType,text);    
 }
 
 var lookupTimer=null;
@@ -162,13 +171,17 @@ function evtBlurTextAddProblem()
 {
     setTimeout(hideProblemList,200);
 }
-function registerTextAddProblemEvents()
+function registerTextAddProblemEvents(parent)
 {
-    $("section").on(
+    if(parent==null)
+    {
+        parent=$("section[name='Problem List']");
+    }
+    parent.find("input[type='text'][func='ADDPROB']").on(
         {keyup: evtChangeTextAddProblem,
          focus: evtFocusTextAddProblem,
          blur:evtBlurTextAddProblem}
-         ,"input[type='text'][func='ADDPROB']");
+         );
         
-    $("section").on("click","button[func='ADDPROB']",evtButAddProblem);
+    parent.find("button[func='ADDPROB']").click(evtButAddProblem);
 }
