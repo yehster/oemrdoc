@@ -94,7 +94,8 @@ if(isset($_REQUEST['docUUID']))
 
         selector="[uuid='"+uuid+"']";
         $(selector).replaceWith(data);
-        reregisterEvents($(selector));
+        parent=$(selector);      
+        reregisterEvents(parent);
     }
     var patID=<?php echo $_SESSION['pid'];?>;
 </script>

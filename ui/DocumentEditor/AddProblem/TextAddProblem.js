@@ -178,9 +178,11 @@ function registerTextAddProblemEvents(parent)
         parent=$("section[name='Problem List']");
     }
     parent.find("input[type='text'][func='ADDPROB']").on(
-        {keyup: evtChangeTextAddProblem,
-         focus: evtFocusTextAddProblem,
-         blur:evtBlurTextAddProblem}
+        {
+            keyup: evtChangeTextAddProblem,
+            focus: evtFocusTextAddProblem,
+            blur:evtBlurTextAddProblem
+        }
          );
         
     parent.find("button[func='ADDPROB']").click(evtButAddProblem);
