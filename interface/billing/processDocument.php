@@ -26,9 +26,9 @@ if($doc->getOEMREncounter()==null)
   
     $GLOBALS['OE_SITE_DIR']="/var/www/openemr/sites/default";
     
-    $encounter = 100000;
+    $encounter = rand();
     $DOS=$doc->getDateofservice();
-//    $em->beginTransaction();
+    $em->beginTransaction();
     $OEMREnc=new library\doctrine\Entities\OEMREncounter($pat,$DOS,$encounter,"normal");
 
     // Fix hard coded cat id and other info
@@ -56,11 +56,11 @@ if($doc->getOEMREncounter()==null)
 
     $doc->setOEMREncounter($Enc);
     $em->flush();
-//    $em->commit();
+    $em->commit();
 }
 
 // create a billing entries for the problems in this document.
-//$problems=syncProblems($em,$doc);
+$problems=syncProblems($em,$doc);
 
 if(isset($_REQUEST['codeType']))
 {
