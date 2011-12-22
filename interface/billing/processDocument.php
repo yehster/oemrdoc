@@ -28,7 +28,7 @@ if($doc->getOEMREncounter()==null)
     
     $encounter = 100000;
     $DOS=$doc->getDateofservice();
-    $em->beginTransaction();
+//    $em->beginTransaction();
     $OEMREnc=new library\doctrine\Entities\OEMREncounter($pat,$DOS,$encounter,"normal");
 
     // Fix hard coded cat id and other info
@@ -41,8 +41,10 @@ if($doc->getOEMREncounter()==null)
     $em->flush();
 
     $Enc=$em->getRepository('library\doctrine\Entities\OEMREncounter')->findOneBy(array('encounter'=>$encounter,'patient'=>$patID));
+   $em->refresh($Enc);
     $fid=$Enc->getID();
 
+    error_log(count($res));
     error_log("Encounter Form ID".$fid);
     $OEMRForm= new library\doctrine\Entities\OEMRForm($pat,$doctrineUser->getUsername(),$encounter,$fid,"New Patient Encounter","newpatient");
     $OEMRForm->setEncounter($encounter);
@@ -54,7 +56,7 @@ if($doc->getOEMREncounter()==null)
 
     $doc->setOEMREncounter($Enc);
     $em->flush();
-    $em->commit();
+//    $em->commit();
 }
 
 // create a billing entries for the problems in this document.
