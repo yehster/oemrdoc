@@ -6,7 +6,7 @@ namespace library\doctrine\Entities;
  */
 class OEMRForm {
 
-    public function __construct($pat,$user,$enc,$fid,$fname,$fdir)
+    public function __construct($pat,$user,$enc,$fid,$fname,$fdir,$gn="Default")
     {
 	$this->date = new \DateTime();
         $this->patient = $pat;
@@ -15,6 +15,9 @@ class OEMRForm {
        $this->form_id=$fid;
         $this->form_name=$fname;
         $this->formdir=$fdir;
+        $this->groupname=$gn;
+        $this->authorized=1;
+        $this->deleted=0;
     }    
     
     /**
@@ -66,6 +69,21 @@ class OEMRForm {
     /**
      * @Column(type="string") 
      */
-     protected $formdir;         
+     protected $formdir;  
+     
+     /**
+     * @Column(type="string") 
+     */
+     protected $groupname;  
+     
+     /**
+       * @Column(type="integer")	 
+       */
+     protected $authorized;  
+     
+     /**
+       * @Column(type="integer")	 
+       */
+     protected $deleted;       
 }
 ?>
