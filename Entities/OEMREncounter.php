@@ -122,7 +122,7 @@ class OEMREncounter {
         
         /**
 	* @OneToMany(targetEntity="OEMRBillingEntry", mappedBy="encounter" )
-	* @OrderBy({"code_type" = "ASC","code"="ASC"})
+	* @OrderBy({"code_type" = "ASC","date"="ASC"})
 	*/
         protected $billingEntries;
         
