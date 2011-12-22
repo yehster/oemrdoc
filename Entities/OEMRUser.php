@@ -16,6 +16,11 @@ class OEMRUser {
          */
         protected $username;
 
+        public function getUsername()
+        {
+            return $this->username;
+        }
+        
         /**
          * @Column(type="string")
          */

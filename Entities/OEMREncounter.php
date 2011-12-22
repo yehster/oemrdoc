@@ -6,16 +6,30 @@ namespace library\doctrine\Entities;
  */
 class OEMREncounter {
 
-    public function __construct($pat)
+    public function __construct($pat,$dt,$encID,$sens)
     {
-	$this->date = new \DateTime();
+	$this->date = $dt;
         $this->patient = $pat;
+        $this->encounter=$encID;
+        $this->sensitivity=$sens;
+        $this->referral_source="";
     }    
     
+    
         /**
-	 * @Id
-	 * @Column(name="encounter",type="integer")
+         * @ID
+         * @Column(type="integer")
          * @GeneratedValue
+         */      
+        protected $id;
+        
+        public function getID()
+        {
+            return $this->id;
+        }
+    
+        /**
+	 * @Column(type="integer")
 	 */
 	protected $encounter;    
 
@@ -56,6 +70,10 @@ class OEMREncounter {
 	 */
         protected $reason;
         
+        public function setReason($val)
+        {
+            $this->reason=$val;
+        }
         
 	/** 
 	 * @Column(type="string") 
@@ -67,16 +85,31 @@ class OEMREncounter {
          */  
         protected $pc_catid;
         
+        public function setCatid($val)
+        {
+            $this->pc_catid=$val;
+        }
+        
         /**
          * @Column(type="integer")
          */  
         protected $facility_id;
+        
+        function setFacility_id($val)
+        {
+            $this->facility_id=$val;
+        }
         
         /**
          * @Column(type="integer")
          */  
         protected $billing_facility;
 
+        function setBilling_facility($val)
+        {
+            $this->billing_facility=$val;
+        }
+        
         /** 
 	 * @Column(type="string") 
 	 */

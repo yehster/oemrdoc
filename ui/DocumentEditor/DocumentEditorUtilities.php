@@ -221,7 +221,12 @@ function createElement($DOM,$parent,$docEntry,$docItem)
             break;
         case TYPE_PROBLEM:
             $newElem=createTagElem($DOM,$docEntry,"SPAN");
-            $label=$DOM->createElement("SPAN",htmlentities($docEntry->getText()));
+            $info=htmlentities($docEntry->getText());
+            if($docEntry->getCode()!=null)
+            {
+                $info.="(".$docEntry->getCode().")";
+            }
+            $label=$DOM->createElement("SPAN",$info);
             $newElem->appendChild($label);
             createButton($DOM,$newElem,$docEntry,"del",FUNC_DELETE);
             createButton($DOM,$newElem,$docEntry,"details",FUNC_DETAILS);

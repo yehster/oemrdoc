@@ -222,7 +222,7 @@ class Document
         
 	/**
 	* @ManyToOne(targetEntity="OEMREncounter")
-	* @JoinColumn(name="encounter_id", referencedColumnName="encounter")
+	* @JoinColumn(name="encounter_id", referencedColumnName="id")
 	*/
         private $OEMREncounter;
 
