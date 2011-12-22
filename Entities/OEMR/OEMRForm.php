@@ -41,6 +41,9 @@ class OEMRForm {
        */
      protected $patient;
      
+    /**
+     * @Column(type="string") 
+     */
      protected $user;
      
      /*
@@ -48,8 +51,14 @@ class OEMRForm {
       */
      protected $groupname;
      
+     /*
+      * @Column(type="integer")
+      */
      protected $authorized;
      
+     /*
+      * @Column(type="integer")
+      */
      protected $deleted;
      
      /*
