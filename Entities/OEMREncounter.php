@@ -6,13 +6,14 @@ namespace library\doctrine\Entities;
  */
 class OEMREncounter {
 
-    public function __construct($pat,$dt,$encID,$sens)
+    public function __construct($pat,$dt,$encID,$prov,$sens)
     {
 	$this->date = $dt;
         $this->patient = $pat;
         $this->encounter=$encID;
         $this->sensitivity=$sens;
         $this->referral_source="";
+        $this->provider_id=$prov;
     }    
     
     

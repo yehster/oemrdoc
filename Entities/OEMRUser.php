@@ -14,6 +14,11 @@ class OEMRUser {
         /**
          * @Column(type="string")
          */
+        
+        public function getID()
+        {
+            return $this-id;
+        }
         protected $username;
 
         public function getUsername()

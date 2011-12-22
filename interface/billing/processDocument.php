@@ -14,22 +14,12 @@ if(isset($_SESSION['pid']))
 
 if($doc->getOEMREncounter()==null)
 {
-    // No Encounter set, need to create one.
-
-
-    $_POST['mode']="new";
-
-    // TODO: fix hard coded values for billing
-
-    $_POST['facility_id']=3;
-    $_POST['billing_facility']=3;
-  
-    $GLOBALS['OE_SITE_DIR']="/var/www/openemr/sites/default";
     
     $encounter = rand();
     $DOS=$doc->getDateofservice();
     $em->beginTransaction();
-    $OEMREnc=new library\doctrine\Entities\OEMREncounter($pat,$DOS,$encounter,"normal");
+    $prov=$doctrineUser->getID();
+    $OEMREnc=new library\doctrine\Entities\OEMREncounter($pat,$DOS,$encounter,$prov,"normal");
 
     // Fix hard coded cat id and other info
     $OEMREnc->setCatid(5);
@@ -51,8 +41,6 @@ if($doc->getOEMREncounter()==null)
     $em->persist($OEMRForm);
     
     $em->flush();
-//    require_once("/var/www/openemr/interface/forms/newpatient/saveDoctrine.php");
-//    $OEMREnc=$em->getRepository('library\doctrine\Entities\OEMREncounter')->findOneBy(array('encounter'=>$_SESSION['encounter'],'patient'=>$patID));               
 
     $doc->setOEMREncounter($Enc);
     $em->flush();
