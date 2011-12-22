@@ -17,10 +17,8 @@ class OEMREncounter {
     
     
         /**
-         * @ID
          * @Column(type="integer")
-         * @GeneratedValue
-         */      
+         */
         protected $id;
         
         public function getID()
@@ -29,6 +27,7 @@ class OEMREncounter {
         }
     
         /**
+         * @ID
 	 * @Column(type="integer")
 	 */
 	protected $encounter;    

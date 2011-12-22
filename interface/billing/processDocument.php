@@ -26,7 +26,7 @@ if($doc->getOEMREncounter()==null)
   
     $GLOBALS['OE_SITE_DIR']="/var/www/openemr/sites/default";
     
-    $encounter = 99999;
+    $encounter = 100000;
     $DOS=$doc->getDateofservice();
     $em->beginTransaction();
     $OEMREnc=new library\doctrine\Entities\OEMREncounter($pat,$DOS,$encounter,"normal");
@@ -40,7 +40,8 @@ if($doc->getOEMREncounter()==null)
     $em->persist($OEMREnc);
     $em->flush();
 
-    $fid=$OEMREnc->getID();
+    $Enc=$em->getRepository('library\doctrine\Entities\OEMREncounter')->findOneBy(array('encounter'=>$encounter,'patient'=>$patID));
+    $fid=$Enc->getID();
 
     error_log("Encounter Form ID".$fid);
     $OEMRForm= new library\doctrine\Entities\OEMRForm($pat,$doctrineUser->getUsername(),$encounter,$fid,"New Patient Encounter","newpatient");
@@ -51,8 +52,8 @@ if($doc->getOEMREncounter()==null)
 //    require_once("/var/www/openemr/interface/forms/newpatient/saveDoctrine.php");
 //    $OEMREnc=$em->getRepository('library\doctrine\Entities\OEMREncounter')->findOneBy(array('encounter'=>$_SESSION['encounter'],'patient'=>$patID));               
 
-//    $doc->setOEMREncounter($OEMREnc);
-
+    $doc->setOEMREncounter($Enc);
+    $em->flush();
     $em->commit();
 }
 
@@ -75,7 +76,7 @@ if(isset($_REQUEST['codeType']))
 
 
 $DOM = new DOMDocument("1.0","utf-8");
-//$table=FeeSheetRender($DOM,$DOM,$doc->getOEMREncounter());
+$table=FeeSheetRender($DOM,$DOM,$doc->getOEMREncounter());
 
-//echo $DOM->saveXML($table);
+echo $DOM->saveXML($table);
 ?>

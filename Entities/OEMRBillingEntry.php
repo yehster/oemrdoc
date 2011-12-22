@@ -129,10 +129,10 @@ class OEMRBillingEntry{
             return $this->justify;
         }
         
-	/**
-	* @ManyToOne(targetEntity="OEMREncounter", inversedBy="billingEntries")
-	* @JoinColumn(name="encounter", referencedColumnName="encounter")
-	*/        
+        /**
+         * @ManyToOne(targetEntity="OEMREncounter", inversedBy="billingEntries")
+         * @JoinColumn(name="encounter", referencedColumnName="encounter")
+         */      
         protected $encounter;
         
         /**
