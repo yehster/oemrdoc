@@ -23,8 +23,12 @@ echo $DOM->saveXML($tableDocs);
 ?>
 <script src="/openemr/library/js/jquery-1.7.1.min.js"></script>
 <script src="MyDocuments.js"></script>
+<script src="/openemr/library/doctrine/ui/Billing/OEMRBillingProcess.js"></script>
 <script>
-    $(document).ready(function(){registerMyDocsEvents($(document));});
+    $(document).ready(function(){
+        registerMyDocsEvents($("body"));
+        setupEncountersForm($("body"));
+    });
 </script>
     </body>
 </html>
