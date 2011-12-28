@@ -18,7 +18,7 @@ function setupEncountersForm(parent)
     {
         strEF="<form id='"+idEncountersForm+"' method='post' action='/openemr/interface/billing/billing_process.php'></form>";
         ef=$(strEF).appendTo(parent);
-//        inputHCFA=$("<input type='submit' name='bn_process_hcfa' value='hcfa'>").appendTo(ef);
+        inputHCFA=$("<input type='submit' name='bn_process_hcfa' value='hcfa'>").appendTo(ef);
         inputX12=$("<input type='submit' name='bn_x12' value='x12'>").appendTo(ef);
         inputMAC=$("<input name='HiddenMarkAsCleared' value='yes'").appendTo(ef);
         inputMAC=$("<input name='mode' value='bill'").appendTo(ef);
