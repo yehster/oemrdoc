@@ -81,7 +81,7 @@ $connectionParams = array(
 );
 
 $em = EntityManager::create($connectionParams, $config);
-//$em->getConnection()->getDatabasePlatform()->registerDoctrineTypeMapping('enum', 'string');
+$em->getConnection()->getDatabasePlatform()->registerDoctrineTypeMapping('enum', 'string');
 //$em->getConnection()->getDatabasePlatform()->registerDoctrineTypeMapping('blob', 'string');
 $params=array(
     'db' => new \Doctrine\DBAL\Tools\Console\Helper\ConnectionHelper($em->getConnection()),

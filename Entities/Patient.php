@@ -98,5 +98,10 @@ class Patient
 		
 
 	}
+      /**
+	* @OneToMany(targetEntity="OEMRInsuranceData", mappedBy="patient")
+	* @OrderBy({"type" = "ASC"})
+	*/
+        protected $insurance_data;
 }
 ?>

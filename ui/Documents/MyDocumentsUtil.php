@@ -37,6 +37,7 @@ function createDocRow($DOM,$parent,$doc)
         $cbToBill=$DOM->createElement("input");
         $cbToBill->setAttribute("type","checkbox");
         $cbToBill->setAttribute("class","billEnc");
+        $cbToBill->setAttribute("checked","true");
         $tdToBill->appendChild($cbToBill);
     }
     $tr->setAttribute("patID",$doc->getPatient()->getPID());

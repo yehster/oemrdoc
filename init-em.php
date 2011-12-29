@@ -95,4 +95,6 @@ $connectionParams = array(
 
 $em = EntityManager::create($connectionParams, $config);
 }
+$conn=$em->getConnection();
+$conn->getDatabasePlatform()->registerDoctrineTypeMapping('enum', 'string');
 ?>
