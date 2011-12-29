@@ -1,7 +1,7 @@
 var idEncountersForm="encountersForBilling";
 function addEncounterInfo(patID,encID,bill,partner,payer)
 {
-    ef=$("#"+idEncountersForm);
+    ef=$("#"+idEncountersForm).find(".encItems");
     namePrefix="claims["+patID+"-"+encID+"]";
     inputBill=$("<input name='"+namePrefix+"[bill]'>").appendTo(ef);
     inputBill.attr("value",bill);
@@ -21,9 +21,9 @@ function setupEncountersForm(parent)
         inputHCFA=$("<input type='submit' name='bn_process_hcfa' value='hcfa'>").appendTo(ef);
         inputX12=$("<input type='submit' name='bn_x12' value='x12'>").appendTo(ef);
         inputMAC=$("<input name='HiddenMarkAsCleared' value='yes'").appendTo(ef);
-        inputMAC=$("<input name='mode' value='bill'").appendTo(ef);
-        addEncounterInfo("1","5","0","0","-1");
-        addEncounterInfo("1","4","0","0","-1");        
+        inputBill=$("<input name='mode' value='bill'").appendTo(ef);
+
+        spanEnc=$("<span class='encItems'> </span>").appendTo(ef);
     }
     return ef;
 }

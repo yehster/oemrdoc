@@ -27,6 +27,20 @@ function createDocRow($DOM,$parent,$doc)
     
     $td=$DOM->createElement("td",$doc->getDateOfService()->format("m-d-y"));
     $tr->appendChild($td);
+    
+    $OEMREnc=$doc->getOEMREncounter();
+    if($OEMREnc!=null)
+    {
+        $tr->setAttribute("encounter",$OEMREnc->getEncounter());    
+        $tdToBill=$DOM->createElement("td");
+        $tr->appendChild($tdToBill);
+        $cbToBill=$DOM->createElement("input");
+        $cbToBill->setAttribute("type","checkbox");
+        $cbToBill->setAttribute("class","billEnc");
+        $tdToBill->appendChild($cbToBill);
+    }
+    $tr->setAttribute("patID",$doc->getPatient()->getPID());
+    
 }
 
 function genDocsTable($em,$DOM,$parent,$user,$docs)

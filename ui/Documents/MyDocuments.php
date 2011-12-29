@@ -21,6 +21,7 @@ genDocsTable($em,$DOM,$tbodyDocs,$doctrineUser,$docs);
 
 echo $DOM->saveXML($tableDocs);
 ?>
+<button class="bill">Bill</button>
 <script src="/openemr/library/js/jquery-1.7.1.min.js"></script>
 <script src="MyDocuments.js"></script>
 <script src="/openemr/library/doctrine/ui/Billing/OEMRBillingProcess.js"></script>
