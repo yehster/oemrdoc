@@ -7,14 +7,18 @@ function syncProblems($em,$document, $clear = false)
          $enc=$document->getOEMREncounter();
          if($enc!=null)
          {
+
              foreach($enc->getBillingEntries() as $be)
-             {
-                 if($be->getCode_type()=="2")
+             {            
+                 if($be->getCode_type()=="ICD9")
                  {
+                     $enc->getBillingEntries()->removeElement($be);
                      $em->remove($be);
+                     
                  }
              }
          }
+         $em->flush();
     }
     $qb = $em->createQueryBuilder()
         ->select("pr")
@@ -49,6 +53,7 @@ function syncProblems($em,$document, $clear = false)
                 $billingProblem->setCode($problem->getCode());
                 $billingProblem->setCode_type($problem->getCode_type());
                 $em->persist($billingProblem);
+                $enc->getBillingEntries()->add($billingProblem);
             }
             $billingProblem->setCode_text($problem->getText());
             $billingProblem->setProvider_id($enc->getProvider_id());
@@ -59,6 +64,7 @@ function syncProblems($em,$document, $clear = false)
             $billingProblem->setFee(0);
             $retval[]=$billingProblem;
             $em->flush();
+            $em->refresh($enc);
         }
 
     }

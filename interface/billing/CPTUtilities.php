@@ -104,6 +104,20 @@ function billForCPT($em,$document, $codeVal, $codeType,$justify)
         }
         $cpt->setJustify($cptJustifyString);    
     }
+    else
+    {
+        $curCPT=$cpt->getJustify();
+        $cptJustifyString="";
+        foreach($justify as $prob)
+        {
+            $diagString=$prob->getCode().":";
+            if(strpos($curCPT,$diagString)!==false)
+            {
+                $cptJustifyString.=$diagString;
+            }
+        }
+        $cpt->setJustify($cptJustifyString);            
+    }
     $em->flush();
 
     

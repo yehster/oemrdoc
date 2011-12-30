@@ -121,8 +121,8 @@ class OEMREncounter {
         protected $referral_source;
         
         /**
-	* @OneToMany(targetEntity="OEMRBillingEntry", mappedBy="encounter", cascade={"remove"} )
-	* @OrderBy({"code_type" = "ASC","date"="ASC"})
+	* @OneToMany(targetEntity="OEMRBillingEntry", mappedBy="encounter", cascade={"persist"} )
+	* @OrderBy({"code_type" = "ASC","id"="ASC"})
 	*/
         protected $billingEntries;
         

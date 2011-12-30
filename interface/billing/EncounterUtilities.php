@@ -28,8 +28,6 @@ function createEncounter($em,$pat,$providerID,$sensitivity,$DOS,$doc,$username)
     $em->refresh($Enc);
     $fid=$Enc->getID();
 
-    error_log(count($res));
-    error_log("Encounter Form ID".$fid);
     $OEMRForm= new library\doctrine\Entities\OEMRForm($pat,$username,$encounter,$fid,"New Patient Encounter","newpatient");
     $OEMRForm->setEncounter($encounter);
     $em->persist($OEMRForm);
