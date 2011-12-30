@@ -45,30 +45,73 @@ function createDocRow($DOM,$parent,$doc)
     $td=$DOM->createElement("td",$doc->getDateOfService()->format("m-d-y"));
     $tr->appendChild($td);
     
+    $pat=$doc->getPatient();
+    $tr->setAttribute("patID",$pat->getPID());
+
     $OEMREnc=$doc->getOEMREncounter();
+
+    
+    
     if($OEMREnc!=null)
     {
+    
+        if($OEMREnc->isBilled())
+        {
+        
+            $tdStatus=$DOM->createElement("TD","billed");
+            $tr->appendChild($tdStatus);
+        }
+        else
+        {
+            $tdStatus=$DOM->createElement("TD","unbilled");
+            $tr->appendChild($tdStatus);
+
+        }
+        
+        $tdInsurance=$DOM->createElement("td");
+        $tr->appendChild($tdInsurance);
+        createInsuranceInfo($DOM,$tr,$pat);
+
         $tr->setAttribute("encounter",$OEMREnc->getEncounter());    
         $tdToBill=$DOM->createElement("td");
         $tr->appendChild($tdToBill);
         $cbToBill=$DOM->createElement("input");
         $cbToBill->setAttribute("type","checkbox");
         $cbToBill->setAttribute("class","billEnc");
-        $cbToBill->setAttribute("checked","true");
+        if(!$OEMREnc->isBilled())
+        {
+            $cbToBill->setAttribute("checked","true");        
+        }
         $tdToBill->appendChild($cbToBill);
     }
-    $pat=$doc->getPatient();
-    $tr->setAttribute("patID",$pat->getPID());
+    else 
+    {
+        $tdStatus=$DOM->createElement("TD","unbilled");
+        $tr->appendChild($tdStatus);
+    }
     
-    $tdInsurance=$DOM->createElement("td");
-    $tr->appendChild($tdInsurance);
+}
+function genDocsHeader($DOM,$parent)
+{
+    $tr=$DOM->createElement("TR");
+    $parent->appendChild($tr);
     
-    createInsuranceInfo($DOM,$tr,$pat);
+    $thPat=$DOM->createElement("TH","Patient");
+    $tr->appendChild($thPat);
+
+    $thDocType=$DOM->createElement("TH","Document Type");
+    $tr->appendChild($thDocType);
+
+    $thDOS=$DOM->createElement("TH","DOS");
+    $tr->appendChild($thDOS);    
     
+    $thDOS=$DOM->createElement("TH","Status");
+    $tr->appendChild($thDOS);
 }
 
 function genDocsTable($em,$DOM,$parent,$user,$docs)
 {
+    genDocsHeader($DOM,$parent);
     foreach($docs as $doc)
     {
         createDocRow($DOM,$parent,$doc);
