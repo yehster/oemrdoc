@@ -16,10 +16,7 @@ class OEMRInsuranceData{
         {
             return $this->id;
         }
-        /**
-         * @Column(type="datetime")
-         */
-        protected $date;        
+
         
 	/**
 	* @ManyToOne(targetEntity="Patient", inversedBy="insurance_data")
@@ -28,6 +25,16 @@ class OEMRInsuranceData{
         protected $patient;
 
 
+       /**
+	 * @Column(type="string") 
+ 	 */
+        protected $plan_name;
+        
+        public function getPlan_name()
+        {
+            return $this->plan_name;
+        }
+        
         /**
 	 * @Column(type="string") 
  	 */

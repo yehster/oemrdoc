@@ -8,7 +8,8 @@ function clickDocRow()
 function handleCheckedBilling(idx,elem)
 {
     row=$(elem).parents("tr[docUUID]");
-    addEncounterInfo(row.attr("patid"),row.attr("encounter"),"0","6","P7");
+    provider=row.find("select.insuranceChoice").val();
+    addEncounterInfo(row.attr("patid"),row.attr("encounter"),"0","6","P"+provider);
 }
 function generateOEMRBillingForCheckboxes()
 {

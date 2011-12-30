@@ -13,6 +13,23 @@ function findUnlockedDocs($em,$user)
     return $qry->getResult();        
 }
 
+function createInsuranceInfo($DOM,$parent,$pat)
+{
+    $id=$pat->getInsurance_data();
+    $info=$DOM->createElement("SPAN",count($id));
+    $sel=$DOM->createElement("SELECT");
+    $sel->setAttribute("class","insuranceChoice");
+    foreach ($id as $insurance)
+    {
+        if($insurance->getProvider()!=null)
+        {
+            $opt=$DOM->createElement("option",$insurance->getPlan_name());
+            $opt->setAttribute("value",$insurance->getProvider());
+            $sel->appendChild($opt);
+        }
+    }
+    $parent->appendChild($sel);
+}
 function createDocRow($DOM,$parent,$doc)
 {
     $tr=$DOM->createElement("tr");
@@ -40,7 +57,13 @@ function createDocRow($DOM,$parent,$doc)
         $cbToBill->setAttribute("checked","true");
         $tdToBill->appendChild($cbToBill);
     }
-    $tr->setAttribute("patID",$doc->getPatient()->getPID());
+    $pat=$doc->getPatient();
+    $tr->setAttribute("patID",$pat->getPID());
+    
+    $tdInsurance=$DOM->createElement("td");
+    $tr->appendChild($tdInsurance);
+    
+    createInsuranceInfo($DOM,$tr,$pat);
     
 }
 

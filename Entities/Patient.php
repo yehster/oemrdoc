@@ -103,5 +103,10 @@ class Patient
 	* @OrderBy({"type" = "ASC"})
 	*/
         protected $insurance_data;
+        
+        public function getInsurance_data()
+        {
+            return $this->insurance_data;
+        }
 }
 ?>
