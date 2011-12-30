@@ -14,8 +14,7 @@ function deleteEntry()
         function(data)
         {
             uuid=data.uuid;
-            selector="[uuid='"+uuid+"']";         
-            $(selector).replaceWith(data.html);
+            refreshEntry(uuid,data.html);
         },"json"
         );
         

@@ -1,7 +1,21 @@
 <?php
 
-function syncProblems($em,$document)
+function syncProblems($em,$document, $clear = false)
 {
+    if($clear)
+    {
+         $enc=$document->getOEMREncounter();
+         if($enc!=null)
+         {
+             foreach($enc->getBillingEntries() as $be)
+             {
+                 if($be->getCode_type()=="2")
+                 {
+                     $em->remove($be);
+                 }
+             }
+         }
+    }
     $qb = $em->createQueryBuilder()
         ->select("pr")
         ->from("library\doctrine\Entities\Problem","pr")

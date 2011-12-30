@@ -130,7 +130,7 @@ class OEMRBillingEntry{
         }
         
         /**
-         * @ManyToOne(targetEntity="OEMREncounter", inversedBy="billingEntries")
+         * @ManyToOne(targetEntity="OEMREncounter", inversedBy="billingEntries",cascade={"remove"})
          * @JoinColumn(name="encounter", referencedColumnName="encounter")
          */      
         protected $encounter;

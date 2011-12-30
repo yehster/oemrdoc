@@ -23,7 +23,7 @@ if($doc->getOEMREncounter()==null)
 }
 
 // create a billing entries for the problems in this document.
-$problems=syncProblems($em,$doc);
+$problems=syncProblems($em,$doc,true);
 
 if(isset($_REQUEST['codeType']))
 {
