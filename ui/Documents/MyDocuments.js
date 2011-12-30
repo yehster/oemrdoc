@@ -20,6 +20,7 @@ function generateOEMRBillingForCheckboxes()
 function clickBill()
 {
     generateOEMRBillingForCheckboxes();
+    $("#encountersForBilling").find("[name='bn_process_hcfa']").click();
 }
 function registerMyDocsEvents(parent)
 {

@@ -1,5 +1,6 @@
 <?php
 require_once("checkBillingAuth.php");
+require_once("processFeeSheetUtil.php");
 
 if(isset($_REQUEST['BillingID']))
 {
@@ -24,10 +25,7 @@ if(isset($_REQUEST['Justify']))
     $diagLoc=strpos($strJust,$needle);
     if($justify=="true")
     {
-        if($diagLoc===false)
-        {
-            $strJust=$OEMRBE->getJustify().$needle;
-        }
+        $strJust=verifyJustify($OEMRBE,$diagCode);
         
     }
     else

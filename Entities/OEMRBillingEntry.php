@@ -135,6 +135,10 @@ class OEMRBillingEntry{
          */      
         protected $encounter;
         
+        public function getEncounter()
+        {
+            return $this->encounter;
+        }
         /**
 	 * @Column(type="integer")
 	 */

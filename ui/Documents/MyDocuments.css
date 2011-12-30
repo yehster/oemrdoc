@@ -24,3 +24,8 @@ td.patient
 {
     font-weight: bold;
 }
+
+#encountersForBilling
+{
+    display: none;
+}

@@ -12,9 +12,11 @@ function syncProblems($em,$document, $clear = false)
              {            
                  if($be->getCode_type()=="ICD9")
                  {
-                     $enc->getBillingEntries()->removeElement($be);
-                     $em->remove($be);
-                     
+                     if($be->getBilled()==0)
+                     {
+                        $enc->getBillingEntries()->removeElement($be);
+                        $em->remove($be);
+                     }
                  }
              }
          }
