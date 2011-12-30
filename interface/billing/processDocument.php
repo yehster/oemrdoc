@@ -44,4 +44,10 @@ $DOM = new DOMDocument("1.0","utf-8");
 $table=FeeSheetRender($DOM,$DOM,$doc->getOEMREncounter());
 
 echo $DOM->saveXML($table);
+
+$billingAction=$DOM->createElement("SPAN");
+createInsuranceInfo($DOM,$billingAction,$pat);
+
+echo $DOM->saveXML($billingAction);
 ?>
+<button id="printHCFA" enc="<?php echo $doc->getOEMREncounter()->getEncounter()?>" patID="<?php echo $pat->getID()?>">Print HCFA</button>

@@ -47,6 +47,18 @@ function evtBlurMod()
     
 }
 
+function evtPrintHCFA()
+{
+   ef= setupEncountersForm($(this).parent())
+    $(".encItems input").remove();
+    patID=$(this).attr("patID");
+    enc=$(this).attr("enc");
+    ins=$("select.insuranceChoice").val();
+    addEncounterInfo(patID,enc,0,6,"P"+ins);
+    $("#encountersForBilling").attr("target","_blank");
+    $("#encountersForBilling").find("[name='bn_process_hcfa']").click();
+}
+
 
 function registerFeeSheetEvents()
 {
@@ -54,5 +66,6 @@ function registerFeeSheetEvents()
     $("section[name='Billing']").on("click", ".billingInfo input[type='checkbox']", evtCBDiag );
     $("section[name='Billing']").on("blur", "input.fee[type='text']", evtBlurFee );
     $("section[name='Billing']").on("blur", "input.mod[type='text']", evtBlurMod );
+    $("section[name='Billing']").on("click","#printHCFA", evtPrintHCFA);
 
 }

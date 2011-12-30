@@ -107,4 +107,22 @@ function FeeSheetRenderLineItem($DOM,$parent,$OEMRBE,$diags)
     
     return $row;
 }
+
+function createInsuranceInfo($DOM,$parent,$pat)
+{
+    $id=$pat->getInsurance_data();
+    $info=$DOM->createElement("SPAN",count($id));
+    $sel=$DOM->createElement("SELECT");
+    $sel->setAttribute("class","insuranceChoice");
+    foreach ($id as $insurance)
+    {
+        if($insurance->getProvider()!=null)
+        {
+            $opt=$DOM->createElement("option",$insurance->getPlan_name());
+            $opt->setAttribute("value",$insurance->getProvider());
+            $sel->appendChild($opt);
+        }
+    }
+    $parent->appendChild($sel);
+}
 ?>

@@ -1,5 +1,6 @@
 <?php
 
+
 function verifyJustify($OEMRBE,$justifyCode)
 {
     $enc=$OEMRBE->getEncounter();

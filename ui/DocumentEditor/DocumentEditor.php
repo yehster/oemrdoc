@@ -116,6 +116,7 @@ if(isset($_REQUEST['docUUID']))
 <script src="ManageExistingMeds/ManageExistingMeds.js"></script>
 <script src="EntryStatus/StatusUtils.js"></script>
 <script src="NarrativeShortcuts/NarrativeShortcuts.js"></script>
+<script src="/openemr/library/doctrine/ui/Billing/OEMRBillingProcess.js"></script>
 
 <script src="ajaxErrorHandler.js"></script>
 <script>

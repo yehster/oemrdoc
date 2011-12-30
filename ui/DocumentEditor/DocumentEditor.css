@@ -160,3 +160,8 @@ li
 {
     clear: left;
 }
+
+#encountersForBilling
+{
+    display: none;
+}
