@@ -45,12 +45,12 @@ function changeOrder($em,$entry,$direction)
     $items->set($idx,$tmp);
     $em->flush();        
     $em->commit();    
-    echo $tmp->getUUID();
-    
-    
+
+    return true;
     
     
 }
+
 if($task=="UP")
 {
     $direction=-1;
@@ -63,8 +63,26 @@ else
 {
     header("HTTP/1.0 403 Forbidden");
     echo "Invalid Direction Specifier!";
-    return;
-    
+    return;  
 }
-changeOrder($em,$entry,$direction);
+if(!changeOrder($em,$entry,$direction))
+{
+    header("HTTP/1.0 403 Forbidden");
+    echo "Failed Changing Order";
+    return;  
+}
+    $docItem=$entry->getItem();
+    $parentItem=$docItem->getParent();
+ 
+if(isset($_REQUEST['refresh']))
+{
+    $request=$_REQUEST['refresh'];
+    if($request==="YES")
+    {
+        require_once("../ui/DocumentEditor/refreshSection.php");
+        echo json_encode(array("uuid"=>$parentItem->getEntry()->getUUID(),
+            "html"=>refreshSection($parentItem)));
+        return;
+    }
+}    
 ?>

@@ -7,9 +7,15 @@ function sortProblem()
     $.post("../../interface/sorting.php",
     {
         entryUUID: entryUUID,
-        task: task
+        task: task,
+        refresh: "YES"
     },
-    function(data){ window.alert(data);}
+        function(data)
+        {
+            uuid=data.uuid;
+            refreshEntry(uuid,data.html);
+        }
+        ,"json"
     )
 }
 function createProblemMenuEntry(parent,display,func)
