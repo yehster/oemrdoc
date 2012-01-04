@@ -8,6 +8,7 @@
    @import "MedicationForms/MedSIGdialog.css";
    @import "AddProblem/TextAddProblem.css";
    @import "StatusInfo/StatusInfo.css";
+   @import "AddProblem/ManageProblem.css";
 </style>
 <script src="/openemr/library/doctrine/ui/InfoReview/InfoReview.js"></script>
 <?php
@@ -116,6 +117,7 @@ if(isset($_REQUEST['docUUID']))
 <script src="ManageExistingMeds/ManageExistingMeds.js"></script>
 <script src="EntryStatus/StatusUtils.js"></script>
 <script src="NarrativeShortcuts/NarrativeShortcuts.js"></script>
+<script src="AddProblem/ManageProblem.js"></script>
 <script src="/openemr/library/doctrine/ui/Billing/OEMRBillingProcess.js"></script>
 
 <script src="ajaxErrorHandler.js"></script>
@@ -124,6 +126,7 @@ if(isset($_REQUEST['docUUID']))
     {
         registerNarrativeShortcuts(parent);
         registerTextAddProblemEvents(parent);
+        registerManageProblemEvents(parent);
     }
     function registerControlEvents()
     {
@@ -136,12 +139,12 @@ if(isset($_REQUEST['docUUID']))
         registerDialogReviewEvents();
         registerManageSIGMedsEvents();        
         registerDocumentInfoEvents();
-        registerTextAddProblemEvents();
+  
         registerBillingEvents();
         registerFeeSheetEvents();
         registerUpdateSIGMedsEvents();
-        registerNarrativeShortcuts(null);
-        
+ 
+        reregisterEvents(null);
         $(document).ajaxError(handleAjaxError);
         $("#status").click(function(){$(this).hide();});
         $("#status").hide();

@@ -231,6 +231,7 @@ function createElement($DOM,$parent,$docEntry,$docItem)
             createButton($DOM,$newElem,$docEntry,"del",FUNC_DELETE);
             createButton($DOM,$newElem,$docEntry,"details",FUNC_DETAILS);
             createButton($DOM,$newElem,$docEntry,"med",FUNC_MED);
+            createButton($DOM,$newElem,$docEntry,"...",FUNC_MENU);
             $retVal=$DOM->createElement("UL"," ");
             $newElem->appendChild($retVal);
             $parent->appendChild($newElem);

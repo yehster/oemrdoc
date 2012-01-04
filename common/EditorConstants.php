@@ -44,5 +44,7 @@ define('FUNC_MED','MED');
 define('FUNC_SIG','SIG');
 define('FUNC_SHOWFORM','SHOWFORM');
 define('FUNC_PROC','PROCESS');
+define('FUNC_MENU','MENU');
+
 
 ?>

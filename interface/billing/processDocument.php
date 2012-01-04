@@ -21,6 +21,10 @@ if($doc->getOEMREncounter()==null)
     $username=$doctrineUser->getUsername();
     $OEMREnc=createEncounter($em,$pat,$prov,"normal",$DOS,$doc,$username);
 }
+else
+{
+    $doc->getOEMREncounter()->setDate($doc->getDateofservice());
+}
 
 // create a billing entries for the problems in this document.
 $problems=syncProblems($em,$doc,true);

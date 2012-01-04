@@ -1,0 +1,26 @@
+/* 
+    Document   : ManageProblem
+    Created on : Jan 4, 2012, 10:07:31 AM
+    Author     : yehster
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+span.menuContainer
+{
+    position:relative;
+}
+span.problemMenu
+{
+    position: absolute;
+    cursor: default;
+    background: lightgray;
+    opacity: 1;
+    z-index: 900;
+    min-width: 100px;
+}

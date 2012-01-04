@@ -11,7 +11,6 @@ function createEncounter($em,$pat,$providerID,$sensitivity,$DOS,$doc,$username)
     $conn->executeQuery($sequencesSQL);
 
     $encounter=$conn->lastInsertId();
-    error_log("Sequence".$id);
     
     $OEMREnc=new library\doctrine\Entities\OEMREncounter($pat,$DOS,$encounter,$providerID,$sensitivity);
 

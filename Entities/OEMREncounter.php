@@ -49,6 +49,12 @@ class OEMREncounter {
 	 */
 	protected $date;        
         
+        
+        public function setDate($val)
+        {
+            $this->date=$val;
+        }
+        
         /**
          * @Column(type="integer")
          */      

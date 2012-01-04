@@ -20,8 +20,10 @@ function setupEncountersForm(parent)
         ef=$(strEF).appendTo(parent);
         inputHCFA=$("<input type='submit' name='bn_process_hcfa' value='hcfa'>").appendTo(ef);
         inputX12=$("<input type='submit' name='bn_x12' value='x12'>").appendTo(ef);
-        inputMAC=$("<input name='HiddenMarkAsCleared' value='yes'").appendTo(ef);
-        inputBill=$("<input name='mode' value='bill'").appendTo(ef);
+        inputMAC=$("<input name='HiddenMarkAsCleared' value='yes'>").appendTo(ef);
+        inputLeftMargin=$("<input name='left_margin' value='26'>").appendTo(ef);
+        inputTopMargin=$("<input name='top_margin' value='22'>").appendTo(ef);
+        inputBill=$("<input name='mode' value='bill'>").appendTo(ef);
 
         spanEnc=$("<span class='encItems'> </span>").appendTo(ef);
     }
