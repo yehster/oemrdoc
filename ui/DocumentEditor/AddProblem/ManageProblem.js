@@ -1,3 +1,17 @@
+function sortProblem()
+{
+    menuSpan=$(this).parents("span.menuContainer");
+    button=menuSpan.find("button[func='MENU']");
+    entryUUID=button.attr("entryUUID");
+    task=$(this).attr("FUNC");
+    $.post("../../interface/sorting.php",
+    {
+        entryUUID: entryUUID,
+        task: task
+    },
+    function(data){ window.alert(data);}
+    )
+}
 function createProblemMenuEntry(parent,display,func)
 {
     tr=$("<tr></tr>").appendTo(parent);
@@ -12,18 +26,19 @@ function hideProblemMenu()
 }
 function displayProblemMenu(target)
 {
-    parent=$(target).parent("[entrytype='Problem']");
-    menu=parent.find("span.problemMenu");
+    parent=$(target).parent();
+    menu=$(target).siblings("span.problemMenu");
     if(menu.length==0)
     {
         newSpan=$("<span class='menuContainer'></span>").insertAfter(target);
         $(target).appendTo(newSpan)
         
         menu=$("<span class='problemMenu'></span>").insertAfter(target);
+        menu.attr("style","position:absolute;")
         table=$("<table class='problemMenu'><tbody></tbody></table>").appendTo(menu);
         tbody=table.find("tbody");
-        up=createProblemMenuEntry(tbody,"Move Up","UP");
-        down=createProblemMenuEntry(tbody,"Move Down","DOWN");
+        up=createProblemMenuEntry(tbody,"Move Up","UP").click(sortProblem);
+        down=createProblemMenuEntry(tbody,"Move Down","DOWN").click(sortProblem);
         change=createProblemMenuEntry(tbody,"Change Code","CHANGE");
         newSpan.mouseleave(hideProblemMenu)
     }
@@ -32,8 +47,8 @@ function displayProblemMenu(target)
 function menuClickProblem()
 {
     menu=displayProblemMenu(this);
-    $(this).hide();
-    menu.show();
+    menu.attr("style","position:absolute;")
+//    $(this).hide();
 }
 function registerManageProblemEvents(parent)
 {
