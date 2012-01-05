@@ -13,6 +13,25 @@ function findOrCreateChangeOptions(control,uuid)
     return problemList;
     
 }
+
+function postUpdateProblem(code,codeType,text,uuid)
+{
+    $.post("../../interface/problem/changeProblem.php",
+    {
+        entryUUID: uuid,
+        text: text,
+        code: code,
+        codeType: codeType,
+        refresh: "YES"
+    },
+    function(data)
+    {
+        refreshEntry(data.uuid,data.html);
+    },"json"
+    
+    );
+    
+}
 function updateProblem()
 {
     code=$(this).attr("code");
@@ -20,7 +39,7 @@ function updateProblem()
     text=$(this).text();
     parentElem=$(this).parents(".changeOptions[problemUUID]");
     uuid=parentElem.attr("problemUUID");
-    window.alert(parentElem.html());
+    postUpdateProblem(code,codeType,text,uuid);
     parentElem.hide();
 }
 
@@ -107,6 +126,10 @@ function hideProblemMenu()
 {
     $(this).find("button[func='MENU']").show();
     $(this).find("span.problemMenu").hide();
+    uuid=$(this).find("[problemuuid]").attr("problemuuid");
+    selector="section.changeOptions[problemUUID='"+uuid+"']";
+    $(selector).hide();
+    
 }
 function displayProblemMenu(target)
 {
@@ -142,9 +165,9 @@ function registerManageProblemEvents(parent)
 {
     if(parent==null)
     {
-        parent=$("body");
+        parent=$("body span[entrytype='Problem']");
     }
-    parent.find("span[entrytype='Problem'] button[func='MENU']").on(
+    parent.find("button[func='MENU']").on(
         {
             click: menuClickProblem,
             mouseenter: menuClickProblem
