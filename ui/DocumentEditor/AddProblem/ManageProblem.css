@@ -24,3 +24,15 @@ span.problemMenu
     z-index: 900;
     min-width: 100px;
 }
+section.changeOptions
+{
+    position: fixed;
+    background: white;
+    opacity: 1;
+    z-index: 1000;
+    top:5px;
+    right: 10px;
+    width: 48%;
+    height: 95%;    
+    overflow: auto;
+}
