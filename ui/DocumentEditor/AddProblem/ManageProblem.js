@@ -128,7 +128,8 @@ function hideProblemMenu()
     $(this).find("span.problemMenu").hide();
     uuid=$(this).find("[problemuuid]").attr("problemuuid");
     selector="section.changeOptions[problemUUID='"+uuid+"']";
-    $(selector).hide();
+    hideStatement="$(\""+selector+"\").hide()";
+    setTimeout(hideStatement,8000);
     
 }
 function displayProblemMenu(target)
