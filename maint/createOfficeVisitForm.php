@@ -198,6 +198,8 @@ findOrCreateMDCI($em,$prob,$ap);
 
 $fu = findOrCreateSection($em,'FOLL','Follow Up');
 findOrCreateMDCI($em,$fu,$ap);
+$funar = findOrCreateNarrativeMetadata($em,'FUNAR','Follow Up Narrative');
+findOrCreateMDCI($em,$funar,$fu);
 
 $billing = findOrCreateSection($em,'BILL','Billing');
 findOrCreateMDCI($em,$billing,$form);
