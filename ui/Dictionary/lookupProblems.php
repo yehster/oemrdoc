@@ -39,7 +39,7 @@ if(isset($_REQUEST["requestTime"]))
     {
         // is the a 
         $searchReq=$toks[0];
-        if( preg_match("/^[VE0-9][0-9]{0,2}[.]?/",$searchReq))
+        if( preg_match("/^[veVE0-9][0-9]{0,2}[.]?/",$searchReq))
         {
             findProblemsByCodeNum($em,$DOM,$tbody,$searchReq);
         }

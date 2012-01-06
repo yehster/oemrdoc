@@ -72,14 +72,18 @@ function addSectionControls($DOM,$Elem,$docEntry)
             createButton($DOM,$span,$docEntry,"Add Problem" ,"ADDPROB");
 
             break;
+        case SECTION_ALLERGIES:
+            createButton($DOM,$span,$docEntry,"Details",FUNC_SHOWFORM);
+            createButton($DOM,$span,$docEntry,"Review","REVIEW");
+            break;
         case SECTION_VITAL_SIGNS:
         case SECTION_PHYSICAL_EXAM:
-        case SECTION_ALLERGIES:
         case SECTION_FAMILY_HISTORY:
         case SECTION_REVIEW_OF_SYSTEMS:
         case SECTION_SOCIAL_HISTORY:
             createButton($DOM,$span,$docEntry,"Details",FUNC_SHOWFORM);
             createButton($DOM,$span,$docEntry,"Review","REVIEW");
+            createButton($DOM,$span,$docEntry,"comment",FUNC_DETAILS);            
             break;
         case SECTION_DRUG_ALLERGIES:
         case SECTION_FOOD_ALLERGIES:
@@ -88,6 +92,7 @@ function addSectionControls($DOM,$Elem,$docEntry)
         case SECTION_MEDICATIONS:
             createButton($DOM,$span,$docEntry,"med",FUNC_MED);
             createButton($DOM,$span,$docEntry,"Review","REVIEW");
+            createButton($DOM,$span,$docEntry,"Comment",FUNC_DETAILS);
             break;
         case SECTION_BILLING:
             break;
@@ -243,6 +248,7 @@ function createElement($DOM,$parent,$docEntry,$docItem)
             
             $label=createLabel($DOM,$newElem,$docEntry,htmlentities($docEntry->getText()),"LABEL");
             createButton($DOM,$newElem,$docEntry,"del",FUNC_DELETE);
+            createButton($DOM,$newElem,$docEntry,"comment",FUNC_DETAILS);
             $retVal=$newElem;
             $parent->appendChild($newElem);
             break;

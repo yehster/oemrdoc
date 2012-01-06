@@ -84,7 +84,7 @@ if($reviewDoc['doc']==null)
 {
     return;
 }
-echo "<DIV>".$reviewDoc['doc']->getModified()->format(DateTIME::ISO8601)."</DIV>";
+echo "<DIV>".$reviewDoc['doc']->getDateofservice()->format("Y-m-d")."</DIV>";
 $review=true;
 require_once("../DocumentEditor/DocumentEditorUtilities.php");
 function refreshSection($item,$DOM)

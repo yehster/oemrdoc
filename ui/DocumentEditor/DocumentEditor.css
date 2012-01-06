@@ -46,7 +46,7 @@ button {
     font-size: large;
 }
 textarea[entrytype='Narrative'] {
-    width: 400px;
+    width: 600px;
     font-size:small;
     
 }
