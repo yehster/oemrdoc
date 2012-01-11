@@ -98,6 +98,7 @@ function addSectionControls($DOM,$Elem,$docEntry)
             break;
         case SECTION_STUDIES:
             createButton($DOM,$span,$docEntry,"Add",FUNC_DETAILS);
+            createButton($DOM,$span,$docEntry,"Review","REVIEW");
             break;
     }
 }
@@ -244,8 +245,10 @@ function createElement($DOM,$parent,$docEntry,$docItem)
         case TYPE_MEDICATION_ENTRY:
             $newElem=createTagElem($DOM,$docEntry,"SPAN");
             $newElem->setAttribute("rxcui",$docEntry->getRXCUI());
-            $newElem->setAttribute("rxaui",$docEntry->getRXAUI()->getRXAUI());
-            
+            if($docEntry->getRXAUI()!=null)
+            {
+                $newElem->setAttribute("rxaui",$docEntry->getRXAUI()->getRXAUI());
+            }
             $label=createLabel($DOM,$newElem,$docEntry,htmlentities($docEntry->getText()),"LABEL");
             createButton($DOM,$newElem,$docEntry,"del",FUNC_DELETE);
             createButton($DOM,$newElem,$docEntry,"comment",FUNC_DETAILS);
@@ -269,10 +272,14 @@ function createElement($DOM,$parent,$docEntry,$docItem)
                 $retVal=$narSpan;
                 break;
             }
-            $newElem=createTagElem($DOM,$docEntry,"textarea",$docEntry->getText());
             if($docEntry->isLocked())
             {
-                $newElem->setAttribute("disabled","true");
+                            $newElem=createTagElem($DOM,$docEntry,"section",$docEntry->getText());
+            }
+            else
+            {
+                            $newElem=createTagElem($DOM,$docEntry,"textarea",$docEntry->getText());
+
             }
 //            $newElem->setAttribute("contenteditable","");
             $narSpan->appendChild($newElem);

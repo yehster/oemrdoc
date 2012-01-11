@@ -5,8 +5,8 @@ function findUnlockedDocs($em,$user)
         $qb = $em->createQueryBuilder()
         ->select("doc")
         ->from("library\doctrine\Entities\Document","doc")
-        ->where("doc.locked is null")
-        ->andWhere("doc.removed is null");
+//        ->where("doc.locked is null")
+        ->where("doc.removed is null");
         $qb->orderBy("doc.dateofservice","desc");
 
     $qry=$qb->getQuery();
