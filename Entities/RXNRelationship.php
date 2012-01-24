@@ -12,7 +12,7 @@
 
 namespace library\doctrine\Entities;
 /** @Entity
- *	@Table(name="RXNREL")
+ *	@Table(name="rxnrel")
  */
 class RXNRelationship {
 

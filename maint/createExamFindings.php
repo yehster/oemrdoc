@@ -11,8 +11,7 @@ function findorCreateExamFinding($em,$c,$ct,$txt,$class)
     $qb->setParameter(2,$c);
     $qb->setParameter(3,$ct);
 
-    $qry=$qb->getQuery();
-    try
+    $qry=$qb->getQuery();    try
     {
         $res=$qry->getSingleResult();
     }

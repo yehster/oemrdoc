@@ -68,6 +68,7 @@ function addSectionControls($DOM,$Elem,$docEntry)
             createButton($DOM,$span,$docEntry,"Review","REVIEW");
             break;
         case SECTION_PROBLEM_LIST:
+        case SECTION_IMPRESSION:
             createText($DOM,$span,$docEntry,"ADDPROB");
             createButton($DOM,$span,$docEntry,"Add Problem" ,"ADDPROB");
 
@@ -190,7 +191,7 @@ function createElement($DOM,$parent,$docEntry,$docItem)
 
 
             // Create a list for Problem lists
-            if($docEntry->getText()==SECTION_PROBLEM_LIST)
+            if(($docEntry->getText()==SECTION_PROBLEM_LIST) || ($docEntry->getText()==SECTION_IMPRESSION))
             {
                 $retVal=$DOM->createElement("OL"," ");
                 $newElem->appendChild($retVal);

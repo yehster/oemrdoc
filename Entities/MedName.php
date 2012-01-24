@@ -8,7 +8,7 @@
 
 namespace library\doctrine\Entities;
 /** @Entity
- *	@Table(name="RXNNAMES")
+ *	@Table(name="rxnnames")
  */
 class MedName {
     //put your code here

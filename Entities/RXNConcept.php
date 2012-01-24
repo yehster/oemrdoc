@@ -12,7 +12,7 @@
 
 namespace library\doctrine\Entities;
 /** @Entity
- *	@Table(name="RXNCONSO")
+ *	@Table(name="rxnconso")
  */
 class RXNConcept {
     /**

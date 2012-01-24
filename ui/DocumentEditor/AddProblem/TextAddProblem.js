@@ -176,6 +176,10 @@ function registerTextAddProblemEvents(parent)
     if(parent==null)
     {
         parent=$("section[name='Problem List']");
+        if(parent.length==0)
+            {
+                parent=$("section[name='Impression']");   
+            }
     }
     parent.find("input[type='text'][func='ADDPROB']").on(
         {

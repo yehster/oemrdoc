@@ -18,6 +18,7 @@ define('SECTION_PROBLEM_LIST',"Problem List");
 define('SECTION_ALLERGIES','Allergies');
 define('SECTION_DRUG_ALLERGIES','Drug Allergy');
 define('SECTION_FOOD_ALLERGIES','Food Allergy');
+define('SECTION_IMPRESSION',"Impression");
 
 define('SECTION_FAMILY_HISTORY','Family History');
 define('SECTION_SOCIAL_HISTORY','Social History');
