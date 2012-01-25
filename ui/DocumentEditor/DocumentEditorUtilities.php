@@ -2,6 +2,8 @@
 include_once("$doctrineroot/common/EditorConstants.php");
 require_once("$doctrineroot/ui/DocumentEditor/EntryStatus/StatusUtils.php");
 require_once("$doctrineroot/ui/DocumentEditor/AllergyInfo/AllergyInfo.php");
+require_once("$doctrineroot/ui/DocumentEditor/ImageEntry/ImageEntryInfo.php");
+
 function createButton($DOM,$Elem,$docEntry,$text,$func)
 {
     if($docEntry->isLocked())
@@ -307,6 +309,9 @@ function createElement($DOM,$parent,$docEntry,$docItem)
                 $GLOBALS['em']->flush();
                 
             }
+            break;
+        case TYPE_IMAGE_ENTRY:
+            $retVal=createImageEntry($DOM,$parent,$docEntry);
             break;
         case TYPE_OBSERVATION:
         default:

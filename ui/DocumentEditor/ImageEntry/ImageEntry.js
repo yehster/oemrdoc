@@ -1,18 +1,19 @@
 
 function handleCreateImage(data)
 {
-    window.alert(data);
+    refreshEntry(data.uuid,data.html);
 }
 function clickImageButtonEvt()
 {
     parentUUID=$(this).attr("entryuuid");
     $.post("../../interface/ImageEntry/manageImageEntry.php",
     {
-        task: "create",
+        task: "CREATE",
         parentUUID: parentUUID,
         refresh: "YES"
     },
-    handleCreateImage
+    handleCreateImage,
+    "json"
     );
 }
 function registerImageEntryEvents(parent)
