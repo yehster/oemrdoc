@@ -79,6 +79,7 @@ function addSectionControls($DOM,$Elem,$docEntry)
             break;
         case SECTION_VITAL_SIGNS:
         case SECTION_PHYSICAL_EXAM:
+            createButton($DOM,$span,$docEntry,"Image",FUNC_ADD_IMAGE);
         case SECTION_FAMILY_HISTORY:
         case SECTION_REVIEW_OF_SYSTEMS:
         case SECTION_SOCIAL_HISTORY:

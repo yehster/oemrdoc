@@ -118,6 +118,7 @@ if(isset($_REQUEST['docUUID']))
 <script src="EntryStatus/StatusUtils.js"></script>
 <script src="NarrativeShortcuts/NarrativeShortcuts.js"></script>
 <script src="AddProblem/ManageProblem.js"></script>
+<script src="ImageEntry/ImageEntry.js"></script>
 <script src="/openemr/library/doctrine/ui/Billing/OEMRBillingProcess.js"></script>
 
 <script src="ajaxErrorHandler.js"></script>
@@ -127,6 +128,7 @@ if(isset($_REQUEST['docUUID']))
         registerNarrativeShortcuts(parent);
         registerTextAddProblemEvents(parent);
         registerManageProblemEvents(parent);
+        registerImageEntryEvents(parent);
     }
     function registerControlEvents()
     {

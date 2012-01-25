@@ -46,6 +46,7 @@ define('FUNC_SIG','SIG');
 define('FUNC_SHOWFORM','SHOWFORM');
 define('FUNC_PROC','PROCESS');
 define('FUNC_MENU','MENU');
+define('FUNC_ADD_IMAGE','IMAGE');
 
 
 ?>
