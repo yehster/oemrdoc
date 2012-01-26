@@ -8,6 +8,6 @@
     left: 1em;
     background-color:#FFFFFF;
     border:1px solid #999999;
-
+    z-index: 10000;
 }
 

@@ -312,6 +312,7 @@ function createElement($DOM,$parent,$docEntry,$docItem)
             break;
         case TYPE_IMAGE_ENTRY:
             $retVal=createImageEntry($DOM,$parent,$docEntry);
+            $newElem=$retVal;
             break;
         case TYPE_OBSERVATION:
         default:

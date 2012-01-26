@@ -9,6 +9,7 @@
    @import "AddProblem/TextAddProblem.css";
    @import "StatusInfo/StatusInfo.css";
    @import "AddProblem/ManageProblem.css";
+   @import "ImageEntry/ImageEntry.css";
 </style>
 <script src="/openemr/library/doctrine/ui/InfoReview/InfoReview.js"></script>
 <?php
