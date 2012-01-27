@@ -18,6 +18,9 @@ findOrCreateMDCI($em,$imp,$form);
 $plan = findOrCreateSection($em,'PLAN','Plan');
 findOrCreateMDCI($em,$plan,$form);
 
+$plannar = findOrCreateNarrativeMetadata($em,'PLANNAR','Plan Narrative');
+findOrCreateMDCI($em,$plannar,$plan);
+
 
 $int = findOrCreateSection($em,'INT','Interval History');
 $intnar = findOrCreateNarrativeMetadata($em,'INTNAR','Interval History Narrative');

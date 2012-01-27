@@ -27,16 +27,8 @@ function contDraw(e)
             mouseY = e.pageY-$(this).offset().top;
             context.lineTo(mouseX,mouseY);
             canvas_state.point_count++;
-            distance=Math.pow(mouseX-canvas_state.X,2)+Math.pow(mouseY-canvas_state.Y,2);
-            ShowStatusMessage(distance);
-            if((distance>=9) || (canvas_state.point_count>5))
-                {
-                    context.stroke();
-                    canvas_state.point_count=0;
-                    canvas_state.X=mouseX;
-                    canvas_state.Y=mouseY;
-                }
-        }
+            context.stroke();
+    }
 
 }
 function endDraw(evt)
