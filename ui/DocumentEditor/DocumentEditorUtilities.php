@@ -104,6 +104,9 @@ function addSectionControls($DOM,$Elem,$docEntry)
             createButton($DOM,$span,$docEntry,"Add",FUNC_DETAILS);
             createButton($DOM,$span,$docEntry,"Review","REVIEW");
             break;
+        default:
+            createButton($DOM,$span,$docEntry,"Review","REVIEW");
+            break;
     }
 }
 
