@@ -178,7 +178,8 @@ if(isset($_REQUEST['docUUID']))
         formButtons=$("button[func='SHOWFORM']");
         if(formButtons.length==1)
             {
-                $(document).ready(function() {formButtons.click()});
+                // Don't do this for now!
+                //$(document).ready(function() {formButtons.click()});
             }
         if($("section[name='Billing']").length>0)
             {

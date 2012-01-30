@@ -39,6 +39,8 @@ $pe = findOrCreateSection($em,'PE','Physical Exam');
 $pe->setCode("22029-3","LOINC");
 findOrCreateMDCI($em,$pe,$form);
 
+$penar = findOrCreateNarrativeMetadata($em,'XRAYNAR','Physical Exam Narrative');
+findOrCreateMDCI($em,$penar,$pe);
 
 
 $xray = findOrCreateSection($em,'XRAY','X-rays');

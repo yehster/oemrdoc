@@ -1,6 +1,8 @@
 
     var KeyShortcutMap=new Array();
     KeyShortcutMap[112]="PATIENT";
+    KeyShortcutMap[110]="NOTINDICATED";
+
 function dispatchShortcut(textBox,keyCode)
 {
 

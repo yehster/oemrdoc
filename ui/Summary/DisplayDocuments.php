@@ -60,7 +60,7 @@ include_once('/var/www/openemr/library/doctrine/init-em.php');
         $sel=$DOM->createElement("SELECT");
         $sel->setAttribute("ID","doctrineType");
         $spanDoctrine->appendChild($sel);
-            $qry = $em->createQuery("SELECT dt FROM library\doctrine\Entities\DocumentType dt");
+            $qry = $em->createQuery("SELECT dt FROM library\doctrine\Entities\DocumentType dt order by dt.longDesc");
             $res = $qry->getResult();
             foreach($res as $value)
             {

@@ -10,5 +10,9 @@ if($shortcut=="PATIENT")
 {
     echo $pat->displayNarrative();
 }
+if($shortcut=="NOTINDICATED")
+{
+    echo "Not indicated";
+}
 
 ?>

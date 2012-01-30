@@ -6,7 +6,8 @@ function findCodesForKeyword($em,$kw,$codeSet="")
 {
 
 
-    $csArray=array('2','3','9','16','V');
+//    $csArray=array('2','3','9','16','V');
+    $codeSet="('17','13','6')";
    $qb = $em->createQueryBuilder()
         ->select("code")
         ->from("library\doctrine\Entities\Code","code")

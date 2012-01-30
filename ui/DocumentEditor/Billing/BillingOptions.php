@@ -20,10 +20,10 @@ $sel=$DOM->createElement("SELECT");
     for($idx=0;$idx<count($res);$idx++)
     {
         $curFSO=$res[$idx];
-        $opt=$DOM->createElement("option",$curFSO->getOption()."-".$curFSO->getCategory());
         $optVal=$curFSO->getCode();
-        $opt->setAttribute("value",$optVal);
         $codeVals=explode("|",$optVal);
+        $opt=$DOM->createElement("option",$codeVals[1].":".$curFSO->getOption()."-".$curFSO->getCategory());
+        $opt->setAttribute("value",$optVal);
         if(($doc->getOEMREncounter()!=null) && ($doc->getOEMREncounter()->isCodeBilled($codeVals[1])))
         {
             $opt->setAttribute("selected","true");
