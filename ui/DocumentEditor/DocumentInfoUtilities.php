@@ -1,6 +1,7 @@
 <?php
 
-    $infoSpan= $DOM->createElement("SPAN");
+    $infoSpan= $DOM->createElement("SECTION");
+    $infoSpan->setAttribute("class","info");
     $dateOfServiceLabel = $DOM->createElement("SPAN","Date of service:");
     $dateOfServiceLabel->setAttribute("class","LABEL");
     $infoSpan->appendChild($dateOfServiceLabel);

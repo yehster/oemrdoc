@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<html>
+    <head>
 <style type="text/css" media="all">
    @import "DocumentEditor.css";
    @import "medDialog.css";
@@ -10,6 +12,7 @@
    @import "StatusInfo/StatusInfo.css";
    @import "AddProblem/ManageProblem.css";
    @import "ImageEntry/ImageEntry.css";
+   @import "/openemr/interface/themes/style_metal.css";
 </style>
 <script src="/openemr/library/doctrine/ui/InfoReview/InfoReview.js"></script>
 <?php
@@ -200,9 +203,13 @@ if(isset($_REQUEST['docUUID']))
                 $(document).unbind('ajaxError'); 
             }
     }
+<?php 
+$GLOBALS['srcdir']="/var/www/openemr/library";
+$GLOBALS['webroot']="/openemr";
+require_once("/var/www/openemr/library" . "/no_frames/initialize_noframes.php"); 
+?>    
+    
 </script>
-<html>
-    <head>
         <meta charset="utf-8"/>
         <title><?php echo $doc->getMetadata()->getLongDesc().":";
                 $patient=$doc->getPatient();
