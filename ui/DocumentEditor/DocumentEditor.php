@@ -206,7 +206,6 @@ if(isset($_REQUEST['docUUID']))
 <?php 
 $GLOBALS['srcdir']="/var/www/openemr/library";
 $GLOBALS['webroot']="/openemr";
-require_once("/var/www/openemr/library" . "/no_frames/initialize_noframes.php"); 
 ?>    
     
 </script>
