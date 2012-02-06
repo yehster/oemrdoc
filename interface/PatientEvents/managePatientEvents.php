@@ -42,5 +42,14 @@ if(!isset($_REQUEST['task']))
     
 }
 
+$for_user='admin';
+//$event_type=1;
+
+switch ($task)
+{
+    case 'create':
+        create_patient_event($em,$user,$for_user,$event_type);
+        break;
+}   
 
 ?>
