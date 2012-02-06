@@ -12,11 +12,27 @@ class PatientEventStatus
      * @Column(type="integer")
      * @GeneratedValue
      */    
-    protected $id;
+    protected $id; 
     
+    public function getID()
+    {
+        return $this->id;
+    }
+
     /**
      * @Column(type="string") 
-     */    
+     */
     protected $text;
+    
+    
+    public function getText()
+    {
+        return $this->text;
+    }
+    /**
+     * @Column(type="integer") 
+     */    
+    protected $seq;
+    
 }
 ?>
