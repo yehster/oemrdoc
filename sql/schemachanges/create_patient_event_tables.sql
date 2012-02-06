@@ -13,7 +13,7 @@ CREATE TABLE `dct_patient_events` (
 
 
 CREATE TABLE `dct_patient_events_statuses` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `text` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8$$

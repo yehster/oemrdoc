@@ -8,7 +8,7 @@ if(isset($_REQUEST['patientID']))
 if(!isset($pat))
 {
     header("HTTP/1.0 403 Forbidden");
-    echo "No patient specified!";
+    die("No patient specified!");
     return;
     
 }
