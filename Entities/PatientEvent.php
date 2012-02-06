@@ -85,7 +85,12 @@ class PatientEvent {
     * @JoinColumn(name="status_id", referencedColumnName="id")
     */
     protected $status;
-    
+
+    /**
+     * @Column(type="string") 
+     */
+    protected $for_user;
+    // which user this event is relevant for.
 }
 
 ?>
