@@ -1,5 +1,6 @@
 <?php
 require_once("../../init-em.php");
+require_once("managePatientEventsUtilities.php");
 
 if(empty($_SESSION['authUser']))
 {
@@ -18,14 +19,14 @@ if($doctrineUser==null)
     return;    
 }
 
-if(empty($_REQUEST['patient_id']))
+if(empty($_REQUEST['patientID']))
 {
     header("HTTP/1.0 403 Forbidden");    
     echo "No patient set!";
     return;
 }
 
-$pat=$em->getRepository('library\doctrine\Entities\Patient')->find($_REQUEST['patient_id']);    
+$pat=$em->getRepository('library\doctrine\Entities\Patient')->find($_REQUEST['patientID']);    
 
 if($pat==null)
 {
@@ -41,14 +42,26 @@ if(!isset($_REQUEST['task']))
     return; 
     
 }
-
+$task=$_REQUEST['task'];
 $for_user='admin';
-//$event_type=1;
+
+if(isset($_REQUEST['eventType']))
+{
+    $event_type=$em->getRepository('library\doctrine\Entities\PatientEventStatus')->find($_REQUEST['eventType']);        
+}
+if($event_type==null)
+{
+    header("HTTP/1.0 403 Forbidden");
+    echo "No event_type specified";
+    return; 
+    
+}
+
 
 switch ($task)
 {
     case 'create':
-        create_patient_event($em,$user,$for_user,$event_type);
+        create_patient_event($em,$user,$pat,$for_user,$event_type);
         break;
 }   
 

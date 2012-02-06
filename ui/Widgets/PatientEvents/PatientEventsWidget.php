@@ -11,3 +11,8 @@ $eventsElem= generate_patient_events($em,$DOM,$events,$pat);
 echo $DOM->saveXML($eventsElem);
 
 ?>
+<script>
+    var oemr_pat_id=<?php echo $_REQUEST['patientID']; ?>;
+    var oemr_webroot="<?php echo $doctrinewebroot; ?>";
+</script>
+<script src="<?php echo $doctrinewebroot?>/ui/Widgets/PatientEvents/PatientEventWidget.js"> </script>

@@ -34,6 +34,8 @@ function generate_patient_events($em,$DOM,$parentElem,$pat)
         $parentElem=$DOM->createElement("section");
     }
     $event_type_select=$DOM->createElement("select");
+    
+    $event_type_select->setAttribute("class","patient_event_select");
     $parentElem->appendChild($event_type_select);
 
     generate_event_options($em,$DOM,$event_type_select);

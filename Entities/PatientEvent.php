@@ -29,6 +29,11 @@ class PatientEvent {
         return $this->uuid;
     }
 
+    /** 
+     * @Column(type="datetime") 
+     */
+    protected $created;
+    
     public function getCreated()
     {
         return $this->created;

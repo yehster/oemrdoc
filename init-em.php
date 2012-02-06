@@ -10,6 +10,7 @@ use Doctrine\ORM\EntityManager,
 set_include_path(get_include_path() . PATH_SEPARATOR . '/var/www/openemr');
 require_once("/var/www/openemr/sites/default/sqlconf.php");
 $doctrineroot="/var/www/openemr/library/doctrine";
+$doctrinewebroot="/openemr/library/doctrine";
 
     session_name("OpenEMR");
     session_start();
