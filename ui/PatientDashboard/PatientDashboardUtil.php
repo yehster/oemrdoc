@@ -53,6 +53,9 @@ function create_event($DOM,$parent,$event)
     
     $tdStatus=$DOM->createElement("td",$event->getStatus()->getText());
     $tr->appendChild($tdStatus);
+    
+    $tdTime=$DOM->createElement("td",$event->getTime()->format("h:i A"));
+    $tr->appendChild($tdTime);
 }
 function create_status_table($em,$DOM,$users)
 {
