@@ -30,8 +30,8 @@ function find_events($em,$users)
         ->from("library\doctrine\Entities\PatientEvent","evt")
         ->join("evt.status","st");
         $qb->Where("evt.time=(select max(esub.time) from library\doctrine\Entities\PatientEvent as esub where esub.patient=evt.patient and esub.time>:beg and esub.time<:end)");
-        $qb->andWhere("st.priority>0");
-        $qb->orderBy("evt.time","asc");
+        $qb->orderBy("st.priority","desc");
+        $qb->addOrderBy("evt.time","asc");
         
     $qb->setParameter("beg",$beg);
     $qb->setParameter("end",$end);
