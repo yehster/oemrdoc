@@ -15,3 +15,8 @@ body {
 {
     cursor: pointer;
 }
+.dashboard td[patid]
+{
+    cursor:pointer;
+    font-weight: bold;
+}

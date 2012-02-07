@@ -38,7 +38,7 @@ function generate_patient_events($em,$DOM,$parentElem,$pat,$patientEvent)
 {
     if(!isset($parentElem))
     {
-        $parentElem=$DOM->createElement("section");
+        $parentElem=$DOM->createElement("span");
         $parentElem->setAttribute("id","patient_events_widget");
     }
     $event_type_select=$DOM->createElement("select");
