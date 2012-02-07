@@ -91,6 +91,10 @@ class PatientEvent {
     */
     protected $status;
 
+    public function getStatus()
+    {
+        return $this->status;
+    }
     /**
      * @Column(type="string") 
      */

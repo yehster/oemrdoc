@@ -1,0 +1,17 @@
+/* 
+    Document   : PatientDashboard
+    Created on : Feb 6, 2012, 7:06:02 PM
+    Author     : yehster
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+body { 
+    background-color: #FEFDCF;
+    font-family: sans-serif;
+    font-size: small;
+}
+.dashboard th
+{
+    cursor: pointer;
+}
