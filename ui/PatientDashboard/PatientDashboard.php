@@ -12,6 +12,7 @@ require_once("$doctrineroot/ui/PatientDashboard/PatientDashboardUtil.php");
 
 $DOM = new DOMDocument("1.0","utf-8");
 
+$users=null;
 $patient_status_table=create_status_table($em,$DOM,$users);
 
 echo $DOM->saveXML($patient_status_table);

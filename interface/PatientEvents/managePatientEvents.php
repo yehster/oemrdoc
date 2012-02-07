@@ -61,8 +61,17 @@ if($event_type==null)
 switch ($task)
 {
     case 'create':
-        create_patient_event($em,$user,$pat,$for_user,$event_type);
+        $patientEvent=create_patient_event($em,$user,$pat,$for_user,$event_type);
         break;
 }   
-
+if(isset($_REQUEST['refresh']))
+{
+    if($_REQUEST['refresh']=='yes')
+    {
+        require_once("$doctrineroot/ui/Widgets/PatientEvents/PatientEventsUtil.php");
+        $DOM=new DOMDocument("1.0","utf-8");
+        $events_elem=generate_patient_events($em,$DOM,null,$pat,$patientEvent);
+        echo $DOM->saveXML($events_elem);
+    }
+}
 ?>

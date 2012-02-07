@@ -35,9 +35,7 @@ function find_events($em,$users)
     $qb->setParameter("end",$end);
     
     $qry=$qb->getQuery();
-    echo $qry->getSql();
     $res=$qry->getResult(); 
-    echo count($res);
     return $res;
 }
 

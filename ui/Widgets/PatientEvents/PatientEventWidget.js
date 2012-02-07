@@ -1,6 +1,7 @@
 function handle_event_create(data)
 {
-    window.alert(data);
+   $("#patient_events_widget").replaceWith(data);
+    bind_patient_event_events();
 }
 function event_select_change()
 {
@@ -11,11 +12,16 @@ function event_select_change()
             {
                 patientID: oemr_pat_id,
                 task: "create",
-                eventType: this.value
+                eventType: this.value,
+                refresh: 'yes'
             },
             handle_event_create
             );
             
         }
 }
-$(".patient_event_select").change(event_select_change);
+function bind_patient_event_events()
+{
+    $(".patient_event_select").change(event_select_change);
+}
+bind_patient_event_events();
