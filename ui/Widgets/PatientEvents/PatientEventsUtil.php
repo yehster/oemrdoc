@@ -23,9 +23,12 @@ function generate_event_options($em,$DOM,$parent,$patientEvent)
     foreach($res as $es)
     {
         $opt=generate_event_option($DOM,$parent,$es->getID(),$es->getText());
-        if($es->getID()==$patientEvent->getStatus()->getID())
+        if(isset($patientEvent))
         {
-            $opt->setAttribute("selected","true");
+            if($es->getID()==$patientEvent->getStatus()->getID())
+            {
+                $opt->setAttribute("selected","true");
+            }
         }
     }
         
@@ -46,9 +49,11 @@ function generate_patient_events($em,$DOM,$parentElem,$pat,$patientEvent)
     
     generate_event_options($em,$DOM,$event_type_select,$patientEvent);
     
-    $eventTime=$DOM->createElement("span",$patientEvent->getTime()->format("h:i:s a"));
-    $parentElem->appendChild($eventTime);
-    
+    if(isset($patientEvent))
+    {
+        $eventTime=$DOM->createElement("span",$patientEvent->getTime()->format("h:i:s a"));
+        $parentElem->appendChild($eventTime);
+    }
     return $parentElem;
 }
 ?>

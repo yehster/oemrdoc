@@ -33,6 +33,11 @@ class PatientEventStatus
      * @Column(type="integer") 
      */    
     protected $seq;
+
     
+    /**
+     * @Column(type="integer") 
+     */    
+    protected $priority;    
 }
 ?>
