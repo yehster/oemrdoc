@@ -1,0 +1,1 @@
+java -cp /mnt/nbp/integrallibre/build/classes/:/usr/lib/ure/share/java/java_uno.jar:/usr/lib/ure/share/java/juh.jar:/usr/lib/ure/share/java/jurt.jar:/usr/lib/ure/share/java/ridl.jar:/usr/lib/ure/share/java/unoloader.jar:/usr/share/libreoffice/basis3.4/sdk/classes/:/usr/share/libreoffice/basis3.4/program/classes/unoil.jar integrallibre.Integrallibre $1
