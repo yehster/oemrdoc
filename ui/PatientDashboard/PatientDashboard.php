@@ -6,7 +6,7 @@
     <body>        
 <script src="/openemr/library/js/jquery-1.7.1.min.js"></script>        
 <?php
-require_once("/var/www/openemr/library/doctrine/init-em.php");
+require_once("/var/www/openemr/library/doctrine/init-session.php");
 require_once("$doctrineroot/common/checkUser.php");
 require_once("$doctrineroot/ui/PatientDashboard/PatientDashboardUtil.php");
 

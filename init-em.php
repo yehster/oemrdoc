@@ -12,8 +12,6 @@ require_once("/var/www/openemr/sites/default/sqlconf.php");
 $doctrineroot="/var/www/openemr/library/doctrine";
 $doctrinewebroot="/openemr/library/doctrine";
 
-    session_name("OpenEMR");
-    session_start();
 
 //if(isset($_SESSION['em']))
 if(false) // not sure about caching entity manager for session

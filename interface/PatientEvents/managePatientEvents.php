@@ -1,5 +1,5 @@
 <?php
-require_once("../../init-em.php");
+require_once("../../init-session.php");
 require_once("managePatientEventsUtilities.php");
 
 if(empty($_SESSION['authUser']))

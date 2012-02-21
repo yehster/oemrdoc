@@ -25,7 +25,7 @@
 
 </style>
 <?php
-    include('/var/www/openemr/library/doctrine/init-em.php');
+    include('/var/www/openemr/library/doctrine/init-session.php');
     include('/var/www/openemr/library/doctrine/ui/FormUtilities.php');
     $sd="PE:GEN";
     $sect = $em->getRepository('library\doctrine\Entities\SectionHeading')->findOneBy(array('shortDesc' => $sd));

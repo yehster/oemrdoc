@@ -15,7 +15,7 @@ if (!empty($argc) && strstr($argv[0], basename(__FILE__))) {
 
 echo $start.":".$end.PHP_EOL;
 
-include('/var/www/openemr/library/doctrine/init-em.php');
+include('/var/www/openemr/library/doctrine/init-session.php');
 
 function generateKeywords($em,$code)
 {

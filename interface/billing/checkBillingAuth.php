@@ -1,5 +1,5 @@
 <?php
-require_once('/var/www/openemr/library/doctrine/init-em.php');
+require_once('/var/www/openemr/library/doctrine/init-session.php');
 $user = $_SESSION['authUser'];
 if($user==null)
 {

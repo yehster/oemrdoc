@@ -24,7 +24,7 @@
 </style>
 <?php
 
-include_once('/var/www/openemr/library/doctrine/init-em.php');
+include_once('/var/www/openemr/library/doctrine/init-session.php');
     $DOM = new DOMDocument("1.0","utf-8");
             $qry = $em->createQuery("SELECT dt FROM library\doctrine\Entities\DocumentType dt");
             $res = $qry->getResult();

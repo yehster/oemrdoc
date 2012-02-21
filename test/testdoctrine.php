@@ -7,7 +7,7 @@ else
     include('/var/www/openemr/interface/globals.php');
 }
 
-include('/var/www/openemr/library/doctrine/init-em.php');
+include('/var/www/openemr/library/doctrine/init-session.php');
 
 
 //phpinfo();

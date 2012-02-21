@@ -1,5 +1,5 @@
 <?php
-include_once('../init-em.php');
+include_once('../init-session.php');
 $lockedMessage="Cannot remove a locked document.";
 require_once('util/verifyDocumentOperation.php');
 try

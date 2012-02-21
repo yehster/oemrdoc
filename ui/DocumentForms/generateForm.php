@@ -1,5 +1,5 @@
 <?php
-require_once('../../init-em.php');
+require_once('../../init-session.php');
 require_once('generateFormUtilities.php');
 if(isset($_REQUEST["entryUUID"]))
 {

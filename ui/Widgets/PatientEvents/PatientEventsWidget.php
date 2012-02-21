@@ -1,5 +1,5 @@
 <?php
-require_once('/var/www/openemr/library/doctrine/init-em.php');
+require_once('/var/www/openemr/library/doctrine/init-session.php');
 require_once("$doctrineroot/common/checkInfo.php");
 require_once('PatientEventsUtil.php');
 require_once("$doctrineroot/queries/PatientEventQueries.php");

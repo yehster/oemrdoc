@@ -1,5 +1,5 @@
 <?php
-include_once('/var/www/openemr/library/doctrine/init-em.php');
+include_once('/var/www/openemr/library/doctrine/init-session.php');
 $lockedMessage="Cannot relock a document.";
 require_once('util/verifyDocumentOperation.php');
 require_once("$doctrineroot/interface/med/syncMedsForLock.php");

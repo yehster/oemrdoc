@@ -1,5 +1,5 @@
 <?php
-require_once('/var/www/openemr/library/doctrine/init-em.php');
+require_once('/var/www/openemr/library/doctrine/init-session.php');
 require_once('/var/www/openemr/library/doctrine/interface/checkAuth.php');
 
 require_once("dynamicMedSIGDialog.php");

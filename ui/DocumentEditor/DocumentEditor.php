@@ -16,7 +16,7 @@
 </style>
 <script src="/openemr/library/doctrine/ui/InfoReview/InfoReview.js"></script>
 <?php
-include_once('/var/www/openemr/library/doctrine/init-em.php');
+include_once('/var/www/openemr/library/doctrine/init-session.php');
 include_once("../../../sha1.js");
 include_once('DocumentEditorUtilities.php');
 if(isset($_REQUEST['docUUID']))

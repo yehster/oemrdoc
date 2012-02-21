@@ -17,7 +17,7 @@
 
 <?php
 //include_once('/var/www/openemr/interface/globals.php');
-include_once('/var/www/openemr/library/doctrine/init-em.php');
+include_once('/var/www/openemr/library/doctrine/init-session.php');
 include_once('/var/www/openemr/library/doctrine/ui/Editor/EditorConstants.php');
 include_once('/var/www/openemr/library/doctrine/ui/Editor/EditorUtilities.php');
 

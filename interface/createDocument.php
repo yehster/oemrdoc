@@ -4,7 +4,7 @@
  * Metadata object
  */
 include_once("/var/www/openemr/interface/globals.php");
-include_once('/var/www/openemr/library/doctrine/init-em.php');
+include_once('/var/www/openemr/library/doctrine/init-session.php');
 $user = $_SESSION['authUser'];
 if(isset($_SESSION['pid']))
 {

@@ -2,7 +2,7 @@
 session_name("OpenEMR");
 session_start();
 
-include_once('/var/www/openemr/library/doctrine/init-em.php');
+include_once('/var/www/openemr/library/doctrine/init-session.php');
 include_once('../ui/Editor/EditorUtilities.php');
 
 

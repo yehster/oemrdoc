@@ -5,7 +5,7 @@
 <html>
     <body>        
 <?php
-require_once("/var/www/openemr/library/doctrine/init-em.php");
+require_once("/var/www/openemr/library/doctrine/init-session.php");
 require_once("$doctrineroot/common/checkUser.php");
 require_once("$doctrineroot/ui/Documents/MyDocumentsUtil.php");
 

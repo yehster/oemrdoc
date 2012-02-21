@@ -1,5 +1,5 @@
 <?php
-include('/var/www/openemr/library/doctrine/init-em.php');
+include('/var/www/openemr/library/doctrine/init-session.php');
 include('metadataMaint.php');
 
 $form = $em->getRepository('library\doctrine\Entities\DocumentType')->findOneBy(array('shortDesc' => 'MR'));

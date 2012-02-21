@@ -1,6 +1,6 @@
 <?php
 
-include_once('/var/www/openemr/library/doctrine/init-em.php');
+include_once('/var/www/openemr/library/doctrine/init-session.php');
 require_once('../../interface/checkAuth.php');
 require_once('../../util/tokenize.php');
 require_once('reviewHistorySectionsUtil.php');

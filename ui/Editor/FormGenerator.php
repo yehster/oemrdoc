@@ -1,5 +1,5 @@
 <?php
-include('/var/www/openemr/library/doctrine/init-em.php');
+include('/var/www/openemr/library/doctrine/init-session.php');
 include_once('FormUtilities.php');
 include_once('FormChooseOptionsUtilities.php');
 /* This page generates the html needed to present a form
