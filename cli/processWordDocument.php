@@ -16,5 +16,11 @@ if (!empty($argc) && strstr($argv[0], basename(__FILE__))) {
 
 }
 
-generateXMLFromDocument($em,$filename,$path);
+$le=generateXMLFromDocument($em,$filename,$path);
+if(!$le->successful())
+{
+    echo "failed generating XML\n";
+    exit();
+}
+$XML=$le->getXMLDOM();
 ?>

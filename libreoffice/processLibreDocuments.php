@@ -18,18 +18,35 @@ function generateXMLFromDocument($em,$filename,$path)
     $last_output=exec($shell_cmd,$output,$ret_val);
     if($ret_val!="0")
     {
+        $lastSlash=strrpos($filename,"/");
+        $shortFile=substr($filename,$lastSlash+1);
+        $extPos=strrpos($shortFile,".DOC");
+        $shortFile=substr($shortFile,0,$extPos);
+        $errMsg="";
         foreach($output as $line)
         {
-            echo $line."\n";
+            $errMsg .= $line."\n";
         }
+        $lm = findOrCreatelibreFile($em,$shortFile);
+        $evt = new library\doctrine\Entities\libre\libreEvent($lm,"XML",false,$errMsg);
+        $em->persist($evt);
+        $em->flush();
+        
     }
     else
     {
-        $filename=$last_output;
-        $lm = findOrCreatelibreFile($em,$filename);
-        $evt = new library\doctrine\Entities\libre\libreEvent($lm,"XML",true);
+        $shortFile=$last_output;
+        $path=$output[count($output)-2];
+        $lm = findOrCreatelibreFile($em,$shortFile);
+        $evt = new library\doctrine\Entities\libre\libreEvent($lm,"XML",true,$path);
         $em->persist($evt);
         $em->flush();
     }
+    return $evt;
+}
+
+function matchPatient($em,$libreFile,$XMLDom)
+{
+    
 }
 ?>

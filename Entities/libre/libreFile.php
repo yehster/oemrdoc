@@ -17,6 +17,12 @@ class libreFile {
      */
     protected $filename;
     
+    
+    public function getFilename()
+    {
+        return $this->filename;
+    }
+    
     /*
      * @Column(type="text")
      */

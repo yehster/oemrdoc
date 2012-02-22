@@ -5,13 +5,14 @@ namespace library\doctrine\Entities\libre;
  *  @Table(name="libre_event")
  */
 class libreEvent {
-    public function __construct($libreFile,$ei,$suc)
+    public function __construct($libreFile,$ei,$suc,$msg)
     {
         $this->uuid=uuid_create();
         $this->created = new \DateTime();
         $this->file=$libreFile;
         $this->event_info=$ei;
         $this->success = $suc;
+        $this->message = $msg;
         $libreFile->addEvent($this);
     }
 
@@ -51,6 +52,29 @@ class libreEvent {
     * @Column(type="boolean") 
     */
     protected $success;
+    
+    public function successful()
+    {
+        return $this->success;
+    }
+    /**
+    * @Column(type="string") 
+    */
+    protected $message;
+    
+    public function getXMLDOM()
+    {
+        if(!$this->event_info=="XML")
+        {
+            return null;
+        }
+        if(!$this->successful())
+        {
+            return null;
+        }
+        $fullpath=$this->message.$this->file->getFilename().".xml";
+        echo $fullpath;
+    }
 }
 
 ?>
