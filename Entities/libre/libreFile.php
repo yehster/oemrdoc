@@ -22,15 +22,30 @@ class libreFile {
      */
     protected $original_path;
     
-	/** 
-	 * @Column(type="datetime") 
-	 */
-	protected $created;
+    /** 
+    * @Column(type="datetime") 
+    */
+    protected $created;
 
-        public function getCreated()
+    public function getCreated()
+    {
+        return $this->created;
+    }
+    
+    /**
+    * @OneToMany(targetEntity="libreEvent", mappedBy="file", cascade={"persist","remove"})
+    * @OrderBy({"created" = "DESC"})
+    */
+    protected $events;
+    
+    public function addEvent($le)
+    {
+        if($this->events==null)
         {
-            return $this->created;
-        }    
+            $this->events=new \Doctrine\Common\Collections\ArrayCollection();
+        }
+        $this->events->add($le);
+    }
 }
 
 ?>

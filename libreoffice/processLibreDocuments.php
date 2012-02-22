@@ -27,6 +27,8 @@ function generateXMLFromDocument($em,$filename,$path)
     {
         $filename=$last_output;
         $lm = findOrCreatelibreFile($em,$filename);
+        $evt = new library\doctrine\Entities\libre\libreEvent($lm,"XML",true);
+        $em->persist($evt);
         $em->flush();
     }
 }
