@@ -48,6 +48,7 @@ function generateXMLFromDocument($em,$filename,$path)
 function matchErrorHandler($errno,$errstr)
 {
     $evt=new library\doctrine\Entities\libre\libreEventPatientID($GLOBALS['matchPatientFile'],false,$errstr);
+    $GLOBALS['em']->persiet($evt);
     $GLOBALS['em']->flush();
 }
 
