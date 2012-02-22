@@ -5,7 +5,9 @@ namespace library\doctrine\Entities\libre;
  *  @Table(name="libre_event")
 *  @InheritanceType("SINGLE_TABLE")
  *  @DiscriminatorColumn(name="event_info", type="string")
- *  @DiscriminatorMap({"XML" = "libreEventXML"}) 
+ *  @DiscriminatorMap({"XML" = "libreEventXML",
+ *                     "PATID" = "libreEventPatientID"
+ *  }) 
 */
 class libreEvent {
     public function __construct($libreFile,$suc,$msg)
@@ -45,6 +47,10 @@ class libreEvent {
     */
     protected $file;
 
+    public function getFile()
+    {
+        return $this->file;
+    }
     /**
     * @Column(type="boolean") 
     */

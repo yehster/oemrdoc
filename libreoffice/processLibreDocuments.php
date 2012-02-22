@@ -45,8 +45,35 @@ function generateXMLFromDocument($em,$filename,$path)
     return $evt;
 }
 
+function matchErrorHandler($errno,$errstr)
+{
+    $evt=new library\doctrine\Entities\libre\libreEventPatientID($GLOBALS['matchPatientFile'],false,$errstr);
+    $GLOBALS['em']->flush();
+}
+
 function matchPatient($em,$libreFile,$XMLDom)
 {
     
+    try
+    {
+        $GLOBALS['matchPatientFile']=$libreFile;
+        set_error_handler("matchErrorHandler");
+        $pi=$XMLDom->getElementsByTagName("PatientIdentifiers")->item(0);
+        $elemPID=$pi->getElementsByTagName("PID");
+        $PID=$elemPID->item(0)->nodeValue;
+        
+        $elemDOB=$pi->getElementsByTagName("DateOfBirth");
+        $DOB=$elemDOB->item(0)->nodeValue;
+        
+        echo $PID.":".$DOB."\n";
+        $evt=new library\doctrine\Entities\libre\libreEventPatientID($libreFile,true,$PID);
+        $em->flush();
+        restore_error_handler();
+    }
+    catch(Exception $e)
+    {
+        $evt=new library\doctrine\Entities\libre\libreEventPatientID($libreFile,false,$e->getMessage());
+    }
+    return $evt;
 }
 ?>

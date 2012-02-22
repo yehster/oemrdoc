@@ -23,4 +23,5 @@ if(!$le->successful())
     exit();
 }
 $XML=$le->getXMLDOM();
+matchPatient($em,$le->getFile(),$XML);
 ?>

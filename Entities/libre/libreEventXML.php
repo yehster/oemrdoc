@@ -14,7 +14,9 @@ class libreEventXML  extends libreEvent
             return null;
         }
         $fullpath=$this->message.$this->file->getFilename().".xml";
-        echo $fullpath;
+        $DOM = new \DOMDocument;
+        $DOM->load($fullpath);
+        return $DOM;
     }
 
     
