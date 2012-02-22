@@ -51,7 +51,7 @@ function matchErrorHandler($errno,$errstr)
     $GLOBALS['em']->flush();
 }
 
-function verifyPatient($em,$patientName,$PID,$DOB)
+function verifyPatient($em,$patientName,$PID,$DOB, &$pat)
 {
     echo $PID."\n";
     $pat=$em->getRepository('library\doctrine\Entities\Patient')->findOneBy(array('pubpid'=>$PID));
@@ -61,7 +61,6 @@ function verifyPatient($em,$patientName,$PID,$DOB)
     }
     else
     {
-        echo $pat->displayName()."\n";       
     }
     return "";
 }
@@ -84,11 +83,12 @@ function matchPatient($em,$libreFile,$XMLDom)
         $patient=$elemPatient->item(0)->nodeValue;
         echo $patient.":".$PID.":".$DOB."\n";
         restore_error_handler();
-        
-        $msg=verifyPatient($em, $patient, $PID, $DOB);
+        $pat=null;
+        $msg=verifyPatient($em, $patient, $PID, $DOB,$pat);
         if($msg=="")
         {
             $evt=new library\doctrine\Entities\libre\libreEventPatientID($libreFile,true,$PID);
+            echo $pat->displayName() .":returned by reference\n";
             $em->flush();    
         }
         else {
