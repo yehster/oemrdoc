@@ -16,5 +16,5 @@ if (!empty($argc) && strstr($argv[0], basename(__FILE__))) {
 
 }
 
-generateXMLFromDocument($filename,$path);
+generateXMLFromDocument($em,$filename,$path);
 ?>

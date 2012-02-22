@@ -1,6 +1,15 @@
 <?php
-
-function generateXMLFromDocument($filename,$path)
+function findOrCreatelibreFile($em,$filename)
+{
+    $lf=$em->getRepository('library\doctrine\Entities\libre\libreFile')->find($filename);
+    if($lf===null)
+    {
+        $lf=new \library\doctrine\Entities\libre\libreFile($filename);
+        $em->persist($lf);
+    }
+    return $lf;
+}
+function generateXMLFromDocument($em,$filename,$path)
 {
     $shell_cmd="sh " .$GLOBALS['doctrineroot']."/shell/io.sh". " ".$filename. " ".$path;
     $shell_cmd=escapeshellcmd($shell_cmd);
@@ -17,6 +26,8 @@ function generateXMLFromDocument($filename,$path)
     else
     {
         $filename=$last_output;
+        $lm = findOrCreatelibreFile($em,$filename);
+        $em->flush();
     }
 }
 ?>
