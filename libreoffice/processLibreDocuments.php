@@ -60,6 +60,9 @@ function verifyPatient($em,$patientName,$PID,$DOB, &$pat)
     }
     else
     {
+        $pct=0;
+        $count =similar_text($patientName,$pat->normName(),$pct);
+        echo $pct."\n";
     }
     return "";
 }

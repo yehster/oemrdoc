@@ -73,6 +73,11 @@ class Patient
             return $this->lname .',' . $this->fname . ' ' . $this->mname;
         }
 
+        public function normName()
+        {
+            return $this->fname . ' ' . $this->mname .' '. $this->lname;
+            
+        }
         public function displayNarrative()
         {
             $age = date_diff(new \DateTime,$this->DOB);
