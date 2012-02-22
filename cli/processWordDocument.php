@@ -23,5 +23,6 @@ if(!$le->successful())
     exit();
 }
 $XML=$le->getXMLDOM();
-matchPatient($em,$le->getFile(),$XML);
+$lpe=matchPatient($em,$le->getFile(),$XML);
+echo $lpe->getMessage();
 ?>

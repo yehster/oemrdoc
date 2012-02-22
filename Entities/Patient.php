@@ -26,7 +26,12 @@ class Patient
 	/** @Column(type="string",length=255) */
 	protected $fname;
 
-	function getId()
+	/**
+         *  @Column(type="string") 
+         */
+	protected $pubpid;
+
+        function getId()
 	{
 		return $this->id;
 	}

@@ -53,6 +53,16 @@ function matchErrorHandler($errno,$errstr)
 
 function verifyPatient($em,$patientName,$PID,$DOB)
 {
+    echo $PID."\n";
+    $pat=$em->getRepository('library\doctrine\Entities\Patient')->findOneBy(array('pubpid'=>$PID));
+    if($pat==null)
+    {
+        return "No match for patient ID:".$PID . " ". $patientName;
+    }
+    else
+    {
+        echo $pat->displayName()."\n";       
+    }
     return "";
 }
 
@@ -73,6 +83,7 @@ function matchPatient($em,$libreFile,$XMLDom)
         $elemPatient=$pi->getElementsByTagName("Patient");
         $patient=$elemPatient->item(0)->nodeValue;
         echo $patient.":".$PID.":".$DOB."\n";
+        restore_error_handler();
         
         $msg=verifyPatient($em, $patient, $PID, $DOB);
         if($msg=="")
@@ -85,7 +96,6 @@ function matchPatient($em,$libreFile,$XMLDom)
             $em->flush();    
             
         }
-        restore_error_handler();
     }
     catch(Exception $e)
     {
