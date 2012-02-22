@@ -51,6 +51,11 @@ function matchErrorHandler($errno,$errstr)
     $GLOBALS['em']->flush();
 }
 
+function verifyPatient($em,$patientName,$PID,$DOB)
+{
+    return "";
+}
+
 function matchPatient($em,$libreFile,$XMLDom)
 {
     
@@ -65,9 +70,21 @@ function matchPatient($em,$libreFile,$XMLDom)
         $elemDOB=$pi->getElementsByTagName("DateOfBirth");
         $DOB=$elemDOB->item(0)->nodeValue;
         
-        echo $PID.":".$DOB."\n";
-        $evt=new library\doctrine\Entities\libre\libreEventPatientID($libreFile,true,$PID);
-        $em->flush();
+        $elemPatient=$pi->getElementsByTagName("Patient");
+        $patient=$elemPatient->item(0)->nodeValue;
+        echo $patient.":".$PID.":".$DOB."\n";
+        
+        $msg=verifyPatient($em, $patient, $PID, $DOB);
+        if($msg=="")
+        {
+            $evt=new library\doctrine\Entities\libre\libreEventPatientID($libreFile,true,$PID);
+            $em->flush();    
+        }
+        else {
+            $evt=new library\doctrine\Entities\libre\libreEventPatientID($libreFile,false,$msg);
+            $em->flush();    
+            
+        }
         restore_error_handler();
     }
     catch(Exception $e)
