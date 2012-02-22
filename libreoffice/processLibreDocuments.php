@@ -27,8 +27,8 @@ function generateXMLFromDocument($em,$filename,$path)
         {
             $errMsg .= $line."\n";
         }
-        $lm = findOrCreatelibreFile($em,$shortFile);
-        $evt = new library\doctrine\Entities\libre\libreEvent($lm,"XML",false,$errMsg);
+        $lf = findOrCreatelibreFile($em,$shortFile);
+        $evt = new library\doctrine\Entities\libre\libreEventXML($lf,false,$errMsg);
         $em->persist($evt);
         $em->flush();
         
@@ -38,7 +38,7 @@ function generateXMLFromDocument($em,$filename,$path)
         $shortFile=$last_output;
         $path=$output[count($output)-2];
         $lm = findOrCreatelibreFile($em,$shortFile);
-        $evt = new library\doctrine\Entities\libre\libreEvent($lm,"XML",true,$path);
+        $evt = new library\doctrine\Entities\libre\libreEventXML($lm,true,$path);
         $em->persist($evt);
         $em->flush();
     }

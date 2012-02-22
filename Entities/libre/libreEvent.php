@@ -3,14 +3,16 @@ namespace library\doctrine\Entities\libre;
 
 /** @Entity
  *  @Table(name="libre_event")
- */
+*  @InheritanceType("SINGLE_TABLE")
+ *  @DiscriminatorColumn(name="event_info", type="string")
+ *  @DiscriminatorMap({"XML" = "libreEventXML"}) 
+*/
 class libreEvent {
-    public function __construct($libreFile,$ei,$suc,$msg)
+    public function __construct($libreFile,$suc,$msg)
     {
         $this->uuid=uuid_create();
         $this->created = new \DateTime();
         $this->file=$libreFile;
-        $this->event_info=$ei;
         $this->success = $suc;
         $this->message = $msg;
         $libreFile->addEvent($this);
@@ -44,11 +46,6 @@ class libreEvent {
     protected $file;
 
     /**
-    * @Column(type="string") 
-    */
-    protected $event_info;
-
-    /**
     * @Column(type="boolean") 
     */
     protected $success;
@@ -62,19 +59,6 @@ class libreEvent {
     */
     protected $message;
     
-    public function getXMLDOM()
-    {
-        if(!$this->event_info=="XML")
-        {
-            return null;
-        }
-        if(!$this->successful())
-        {
-            return null;
-        }
-        $fullpath=$this->message.$this->file->getFilename().".xml";
-        echo $fullpath;
-    }
 }
 
 ?>
