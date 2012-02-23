@@ -25,4 +25,11 @@ if(!$le->successful())
 $XML=$le->getXMLDOM();
 $pat=null;
 $lpe=matchPatient($em,$le->getFile(),$XML,$pat);
+if(!$lpe->successful())
+{
+    echo $lpe->getMessage()."\n"."failed matching patient";
+    exit();
+}
+
+echo "Patient Matched:".$pat->displayName()."\n";
 ?>

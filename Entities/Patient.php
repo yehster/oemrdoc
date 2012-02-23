@@ -61,7 +61,7 @@ class Patient
         
 	function getDOB()
 	{
-		return $this->dob;
+		return $this->DOB;
 	}
 
 	/** @Column(type="datetime", name="date") */
@@ -75,7 +75,7 @@ class Patient
 
         public function normName()
         {
-            return $this->fname . ' ' . $this->mname .' '. $this->lname;
+            return $this->fname . ' ' . $this->lname;
             
         }
         public function displayNarrative()

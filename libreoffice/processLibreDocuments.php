@@ -61,9 +61,18 @@ function verifyPatient($em,$patientName,$PID,$DOB, &$pat)
     }
     else
     {
+        $dtDOB=  new \DateTime($DOB);
+        if($dtDOB!=$pat->getDOB())
+        {
+            return "DOB doesn't match";
+        }
         $pct=0;
-        $count =similar_text($patientName,$pat->normName(),$pct);
-        echo $pct."\n";
+        similar_text($patientName,$pat->normName(),$pct);
+        if($pct<60)
+        {
+            return "Names don't match:".$PID.":".$patientName."(document):".$pat->normName()."(EMR)";
+            $pat=null;
+        }
     }
     return "";
 }
@@ -74,7 +83,6 @@ function matchPatient($em,$libreFile,$XMLDom,&$pat)
     try
     {
         $GLOBALS['matchPatientFile']=$libreFile;
-        set_error_handler("matchErrorHandler");
         $pi=$XMLDom->getElementsByTagName("PatientIdentifiers")->item(0);
         $elemPID=$pi->getElementsByTagName("PID");
         $PID=$elemPID->item(0)->nodeValue;
@@ -84,7 +92,6 @@ function matchPatient($em,$libreFile,$XMLDom,&$pat)
         
         $elemPatient=$pi->getElementsByTagName("Patient");
         $patient=$elemPatient->item(0)->nodeValue;
-        restore_error_handler();
         $msg=verifyPatient($em, $patient, $PID, $DOB,$pat);
         if($msg=="")
         {
