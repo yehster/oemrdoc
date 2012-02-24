@@ -178,6 +178,24 @@ function findOrCreateSection($em,$doc,$header,$pat,$auth)
     $em->persist($retVal);
     return $retVal;
 }
+function findOrCreateNarrative($em,$parent,$content,$pat,$auth)
+{
+    $items=$parent->getItem()->getItems();
+    foreach($items as $item)
+    {
+        $docEntry=$item->getEntry();
+        if($docEntry->getType()=="Narrative")
+        {
+            if($docEntry->getText()==$content) return $docEntry;
+        }
+    }
+    
+    $newNarrative=new library\doctrine\Entities\Narrative(null, $pat, $auth);
+    $newNarrative->setText($content,$auth);
+    $newItem=$parent->getItem()->addEntry($newNarrative);
+    $em->persist($newNarrative);
+    return $newNarrative;
+}
 function createLibreDocument($em,$libreFile,$DOM,$user,$pat)
 {
     $auth=$user->getUsername();
@@ -189,16 +207,10 @@ function createLibreDocument($em,$libreFile,$DOM,$user,$pat)
         {
             $header=$section->getElementsByTagName("header")->item(0);
             $contents=$section->getElementsByTagName("content");
-            echo $header->nodeValue;
             $deSection=findOrCreateSection($em,$doc,$header->nodeValue,$pat,$auth);
             foreach($contents as $content)
             {
-              $newNarrative=new library\doctrine\Entities\Narrative(null, $pat, $auth);
-              $newNarrative->setText($content->nodeValue,$auth);
-              $newItem=$deSection->getItem()->addEntry($newNarrative);
-              $em->persist($newNarrative);
-                 
-              echo $content->nodeValue;            
+                $nar=findOrCreateNarrative($em,$deSection,$content->nodeValue,$pat,$auth);
             }
         }
     }
