@@ -200,6 +200,9 @@ function createLibreDocument($em,$libreFile,$DOM,$user,$pat)
 {
     $auth=$user->getUsername();
     $doc=findOrCreateTranscriptionInfo($em,$libreFile,$DOM,$user,$pat);
+    $DOS=$DOM->getElementsByTagName("DateOfService")->item(0)->nodeValue;
+    $dtDOS=  new \DateTime($DOS);
+    $doc->setDateofservice($dtDOS);
     $sections=$DOM->getElementsByTagName("section");
     foreach($sections as $section)
     {
