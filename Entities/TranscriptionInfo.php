@@ -7,10 +7,9 @@ include_once('DocumentEntry.php');
   */
 class TranscriptionInfo extends DocumentEntry
 {
-    public function __construct($md,$pat,$auth,$lf)
+    public function __construct($md,$pat,$auth)
     {
         parent::__construct($md,$pat,$auth);
-        $this->transcription_file=$lf;
     }
 
         const classtype = "TranscriptionInfo";
@@ -24,6 +23,11 @@ class TranscriptionInfo extends DocumentEntry
     * @JoinColumn(name="attr1", referencedColumnName="filename")
     */
     protected $transcription_file;
+
+    public function setTranscriptionFile($val)
+    {
+        $this->transcription_file=$val;
+    }
 }
 
 ?>

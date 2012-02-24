@@ -142,19 +142,16 @@ function findOrCreateTranscriptionInfo($em,$libreFile,$DOM,$user,$pat)
     
     if($de==null)
     {
-        $md->$em->getRepository('library\doctrine\Entities\DocumentType')->findOneBy(array('patient'=>$pat->getID(),'author'=>$auth,'transcription_file'=>$libreFile->getFilename()));
-    }
-    if($de->getItem()==null)
-    {
-        echo "need DI";
-        $doc=new \library\doctrine\Entities\Document($pat,$auth,null);
-        $di=new \library\doctrine\Entities\DocumentItem($doc,null,$pat,$auth);
+        $md=$em->getRepository('library\doctrine\Entities\DocumentType')->findOneBy(array('shortDesc'=>'Trans'));
+        if($md!=null);
+        $doc=new \library\doctrine\Entities\Document($pat,$auth,$md);
+        $de=$doc->getItems()->get(0)->getEntry();
+        $de->setTranscriptionFile($libreFile);
         $em->persist($doc);
-        $em->persist($di);
-        $doc->addItem($di);
-        $di->setEntry($de);
         $em->flush();
+        
     }
+    echo $de->getUUID();
     
 }
 function createLibreDocument($em,$libreFile,$DOM,$user,$pat)
