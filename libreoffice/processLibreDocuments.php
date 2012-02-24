@@ -148,14 +148,61 @@ function findOrCreateTranscriptionInfo($em,$libreFile,$DOM,$user,$pat)
         $de=$doc->getItems()->get(0)->getEntry();
         $de->setTranscriptionFile($libreFile);
         $em->persist($doc);
-        $em->flush();
+
         
     }
-    echo $de->getUUID();
-    
+    else
+    {
+        $doc=$de->getItem()->getRoot();
+    }
+    return $doc;
+}
+
+function findOrCreateSection($em,$doc,$header,$pat,$auth)
+{
+    $items=$doc->getItems();
+    foreach($items as $item)
+    {
+        $docEntry=$item->getEntry();
+        if($docEntry->getType()=="Section")
+        {
+            if($docEntry->getText()==$header) return $docEntry;
+        }
+    }
+    $retVal=new library\doctrine\Entities\Section(null,$pat,$auth);
+    $retVal->setText($header,$auth);
+    $di=new library\doctrine\Entities\DocumentItem($doc,null,$pat,$auth);
+    $di->setSeq(count($items)+2);
+    $di->setEntry($retVal);
+    $doc->addItem($di);
+    $em->persist($retVal);
+    return $retVal;
 }
 function createLibreDocument($em,$libreFile,$DOM,$user,$pat)
 {
+    $auth=$user->getUsername();
     $doc=findOrCreateTranscriptionInfo($em,$libreFile,$DOM,$user,$pat);
+    $sections=$DOM->getElementsByTagName("section");
+    foreach($sections as $section)
+    {
+        if(!$section->hasAttribute("tag"))
+        {
+            $header=$section->getElementsByTagName("header")->item(0);
+            $contents=$section->getElementsByTagName("content");
+            echo $header->nodeValue;
+            $deSection=findOrCreateSection($em,$doc,$header->nodeValue,$pat,$auth);
+            foreach($contents as $content)
+            {
+              $newNarrative=new library\doctrine\Entities\Narrative(null, $pat, $auth);
+              $newNarrative->setText($content->nodeValue,$auth);
+              $newItem=$deSection->getItem()->addEntry($newNarrative);
+              $em->persist($newNarrative);
+                 
+              echo $content->nodeValue;            
+            }
+        }
+    }
+    $em->flush();
+    
 }
 ?>
