@@ -214,6 +214,8 @@ function createLibreDocument($em,$libreFile,$DOM,$user,$pat)
             }
         }
     }
+    $evt=new library\doctrine\Entities\libre\libreEventImport($libreFile,true,$doc->getUUID());
+    $em->persist($evt);
     $em->flush();
     
 }

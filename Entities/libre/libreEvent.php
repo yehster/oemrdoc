@@ -7,7 +7,8 @@ namespace library\doctrine\Entities\libre;
  *  @DiscriminatorColumn(name="event_info", type="string")
  *  @DiscriminatorMap({"XML" = "libreEventXML",
  *                     "PATID" = "libreEventPatientID",
- *                     "USERID" = "libreEventUserID"
+ *                     "USERID" = "libreEventUserID",
+ *                     "IMPORT" = "libreEventImport"
  *  }) 
 */
 class libreEvent {
