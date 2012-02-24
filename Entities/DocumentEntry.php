@@ -15,7 +15,8 @@ include_once("EntryStatusCodes.php");
    "img" = "ImageEntry",
    "medsig" = "MedicationSIG",
    "bill" = "BillingEntry",
-   "link" = "DocumentLink"})
+   "link" = "DocumentLink",
+   "trans" = "TranscriptionInfo"})
  */
  class DocumentEntry
  {

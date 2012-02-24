@@ -27,10 +27,13 @@ class Document
         $this->metadata = $md;
 
         // recursively construct the sub-metadata items
-        foreach($md->getItems() as $value)
+        if($md!=null)
         {
-            $docItem = new DocumentItem($this,$value->getMetadata(),$pat,$aut);
-            $this->addItem($docItem);
+            foreach($md->getItems() as $value)
+            {
+                $docItem = new DocumentItem($this,$value->getMetadata(),$pat,$aut);
+                $this->addItem($docItem);
+            }
         }
     }
 

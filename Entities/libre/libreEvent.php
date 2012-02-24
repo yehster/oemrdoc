@@ -6,7 +6,8 @@ namespace library\doctrine\Entities\libre;
 *  @InheritanceType("SINGLE_TABLE")
  *  @DiscriminatorColumn(name="event_info", type="string")
  *  @DiscriminatorMap({"XML" = "libreEventXML",
- *                     "PATID" = "libreEventPatientID"
+ *                     "PATID" = "libreEventPatientID",
+ *                     "USERID" = "libreEventUserID"
  *  }) 
 */
 class libreEvent {

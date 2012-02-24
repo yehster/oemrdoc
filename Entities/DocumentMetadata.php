@@ -6,7 +6,11 @@ namespace library\doctrine\Entities;
  *  @Table(name="dct_document_metadata")
  *  @InheritanceType("SINGLE_TABLE")
  *  @DiscriminatorColumn(name="discr", type="string")
- *  @DiscriminatorMap({"doc"= "DocumentType","sect" = "SectionHeading", "narmd"="NarrativeMetadata"})
+ *  @DiscriminatorMap({"doc"= "DocumentType",
+ *                     "sect" = "SectionHeading", 
+ *                     "narmd"="NarrativeMetadata",
+ *                     "trans"="TranscriptionInfoMetadata"
+ * })
  */
  class DocumentMetadata
 {

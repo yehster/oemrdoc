@@ -26,7 +26,11 @@ class User
 		return $this->username;
 	}
 
+	/** @Column(type="string") */
+	protected $fname;
 
+	/** @Column(type="string") */
+	protected $lname;
 
 
 

@@ -40,7 +40,17 @@ function findOrCreateNarrativeMetadata($em,$sd,$ld)
     return $sect;
 }
 
-
+function findOrCreateTranscriptionInfoMetadata($em,$sd,$ld)
+{
+    $sect = $em->getRepository('library\doctrine\Entities\TranscriptionInfoMetadata')->findOneBy(array('shortDesc' => $sd));
+    if($sect == null)
+    {
+        $sect = new library\doctrine\Entities\TranscriptionInfoMetadata($sd,$ld);
+        $em->persist($sect);
+        $em->flush();
+    }
+    return $sect;
+}
 
 
 function findOrCreateMDCI($em,$md,$parent)

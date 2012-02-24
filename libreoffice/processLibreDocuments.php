@@ -110,4 +110,55 @@ function matchPatient($em,$libreFile,$XMLDom,&$pat)
     }
     return $evt;
 }
+
+function identifyDictator($em,$libreFile,$DOM,&$user)
+{
+        $pi=$DOM->getElementsByTagName("DocumentInfo")->item(0);
+        $elemDictator=$pi->getElementsByTagName("dictator")->item(0);
+        $elemFirstName=$elemDictator->getElementsByTagName("FirstName")->item(0);
+        $elemLastName=$elemDictator->getElementsByTagName("LastName")->item(0);
+        $FirstName=$elemFirstName->nodeValue;
+        $LastName=$elemLastName->nodeValue;
+        echo $FirstName ." ". $LastName ."\n";
+    
+        $user=$em->getRepository('library\doctrine\Entities\User')->findOneBy(array('fname'=>$FirstName,'lname'=>$LastName));
+        if($user==null)
+        {
+            $msg="Couldn't find user for:".$FirstName . " ". $LastName;
+            $evt=new library\doctrine\Entities\libre\libreEventUserID($libreFile,false,$msg);
+        }
+        else
+        {
+            $evt=new library\doctrine\Entities\libre\libreEventUserID($libreFile,true,$user->getUsername());
+        }
+        return $evt;
+}
+
+
+function findOrCreateTranscriptionInfo($em,$libreFile,$DOM,$user,$pat)
+{
+    $auth=$user->getUsername();
+    $de=$em->getRepository('library\doctrine\Entities\TranscriptionInfo')->findOneBy(array('patient'=>$pat->getID(),'author'=>$auth,'transcription_file'=>$libreFile->getFilename()));
+    
+    if($de==null)
+    {
+        $md->$em->getRepository('library\doctrine\Entities\DocumentType')->findOneBy(array('patient'=>$pat->getID(),'author'=>$auth,'transcription_file'=>$libreFile->getFilename()));
+    }
+    if($de->getItem()==null)
+    {
+        echo "need DI";
+        $doc=new \library\doctrine\Entities\Document($pat,$auth,null);
+        $di=new \library\doctrine\Entities\DocumentItem($doc,null,$pat,$auth);
+        $em->persist($doc);
+        $em->persist($di);
+        $doc->addItem($di);
+        $di->setEntry($de);
+        $em->flush();
+    }
+    
+}
+function createLibreDocument($em,$libreFile,$DOM,$user,$pat)
+{
+    $doc=findOrCreateTranscriptionInfo($em,$libreFile,$DOM,$user,$pat);
+}
 ?>

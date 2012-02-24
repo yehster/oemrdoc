@@ -210,7 +210,7 @@ $GLOBALS['webroot']="/openemr";
     
 </script>
         <meta charset="utf-8"/>
-        <title><?php echo $doc->getMetadata()->getLongDesc().":";
+        <title><?php if($doc->getMetadata()!=null) {echo $doc->getMetadata()->getLongDesc().":";}
                 $patient=$doc->getPatient();
                 echo $patient->displayName();
                 ?></title>

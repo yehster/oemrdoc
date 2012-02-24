@@ -32,4 +32,16 @@ if(!$lpe->successful())
 }
 
 echo "Patient Matched:".$pat->displayName()."\n";
+
+$user=null;
+$lue=identifyDictator($em,$le->getFile(),$XML,$user);
+if(!$lue->successful())
+{
+    echo $lue->getMessage()."\n"."Unable to determine user";
+    exit();
+}
+
+echo $user->getUsername();
+
+createLibreDocument($em,$lue->getFile(),$XML,$user,$pat);
 ?>

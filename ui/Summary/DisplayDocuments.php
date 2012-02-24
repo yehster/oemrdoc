@@ -106,8 +106,17 @@ if(isset($_SESSION['pid']))
                 {
                     $dateStr=$value->getModified()->format("m/d/y");
                 }
+                if($value->getMetadata()!=null)
+                {
+                    $docType=$value->getMetadata()->getText();               
+                }
+                else
+                {
+                    $docType="Document";
+                }
+                
                 $editorLink=$DOM->createElement("A",
-                $value->getMetadata()->getText()." ".
+                $docType." ".
                         $dateStr."(".
                         $value->getAuthor().")");
                 $link='/openemr/library/doctrine/ui/Editor/Editor.php?docUUID='.$value->getuuid();
