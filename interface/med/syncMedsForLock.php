@@ -5,7 +5,7 @@ require_once("$doctrineroot/Entities/EntryStatusCodes.php");
 
 function findMedSection($items)
 {
-    if($items==null)
+    if(count($items)==0)
     {
         return null;
     }
@@ -24,7 +24,15 @@ function findMedSection($items)
     }
     if(count($itemsQueue)>0)
     {
-            return findMedSection($itemsQueue);
+        $next_level_items=array();
+        foreach($itemsQueue as $item)
+        {
+            foreach($item->getItems() as $subitem)
+            {
+                $next_level_items[]=$subitem;
+            }
+        }
+            return findMedSection($next_level_items);
     }
     else
     {
