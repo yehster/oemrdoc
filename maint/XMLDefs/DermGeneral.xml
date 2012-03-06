@@ -7,7 +7,7 @@ and open the template in the editor.
 
 <root>
     <document type="Evaluation and Management"/>
-    <encounterDescription/>
+    <encounterContext/>
     <section long_desc="Chief Complaint" short_desc="CC" code="10154-3" code_type="LOINC"><narrative/></section>
     <section long_desc="Drug Allergies" short_desc="ALL:DRUG" code="A8380263" code_type="SNOMED"></section>
     <section long_desc="Assessment and Plan" short_desc="AandP" code='51847-2' code_type='LOINC'></section>
