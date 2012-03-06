@@ -10,4 +10,5 @@ if (!empty($argc) && strstr($argv[0], basename(__FILE__))) {
 $DOM = new \DOMDocument;
 $DOM->load($filename);
 
+echo $DOM->saveXML();
 ?>
