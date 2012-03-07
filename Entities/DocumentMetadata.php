@@ -96,6 +96,11 @@ namespace library\doctrine\Entities;
             return $this->items;
         }
 
+        public function addMetadata($md)
+        {
+            $mdci=new DocumentMetadataCollectionItem($md);
+            $this->addItem($mdci);
+        }
         public function makeEntry(Patient $pat,$auth)
         {
             return new DocumentEntry($this,$pat,$auth);

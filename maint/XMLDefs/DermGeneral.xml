@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root>
-    <document type="Evaluation and Management" short_desc="E/M"/><encounterContext/>
+    <document type="Evaluation and Management" short_desc="E/M"/>
+    <encounterContext/>
     <section long_desc="Chief Complaint" short_desc="CC" code="10154-3" code_type="LOINC"><narrative/></section>
     <section long_desc="Drug Allergies" short_desc="ALL:DRUG" code="A8380263" code_type="SNOMED"></section>
     <section long_desc="Assessment and Plan" short_desc="AandP" code='51847-2' code_type='LOINC'></section>
     <section long_desc="Dermatologic Problem List" short_desc="AandP" code='51847-2' code_type='LOINC'></section>
-    <section long_desc="Review of Systems" short_desc="ROS"></section>
+    <section long_desc="Review of Systems" short_desc="ROS" code='10187-3' code_type='LOINC'>
+        <section long_desc='Review of Systems:Cardiovascular' short_desc='ROS:CV' code="CV" code_type="ROS"></section>
+    </section>
     <section long_desc="Past Family Skin History"></section>
     <section long_desc="Physical Examination"></section>
     <section long_desc="Time Spent with Patient"></section>
     <checkbox content=">50% of time spent counseling patient. See assessment and plan for summary of discussion."/>
-    
 </root>
