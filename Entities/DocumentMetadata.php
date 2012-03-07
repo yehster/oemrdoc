@@ -73,12 +73,17 @@ namespace library\doctrine\Entities;
         }
 
       /**
-	* @OneToMany(targetEntity="DocumentMetadataCollectionItem", mappedBy="parent", cascade={"persist"})
+	* @OneToMany(targetEntity="DocumentMetadataCollectionItem", mappedBy="parent", cascade={"persist","remove"})
 	* @OrderBy({"seq" = "ASC"})
 	*/
 	protected $items;
 	// These are the child items of a parent metadata descriptor
 
+        /**
+         * @OneToOne(targetEntity="DocumentMetadataCollectionItem", mappedBy="metadata",cascade={"persist","remove"})* 
+         */
+        protected $ci;
+        
 	public function addItem($obj)
 	{
 		$this->items->add($obj);

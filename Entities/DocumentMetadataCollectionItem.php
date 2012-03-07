@@ -58,7 +58,7 @@ namespace library\doctrine\Entities;
 
 
 	/**
-	  * @OneToOne(targetEntity="DocumentMetadata", cascade={"persist"})
+	  * @OneToOne(targetEntity="DocumentMetadata", cascade={"persist","remove"}, inversedBy="ci")
 	  * @JoinColumn(name="metadata_id", referencedColumnName="uuid")
 	  */
 	protected $metadata;
