@@ -9,11 +9,14 @@ class DocumentXMLHandler
 
     protected $longDesc;
     protected $shortDesc;
+    public $clearExisting;
+
     
     public function __construct($em,$DOM)
     {
         $this->em=$em;
         $this->DOM=$DOM;       
+        $this->clearExisting=true;
     }
     
     protected function determineDocType()
@@ -29,6 +32,13 @@ class DocumentXMLHandler
     protected function findOrCreateRoot()
     {
         $this->mdDocumentType = $this->em->getRepository('library\doctrine\Entities\DocumentType')->findOneBy(array('longDesc' => $this->longDesc));
+        if($this->clearExisting)
+        {
+            $this->em->remove($this->mdDocumentType);
+            $this->em->flush();
+            echo "flushing";
+            $this->mdDocumentType=null;
+        }
         if($this->mdDocumentType==null)
         {
             $this->mdDocumentType=new library\doctrine\Entities\DocumentType($this->shortDesc,$this->longDesc);
