@@ -8,9 +8,16 @@
     <section long_desc="Dermatologic Problem List" short_desc="AandP" code='51847-2' code_type='LOINC'></section>
     <section long_desc="Review of Systems" short_desc="ROS" code='10187-3' code_type='LOINC'>
         <section long_desc='Review of Systems:Cardiovascular' short_desc='ROS:CV' code="CV" code_type="ROS"></section>
+        <section long_desc='Review of Systems:Musculoskeletal' short_desc='ROS:MS' code="MS" code_type="ROS"></section>
+        <section long_desc='Review of Systems:Endocrine' short_desc='ROS:ENDO' code="ENDO" code_type="ROS"></section>
+        <section long_desc='Review of Systems:Gastrointestinal' short_desc='ROS:GI' code="GI" code_type="ROS"></section>
+        <section long_desc='Review of Systems:Immunologic' short_desc='ROS:IMM' code="IMM" code_type="ROS"></section>
+        <section long_desc='Review of Systems:Neuro' short_desc='ROS:NEURO' code="NEURO" code_type="ROS"></section>
     </section>
-    <section long_desc="Past Family Skin History"></section>
-    <section long_desc="Physical Examination"></section>
+    <section long_desc="Past Family/Social/History" code="PFSH" code_type="DERM"></section>
+    <section long_desc="Physical Examination">
+        
+    </section>
     <section long_desc="Time Spent with Patient"></section>
     <checkbox content=">50% of time spent counseling patient. See assessment and plan for summary of discussion."/>
 </root>
