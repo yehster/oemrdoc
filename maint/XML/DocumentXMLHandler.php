@@ -34,10 +34,13 @@ class DocumentXMLHandler
         $this->mdDocumentType = $this->em->getRepository('library\doctrine\Entities\DocumentType')->findOneBy(array('longDesc' => $this->longDesc));
         if($this->clearExisting)
         {
-            $this->em->remove($this->mdDocumentType);
-            $this->em->flush();
-            echo "flushing";
-            $this->mdDocumentType=null;
+            if($this->mdDocumentType!=null)
+            {
+                $this->em->remove($this->mdDocumentType);
+                $this->em->flush();
+                echo "flushing";
+                $this->mdDocumentType=null;                
+            }
         }
         if($this->mdDocumentType==null)
         {
