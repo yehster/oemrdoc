@@ -15,8 +15,12 @@
         <section long_desc='Review of Systems:Neuro' short_desc='ROS:NEURO' code="NEURO" code_type="ROS"></section>
     </section>
     <section long_desc="Past Family/Social/History" code="PFSH" code_type="DERM"></section>
-    <section long_desc="Physical Examination">
-        
+    <section long_desc="Physical Exam" code="22029-3" code_type="LOINC">
+        <section long_desc='Physical Exam:Vital Signs' short_desc='PE:VIT' code="34565-2" code_type="LOINC"></section>
+        <section long_desc='Physical Exam:General' short_desc='PE:GEN' code="32434-3" code_type="LOINC"></section>
+        <section long_desc='Physical Exam:Extremities' short_desc='PE:EXT' code="10196-4" code_type="LOINC"></section>
+        <section long_desc='Physical Exam:Skin' short_desc='PE:SKIN' code="10206-1" code_type="LOINC"></section>
+        <section long_desc='Physical Exam:Psychiatric' short_desc='PE:PSYCH' code="11451-2" code_type="LOINC"></section>
     </section>
     <section long_desc="Time Spent with Patient"></section>
     <checkbox content=">50% of time spent counseling patient. See assessment and plan for summary of discussion."/>
