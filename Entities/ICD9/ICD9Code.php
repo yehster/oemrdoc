@@ -40,7 +40,14 @@ class ICD9Code {
 	* @OneToMany(targetEntity="ICD9Code", mappedBy="parent", cascade={"persist","remove"})
 	* @OrderBy({"seq" = "ASC"})
 	*/
-	private $children;    
+	protected $children;    
+
+      /**
+	* @OneToMany(targetEntity="ICD9Definition", mappedBy="icd9code", cascade={"persist","remove"})
+	* @OrderBy({"seq" = "ASC"})
+	*/
+	protected $definitions;    
+        
 }
 
 ?>
