@@ -7,11 +7,12 @@ namespace library\doctrine\Entities\ICD9;
 class ICD9Definition {
     //put your code here
 
-    public function __construct($cd,$sq,$def)
+    public function __construct($cd,$sq,$def,$dct_code)
     {
         $this->code=$cd;
         $this->seq=$sq;
         $this->definition=$def;
+        $this->icd9code=$dct_code;
         error_log("---->>>>".$this->code);
     }    
     
