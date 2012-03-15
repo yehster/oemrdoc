@@ -3,7 +3,14 @@ include('/var/www/openemr/library/doctrine/init-em.php');
 function stripCode($code,$info)
 {
     $loc=strpos($info,$code);
-    return substr($info,0,$loc-1);
+    if($loc===false)
+    {
+        return $info;
+    }
+    else
+    {
+        return substr($info,0,$loc-1);    
+    }
 }
 $code=$_REQUEST['code'];
 $info=$_REQUEST['info'];
@@ -31,6 +38,29 @@ $info=stripCode($code,$info);
            $em->persist($codeICD9);
            $em->flush();
        }
+       elseif ($type=="NS")
+       {
+           $codeICD9=new \library\doctrine\Entities\ICD9\ICD9NSCode($code,$info,$parentICD9);
+           error_log($info);
+           $em->persist($codeICD9);
+           $em->flush();
+           
+       }
+       elseif ($type=="SP")
+       {
+           $codeICD9=new \library\doctrine\Entities\ICD9\ICD9SPCode($code,$info,$parentICD9);
+           error_log($info);
+           $em->persist($codeICD9);
+           $em->flush();
+       }
+   }
+   else
+   {
+       if($parentICD9!=null)
+       {
+           $codeICD9->setParent($parentICD9);       
+       }
+       $em->flush();
    }
 
 

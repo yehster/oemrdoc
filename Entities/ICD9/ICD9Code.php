@@ -4,7 +4,7 @@ namespace library\doctrine\Entities\ICD9;
  *  @Table(name="dct_icd9_codes")
  *  @InheritanceType("SINGLE_TABLE")
  *  @DiscriminatorColumn(name="discr", type="string")
- *  @DiscriminatorMap({"sect" = "ICD9Section"})
+ *  @DiscriminatorMap({"sect" = "ICD9Section", "NS"="ICD9NSCode", "SP"="ICD9SPCode"})
  */
 
 class ICD9Code {
@@ -30,7 +30,17 @@ class ICD9Code {
      * @JoinColumn(name="parent", referencedColumnName="code")
      */    
     protected $parent;
+ 
+    public function setParent($par)
+    {
+        $this->parent=$par;
+    }
     
+      /**
+	* @OneToMany(targetEntity="ICD9Code", mappedBy="parent", cascade={"persist","remove"})
+	* @OrderBy({"seq" = "ASC"})
+	*/
+	private $children;    
 }
 
 ?>
