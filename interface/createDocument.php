@@ -43,4 +43,5 @@ if($pat!=null)
     }
     echo $doc->getUUID();
 }
+$em->close();
 ?>

@@ -141,3 +141,14 @@ if(isset($_SESSION['pid']))
 
 echo $DOM->saveXML($spanDoctrine);
 ?>
+<script>
+    $("#doctrineInfo a").click(function()
+{
+   if(top.createNewTab!=null)
+       {
+           top.createNewTab($(this).attr("href"),$(this).attr("href"));
+           return false; 
+       }
+   
+});
+</script>

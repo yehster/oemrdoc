@@ -17,4 +17,5 @@ if($def==null)
     $em->persist($def);
     $em->flush();
 }
+$em->close();
 ?>

@@ -46,7 +46,10 @@ function canvasEvents(parent)
         mousedown: startDraw,
         mousemove: contDraw,
         mouseup: endDraw,
-        mouseleave: endDraw
+        mouseleave: endDraw,
+        touchstart: startDraw,
+        touchmove: contDraw,
+        touchend: endDraw
     });
 }
 

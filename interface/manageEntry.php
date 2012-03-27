@@ -318,4 +318,5 @@ if(isset($_REQUEST['refresh']))
 }
 echo $result;
 
+$em->close();
 ?>

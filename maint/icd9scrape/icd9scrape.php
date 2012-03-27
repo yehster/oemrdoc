@@ -65,7 +65,7 @@ $info=stripCode($code,$info);
        $em->flush();
    }
 
-
+$em->close();
 
 
 
