@@ -11,7 +11,7 @@ set_include_path(get_include_path() . PATH_SEPARATOR . '/var/www/openemr');
 require_once("/var/www/openemr/sites/default/sqlconf.php");
 $doctrineroot="/var/www/openemr/library/doctrine";
 $doctrinewebroot="/openemr/library/doctrine";
-
+$GLOBALS['webroot']="/openemr/";
 
 //if(isset($_SESSION['em']))
 if(false) // not sure about caching entity manager for session

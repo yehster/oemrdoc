@@ -91,8 +91,10 @@ if(isset($_REQUEST['docUUID']))
     
     require_once("DocumentInfoUtilities.php");
     require("StatusInfo/StatusInfo.php"); 
+    require("/var/www/openemr/library/jquery-ui/jquery-ui.php");
 ?>
-<script src="../../../js/jquery-1.7.1.min.js"></script>
+
+
 <script>
     function refreshEntry(uuid,data)
     {
@@ -187,6 +189,7 @@ if(isset($_REQUEST['docUUID']))
             {
                 displayBilling();
             }
+        $("body button").button();
     }
 
 
