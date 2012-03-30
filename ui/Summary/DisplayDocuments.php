@@ -146,7 +146,7 @@ echo $DOM->saveXML($spanDoctrine);
 {
    if(top.createNewTab!=null)
        {
-           top.createNewTab($(this).attr("href"),$(this).attr("href"));
+           top.createNewTab("Doctrine",$(this).attr("href"));
            return false; 
        }
    

@@ -15,6 +15,7 @@
    @import "/openemr/interface/themes/style_metal.css";
 </style>
 <script src="/openemr/library/doctrine/ui/InfoReview/InfoReview.js"></script>
+<script src="/openemr/library/js/jquery-1.7.1.min.js"></script>
 <?php
 include_once('/var/www/openemr/library/doctrine/init-session.php');
 include_once("../../../sha1.js");
@@ -91,7 +92,6 @@ if(isset($_REQUEST['docUUID']))
     
     require_once("DocumentInfoUtilities.php");
     require("StatusInfo/StatusInfo.php"); 
-    require("/var/www/openemr/library/jquery-ui/jquery-ui.php");
 ?>
 
 
@@ -189,7 +189,6 @@ if(isset($_REQUEST['docUUID']))
             {
                 displayBilling();
             }
-        $("body button").button();
     }
 
 
