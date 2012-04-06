@@ -20,6 +20,7 @@ foreach($libreFiles as $lf)
 {
     $newRow=$DOM->createElement("tr");
     $tbody->appendChild($newRow);
+    $tbody->setAttribute("id","libreStatus");
     $newData=$DOM->createElement("td",$lf->getFilename());
     $newRow->appendChild($newData);
  
