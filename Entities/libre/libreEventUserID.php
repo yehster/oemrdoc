@@ -7,6 +7,12 @@ include_once('libreEvent.php');
  */
 class libreEventUserID extends libreEvent
 {
+        const classtype = "UserID";
+        public function getType()
+        {
+            return self::classtype;
+        }    
+    
 }
 
 ?>

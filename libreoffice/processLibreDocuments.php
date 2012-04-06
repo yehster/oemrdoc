@@ -48,7 +48,7 @@ function generateXMLFromDocument($em,$filename,$path)
 function matchErrorHandler($errno,$errstr)
 {
     $evt=new library\doctrine\Entities\libre\libreEventPatientID($GLOBALS['matchPatientFile'],false,$errstr);
-    $GLOBALS['em']->persiet($evt);
+    $GLOBALS['em']->persist($evt);
     $GLOBALS['em']->flush();
 }
 
@@ -196,30 +196,44 @@ function findOrCreateNarrative($em,$parent,$content,$pat,$auth)
     $em->persist($newNarrative);
     return $newNarrative;
 }
+
 function createLibreDocument($em,$libreFile,$DOM,$user,$pat)
 {
-    $auth=$user->getUsername();
-    $doc=findOrCreateTranscriptionInfo($em,$libreFile,$DOM,$user,$pat);
-    $DOS=$DOM->getElementsByTagName("DateOfService")->item(0)->nodeValue;
-    $dtDOS=  new \DateTime($DOS);
-    $doc->setDateofservice($dtDOS);
-    $sections=$DOM->getElementsByTagName("section");
-    foreach($sections as $section)
+    try
     {
-        if(!$section->hasAttribute("tag"))
+        $auth=$user->getUsername();
+        $doc=findOrCreateTranscriptionInfo($em,$libreFile,$DOM,$user,$pat);
+        if($doc->isLocked())
         {
-            $header=$section->getElementsByTagName("header")->item(0);
-            $contents=$section->getElementsByTagName("content");
-            $deSection=findOrCreateSection($em,$doc,$header->nodeValue,$pat,$auth);
-            foreach($contents as $content)
+            $evt=new library\doctrine\Entities\libre\libreEventImport($libreFile,false,"can't modify locked document!");
+            $em->persist($evt);
+            $em->flush();        
+            return;
+        }
+        $DOS=$DOM->getElementsByTagName("DateOfService")->item(0)->nodeValue;
+        $dtDOS=  new \DateTime($DOS);
+        $doc->setDateofservice($dtDOS);
+        $sections=$DOM->getElementsByTagName("section");
+        foreach($sections as $section)
+        {
+            if(!$section->hasAttribute("tag"))
             {
-                $nar=findOrCreateNarrative($em,$deSection,$content->nodeValue,$pat,$auth);
+                $header=$section->getElementsByTagName("header")->item(0);
+                $contents=$section->getElementsByTagName("content");
+                $deSection=findOrCreateSection($em,$doc,$header->nodeValue,$pat,$auth);
+                foreach($contents as $content)
+                {
+                    $nar=findOrCreateNarrative($em,$deSection,$content->nodeValue,$pat,$auth);
+                }
             }
         }
+        $evt=new library\doctrine\Entities\libre\libreEventImport($libreFile,true,$doc->getUUID());
+        $em->persist($evt);
+        $em->flush();        
     }
-    $evt=new library\doctrine\Entities\libre\libreEventImport($libreFile,true,$doc->getUUID());
-    $em->persist($evt);
-    $em->flush();
-    
+    catch(Exception $e)
+    {
+        error_log($e->getMessage());
+    }
 }
 ?>

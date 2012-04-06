@@ -40,7 +40,7 @@ class libreFile {
     
     /**
     * @OneToMany(targetEntity="libreEvent", mappedBy="file", cascade={"persist","remove"})
-    * @OrderBy({"created" = "DESC"})
+    * @OrderBy({"seq" = "DESC"})
     */
     protected $events;
     
@@ -51,6 +51,12 @@ class libreFile {
             $this->events=new \Doctrine\Common\Collections\ArrayCollection();
         }
         $this->events->add($le);
+        $le->setSeq(count($this->events));
+    }
+    
+    public function getEvents()
+    {
+        return $this->events;
     }
 }
 

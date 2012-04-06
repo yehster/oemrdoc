@@ -7,6 +7,12 @@ include_once('libreEvent.php');
   */
 class libreEventXML  extends libreEvent 
 {
+    const classtype = "XML";
+    public function getType()
+    {
+        return self::classtype;
+    }    
+    
     public function getXMLDOM()
     {
         if(!$this->successful())

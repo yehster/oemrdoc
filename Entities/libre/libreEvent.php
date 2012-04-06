@@ -22,6 +22,11 @@ class libreEvent {
         $libreFile->addEvent($this);
     }
 
+    const classtype = "libreEvent";
+    public function getType()
+    {
+        return self::classtype;
+    }        
     /**
     * @Id 
     * @Column(type="string") 
@@ -62,6 +67,7 @@ class libreEvent {
     {
         return $this->success;
     }
+
     /**
     * @Column(type="string") 
     */
@@ -71,6 +77,22 @@ class libreEvent {
     {
         return $this->message;
     }
+
+    /**
+    * @Column(type="integer") 
+    */
+    protected $seq;
+    
+    public function getSeq()
+    {
+        return $this->seq;
+    }    
+
+    public function setSeq($val)
+    {
+        $this->seq=$val;
+    }    
+    
 }
 
 ?>

@@ -7,6 +7,12 @@ include_once('libreEvent.php');
  */
 class libreEventImport extends libreEvent
 {
+
+        const classtype = "Import";
+        public function getType()
+        {
+            return self::classtype;
+        }    
 }
 
 ?>
