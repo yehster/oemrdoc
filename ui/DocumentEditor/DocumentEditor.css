@@ -177,3 +177,7 @@ section[name='Follow Up'] textarea[entrytype='Narrative']
     height: 1em;
     width: 300px;
 }
+div
+{
+    height: auto;
+}
