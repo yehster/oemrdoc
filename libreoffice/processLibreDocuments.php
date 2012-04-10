@@ -57,7 +57,7 @@ function verifyPatient($em,$patientName,$PID,$DOB, &$pat)
     $pat=$em->getRepository('library\doctrine\Entities\Patient')->findOneBy(array('pubpid'=>$PID));
     if($pat==null)
     {
-        return "No match for patient ID:".$PID . " ". $patientName;
+        return "No match for patient ID:".$PID . " ". $patientName. " ".$DOB;
     }
     else
     {
