@@ -35,14 +35,18 @@ function createDocRow($DOM,$parent,$doc)
     $tr=$DOM->createElement("tr");
     $parent->appendChild($tr);
     $tr->setAttribute("docUUID",$doc->getUUID());
-    $tdPatient=$DOM->createElement("td",$doc->getPatient()->displayName());
+    $patient=$doc->getPatient();
+    $tdPatient=$DOM->createElement("td",$patient->displayName());
     $tdPatient->setAttribute("class","patient");
     $tr->appendChild($tdPatient);
+    
+    $tdPatDOB=$DOM->createElement("td",$patient->getDOB()->format('m/d/y'));
+    $tr->appendChild($tdPatDOB);
     
     $tdMetadata=$DOM->createElement("td",$doc->getMetadata()->getText());
     $tr->appendChild($tdMetadata);
     
-    $td=$DOM->createElement("td",$doc->getDateOfService()->format("m-d-y"));
+    $td=$DOM->createElement("td",$doc->getDateOfService()->format("m/d/y"));
     $tr->appendChild($td);
     
     $pat=$doc->getPatient();
@@ -97,6 +101,9 @@ function genDocsHeader($DOM,$parent)
     $parent->appendChild($tr);
     
     $thPat=$DOM->createElement("TH","Patient");
+    $tr->appendChild($thPat);
+
+    $thPat=$DOM->createElement("TH","DOB");
     $tr->appendChild($thPat);
 
     $thDocType=$DOM->createElement("TH","Document Type");
