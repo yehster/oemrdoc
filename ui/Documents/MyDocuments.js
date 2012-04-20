@@ -7,6 +7,7 @@ function clickDocRow()
     
     if(top.createNewTab!=null)
         {
+            top.removeCreatedTabs();
             top.createNewTab("Doctrine","../../library/doctrine/ui/DocumentEditor/DocumentEditor.php?docUUID="+docUUID);
         }
 
