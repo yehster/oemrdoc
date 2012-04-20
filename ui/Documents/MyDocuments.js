@@ -1,7 +1,14 @@
 function clickDocRow()
 {
-    docUUID=$(this).parent().attr("docUUID");
-    window.location.href="../DocumentEditor/DocumentEditor.php?docUUID="+docUUID;
+    var docUUID=$(this).parent().attr("docUUID");
+    var pid = $(this).parent().attr("patid");
+    var new_url="/openemr/interface/patient_file/summary/demographics.php?set_pid="+pid;
+    window.location.href=new_url;
+    
+    if(top.createNewTab!=null)
+        {
+            top.createNewTab("Doctrine","../../library/doctrine/ui/DocumentEditor/DocumentEditor.php?docUUID="+docUUID);
+        }
 
 }
 
@@ -25,5 +32,5 @@ function clickBill()
 function registerMyDocsEvents(parent)
 {
     parent.find("tr[docUUID] td.patient").click(clickDocRow);
-    parent.find("button.bill").click(clickBill)
+    parent.find("button.bill").click(clickBill);
 }
