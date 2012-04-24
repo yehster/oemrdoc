@@ -176,7 +176,7 @@ if(isset($_REQUEST['docUUID']))
             {
                 if(top.document.title!==document.title)
                     {
-                        top.document.title="OpenEMR:"+document.title;                      
+                        //top.document.title="OpenEMR:"+document.title;                      
                     }
             }
         // If there is only one details section, then display it.

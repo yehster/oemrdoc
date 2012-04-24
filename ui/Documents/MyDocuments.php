@@ -3,6 +3,9 @@
    @import "MyDocuments.css";
 </style>
 <html>
+    <head>
+        <title>My Documents</title>
+    </head>
     <body>        
 <?php
 require_once("/var/www/openemr/library/doctrine/init-session.php");

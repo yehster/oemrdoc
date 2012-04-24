@@ -15,7 +15,7 @@
         $dateString="";
     }
     $dateOfServiceInfo = $DOM->createElement("INPUT");
-    $dateOfServiceInfo->setAttribute("type","date");    
+    $dateOfServiceInfo->setAttribute("type","text");    
     $dateOfServiceInfo->setAttribute("value",$dateString);
     
     if($doc->isLocked())

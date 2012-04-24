@@ -3,6 +3,9 @@
    @import "PatientDashboard.css";
 </style>
 <html>
+    <head>
+        <title>Dashboard</title>
+    </head>    
     <body>        
 <script src="/openemr/library/js/jquery-1.7.1.min.js"></script>        
 <?php

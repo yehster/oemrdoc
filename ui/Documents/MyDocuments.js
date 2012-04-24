@@ -3,9 +3,16 @@ function clickDocRow()
     var docUUID=$(this).parent().attr("docUUID");
     var pid = $(this).parent().attr("patid");
     var new_url="/openemr/interface/patient_file/summary/demographics.php?set_pid="+pid;
-    window.location.href=new_url;
+    if(typeof top.goPid!="undefined")
+        {
+            top.goPid(pid);
+        }
+        else
+            {
+                window.location.href=new_url;    
+            }
     
-    if(top.createNewTab!=null)
+    if(typeof top.createNewTab!="undefined")
         {
             top.removeCreatedTabs();
             top.createNewTab("Doctrine","../../library/doctrine/ui/DocumentEditor/DocumentEditor.php?docUUID="+docUUID);
