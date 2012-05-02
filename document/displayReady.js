@@ -1,15 +1,9 @@
-function addSectionControls()
+function simplifyDisplay()
 {
-    var root_sections=$("section[depth='1']");
-    var medications=$("section > span.label:contains('Medications')");
-    var problems=$("section > span.label:contains('Problem List')");
-    problems.after("<input type='text'/>");
+    var secondary_sections=$("section[depth='2']");
+    secondary_sections.each(hideEmpty);
 
-   var secondary_sections=$("section[depth='2']");
-   secondary_sections.each(hideEmpty);
- 
 }
-
 function hideEmpty(idx,elem)
 {
     var section=$(elem);
@@ -28,4 +22,4 @@ function hideEmpty(idx,elem)
                 }
         }
 }
-addSectionControls();
+simplifyDisplay();

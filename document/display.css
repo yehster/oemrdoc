@@ -1,17 +1,23 @@
 
 
-span[entrytype="Observation"]
+span[entrytype="Observation"]:not(:last-child):after
 {
-    margin: 0 0.1em;
-    padding: 0 0.05em;
-    border: black 1px dashed;
+content: ",";
 }
 
 section[entrytype="Section"][depth="1"]
 {
-    
+    border-top:2px black solid;
+    border-left: 2px black solid;
+    border-right: 2px black solid;   
+}
+section[entrytype="Section"][depth="1"]:last-of-type
+{
+    border-bottom:2px black solid;
 }
 
+span.content{
+}
 section[entrytype="Section"][depth="2"]
 {
     margin: 0 0 0 2em;

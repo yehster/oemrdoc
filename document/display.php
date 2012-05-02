@@ -36,6 +36,7 @@ $docInfo=$DOM->createElement("section",$doc->getMetadata()->getLongDesc()." : ".
 $body->appendChild($docInfo);
 
 $MainSpan=$DOM->createElement("section");
+$MainSpan->setAttribute("id","main");
 $body->appendChild($MainSpan);
 
 foreach($doc->getItems() as $docItem)
@@ -44,7 +45,10 @@ foreach($doc->getItems() as $docItem)
 }    
 
 
+
+addScript($DOM,$body,"debugTools.js");
 addScript($DOM,$body,"displayReady.js");
+addScript($DOM,$body,"displayEvents.js");
 ?>
 <!DOCTYPE html>
 <?php echo $DOM->saveHTML($html);?>
