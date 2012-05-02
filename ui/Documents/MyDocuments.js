@@ -19,7 +19,7 @@ function clickDocRow()
     if(typeof top.createNewTab!="undefined")
         {
             top.removeCreatedTabs();
-            top.createNewTab("Doctrine","../../library/doctrine/ui/DocumentEditor/DocumentEditor.php?docUUID="+docUUID);
+            top.createNewTab("Doctrine","../../library/doctrine/document/display.php?docUUID="+docUUID);
         }
 
 }

@@ -121,10 +121,13 @@ if(isset($_SESSION['pid']))
                         $value->getAuthor().")");
                 $link='/openemr/library/doctrine/ui/Editor/Editor.php?docUUID='.$value->getuuid();
                 $link='/openemr/library/doctrine/ui/DocumentEditor/DocumentEditor.php?docUUID='.$value->getuuid();
-                
+                $link2='/openemr/library/doctrine/document/display.php?docUUID='.$value->getuuid();
                 $editorLink->setAttribute("HREF",$link);
+                $editorLink2=$DOM->createElement("A","new");
+                $editorLink2->setAttribute("HREF",$link2);
 //                $editorLink->setAttribute("target","_new");
                 $spanDoctrine->appendChild($editorLink);
+                $spanDoctrine->appendChild($editorLink2);
                 if($value->isLocked())
                 {
                     $locked=$DOM->createElement("SPAN"," signed(".$value->getLockedBy().")");

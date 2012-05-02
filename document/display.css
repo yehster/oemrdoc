@@ -1,0 +1,34 @@
+
+
+span[entrytype="Observation"]
+{
+    margin: 0 0.1em;
+    padding: 0 0.05em;
+    border: black 1px dashed;
+}
+
+section[entrytype="Section"][depth="1"]
+{
+    
+}
+
+section[entrytype="Section"][depth="2"]
+{
+    margin: 0 0 0 2em;
+}
+
+section[entrytype="Section"] > span.label
+{
+    display: inline;
+}
+section[entrytype="Section"] > span.label:after
+{
+    content: ":";
+}
+
+section[entrytype="Section"] > span.content
+{
+    display:block;
+    max-width: fit-content;
+}
+
