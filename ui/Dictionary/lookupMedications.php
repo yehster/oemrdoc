@@ -1,6 +1,6 @@
 <?php
 include_once('/var/www/openemr/library/doctrine/init-session.php');
-
+session_write_close();
 function lookupMedNames($em,$searchString)
 {
     if(strlen($searchString)==0)

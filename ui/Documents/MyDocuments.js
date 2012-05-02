@@ -5,7 +5,11 @@ function clickDocRow()
     var new_url="/openemr/interface/patient_file/summary/demographics.php?set_pid="+pid;
     if(typeof top.goPid!="undefined")
         {
-            top.goPid(pid);
+           
+            top.restoreSession();
+            top.RTop.location = new_url;
+            top.confirmFrameVisible(top.frameProxies["patient"]);                
+            
         }
         else
             {

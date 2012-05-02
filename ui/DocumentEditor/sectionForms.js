@@ -17,10 +17,10 @@ function dblClickHeader()
 
 function formCheckBoxChanged()
 {
-    tr=$(this).parents("tr[code]");
-    td=$(this).parent("td");
-    value=$(this).is(':checked');    
-    otherBoxes=td.siblings("td").find("input:checkbox");
+    var tr=$(this).parents("tr[code]");
+    var td=$(this).parent("td");
+    var value=$(this).is(':checked');    
+    var otherBoxes=td.siblings("td").find("input:checkbox");
     if(otherBoxes.length>0)
         {
             if(value)
@@ -69,8 +69,8 @@ function formCheckBoxChanged()
         },
         function(data)
         {
-             pos=data.indexOf("<",0);
-             uuid=data.substr(0,pos);
+             var pos=data.indexOf("<",0);
+             var uuid=data.substr(0,pos);
 
              tr.attr("entryuuid",uuid);
              if(task=="update")

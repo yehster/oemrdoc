@@ -1,6 +1,7 @@
 <?php
 
 include_once('/var/www/openemr/library/doctrine/init-session.php');
+session_write_close();
 include_once('DictionaryUtilities.php');
 require_once('problemsLayout.php');
 require_once('favoriteProblemsUtilities.php');
