@@ -44,6 +44,7 @@ foreach($doc->getItems() as $docItem)
 }    
 
 
+addScript($DOM,$body,"displayReady.js");
 ?>
 <!DOCTYPE html>
 <?php echo $DOM->saveHTML($html);?>

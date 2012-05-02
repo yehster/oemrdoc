@@ -65,6 +65,9 @@ function createElement($DOM,$parent,$docEntry,$docItem,$depth)
         case TYPE_MEDICATION_ENTRY:
         case TYPE_MED_SIG:
         case TYPE_NARRATIVE:
+                $retVal=createTagElem($DOM,$docEntry,"textarea",$depth,$text);
+                $parent->appendChild($retVal);
+            break;
         case TYPE_DOC_LINK:
         case TYPE_IMAGE_ENTRY:
         case TYPE_OBSERVATION:
