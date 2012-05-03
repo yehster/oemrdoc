@@ -38,3 +38,8 @@ section[entrytype="Section"] > span.content
     max-width: fit-content;
 }
 
+textarea[entrytype='Narrative']{
+    display:block;
+    width: 60em;
+    max-width:95%;
+}
