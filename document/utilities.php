@@ -39,7 +39,18 @@ function createTagElem($DOM,$docEntry,$tag, $depth,$text="")
     $retVal->setAttribute("depth",$depth);
     return $retVal;
 }
-
+function hasSectionVocab($code,$code_type)
+{
+    $mappings=$GLOBALS['em']->getRepository('library\doctrine\Entities\VocabMapping')->findBy(array("target_code"=>$code,"target_code_type"=>$code_type));
+    if(count($mappings)>0)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
 function createElement($DOM,$parent,$docEntry,$docItem,$depth)
 {
     
@@ -59,6 +70,11 @@ function createElement($DOM,$parent,$docEntry,$docItem,$depth)
                 $content=$DOM->createElement("span"," ");
                 $content->setAttribute("class","content");
                 $section->appendChild($content);
+                
+                if(hasSectionVocab($docEntry->getCode(),$docEntry->getCode_type()))
+                {
+                    $section->setAttribute("vocab","true");
+                }
                 $retVal=$content;
             break;
         case TYPE_NARRATIVE:
