@@ -13,6 +13,7 @@ function hideEmpty(idx,elem)
     }
     else
         {
+            // If the subsection label has a prefix of the parent section, then strip it out.
             var parent_section=section.parents("section[depth='1']");
             var labelText = parent_section.children("span.label").text();
             var myLabel=section.children("span.label");
@@ -22,4 +23,22 @@ function hideEmpty(idx,elem)
                 }
         }
 }
+
+function addVocabMappingControls()
+{
+    var mapped_sections=$("section[vocab='true'][entrytype='Section']");
+    mapped_sections.each(function(idx,elem){
+ 
+       var parent=$(elem).parents("section[entrytype='Section']:first");
+       var control=parent.children(".vocab_control");
+       if(control.length==0)
+           {
+               var label=parent.children(".label:first");
+               control=$("<button>details</button>");
+               control.addClass("vocab_control");
+               label.after(control);
+           }
+    });
+}
 simplifyDisplay();
+addVocabMappingControls();
