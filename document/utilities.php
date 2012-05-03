@@ -61,16 +61,17 @@ function createElement($DOM,$parent,$docEntry,$docItem,$depth)
                 $section->appendChild($content);
                 $retVal=$content;
             break;
-        case TYPE_PROBLEM:
-        case TYPE_MEDICATION_ENTRY:
-        case TYPE_MED_SIG:
         case TYPE_NARRATIVE:
                 $retVal=createTagElem($DOM,$docEntry,"textarea",$depth,$text);
                 $parent->appendChild($retVal);
             break;
+        
+        case TYPE_MEDICATION_ENTRY:
+        case TYPE_MED_SIG:
         case TYPE_DOC_LINK:
         case TYPE_IMAGE_ENTRY:
         case TYPE_OBSERVATION:
+        case TYPE_PROBLEM:
         default:
             $retVal=createTagElem($DOM,$docEntry,"span",$depth,$text);
             $retVal->setAttribute("class","unknown");
