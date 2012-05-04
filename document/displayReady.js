@@ -25,7 +25,8 @@ function hideEmpty(idx,elem)
 }
 function show_vocab_form()
 {
-    debugMessage("Stub function for vocab display!");
+    var di=new doctrineInfo(this);
+    debugMessage("Stub function for vocab display!"+di.uuid);
 }
 function process_problems()
 {
