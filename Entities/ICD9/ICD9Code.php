@@ -25,6 +25,10 @@ class ICD9Code {
       */
     protected $short_desc;
     
+    public function getShort_desc()
+    {
+        return $this->short_desc;
+    }
     /**
      * @ManyToOne(targetEntity="ICD9Code", inversedBy="children", cascade={"persist"})
      * @JoinColumn(name="parent", referencedColumnName="code")

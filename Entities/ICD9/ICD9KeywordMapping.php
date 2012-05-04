@@ -19,17 +19,24 @@ class ICD9KeywordMapping {
      */
     protected $id;
 
-	public function __construct($kw,$cd)
-	{
-		$this->keyword=$kw;
-		$this->code=$cd;
-	}
+    function getId()
+    {
+            return $this->id;
+    }    
 
 
-	function getId()
-	{
-		return $this->id;
-	}    
+    /**
+    * @ManyToOne(targetEntity="ICD9Keyword")
+    * @JoinColumn(name="keyword", referencedColumnName="text")
+    */
+    private $keyword;
+    
+    
+    /**
+    * @ManyToOne(targetEntity="Code")
+    * @JoinColumn(name="code", referencedColumnName="code")
+    */
+    private $code;    
     
 }
 ?>

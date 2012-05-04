@@ -1,4 +1,6 @@
-
+body {
+    font-family: sans-serif;
+}
 
 span[entrytype="Observation"]:not(:last-child):after
 {
@@ -42,4 +44,11 @@ textarea[entrytype='Narrative']{
     display:block;
     width: 60em;
     max-width:95%;
+    margin: 3px 5px;
+    
+}
+
+span.label
+{
+    font-weight: bold;
 }

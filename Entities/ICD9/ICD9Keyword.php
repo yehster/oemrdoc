@@ -5,9 +5,16 @@ namespace library\doctrine\Entities\ICD9;
  */
 
 class ICD9Keyword {
+    
+    
+    public static function normalize_text($text)
+    {
+        $text=preg_replace("/[^a-z0-9]/","",strtolower($text));
+        return $text;
+    }
     public function __construct($text)
     {
-        $this->text=$text;
+        $this->text=ICD9Keyword::normalize_text($text);
     }    
 
     /**
