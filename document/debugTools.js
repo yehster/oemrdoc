@@ -16,6 +16,7 @@ function debugMessage(text)
     message.css("top",((others.length+1)*1.5)+"em");
     message.css("left","1em");
     message.css("position","fixed");
+    message.css("display","block");
     message.css("z-index","1000");
     message.css("background","lightblue");
     $("body").append(message);

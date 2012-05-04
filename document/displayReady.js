@@ -23,6 +23,10 @@ function hideEmpty(idx,elem)
                 }
         }
 }
+function show_vocab_form()
+{
+    debugMessage("Stub function for vocab display!");
+}
 
 function addVocabMappingControls()
 {
@@ -36,6 +40,9 @@ function addVocabMappingControls()
                var label=parent.children(".label:first");
                control=$("<button>details</button>");
                control.addClass("vocab_control");
+               control.on({
+                   click: show_vocab_form
+               })
                label.after(control);
            }
     });
