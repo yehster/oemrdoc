@@ -27,6 +27,11 @@ function show_vocab_form()
 {
     debugMessage("Stub function for vocab display!");
 }
+function process_problems()
+{
+    var problem = $(this).val();
+    debugMessage(problem);
+}
 
 function addVocabMappingControls(parent)
 {
@@ -48,9 +53,16 @@ function addVocabMappingControls(parent)
     });
 }
 
-function makeProblemsOL(parent)
+function setupProblems(parent)
 {
     var problemsLabel=parent.find("section[entrytype='Section'] > span.label:contains('Problem List')");
+    var problemsInput=$("<input type='text'/>");
+    problemsLabel.after(problemsInput);
+    problemsInput.addClass("problems_input");
+    problemsInput.on({
+        keyup: process_problems
+    });
+    // 
     var content=problemsLabel.siblings("span.content");
     var list=$("<ol></ol>");
     content.children().each(function(idx,elem)
@@ -66,7 +78,7 @@ function setupDisplay(parent)
 {
     simplifyDisplay(parent);
     addVocabMappingControls(parent);
-    makeProblemsOL(parent);
+    setupProblems(parent);
 }
 
 setupDisplay($("#main"));
