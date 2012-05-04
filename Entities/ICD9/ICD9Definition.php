@@ -25,6 +25,10 @@ class ICD9Definition {
     /** @Column(type="string") */    
     protected $definition;
     
+    public function getDefinition()
+    {
+        return $this->definition;
+    }
     /**
      * @ManyToOne(targetEntity="ICD9Code", inversedBy="definitions", cascade={"persist"})
      * @JoinColumn(name="code", referencedColumnName="code")

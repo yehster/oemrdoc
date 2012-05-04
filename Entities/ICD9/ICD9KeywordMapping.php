@@ -1,5 +1,4 @@
 <?php
-
 namespace library\doctrine\Entities\ICD9;
 /** @Entity
  *  @Table(name="dct_icd9_keyword_mappings")
@@ -9,7 +8,7 @@ class ICD9KeywordMapping {
     public function __construct($kw,$code)
     {
         $this->keyword=$kw;
-        $this->code=$cd;
+        $this->code=$code;
     }    
 
     /**
@@ -33,7 +32,7 @@ class ICD9KeywordMapping {
     
     
     /**
-    * @ManyToOne(targetEntity="Code")
+    * @ManyToOne(targetEntity="ICD9Code")
     * @JoinColumn(name="code", referencedColumnName="code")
     */
     private $code;    

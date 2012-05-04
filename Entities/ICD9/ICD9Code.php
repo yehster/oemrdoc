@@ -20,6 +20,11 @@ class ICD9Code {
      */
     protected $code;
     
+    public function getCode()
+    {
+        return $this->code;
+    }
+    
     /**
       * @Column(type="string") 
       */
@@ -52,6 +57,10 @@ class ICD9Code {
 	*/
 	protected $definitions;    
         
+        public function getDefinitions()
+        {
+            return $this->definitions;
+        }
 }
 
 ?>
