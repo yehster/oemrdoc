@@ -56,6 +56,10 @@ function addVocabMappingControls(parent)
 function setupProblems(parent)
 {
     var problemsLabel=parent.find("section[entrytype='Section'] > span.label:contains('Problem List')");
+    if(problemsLabel.length==0)
+        {
+            return;
+        }
     var problemsInput=$("<input type='text'/>");
     problemsLabel.after(problemsInput);
     problemsInput.addClass("problems_input");
