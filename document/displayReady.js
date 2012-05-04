@@ -39,17 +39,22 @@ function addVocabMappingControls(parent)
     mapped_sections.each(function(idx,elem){
  
        var parent=$(elem).parents("section[entrytype='Section']:first");
-       var control=parent.children(".vocab_control");
-       if(control.length==0)
+       var toAdd=parent;
+       if(parent.length==0)
            {
-               var label=parent.children(".label:first");
-               control=$("<button>details</button>");
-               control.addClass("vocab_control");
-               control.on({
-                   click: show_vocab_form
-               })
-               label.after(control);
+               toAdd=$(elem);
            }
+            var control=toAdd.children(".vocab_control");
+            if(control.length==0)
+                {
+                    var label=toAdd.children(".label:first");
+                    control=$("<button>details</button>");
+                    control.addClass("vocab_control");
+                    control.on({
+                        click: show_vocab_form
+                    })
+                    label.after(control);
+                }               
     });
 }
 
