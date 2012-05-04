@@ -1,9 +1,9 @@
-function simplifyDisplay()
+function simplifyDisplay(parent)
 {
-    var secondary_sections=$("section[depth='2']");
+    var secondary_sections=parent.find("section[depth='2']");
     secondary_sections.each(hideEmpty);
-
 }
+
 function hideEmpty(idx,elem)
 {
     var section=$(elem);
@@ -28,9 +28,9 @@ function show_vocab_form()
     debugMessage("Stub function for vocab display!");
 }
 
-function addVocabMappingControls()
+function addVocabMappingControls(parent)
 {
-    var mapped_sections=$("section[vocab='true'][entrytype='Section']");
+    var mapped_sections=parent.find("section[vocab='true'][entrytype='Section']");
     mapped_sections.each(function(idx,elem){
  
        var parent=$(elem).parents("section[entrytype='Section']:first");
@@ -47,5 +47,26 @@ function addVocabMappingControls()
            }
     });
 }
-simplifyDisplay();
-addVocabMappingControls();
+
+function makeProblemsOL(parent)
+{
+    var problemsLabel=parent.find("section[entrytype='Section'] > span.label:contains('Problem List')");
+    var content=problemsLabel.siblings("span.content");
+    var list=$("<ol></ol>");
+    content.children().each(function(idx,elem)
+    {
+        var li=$("<li></li>");
+        li.append(elem);
+        list.append(li);
+    }
+    );
+    content.append(list);
+}
+function setupDisplay(parent)
+{
+    simplifyDisplay(parent);
+    addVocabMappingControls(parent);
+    makeProblemsOL(parent);
+}
+
+setupDisplay($("#main"));
