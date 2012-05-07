@@ -16,11 +16,27 @@ function select_icd9($em,$start,$size)
     return $query->getResult();
 }
 
+function select_icd9_kw_mapping($em,$kw,$code)
+{
+    $qb = $em->createQueryBuilder()
+        ->select("kwm")
+        ->from("library\doctrine\Entities\ICD9\ICD9KeywordMapping","kwm")
+        ->where("kwm.code=:code and kwm.keyword=:kw");
+    
+    $qb->setParameter("code",$code);
+    $qb->setParameter("kw",$kw);
+
+    $query=$qb->getQuery();
+    
+    return $query->getResult();    
+}
+
 function my_split($string)
 {
     return preg_split("/[-\s.,()\[\]]/",$string,-1,PREG_SPLIT_NO_EMPTY);
 }
 $ignore_kw=array("and","of","due","to","in","a","is");
+
 
 
 function map_code_keyword($kw,$code)
@@ -33,10 +49,10 @@ function map_code_keyword($kw,$code)
         $GLOBALS['em']->persist($dct_kw);
     }
     $GLOBALS['em']->flush();
-    $dct_kwm=$GLOBALS['em']->getRepository('library\doctrine\Entities\ICD9\ICD9KeywordMapping')->findBy(array("keyword"=>$kw,"code"=>$code->getCode()));
+    $dct_kwm=select_icd9_kw_mapping($GLOBALS['em'],$dct_kw,$code);
     if(empty($dct_kwm))
     {
-        $dct_kwm=new library\doctrine\Entities\ICD9\ICD9KeywordMapping($kw,$code);
+        $dct_kwm=new library\doctrine\Entities\ICD9\ICD9KeywordMapping($dct_kw,$code);
         $GLOBALS['em']->persist($dct_kwm);
     }
     
@@ -45,7 +61,6 @@ function map_code_keyword($kw,$code)
 function create_keywords_for_code($code)
 {
     
-    echo $code->getCode().PHP_EOL;
     $tokens=my_split($code->getShort_desc());
     $definitions=array();
     foreach ($code->getDefinitions() as $definition)
@@ -56,7 +71,6 @@ function create_keywords_for_code($code)
     {
         map_code_keyword($token,$code);
     }
-    echo $code->getCode().PHP_EOL;
 }
 function create_keywords_for_codes($codes)
 {
@@ -66,7 +80,22 @@ function create_keywords_for_codes($codes)
     }
 }
 
-$codes = select_icd9($em,10000,10);
+
+if (!empty($argc) && strstr($argv[0], basename(__FILE__))) {
+    $start =0;
+    $size=10;
+    if($argc>1)
+    {
+        $start = $argv[1];
+        if($argc>2)
+        {
+            $size=$argv[2];
+        }
+    }
+
+}
+
+$codes = select_icd9($em,0,10);
 create_keywords_for_codes($codes)
 
 ?>

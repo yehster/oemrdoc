@@ -61,6 +61,13 @@ class ICD9Code {
         {
             return $this->definitions;
         }
+
+        /**
+	* @OneToMany(targetEntity="ICD9KeywordMapping", mappedBy="code", cascade={"persist","remove"})
+	*/
+	protected $keywords;    
+        
+        
 }
 
 ?>
