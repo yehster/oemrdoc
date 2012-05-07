@@ -95,7 +95,8 @@ if (!empty($argc) && strstr($argv[0], basename(__FILE__))) {
 
 }
 
-$codes = select_icd9($em,0,10);
+echo "start:".$start.PHP_EOL;
+$codes = select_icd9($em,$start,$size);
 create_keywords_for_codes($codes)
 
 ?>
