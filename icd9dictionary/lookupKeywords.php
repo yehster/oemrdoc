@@ -14,6 +14,7 @@ if(isset($_REQUEST["requestTime"]))
 }
 $kwArr=findKeywords($em,$toks);
 
+$codes=findCodes($em,$kwArr,$toks);
 
 echo json_encode($returnArr);
 

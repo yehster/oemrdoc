@@ -24,13 +24,16 @@ class ICD9Keyword {
      */
     protected $id;
 
-    
+    public function getID()
+    {
+        return $this->id;
+    }
     /**
      * @Column(type="string")
      */    
     protected $text;
     
-    function getText()
+    public function getText()
     {
         return $this->text;
     }
