@@ -19,8 +19,20 @@ class ICD9Keyword {
 
     /**
      * @Id
-     * @Column(type="string")
+     * @Column(type="integer")
+     * @GeneratedValue(strategy="AUTO") 
      */
+    protected $id;
+
+    
+    /**
+     * @Column(type="string")
+     */    
     protected $text;
+    
+    function getText()
+    {
+        return $this->text;
+    }
 }
 ?>

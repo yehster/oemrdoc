@@ -27,14 +27,14 @@ class ICD9KeywordMapping {
 
     /**
     * @ManyToOne(targetEntity="ICD9Keyword")
-    * @JoinColumn(name="keyword_id", referencedColumnName="text")
+    * @JoinColumn(name="keyword", referencedColumnName="id")
     */
     private $keyword;
     
     
     /**
     * @ManyToOne(targetEntity="ICD9Code")
-    * @JoinColumn(name="code_id", referencedColumnName="code")
+    * @JoinColumn(name="code", referencedColumnName="code")
     */
     private $code;    
     

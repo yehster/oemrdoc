@@ -30,10 +30,24 @@ function show_vocab_form()
     var di=new doctrineInfo(this);
     debugMessage("Stub function for vocab display!"+di.uuid);
 }
+function icd9results(data)
+{
+    debugMessage(data.requestTime);
+}
 function process_problems()
 {
     var problem = $(this).val();
+    var requestTime=new Date().getTime();
+    $.post("/openemr/library/doctrine/icd9dictionary/lookupKeywords.php",
+        {
+            searchString: problem,
+            requestTime: requestTime
+        },
+        icd9results,
+        "json"
+    );
     debugMessage(problem);
+    
 }
 
 function addVocabMappingControls(parent)
