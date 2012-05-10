@@ -11,12 +11,10 @@ function lookupKeywords($em,$searchString)
     {
         $qb->andWhere("keyword.text like :char".$charIdx);
         $qb->setParameter("char".$charIdx,"%".$searchString[$charIdx]."%");
-        error_log("%".$searchString[$charIdx]."%");
     }
 
     $qb->setParameter("startsWith",$searchString[0]."%");
 
-    error_log($qb->getDql());
     $qry=$qb->getQuery();
     $qry->setFirstResult(0);
     $qry->setMaxResults(200);
@@ -84,10 +82,10 @@ function findCodes($em,$kwArr,$toks)
     $qry->setMaxResults(100);
 
 
-//    error_log($qb->getDql());
-//    error_log($qry->getSql());
+    error_log($qb->getDql());
+    error_log($qry->getSql());
     $res=$qry->getResult();
-//    error_log("query succeeded");
+    error_log("query succeeded");
     return $res;
     
     
@@ -105,7 +103,7 @@ function generate_table($codes)
         $code=$result[0];
         $tr=$DOM->createElement("tr");
 //        error_log($code->getShort_desc());
-        $tdCodeDesc=$DOM->createElement("td",$code->getShort_desc());
+        $tdCodeDesc=$DOM->createElement("td",htmlentities($code->getShort_desc()));
         $tdCodeID=$DOM->createElement("td",$code->getCode());
 
         $tr->appendChild($tdCodeDesc);

@@ -41,7 +41,7 @@ function displayicd9results(table)
             location.appendTo("body");
             location.css("position","fixed");
             location.css("top","0");
-            location.css("left","0");
+            location.css("right","0");
             location.css("z-order","500");
             location.css("background","white");
         }
@@ -72,8 +72,8 @@ function process_problems()
         clearTimeout(lookup_timer);
     }
     var lookup_code="lookup_problem(\'"+problem+"\')";
-    lookup_problem(problem);
-//    lookup_timer=setTimeout(lookup_code,300);
+//    lookup_problem(problem);
+    lookup_timer=setTimeout(lookup_code,300);
     debugMessage(problem);
     
 }

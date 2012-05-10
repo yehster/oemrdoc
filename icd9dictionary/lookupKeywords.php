@@ -16,7 +16,13 @@ if(strlen($searchString)==0)
     echo json_encode($returnArr);
     return;
 }
-$toks=explode(" ",$searchString);
+$toks=preg_split('/[-\s.,;:()\[\]]/',$searchString,-1,PREG_SPLIT_NO_EMPTY);
+//$toks=explode(" ",$searchString);
+
+foreach($toks as $token)
+{
+    error_log($token);
+}
 
 
 if(isset($_REQUEST["requestTime"]))
@@ -28,7 +34,7 @@ $kwArr=findKeywords($em,$toks);
 $codes=findCodes($em,$kwArr,$toks);
 
 $returnArr['codes']=generate_table($codes);
-//error_log($returnArr['codes']);
+error_log($returnArr['codes']);
 echo json_encode($returnArr);
 
 ?>
