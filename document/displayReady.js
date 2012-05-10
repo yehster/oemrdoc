@@ -30,13 +30,30 @@ function show_vocab_form()
     var di=new doctrineInfo(this);
     debugMessage("Stub function for vocab display!"+di.uuid);
 }
+
+function displayicd9results(table)
+{
+    var location=$("#icd9");
+    if(location.length==0)
+        {
+            location = $("<div></div>");
+            location.attr("id","icd9");
+            location.appendTo("body");
+            location.css("position","fixed");
+            location.css("top","0");
+            location.css("left","0");
+            location.css("z-order","500");
+            location.css("background","white");
+        }
+   location.html(table);
+}
 function icd9results(data)
 {
-    debugMessage(data.requestTime);
+    displayicd9results(data.codes);
 }
-function process_problems()
+
+function lookup_problem(problem)
 {
-    var problem = $(this).val();
     var requestTime=new Date().getTime();
     $.post("/openemr/library/doctrine/icd9dictionary/lookupKeywords.php",
         {
@@ -45,7 +62,18 @@ function process_problems()
         },
         icd9results,
         "json"
-    );
+    );    
+}
+function process_problems()
+{
+    var problem = $(this).val();
+    if(typeof(lookup_timer)!='undefined')
+    {
+        clearTimeout(lookup_timer);
+    }
+    var lookup_code="lookup_problem(\'"+problem+"\')";
+    lookup_problem(problem);
+//    lookup_timer=setTimeout(lookup_code,300);
     debugMessage(problem);
     
 }

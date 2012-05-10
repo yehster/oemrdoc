@@ -33,15 +33,19 @@ function select_icd9_kw_mapping($em,$kw,$code)
 
 function my_split($string)
 {
-    return preg_split("/[-\s.,()\[\]]/",$string,-1,PREG_SPLIT_NO_EMPTY);
+    return preg_split("/[-\s.,;:()\[\]]/",$string,-1,PREG_SPLIT_NO_EMPTY);
 }
-$ignore_kw=array("and","of","due","to","in","a","is");
+$ignore_kw=array("and","of","due","to","in","a","is","an","by","or","the","");
 
 
 
-function map_code_keyword($kw,$code)
+function map_code_keyword($kw,$code,$priority)
 {
     $kw=library\doctrine\Entities\ICD9\ICD9Keyword::normalize_text($kw);
+    if(in_array($kw,$GLOBALS['ignore_kw']))
+    {
+        return;
+    }
     $dct_kw=$GLOBALS['em']->getRepository('library\doctrine\Entities\ICD9\ICD9Keyword')->findOneBy(array("text"=>$kw));
     if(empty($dct_kw))
     {
@@ -52,7 +56,7 @@ function map_code_keyword($kw,$code)
     $dct_kwm=select_icd9_kw_mapping($GLOBALS['em'],$dct_kw,$code);
     if(empty($dct_kwm))
     {
-        $dct_kwm=new library\doctrine\Entities\ICD9\ICD9KeywordMapping($dct_kw,$code);
+        $dct_kwm=new library\doctrine\Entities\ICD9\ICD9KeywordMapping($dct_kw,$code,$priority);            
         $GLOBALS['em']->persist($dct_kwm);
     }
     
@@ -69,11 +73,11 @@ function create_keywords_for_code($code)
     }
     foreach($tokens as $token)
     {
-        map_code_keyword($token,$code);
+        map_code_keyword($token,$code,1);
     }
     foreach($definitions as $token)
     {
-        map_code_keyword($token,$code);
+        map_code_keyword($token,$code,2);
     }
 
     
