@@ -1,12 +1,13 @@
 function displayicd9results(table)
 {
-    var location=$("#icd9");
+    var parent=$(problem_source).parent(".problemInput");
+    var location=parent.find(".icd9");
     if(location.length==0)
         {
             location = $("<div></div>");
             location.addClass("icd9");
             location.attr("id","icd9");
-            location.appendTo("body");
+            location.appendTo(parent);
         }
    location.html(table);
 //   location.find("td[defs]").append("<button>...</button>");
@@ -37,6 +38,7 @@ function process_problems()
     }
     var lookup_code="lookup_problem(\'"+problem+"\')";
 //    lookup_problem(problem);
+    problem_source=this;
     lookup_timer=setTimeout(lookup_code,300);
     debugMessage(problem);
     
@@ -49,11 +51,34 @@ function setupProblems(parent)
         {
             return;
         }
+    var problemsInputSection=problemsLabel.siblings(".problemInput");
+    if(problemsInputSection.length>0)
+        {
+            return
+        }
+        
     var problemsInput=$("<input type='text'/>");
-    problemsLabel.after(problemsInput);
+    problemsInputSection=$("<span></span>")
+    problemsInputSection.addClass("problemInput");
+    problemsInputSection.append(problemsInput);
+    problemsLabel.after(problemsInputSection);
     problemsInput.addClass("problems_input");
     problemsInput.on({
         keyup: process_problems
+    });
+    
+    problemsInputSection.on({
+        blur: function()
+        {
+            debugMessage("yo!")
+            $("div.icd9").hide();
+        },
+        focus: function()
+        {
+            debugMessage("hi!")
+            $("div.icd9").show();
+            
+        }
     });
     // 
     var content=problemsLabel.siblings("span.content");

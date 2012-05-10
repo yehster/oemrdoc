@@ -73,6 +73,11 @@ class ICD9Code {
          * @Column(type="integer");
          */
         protected $frequency;
+        
+        public function getFrequency()
+        {
+            return $this->frequency;
+        }
 }
 
 ?>

@@ -97,22 +97,57 @@ function generate_table($codes)
     $table = $DOM->createElement("table");
     $tbody= $DOM->createElement("tbody");
     $table->appendChild($tbody);
-    
+    $keywords=array();
     foreach($codes as $result)
     {
         $code=$result[0];
         $tr=$DOM->createElement("tr");
+        if($code->getFrequency()>0)
+        {
+            $tr->setAttribute("class","priority");
+        }
+        $idx=0;
+        $update=false;
+        while(isset($result['content'.$idx]))
+        {
+            if(isset($keywords[$idx]))
+            {
+                if($keywords[$idx]!=$result['content'.$idx])
+                {
+                    $keywords[$idx]=$result['content'.$idx];
+                    $update=true;                
+                }
+            }
+            else
+            {
+                $update=true;
+                $keywords[$idx]=$result['content'.$idx];
+            }
+            $idx++;
+        }
         $tdCodeDesc=$DOM->createElement("td",htmlentities($code->getShort_desc()));
+        $tdCodeDesc->setAttribute("class","codeDesc");
         $defs=$code->getDefinitions();
         if(count($defs)>0)
         {
             $tdCodeDesc->setAttribute("defs",count($defs));
         }
         $tdCodeID=$DOM->createElement("td",$code->getCode());
+        $tdCodeID->setAttribute("class","codeNum");
         $tr->setAttribute("type",$code->type);
         
         $tr->appendChild($tdCodeDesc);
         $tr->appendChild($tdCodeID);
+        $keywordString=implode(",",$keywords);
+        if($update)
+        {
+            $trKeywords=$DOM->createElement("tr");
+            $tdKeywords=$DOM->createElement("td",$keywordString);
+            $trKeywords->appendChild($tdKeywords);
+            $trKeywords->setAttribute("class","keywords");
+            $tbody->appendChild($trKeywords);
+        }
+        $tr->setAttribute("keywords",$keywordString);
         $tbody->appendChild($tr);
     }
     return $DOM->saveXML($table);

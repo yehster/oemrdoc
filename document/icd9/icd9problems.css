@@ -8,13 +8,32 @@
     background: #F0F0F0;
     max-width: 45%;
     border: 1px solid grey;
+    height: 95%;
+    overflow-y: scroll;
 }
 
 .icd9 tbody
 {
-    overflow-y: scroll;
 }
 
+.icd9 table
+{
+    border-collapse:collapse;
+}
+.icd9 td
+{
+    border: 1px black solid;
+}
+.icd9 tr.priority
+{
+    color: blue;
+}
+
+.icd9 tr.keywords
+{
+    color:red;
+    display: none;
+}
 .icd9 tr[type='NS'], .icd9 tr[type='Section']
 {
     font-weight: bold;
