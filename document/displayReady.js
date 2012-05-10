@@ -1,6 +1,6 @@
 function simplifyDisplay(parent)
 {
-    var secondary_sections=parent.find("section[depth='2']");
+    var secondary_sections=parent.find("section:not([depth='1'])");
     secondary_sections.each(hideEmpty);
 }
 
