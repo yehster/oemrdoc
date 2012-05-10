@@ -9,6 +9,9 @@ include_once('ICD9Code.php');
 class ICD9NSCode extends ICD9Code 
 {
     //put your code here
+    
+
+        public $type="NS";    
 }
 
 ?>

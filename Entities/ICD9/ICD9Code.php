@@ -67,7 +67,12 @@ class ICD9Code {
 	*/
 	protected $keywords;    
         
-        
+        public $type="unknown";
+
+        /**
+         * @Column(type="integer");
+         */
+        protected $frequency;
 }
 
 ?>

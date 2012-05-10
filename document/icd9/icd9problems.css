@@ -1,0 +1,26 @@
+.icd9
+{
+    cursor: pointer;
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 500;
+    background: #F0F0F0;
+    max-width: 45%;
+    border: 1px solid grey;
+}
+
+.icd9 tbody
+{
+    overflow-y: scroll;
+}
+
+.icd9 tr[type='NS'], .icd9 tr[type='Section']
+{
+    font-weight: bold;
+}
+
+
+.icd9 tr:hover{
+    background-color: yellow;
+}

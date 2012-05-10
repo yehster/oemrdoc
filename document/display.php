@@ -28,6 +28,7 @@ $head->appendChild($title);
 
 addScript($DOM,$head,"/openemr/library/js/jquery-1.7.1.min.js");
 addStyle($DOM,$head,"display.css");
+addStyle($DOM,$head,"icd9/icd9problems.css");
 
 $body=$DOM->createElement("body");
 $html->appendChild($body);
@@ -47,6 +48,7 @@ foreach($doc->getItems() as $docItem)
 
 
 addScript($DOM,$body,"debugTools.js");
+addScript($DOM,$body,"icd9/icd9problems.js");
 addScript($DOM,$body,"displayReady.js");
 addScript($DOM,$body,"displayEvents.js");
 ?>

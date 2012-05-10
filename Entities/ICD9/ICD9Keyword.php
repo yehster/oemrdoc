@@ -28,6 +28,7 @@ class ICD9Keyword {
     {
         return $this->id;
     }
+
     /**
      * @Column(type="string")
      */    
@@ -37,5 +38,11 @@ class ICD9Keyword {
     {
         return $this->text;
     }
+    
+    /**
+     *@Column(type="integer") 
+     */
+    protected $frequency;
+    
 }
 ?>
