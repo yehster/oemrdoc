@@ -9,6 +9,18 @@ if(isset($_REQUEST['refresh']))
         echo refreshSection($parentEntry->getItem());
         return;
     }
+    elseif($request==="doc") {       
+        require_once("/var/www/openemr/library/doctrine/document/refresh_section.php");
+        $retVal=array();
+        if(isset($_REQUEST["requestTime"]))
+        {
+            $retVal['requestTime']=intval($_REQUEST["requestTime"]);  
+        }
+        $retVal['html']=refreshSection($parentEntry->getItem());
+        $retVal['uuid']=$parentEntry->getUUID();
+        echo json_encode($retVal);
+        return;                
+    }
 }
 
 ?>

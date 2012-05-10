@@ -11,6 +11,42 @@ function displayicd9results(table)
         }
    location.html(table);
 //   location.find("td[defs]").append("<button>...</button>");
+    bind_problem_table_events(location);
+}
+function add_problem(evt)
+{
+    var di=new doctrineInfo($(problem_source).parents("['uuid']:first"));
+    var parentUUID=di.uuid;
+    var text=$(this).text();
+    var code=$(this).siblings("td.codeNum").text();
+    var requestTime=new Date().getTime();
+    debugMessage(parentUUID+":"+text+":"+code);
+    $.post("/openemr/library/doctrine/interface/manageProblem.php",
+    {
+        parentUUID: parentUUID,
+        code: code,
+        codeType: 2,
+        text: text,
+        task: "create",
+        refresh: "doc",
+        addNarrative: "YES",
+        requestTime: requestTime
+    },
+    function(data)
+    {
+        refreshSection(data);
+    },
+    "json"
+    );    
+}
+
+function bind_problem_table_events(parent)
+{
+    
+    parent.find("tr[type='SP'] td.codeDesc").on(
+    {
+        click: add_problem
+    });
 }
 function icd9results(data)
 {

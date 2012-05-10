@@ -64,4 +64,15 @@ function setupDisplay(parent)
     setupProblems(parent);
 }
 
+function refreshSection(data)
+{
+//    var new_html=$(data.html);
+//    window.alert(data.html);
+    $("[uuid='"+data.uuid+"']").replaceWith(data.html);
+    var parent=$("[uuid='"+data.uuid+"']").parent();
+    
+    setupDisplay(parent);
+    registerEvents(parent);
+}
+
 setupDisplay($("#main"));

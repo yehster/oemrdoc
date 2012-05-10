@@ -22,11 +22,11 @@ function populateEditorDOM(DOMDocument $DOM,DOMElement $parent,$docItem,$depth)
 {
     $docEntry = $docItem->getEntry();
     $newElem=createElement($DOM,$parent,$docEntry,$docItem,$depth);
-
     foreach($docItem->getItems() as $childDI)
     {
         populateEditorDOM($DOM,$newElem,$childDI,$depth+1);
     }
+    return $newElem;
     
 }
 function createTagElem($DOM,$docEntry,$tag, $depth,$text="")
