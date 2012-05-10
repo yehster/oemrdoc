@@ -80,6 +80,10 @@ function createElement($DOM,$parent,$docEntry,$docItem,$depth)
         case TYPE_NARRATIVE:
                 $retVal=createTagElem($DOM,$docEntry,"textarea",$depth,$text);
                 $parent->appendChild($retVal);
+                if(is_null($docEntry->getMetadata()))
+                {
+                    $retVal->setAttribute("canDelete","true");
+                }
             break;
         
         case TYPE_MEDICATION_ENTRY:
@@ -88,6 +92,14 @@ function createElement($DOM,$parent,$docEntry,$docItem,$depth)
         case TYPE_IMAGE_ENTRY:
         case TYPE_OBSERVATION:
         case TYPE_PROBLEM:
+            $retVal=createTagElem($DOM,$docEntry,"span",$depth," ");
+            $label=$DOM->createElement("span",$text);
+            $label->setAttribute("class","problemLabel");
+            $retVal->appendChild($label);
+            $retVal->setAttribute("class","problem");
+            $retVal->setAttribute("canDelete","true");
+            $parent->appendChild($retVal);
+            break;
         default:
             $retVal=createTagElem($DOM,$docEntry,"span",$depth,$text);
             $retVal->setAttribute("class","unknown");

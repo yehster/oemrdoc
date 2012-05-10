@@ -56,12 +56,34 @@ function addVocabMappingControls(parent)
     });
 }
 
+function setupDeleteControls(parent)
+{
+    var deletableSpan=parent.find("[candelete='true'] > span").each(
+        function(idx,elem)
+        {
+                var button=$("<button>del</button>");
+                $(elem).after(button);
+                button.on(
+                {
+                    click: function()
+                        {
+                            var di=new doctrineInfo(this);
+                            debugMessage("deleting:"+di.uuid);
+                        }
+                }
+        );
+
+        }
+    );
+    
+}
 
 function setupDisplay(parent)
 {
     simplifyDisplay(parent);
     addVocabMappingControls(parent);
     setupProblems(parent);
+    setupDeleteControls(parent);
 }
 
 function refreshSection(data)
