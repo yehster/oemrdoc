@@ -56,25 +56,27 @@ function addVocabMappingControls(parent)
     });
 }
 
-function setupDeleteControls(parent)
+function setupDeletable(idx,elem)
 {
-    var deletableSpan=parent.find("[candelete='true'] > span").each(
-        function(idx,elem)
-        {
                 var button=$("<button>del</button>");
+                var di=new doctrineInfo(elem);
+                button.attr("entryUUID",di.uuid);
+                button.attr("func","delete");
                 $(elem).after(button);
                 button.on(
                 {
                     click: function()
                         {
-                            var di=new doctrineInfo(this);
-                            debugMessage("deleting:"+di.uuid);
+                            debugMessage("deleting:"+$(this).attr("entryUUID"));
                         }
-                }
-        );
+                });
+    
+}
 
-        }
-    );
+function setupDeleteControls(parent)
+{
+    var deletableSpan=parent.find("[candelete='true'] > span").each(setupDeletable);
+    parent.find("textarea[candelete='true']").each(setupDeletable);
     
 }
 

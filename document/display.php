@@ -49,8 +49,8 @@ foreach($doc->getItems() as $docItem)
 
 addScript($DOM,$body,"debugTools.js");
 addScript($DOM,$body,"icd9/icd9problems.js");
-addScript($DOM,$body,"displayReady.js");
 addScript($DOM,$body,"displayEvents.js");
+addScript($DOM,$body,"displayReady.js");
 ?>
 <!DOCTYPE html>
 <?php echo $DOM->saveHTML($html);?>
