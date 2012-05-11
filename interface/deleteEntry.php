@@ -40,5 +40,19 @@ if(isset($_REQUEST['refresh']))
             "html"=>refreshSection($parentItem)));
         return;
     }
+    elseif($request==='doc')
+    {
+        require_once("/var/www/openemr/library/doctrine/document/refresh_section.php");
+        $retVal=array();
+        if(isset($_REQUEST["requestTime"]))
+        {
+            $retVal['requestTime']=intval($_REQUEST["requestTime"]);  
+        }
+        $retVal['html']=refreshSection($parentItem);
+        $retVal['uuid']=$parentItem->getEntry()->getUUID();
+        echo json_encode($retVal);
+        return;                
+
+    }
 }
 ?>

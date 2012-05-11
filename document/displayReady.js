@@ -67,18 +67,17 @@ function setupDeletable(idx,elem)
                 {
                     click: function()
                         {
-                            return
                             var requestTime=new Date().getTime();    
+                            var entryUUID=$(this).attr("entryUUID");
                             $.post("/openemr/library/doctrine/interface/deleteEntry.php",
                                 {
-                                    entryUUID: ""+entryUUID+"",
+                                    entryUUID: entryUUID,
                                     refresh: "doc",
                                     requestTime: requestTime                                        
                                 },
                                 function(data)
                                 {
-                                    uuid=data.uuid;
-                                    refreshEntry(uuid,data.html);
+                                    refreshSection(data);
                                 },"json"
                                 );
 
@@ -110,13 +109,19 @@ function refreshSection(data)
     var toRefresh=$("[uuid='"+data.uuid+"']");
     if(typeof(data.requestTime)!='undefined')
         {
-            
+            var oldTime=toRefresh.attr("requestTime");
+            if(typeof(oldTime)!='undefined')
+                {
+                    var intOld=parseInt(oldTime);
+                    var intRef=parseInt(data.requestTime);
+                    skipRefresh=intOld>intRef;
+                }
         }
     if(!skipRefresh)    
         {
             toRefresh.replaceWith(data.html);
             var parent=$("[uuid='"+data.uuid+"']").parent();
-
+            $("[uuid='"+data.uuid+"']").attr("requestTime",data.requestTime);
             setupDisplay(parent);
             registerEvents(parent);            
         }
