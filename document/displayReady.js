@@ -67,7 +67,21 @@ function setupDeletable(idx,elem)
                 {
                     click: function()
                         {
-                            debugMessage("deleting:"+$(this).attr("entryUUID"));
+                            return
+                            var requestTime=new Date().getTime();    
+                            $.post("/openemr/library/doctrine/interface/deleteEntry.php",
+                                {
+                                    entryUUID: ""+entryUUID+"",
+                                    refresh: "doc",
+                                    requestTime: requestTime                                        
+                                },
+                                function(data)
+                                {
+                                    uuid=data.uuid;
+                                    refreshEntry(uuid,data.html);
+                                },"json"
+                                );
+
                         }
                 });
     
@@ -92,11 +106,20 @@ function refreshSection(data)
 {
 //    var new_html=$(data.html);
 //    window.alert(data.html);
-    $("[uuid='"+data.uuid+"']").replaceWith(data.html);
-    var parent=$("[uuid='"+data.uuid+"']").parent();
-    
-    setupDisplay(parent);
-    registerEvents(parent);
+    var skipRefresh=false;
+    var toRefresh=$("[uuid='"+data.uuid+"']");
+    if(typeof(data.requestTime)!='undefined')
+        {
+            
+        }
+    if(!skipRefresh)    
+        {
+            toRefresh.replaceWith(data.html);
+            var parent=$("[uuid='"+data.uuid+"']").parent();
+
+            setupDisplay(parent);
+            registerEvents(parent);            
+        }
 }
 
 setupDisplay($("#main"));
