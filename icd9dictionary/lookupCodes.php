@@ -21,9 +21,9 @@ if(isset($_REQUEST["requestTime"]))
 }
 
 
-$codes=lookupByCode($em,$searchString);
+$codesList=lookupByCode($em,$searchString);
 
-$returnArr['codes']=generate_codes($codes);
+$returnArr['codes']=generate_codes($codesList);
 error_log($returnArr['codes']);
 echo json_encode($returnArr);
 ?>

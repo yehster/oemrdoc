@@ -45,6 +45,10 @@ class ICD9Code {
         $this->parent=$par;
     }
     
+    public function getParent()
+    {
+        return $this->parent;
+    }
       /**
 	* @OneToMany(targetEntity="ICD9Code", mappedBy="parent", cascade={"persist","remove"})
 	* @OrderBy({"seq" = "ASC"})
