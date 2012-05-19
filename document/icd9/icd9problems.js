@@ -39,7 +39,13 @@ function add_problem(evt)
     "json"
     );    
 }
-
+function show_parent_info(evt)
+{
+    var row=$(this);
+    var codeNum=row.children(".codeNum").text();
+    var children=row.parent().children("[parent_code='"+codeNum+"']").show();
+    
+}
 function bind_problem_table_events(parent)
 {
     
@@ -47,6 +53,12 @@ function bind_problem_table_events(parent)
     {
         click: add_problem
     });
+    parent.find("tr[type='NS']").on(
+    {   click: show_parent_info}
+    );
+    parent.find("tr[type='Section']").on(
+    {   click: show_parent_info}
+    );
 }
 function icd9results(data)
 {
