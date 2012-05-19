@@ -28,6 +28,10 @@
 {
     color: blue;
 }
+.icd9 tr[depth='2'],.icd9 tr[depth='3'],.icd9 tr[depth='4'],.icd9 tr[depth='5']
+{
+    display:none
+}
 
 .icd9 tr.keywords
 {

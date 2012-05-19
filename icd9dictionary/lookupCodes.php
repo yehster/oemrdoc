@@ -25,5 +25,8 @@ $codesList=lookupByCode($em,$searchString);
 
 $returnArr['codes']=generate_codes($codesList);
 error_log($returnArr['codes']);
+
+//echo $returnArr['codes'];
+
 echo json_encode($returnArr);
 ?>

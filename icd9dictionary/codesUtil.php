@@ -44,7 +44,26 @@ class code_node
     {
         return $this->code->getCode();
     }
+    
+    public function codeType()
+    {
+        return $this->code->type;
+    }
+    public function codeDesc()
+    {
+        return $this->code->getShort_desc();
+    }
     protected $children;
+    
+    public function getChildren()
+    {
+        return $this->children;
+    }
+    
+    public function frequency()
+    {
+        return $this->code->getFrequency();
+    }
 }
 
 function populate_parent_code_array(&$parent, &$child)
@@ -54,7 +73,6 @@ function populate_parent_code_array(&$parent, &$child)
 
         if(isset($parent[$code_node->parentText()]))
         {
-            echo $code_node->codeText().":".$code_node->parentText().PHP_EOL;
             $parent[$code_node->parentText()]->add_child($code_node);
             unset($child[$key]);
         }
@@ -68,9 +86,42 @@ function remove_found_entries(&$found,&$orig)
     }
 }        
 
+function create_code_row($DOM,$par_elem,$code_node,$depth,$parent)
+{
+    $tr=$DOM->createElement("tr");
+    $tr->setAttribute("type",$code_node->codeType());
+    if($code_node->frequency()>0)
+    {
+        $tr->setAttribute("class","priority");
+    }
+    $tdDesc=$DOM->createElement("td",$code_node->codeDesc());
+    $tdDesc->setAttribute("class","codeDesc");
+    $tr->appendChild($tdDesc);
+    $tdCode=$DOM->createElement("td",$code_node->codeText());
+    $tdCode->setAttribute("class","codeNum");
+    $tr->appendChild($tdCode);
+    $par_elem->appendChild($tr);
+    if($depth>1)
+    {
+        $tr->setAttribute("parent_code",$parent);
+    }
+    
+    $tr->setAttribute("depth",$depth);
+}
+function create_code_rows($DOM,$par_elem,$code_nodes,$depth,$parent)
+{
+    foreach($code_nodes as $code_node)
+    {
+        $children=$code_node->getChildren();
+        if(count($children)!==1) 
+            {create_code_row($DOM,$par_elem,$code_node,$depth,$parent);}
+        else { $depth=$depth-1;}
+        create_code_rows($DOM,$par_elem,$children,$depth+1,$code_node->codeText());
+    }
+}
+
 function generate_codes($codeList)
 {
-    $DOM=new DOMDocument("1.0","utf-8");
     $top=array();
     $section=array();
     $ns=array();
@@ -96,21 +147,23 @@ function generate_codes($codeList)
             $sp[$code->getCode()]=new code_node($code);
         }
     }
-    echo count($top).":".count($section).":".count($ns).":".count($sp).PHP_EOL;
-    populate_parent_code_array($ns,$sp);    
-    
+    populate_parent_code_array($ns,$sp);
     populate_parent_code_array($section,$sp);
     
     populate_parent_code_array($ns,$ns);        
     populate_parent_code_array($section,$ns);
     
     populate_parent_code_array($section,$section);
-
-    echo count($top).":".count($section).":".count($ns).":".count($sp).PHP_EOL;    
+    $DOM=new DOMDocument("1.0","utf-8");
+    $table=$DOM->createElement("table");
+    $tbody=$DOM->createElement("tbody");
+    $table->appendChild($tbody);
     
-    foreach($section as $code_node)
-    {
-        echo $code_node->codeText().":".$code_node->parentText().PHP_EOL;
-    }
+    create_code_rows($DOM,$tbody,$top,1);
+    create_code_rows($DOM,$tbody,$section,1);
+    create_code_rows($DOM,$tbody,$ns,1);
+    create_code_rows($DOM,$tbody,$sp,1);
+    
+    return $DOM->saveHTML($table);
 }
 ?>

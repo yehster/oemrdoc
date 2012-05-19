@@ -56,7 +56,7 @@ function icd9results(data)
 function lookup_problem(problem)
 {
     var requestTime=new Date().getTime();
-    $.post("/openemr/library/doctrine/icd9dictionary/lookupKeywords.php",
+    $.post("/openemr/library/doctrine/icd9dictionary/lookupCodes.php",
         {
             searchString: problem,
             requestTime: requestTime
