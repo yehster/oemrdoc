@@ -71,10 +71,12 @@ function icd9results(data)
 function lookup_problem(problem)
 {
     var requestTime=new Date().getTime();
-    $.post("/openemr/library/doctrine/icd9dictionary/lookupCodes.php",
+    var requestURL="/openemr/library/doctrine/icd9dictionary/lookupICD9.php"
+    $.post(requestURL,
         {
             searchString: problem,
-            requestTime: requestTime
+            requestTime: requestTime,
+            lookupType: ""
         },
         icd9results,
         "json"
