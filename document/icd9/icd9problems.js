@@ -65,7 +65,15 @@ function bind_problem_table_events(parent)
 }
 function icd9results(data)
 {
-    displayicd9results(data.codes);
+    if(data.type=="KEYWORD")
+    {
+        displayicd9results(data.codes);    
+    }
+    if(data.type=="CODES")
+    {
+        displayicd9results(data.codes);    
+    }
+
 }
 
 function lookup_problem(problem)
@@ -76,11 +84,22 @@ function lookup_problem(problem)
         {
             searchString: problem,
             requestTime: requestTime,
-            lookupType: ""
+            lookupType: "KEYWORD"
         },
         icd9results,
         "json"
     );    
+
+    $.post(requestURL,
+        {
+            searchString: problem,
+            requestTime: requestTime,
+            lookupType: "CODES"
+        },
+        icd9results,
+        "json"
+    );    
+
 }
 function process_problems()
 {

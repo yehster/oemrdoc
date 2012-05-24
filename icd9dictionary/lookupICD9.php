@@ -32,6 +32,7 @@ if($lookupType=="CODES")
     include_once('codesUtil.php');
     $codesList=lookupByCode($em,$searchString);
     $returnArr['codes']=generate_codes($codesList);   
+    $returnArr['type']="CODES";
 }
 else
 {
@@ -45,6 +46,7 @@ else
     $kwArr=findKeywords($em,$toks);
     $codes=findCodes($em,$kwArr,$toks);   
     $returnArr['codes']=generate_table($codes);
+    $returnArr['type']="KEYWORD";
 }
 
 error_log($returnArr['codes']);
