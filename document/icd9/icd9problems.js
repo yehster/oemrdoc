@@ -44,7 +44,10 @@ function show_parent_info(evt)
     var row=$(this);
     var codeNum=row.children(".codeNum").text();
     var children=row.parent().children("[parent_code='"+codeNum+"']").show();
-    
+    if(children.length==0)
+        {
+            
+        }
 }
 function bind_problem_table_events(parent)
 {

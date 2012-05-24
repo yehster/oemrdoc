@@ -1,13 +1,17 @@
 <?php
 require_once("/var/www/openemr/library/doctrine/common/ICD9Constants.php");
 
-function lookupByCode($em,$searchString)
+function lookupByCode($em,$searchString,$type="library\doctrine\Entities\ICD9\ICD9Code",$freq_filter=false)
 {
         $qb = $em->createQueryBuilder()
         ->select("code, code.frequency")
-        ->where("code.code like :startsWith")
-        ->from("library\doctrine\Entities\ICD9\ICD9Code","code")           
-        ->orderBy("code.frequency","DESC")
+        ->from($type,"code")
+        ->where("code.code like :startsWith");
+        if($freq_filter)
+        {
+            $qb->andWhere("code.frequency>0");
+        }
+        $qb->orderBy("code.frequency","DESC")
         ->addOrderBy("code.code","ASC");
     $qb->addOrderBy("code.frequency","DESC");
 

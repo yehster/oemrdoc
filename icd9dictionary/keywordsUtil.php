@@ -40,8 +40,6 @@ function findCodes($em,$kwArr,$toks)
     $numTok=count($kwArr);
     $qb = $em->createQueryBuilder();
 
-    $quals="";
-    $orderByString="";
     
     $qb->select("cd");
     $qb->addOrderBy("cd.frequency","DESC");

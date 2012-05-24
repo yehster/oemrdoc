@@ -86,11 +86,6 @@ function createElement($DOM,$parent,$docEntry,$docItem,$depth)
                 }
             break;
         
-        case TYPE_MEDICATION_ENTRY:
-        case TYPE_MED_SIG:
-        case TYPE_DOC_LINK:
-        case TYPE_IMAGE_ENTRY:
-        case TYPE_OBSERVATION:
         case TYPE_PROBLEM:
             $retVal=createTagElem($DOM,$docEntry,"span",$depth," ");
             $label=$DOM->createElement("span",$text);
@@ -100,6 +95,11 @@ function createElement($DOM,$parent,$docEntry,$docItem,$depth)
             $retVal->setAttribute("canDelete","true");
             $parent->appendChild($retVal);
             break;
+        case TYPE_MEDICATION_ENTRY:
+        case TYPE_MED_SIG:
+        case TYPE_DOC_LINK:
+        case TYPE_IMAGE_ENTRY:
+        case TYPE_OBSERVATION:
         default:
             $retVal=createTagElem($DOM,$docEntry,"span",$depth,$text);
             $retVal->setAttribute("class","unknown");
