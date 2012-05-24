@@ -19,6 +19,7 @@
 .icd9 table
 {
     border-collapse:collapse;
+    width: 100%;
 }
 .icd9 td
 {

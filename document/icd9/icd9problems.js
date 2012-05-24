@@ -1,5 +1,7 @@
-function displayicd9results(table)
+function displayicd9results(data)
 {
+    var table=data.codes;
+    var type=data.type;
     var parent=$(problem_source).parent(".problemInput");
     var location=parent.find(".icd9");
     if(location.length==0)
@@ -9,7 +11,7 @@ function displayicd9results(table)
             location.attr("id","icd9");
             location.appendTo(parent);
         }
-   location.html(table);
+   location.append(table);
 //   location.find("td[defs]").append("<button>...</button>");
     bind_problem_table_events(location);
 }
@@ -65,14 +67,7 @@ function bind_problem_table_events(parent)
 }
 function icd9results(data)
 {
-    if(data.type=="KEYWORD")
-    {
-        displayicd9results(data.codes);    
-    }
-    if(data.type=="CODES")
-    {
-        displayicd9results(data.codes);    
-    }
+        displayicd9results(data);    
 
 }
 
