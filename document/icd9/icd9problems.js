@@ -11,9 +11,16 @@ function displayicd9results(data)
             location.attr("id","icd9");
             location.appendTo(parent);
         }
-   location.append(table);
+   var section=location.find("div[result_type='"+type+"']");
+   if(section.length==0)
+       {
+           section = $("<div></div>");
+           section.attr("result_type",type);
+           section.appendTo(location);
+       }
+   section.html(table);
 //   location.find("td[defs]").append("<button>...</button>");
-    bind_problem_table_events(location);
+    bind_problem_table_events(section);
 }
 function add_problem(evt)
 {
