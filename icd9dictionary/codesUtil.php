@@ -112,12 +112,12 @@ function create_code_row($DOM,$par_elem,$code_node,$depth,$parent)
     
     $tr->setAttribute("depth",$depth);
 }
-function create_code_rows($DOM,$par_elem,$code_nodes,$depth,$parent)
+function create_code_rows($DOM,$par_elem,$code_nodes,$depth,$parent=null)
 {
     foreach($code_nodes as $code_node)
     {
         $children=$code_node->getChildren();
-        if(count($children)!==1) 
+        if((count($children)!==1) && $parent!=null)
             {create_code_row($DOM,$par_elem,$code_node,$depth,$parent);}
         else { $depth=$depth-1;}
         create_code_rows($DOM,$par_elem,$children,$depth+1,$code_node->codeText());

@@ -80,10 +80,7 @@ function findCodes($em,$kwArr,$toks)
     $qry->setMaxResults(100);
 
 
-    error_log($qb->getDql());
-    error_log($qry->getSql());
     $res=$qry->getResult();
-    error_log("query succeeded");
     return $res;
     
     

@@ -5,7 +5,7 @@ $returnArr=array();
 
 
 $searchString=$_REQUEST['searchString'];
-if($argc>1)
+if(isset($argc) && $argc>1)
 {
     $searchString=$argv[1];
 }
@@ -39,17 +39,13 @@ else
     $toks=preg_split('/[-\s.,;:()\[\]]/',$searchString,-1,PREG_SPLIT_NO_EMPTY);
 
     include_once('keywordsUtil.php');
-    foreach($toks as $token)
-    {
-        error_log($token);
-    }
+
     $kwArr=findKeywords($em,$toks);
     $codes=findCodes($em,$kwArr,$toks);   
     $returnArr['codes']=generate_table($codes);
     $returnArr['type']="KEYWORD";
 }
 
-error_log($returnArr['codes']);
 echo json_encode($returnArr);
 
 ?>
