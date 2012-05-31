@@ -35,6 +35,11 @@ function displayicd9results(data)
        }
 //   location.find("td[defs]").append("<button>...</button>");
     bind_problem_table_events(section);
+    var topLevelRows=section.find("tr[depth='1']");
+    if(topLevelRows.length==1)
+        {
+            topLevelRows.click();
+        }
 }
 function add_problem(evt)
 {
