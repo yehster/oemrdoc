@@ -1,6 +1,20 @@
 <?php
 require_once("/var/www/openemr/library/doctrine/common/ICD9Constants.php");
 
+function lookupCodes($em,$searchString)
+{
+    if(strlen($searchString)>1)
+    {
+        return lookupByCode($em,$searchString);
+    }
+    elseif(strlen($searchString)==1)
+    {
+        $freq=lookupByCode($em,$searchString,"library\doctrine\Entities\ICD9\ICD9SPCode",true);
+        $sections=lookupByCode($em,$searchString,"library\doctrine\Entities\ICD9\ICD9Section",false);
+        return array_merge($freq,$sections);
+    }
+}
+
 function lookupByCode($em,$searchString,$type="library\doctrine\Entities\ICD9\ICD9Code",$freq_filter=false)
 {
         $qb = $em->createQueryBuilder()
@@ -98,7 +112,7 @@ function create_code_row($DOM,$par_elem,$code_node,$depth,$parent)
     {
         $tr->setAttribute("class","priority");
     }
-    $tdDesc=$DOM->createElement("td",$code_node->codeDesc());
+    $tdDesc=$DOM->createElement("td",htmlentities($code_node->codeDesc()));
     $tdDesc->setAttribute("class","codeDesc");
     $tr->appendChild($tdDesc);
     $tdCode=$DOM->createElement("td",$code_node->codeText());
@@ -117,9 +131,7 @@ function create_code_rows($DOM,$par_elem,$code_nodes,$depth,$parent=null)
     foreach($code_nodes as $code_node)
     {
         $children=$code_node->getChildren();
-        if((count($children)!==1) && $parent!=null)
-            {create_code_row($DOM,$par_elem,$code_node,$depth,$parent);}
-        else { $depth=$depth-1;}
+        create_code_row($DOM,$par_elem,$code_node,$depth,$parent);          
         create_code_rows($DOM,$par_elem,$children,$depth+1,$code_node->codeText());
     }
 }

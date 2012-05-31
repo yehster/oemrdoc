@@ -43,31 +43,35 @@ function findCodes($em,$kwArr,$toks)
     
     $qb->select("cd");
     $qb->addOrderBy("cd.frequency","DESC");
+    $hasKeywords=false;
     for($tokIdx=0;$tokIdx<$numTok;$tokIdx++)
     {
         $keywords=$kwArr[$tokIdx];
-        $kwInList[$tokIdx]="";
-        for($kwIdx=0;$kwIdx<count($keywords);$kwIdx++)
+        if(count($keywords)>0)
         {
-            $kwInList[$tokIdx].=",".$keywords[$kwIdx][0]->getID();
-        }
-        $kwInList[$tokIdx]="(". substr($kwInList[$tokIdx],1).")";
+            $hasKeywords=true;
+            $kwInList[$tokIdx]="";
+            for($kwIdx=0;$kwIdx<count($keywords);$kwIdx++)
+            {
+                $kwInList[$tokIdx].=",".$keywords[$kwIdx][0]->getID();
+            }
+            $kwInList[$tokIdx]="(". substr($kwInList[$tokIdx],1).")";
 
-        $qb->addSelect("MATCHQUALITY('".$toks[$tokIdx]."',kw".$tokIdx.".text) as qual".$tokIdx);
-        $qb->addSelect("kw".$tokIdx.".text as content".$tokIdx);
+            $qb->addSelect("MATCHQUALITY('".$toks[$tokIdx]."',kw".$tokIdx.".text) as qual".$tokIdx);
+            $qb->addSelect("kw".$tokIdx.".text as content".$tokIdx);
 
-        
-        $qb->from("library\doctrine\Entities\ICD9\ICD9KeywordMapping","kwm".$tokIdx);
-        $qb->from("library\doctrine\Entities\ICD9\ICD9Keyword","kw".$tokIdx);
-        $qb->andWhere("kwm".$tokIdx.".keyword in ".$kwInList[$tokIdx]);
-        $qb->andWhere("kwm".$tokIdx.".code = cd");
-        $qb->andWhere("kwm".$tokIdx.".keyword = kw".$tokIdx);
 
-        $qb->addOrderBy('qual'.$tokIdx,"DESC");
-        $qb->addOrderBy("kw".$tokIdx.".frequency","DESC");
-        $qb->addOrderBy('kwm'.$tokIdx.".priority","ASC");
-        $qb->addOrderBy('kw'.$tokIdx.".text","ASC");
-        
+            $qb->from("library\doctrine\Entities\ICD9\ICD9KeywordMapping","kwm".$tokIdx);
+            $qb->from("library\doctrine\Entities\ICD9\ICD9Keyword","kw".$tokIdx);
+            $qb->andWhere("kwm".$tokIdx.".keyword in ".$kwInList[$tokIdx]);
+            $qb->andWhere("kwm".$tokIdx.".code = cd");
+            $qb->andWhere("kwm".$tokIdx.".keyword = kw".$tokIdx);
+
+            $qb->addOrderBy('qual'.$tokIdx,"DESC");
+            $qb->addOrderBy("kw".$tokIdx.".frequency","DESC");
+            $qb->addOrderBy('kwm'.$tokIdx.".priority","ASC");
+            $qb->addOrderBy('kw'.$tokIdx.".text","ASC");
+        }    
     }
 
     $qb->from("library\doctrine\Entities\ICD9\ICD9Code", "cd");
@@ -79,8 +83,14 @@ function findCodes($em,$kwArr,$toks)
     $qry->setFirstResult(0);
     $qry->setMaxResults(100);
 
-
-    $res=$qry->getResult();
+    if($hasKeywords)
+    {
+        $res=$qry->getResult();    
+    }
+    else 
+     {
+        $res=array();
+    }
     return $res;
     
     

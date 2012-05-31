@@ -30,7 +30,7 @@ if(isset($_REQUEST["lookupType"]))
 if($lookupType=="CODES")
 {
     include_once('codesUtil.php');
-    $codesList=lookupByCode($em,$searchString);
+    $codesList=lookupCodes($em,$searchString);
     $returnArr['codes']=generate_codes($codesList);   
     $returnArr['type']="CODES";
 }
