@@ -1,19 +1,19 @@
 <?php
 require_once("/var/www/openemr/library/doctrine/common/ICD9Constants.php");
 
-function lookupCodes($em,$searchString)
+function lookupCodes($em,$searchString,$children)
 {
     $ssLen=strlen($searchString);
     if($ssLen>1)
     {
-        return lookupByCode($em,$searchString);
+        return lookupByCode($em,$searchString,$children);
     }
     else
     {
-        $freq=lookupByCode($em,$searchString,"library\doctrine\Entities\ICD9\ICD9SPCode",true);
+        $freq=lookupByCode($em,$searchString,$children,"library\doctrine\Entities\ICD9\ICD9SPCode",true);
         if($ssLen==1)
         {
-            $sections=lookupByCode($em,$searchString,"library\doctrine\Entities\ICD9\ICD9Section",false);        
+            $sections=lookupByCode($em,$searchString,$children,"library\doctrine\Entities\ICD9\ICD9Section",false);        
             return array_merge($freq,$sections);
         }
         else
@@ -23,7 +23,7 @@ function lookupCodes($em,$searchString)
     }
 }
 
-function lookupByCode($em,$searchString,$type="library\doctrine\Entities\ICD9\ICD9Code",$freq_filter=false)
+function lookupByCode($em,$searchString,$children,$type="library\doctrine\Entities\ICD9\ICD9Code",$freq_filter=false)
 {
         $qb = $em->createQueryBuilder()
         ->select("code, code.frequency")
@@ -33,12 +33,19 @@ function lookupByCode($em,$searchString,$type="library\doctrine\Entities\ICD9\IC
         {
             $qb->andWhere("code.frequency>0");
         }
+        if($children)
+        {
+            $qb->orWhere("code.parent=:parent");
+        }
         $qb->orderBy("code.frequency","DESC")
         ->addOrderBy("code.code","ASC");
     $qb->addOrderBy("code.frequency","DESC");
 
     $qb->setParameter("startsWith",$searchString."%");
-
+        if($children)
+        {
+            $qb->setParameter("parent",$searchString);    
+        }
     $qry=$qb->getQuery();
 
     return $qry->getResult();    

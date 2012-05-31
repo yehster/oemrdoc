@@ -70,6 +70,7 @@ function show_parent_info(evt)
     if(children.length==0)
         {
             debugMessage("Need to Lookup children");
+            lookup_problem(codeNum,true);
         }
 }
 function bind_problem_table_events(parent)
@@ -92,29 +93,56 @@ function icd9results(data)
 
 }
 
-function lookup_problem(problem)
+function lookup_problem(problem,children)
 {
     var requestTime=new Date().getTime();
     var requestURL="/openemr/library/doctrine/icd9dictionary/lookupICD9.php"
-    $.post(requestURL,
+    if(children)
         {
-            searchString: problem,
-            requestTime: requestTime,
-            lookupType: "KEYWORD"
-        },
-        icd9results,
-        "json"
-    );    
+            $.post(requestURL,
+                {
+                    searchString: problem,
+                    requestTime: requestTime,
+                    lookupType: "CODES",
+                    children: "true"
+                },
+                icd9results,
+                "json"
+            );    
+            $.post(requestURL,
+                {
+                    searchString: "",
+                    requestTime: requestTime,
+                    lookupType: "KEYWORD"
+                },
+                icd9results,
+                "json"
+            );    
+            
+        }
+        else
+        {
+            $.post(requestURL,
+                {
+                    searchString: problem,
+                    requestTime: requestTime,
+                    lookupType: "KEYWORD"
+                },
+                icd9results,
+                "json"
+            );    
 
-    $.post(requestURL,
-        {
-            searchString: problem,
-            requestTime: requestTime,
-            lookupType: "CODES"
-        },
-        icd9results,
-        "json"
-    );    
+            $.post(requestURL,
+                {
+                    searchString: problem,
+                    requestTime: requestTime,
+                    lookupType: "CODES"
+                },
+                icd9results,
+                "json"
+            );    
+
+        }
 
 }
 function process_problems()
@@ -124,7 +152,7 @@ function process_problems()
     {
         clearTimeout(lookup_timer);
     }
-    var lookup_code="lookup_problem(\'"+problem+"\')";
+    var lookup_code="lookup_problem(\'"+problem+"\',false)";
 //    lookup_problem(problem);
     problem_source=this;
     lookup_timer=setTimeout(lookup_code,100);
