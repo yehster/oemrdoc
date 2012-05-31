@@ -4,6 +4,7 @@ function displayicd9results(data)
     var type=data.type;
     var parent=$(problem_source).parent(".problemInput");
     var location=parent.find(".icd9");
+    location.show();
     if(location.length==0)
         {
             location = $("<div></div>");
@@ -16,7 +17,14 @@ function displayicd9results(data)
        {
            section = $("<div></div>");
            section.attr("result_type",type);
-           section.appendTo(location);
+           if(type=="CODES")
+               {
+                   section.prependTo(location);
+               }
+           else
+               {
+                   section.appendTo(location);           
+               }
        }
    var requestTime=parseInt(section.attr("requestTime"));
    var dataTime=parseInt(data.requestTime);
@@ -61,7 +69,7 @@ function show_parent_info(evt)
     var children=row.parent().children("[parent_code='"+codeNum+"']").show();
     if(children.length==0)
         {
-            
+            debugMessage("Need to Lookup children");
         }
 }
 function bind_problem_table_events(parent)
@@ -119,7 +127,7 @@ function process_problems()
     var lookup_code="lookup_problem(\'"+problem+"\')";
 //    lookup_problem(problem);
     problem_source=this;
-    lookup_timer=setTimeout(lookup_code,300);
+    lookup_timer=setTimeout(lookup_code,100);
     debugMessage(problem);
     
 }
@@ -144,7 +152,12 @@ function setupProblems(parent)
     problemsLabel.after(problemsInputSection);
     problemsInput.addClass("problems_input");
     problemsInput.on({
-        keyup: process_problems
+        keyup: process_problems,
+        focus: process_problems,
+        blur: function()
+        {
+//            setTimeout("$('div.icd9').hide();",100);
+        }
     });
     
     problemsInputSection.on({
