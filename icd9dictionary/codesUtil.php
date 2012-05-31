@@ -3,15 +3,23 @@ require_once("/var/www/openemr/library/doctrine/common/ICD9Constants.php");
 
 function lookupCodes($em,$searchString)
 {
-    if(strlen($searchString)>1)
+    $ssLen=strlen($searchString);
+    if($ssLen>1)
     {
         return lookupByCode($em,$searchString);
     }
-    elseif(strlen($searchString)==1)
+    else
     {
         $freq=lookupByCode($em,$searchString,"library\doctrine\Entities\ICD9\ICD9SPCode",true);
-        $sections=lookupByCode($em,$searchString,"library\doctrine\Entities\ICD9\ICD9Section",false);
-        return array_merge($freq,$sections);
+        if($ssLen==1)
+        {
+            $sections=lookupByCode($em,$searchString,"library\doctrine\Entities\ICD9\ICD9Section",false);        
+            return array_merge($freq,$sections);
+        }
+        else
+        {
+            return $freq;
+        }
     }
 }
 

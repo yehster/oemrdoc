@@ -18,7 +18,13 @@ function displayicd9results(data)
            section.attr("result_type",type);
            section.appendTo(location);
        }
-   section.html(table);
+   var requestTime=parseInt(section.attr("requestTime"));
+   var dataTime=parseInt(data.requestTime);
+   if(isNaN(requestTime)||requestTime<=dataTime)
+       {
+           section.attr("requestTime",dataTime);
+           section.html(table);
+       }
 //   location.find("td[defs]").append("<button>...</button>");
     bind_problem_table_events(section);
 }

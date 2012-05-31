@@ -10,13 +10,6 @@ if(isset($argc) && $argc>1)
     $searchString=$argv[1];
 }
 
-if(strlen($searchString)==0)
-{
-    $returnArr['requestTime']=0;  
-    echo json_encode($returnArr);
-    return;
-}
-
 if(isset($_REQUEST["requestTime"]))
 {
     $returnArr['requestTime']=intval($_REQUEST["requestTime"]);  
@@ -36,14 +29,20 @@ if($lookupType=="CODES")
 }
 else
 {
+    include_once('keywordsUtil.php');
+    $returnArr['type']="KEYWORD";
+    if(strlen($searchString)==0)
+    {
+        $returnArr['codes']=generate_table(array());
+        echo json_encode($returnArr);
+        return;
+    }
     $toks=preg_split('/[-\s.,;:()\[\]]/',$searchString,-1,PREG_SPLIT_NO_EMPTY);
 
-    include_once('keywordsUtil.php');
 
     $kwArr=findKeywords($em,$toks);
     $codes=findCodes($em,$kwArr,$toks);   
     $returnArr['codes']=generate_table($codes);
-    $returnArr['type']="KEYWORD";
 }
 
 echo json_encode($returnArr);
