@@ -15,6 +15,7 @@ class ICD9Keyword {
     public function __construct($text)
     {
         $this->text=ICD9Keyword::normalize_text($text);
+        $this->frequency=0;
     }    
 
     /**

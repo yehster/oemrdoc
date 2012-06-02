@@ -13,6 +13,7 @@ class ICD9Code {
         $this->code=$cd;
         $this->short_desc=$sd;
         $this->parent=$par;
+        $this->frequency=0;
     }    
     /**
      * @Id
