@@ -35,7 +35,7 @@ function my_split($string)
 {
     return preg_split("/[-\s.,;:()\[\]]/",$string,-1,PREG_SPLIT_NO_EMPTY);
 }
-$ignore_kw=array("and","of","due","to","in","a","is","an","by","or","the","");
+$ignore_kw=array("and","of","due","to","in","a","is","an","by","or","the","be","");
 
 
 
