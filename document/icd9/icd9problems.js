@@ -98,6 +98,7 @@ function show_parent_info(evt)
     var row;
     var searchType;
     row=$(this).parent("tr");
+    var codeNum=row.children(".codeNum").text();
     if($(this).is(".codeDesc"))
     {
         searchType="children";
@@ -105,8 +106,11 @@ function show_parent_info(evt)
     else
     {
         searchType="parent"
+        if((typeof row.attr("parent_code")!="undefined"))
+        {
+            codeNum=row.attr("parent_code");
+        }
     }
-    var codeNum=row.children(".codeNum").text();
     var children=row.parent().children("[parent_code='"+codeNum+"']").show();
     if((children.length==0)||(searchType=="parent"))
         {
