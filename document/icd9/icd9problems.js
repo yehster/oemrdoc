@@ -35,11 +35,14 @@ function displayicd9results(data)
        }
 //   location.find("td[defs]").append("<button>...</button>");
     bind_problem_table_events(section);
-    var topLevelRows=section.find("tr[depth='1']");
+    var topLevelRows=section.find("tr[depth='1']:not([type='SP']):first");
     if(topLevelRows.length==1)
         {
-            topLevelRows.click();
+            var codeNum=topLevelRows.children(".codeNum").text();
+            var children=topLevelRows.parent().children("[parent_code='"+codeNum+"']").show();
+            
         }
+
 }
 function add_problem(evt)
 {
