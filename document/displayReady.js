@@ -46,8 +46,9 @@ function addVocabMappingControls(parent)
             if(control.length==0)
                 {
                     var label=toAdd.children(".label:first");
-                    control=$("<button>details</button>");
+                    control=$("<span>&#xe054</span>");
                     control.addClass("vocab_control");
+                    control.addClass("document_iconic");
                     control.on({
                         click: show_vocab_form
                     })
@@ -58,7 +59,7 @@ function addVocabMappingControls(parent)
 
 function setupDeletable(idx,elem)
 {
-                var button=$("<span>✓</span>");
+                var button=$("<span>&#xe05a;</span>");
                 var di=new doctrineInfo(elem);
                 button.attr("entryUUID",di.uuid);
                 button.attr("func","delete");
