@@ -52,3 +52,23 @@ span.label
 {
     font-weight: bold;
 }
+
+@font-face {
+    font-family: iconic;
+    src: url(/openemr/interface/themes/iconic/iconic_stroke.otf);
+    font-weight:100;
+}
+
+.document_iconic
+{
+    font-family: iconic;
+    cursor: pointer;
+    margin: 0 0.1em 0 0.4em;
+    padding:0 0.1em;
+    border: 1px solid lightgray;
+}
+
+.delete_button
+{
+    color: red;
+}
