@@ -58,10 +58,12 @@ function addVocabMappingControls(parent)
 
 function setupDeletable(idx,elem)
 {
-                var button=$("<button>del</button>");
+                var button=$("<span>✓</span>");
                 var di=new doctrineInfo(elem);
                 button.attr("entryUUID",di.uuid);
                 button.attr("func","delete");
+                button.addClass("document_iconic");
+                button.addClass("delete_button");
                 $(elem).after(button);
                 button.on(
                 {

@@ -29,6 +29,7 @@ $head->appendChild($title);
 addScript($DOM,$head,"/openemr/library/js/jquery-1.7.1.min.js");
 addStyle($DOM,$head,"display.css");
 addStyle($DOM,$head,"icd9/icd9problems.css");
+addStyle($DOM,$head,"/openemr/interface/themes/iconic/iconic.css");
 
 $body=$DOM->createElement("body");
 $html->appendChild($body);
