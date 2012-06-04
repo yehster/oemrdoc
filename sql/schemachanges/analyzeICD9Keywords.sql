@@ -1,0 +1,1 @@
+select k.text, count(km.id) as f from dct_icd9_keywords as k, dct_icd9_keyword_mappings as km where k.id=km.keyword and char_length(k.text)=3 group by k.text order by f desc
