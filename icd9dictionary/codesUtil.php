@@ -52,14 +52,7 @@ function lookupByCode($em,$searchString,$searchType,$type="library\doctrine\Enti
         if($searchType)
         {
             $qb->setParameter("parent",$searchString);
-            if($searchType=="parent")
-            {
-                $qb->setParameter("startsWith",$searchString);            
-            }
-            else
-            {
-                $qb->setParameter("startsWith",$searchString."%");                            
-            }
+            $qb->setParameter("startsWith",$searchString);            
         }
         else
         {
