@@ -22,9 +22,16 @@ if(isset($_REQUEST["lookupType"]))
 
 if($lookupType=="CODES")
 {
-    $children = isset($_REQUEST["children"]);
+    if(isset($_REQUEST["searchType"]))
+    {
+        $searchType=$_REQUEST["searchType"];
+    }
+    else
+    {
+        $searchType=false;
+    }
     include_once('codesUtil.php');
-    $codesList=lookupCodes($em,$searchString,$children);
+    $codesList=lookupCodes($em,$searchString,$searchType);
     $returnArr['codes']=generate_codes($codesList);   
     $returnArr['type']="CODES";
 }

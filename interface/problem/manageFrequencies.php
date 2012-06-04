@@ -13,9 +13,9 @@ function increment_frequencies($em,$code,$codeType,$keywords)
         foreach($arKeywords as $kw)
         {
             error_log($kw);
+            $dct_kw=$repKeywords->findOneBy(array("text"=>$kw));
             if($dct_kw!=null)
             {
-                $dct_kw=$repKeywords->findOneBy(array("text"=>$kw));
                 $dct_kw->incrementFreq();
             }
         }

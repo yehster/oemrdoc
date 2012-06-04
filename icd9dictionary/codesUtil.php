@@ -1,19 +1,27 @@
 <?php
 require_once("/var/www/openemr/library/doctrine/common/ICD9Constants.php");
 
-function lookupCodes($em,$searchString,$children)
+function lookupCodes($em,$searchString,$searchType)
 {
     $ssLen=strlen($searchString);
     if($ssLen>1)
     {
-        return lookupByCode($em,$searchString,$children);
+        if($searchType=="parent")
+        {
+            $code=$em->getRepository('library\doctrine\Entities\ICD9\ICD9Code')->findOneBy(array("code"=>$searchString));
+            if(($code!=null) && $code->getParent()!=null)
+            {
+                $searchString=$code->getParent()->getCode();
+            }
+        }
+        return lookupByCode($em,$searchString,$searchType);
     }
     else
     {
-        $freq=lookupByCode($em,$searchString,$children,"library\doctrine\Entities\ICD9\ICD9SPCode",true);
+        $freq=lookupByCode($em,$searchString,$searchType,"library\doctrine\Entities\ICD9\ICD9SPCode",true);
         if($ssLen==1)
         {
-            $sections=lookupByCode($em,$searchString,$children,"library\doctrine\Entities\ICD9\ICD9Section",false);        
+            $sections=lookupByCode($em,$searchString,$searchType,"library\doctrine\Entities\ICD9\ICD9Section",false);        
             return array_merge($freq,$sections);
         }
         else
@@ -23,7 +31,7 @@ function lookupCodes($em,$searchString,$children)
     }
 }
 
-function lookupByCode($em,$searchString,$children,$type="library\doctrine\Entities\ICD9\ICD9Code",$freq_filter=false)
+function lookupByCode($em,$searchString,$searchType,$type="library\doctrine\Entities\ICD9\ICD9Code",$freq_filter=false)
 {
         $qb = $em->createQueryBuilder()
         ->select("code, code.frequency")
@@ -33,7 +41,7 @@ function lookupByCode($em,$searchString,$children,$type="library\doctrine\Entiti
         {
             $qb->andWhere("code.frequency>0");
         }
-        if($children)
+        if($searchType)
         {
             $qb->orWhere("code.parent=:parent");
         }
@@ -41,10 +49,21 @@ function lookupByCode($em,$searchString,$children,$type="library\doctrine\Entiti
         ->addOrderBy("code.code","ASC");
     $qb->addOrderBy("code.frequency","DESC");
 
-    $qb->setParameter("startsWith",$searchString."%");
-        if($children)
+        if($searchType)
         {
-            $qb->setParameter("parent",$searchString);    
+            $qb->setParameter("parent",$searchString);
+            if($searchType=="parent")
+            {
+                $qb->setParameter("startsWith",$searchString);            
+            }
+            else
+            {
+                $qb->setParameter("startsWith",$searchString."%");                            
+            }
+        }
+        else
+        {
+            $qb->setParameter("startsWith",$searchString."%");
         }
     $qry=$qb->getQuery();
 

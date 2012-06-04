@@ -92,13 +92,23 @@ function add_problem(evt)
 }
 function show_parent_info(evt)
 {
-    var row=$(this);
+    var row;
+    var searchType;
+    row=$(this).parent("tr");
+    if($(this).is(".codeDesc"))
+    {
+        searchType="children";
+    }
+    else
+    {
+        searchType="parent"
+    }
     var codeNum=row.children(".codeNum").text();
     var children=row.parent().children("[parent_code='"+codeNum+"']").show();
-    if(children.length==0)
+    if((children.length==0)||(searchType=="parent"))
         {
             debugMessage("Need to Lookup children");
-            lookup_problem(codeNum,true);
+            lookup_problem(codeNum,searchType);
         }
 }
 function bind_problem_table_events(parent)
@@ -108,12 +118,16 @@ function bind_problem_table_events(parent)
     {
         click: add_problem
     });
-    parent.find("tr[type='NS']").on(
+    parent.find("tr[type='NS'] > td.codeDesc").on(
     {   click: show_parent_info}
     );
-    parent.find("tr[type='Section']").on(
+    parent.find("tr[type='Section'] > td.codeDesc").on(
     {   click: show_parent_info}
     );
+        
+    parent.find("tr[type] > td.codeNum").on(
+    {   click: show_parent_info}
+    );        
 }
 function icd9results(data)
 {
@@ -121,18 +135,18 @@ function icd9results(data)
 
 }
 
-function lookup_problem(problem,children)
+function lookup_problem(problem,searchType)
 {
     var requestTime=new Date().getTime();
     var requestURL="/openemr/library/doctrine/icd9dictionary/lookupICD9.php"
-    if(children)
+    if(searchType!="")
         {
             $.post(requestURL,
                 {
                     searchString: problem,
                     requestTime: requestTime,
                     lookupType: "CODES",
-                    children: "true"
+                    searchType: searchType
                 },
                 icd9results,
                 "json"
