@@ -48,7 +48,17 @@ function add_problem(evt)
     var text=$(this).text();
     var code=$(this).siblings("td.codeNum").text();
     var requestTime=new Date().getTime();
-    debugMessage(parentUUID+":"+text+":"+code);
+    var kw_row=$(this).parent("[keywords]");
+    var keywords;
+    if(kw_row.length>0)
+        {
+           keywords = kw_row.attr("keywords");    
+        }
+        else
+            {
+                keywords="";
+            }
+    debugMessage(parentUUID+":"+text+":"+code+":"+keywords);
     $.post("/openemr/library/doctrine/interface/manageProblem.php",
     {
         parentUUID: parentUUID,
@@ -58,6 +68,7 @@ function add_problem(evt)
         task: "create",
         refresh: "doc",
         addNarrative: "YES",
+        keywords: keywords,
         requestTime: requestTime
     },
     function(data)
@@ -66,6 +77,18 @@ function add_problem(evt)
     },
     "json"
     );    
+    $.post("/openemr/library/doctrine/interface/problem/manageFrequencies.php",
+    {
+        code: code,
+        codeType: 2,
+        keywords: keywords,
+    },
+    function(data)
+    {
+    },
+    "json"
+    );    
+
 }
 function show_parent_info(evt)
 {

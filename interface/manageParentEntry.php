@@ -1,5 +1,6 @@
 <?php
 require_once('/var/www/openemr/library/doctrine/init-session.php');
+session_write_close();
 require_once('/var/www/openemr/library/doctrine/ui/Editor/EditorUtilities.php');
 require_once('checkAuth.php');
 

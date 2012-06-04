@@ -50,6 +50,5 @@ switch ($task)
         $em->flush();
         break;
 }
-
 require_once("refreshCheck.php");
 ?>

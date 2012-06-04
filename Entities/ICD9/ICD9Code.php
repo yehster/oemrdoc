@@ -83,6 +83,11 @@ class ICD9Code {
         {
             return $this->frequency;
         }
+        
+        public function incrementFreq()
+        {
+            $this->frequency++;
+        }
 }
 
 ?>

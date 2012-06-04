@@ -44,6 +44,10 @@ class ICD9Keyword {
      *@Column(type="integer") 
      */
     protected $frequency;
-    
+
+    public function incrementFreq()
+    {
+        $this->frequency++;
+    }    
 }
 ?>
