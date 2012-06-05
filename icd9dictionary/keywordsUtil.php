@@ -14,8 +14,16 @@ function lookupKeywords($em,$searchString)
         $qb->setParameter("char".$charIdx,"%".$searchString[$charIdx]."%");
     }
 
-    $qb->setParameter("startsWith",$searchString[0]."%");
-
+    
+    $isNumeric=preg_match("/\d+.?\d+/",$searchString);
+    if($isNumeric)
+    {
+        $qb->setParameter("startsWith",$searchString."%");            
+    }
+    else
+    {
+        $qb->setParameter("startsWith",$searchString[0]."%");            
+    }
     $qry=$qb->getQuery();
     $qry->setFirstResult(0);
     $qry->setMaxResults(100);

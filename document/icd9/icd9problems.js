@@ -1,3 +1,27 @@
+function closeicd9()
+{
+    var displayDiv  =$(this).parents(".icd9:first");
+    displayDiv.hide();
+}
+
+function showicd9tab()
+{
+    var result_type=$(this).attr("result_type");
+    var displayDiv  =$(this).parents(".icd9:first");
+    icd9tabsvisibility(displayDiv,result_type);
+}
+
+function icd9tabsvisibility(displayDiv,result_type)
+{
+    var rt_selector="[result_type='"+result_type+"']";
+    var tab=displayDiv.children("div"+rt_selector);
+    tab.show();
+    tab.siblings("div[result_type]").hide();
+    var control=displayDiv.find("span"+rt_selector);
+    control.addClass("type_selected");
+    control.siblings("span[result_type]").removeClass("type_selected");
+    
+}
 function displayicd9results(data)
 {
     var table=data.codes;
@@ -11,20 +35,42 @@ function displayicd9results(data)
             location.addClass("icd9");
             location.attr("id","icd9");
             location.appendTo(parent);
+            var controls=$("<div></div>");
+            controls.addClass("icd9controls");
+            location.append(controls);
+
+            var type_tabs=$("<span></span>");
+            type_tabs.addClass('icd9tabs');
+            controls.append(type_tabs);
+            
+            var close=$("<span>&#x2713</span>")
+            close.addClass("icd9_iconic");
+            close.addClass("icd9_close");
+            close.on({click: closeicd9 });
+            controls.append(close);
         }
    var section=location.find("div[result_type='"+type+"']");
+   var code_tab;
    if(section.length==0)
        {
            section = $("<div></div>");
            section.attr("result_type",type);
+           var tabs =location.find(".icd9tabs");
            if(type=="CODES")
                {
-                   section.prependTo(location);
+                   location.find("div.icd9controls").after(section);
+                   code_tab=$("<span>"+"Codes"+"</span>");
+                   tabs.prepend(code_tab);
                }
            else
                {
                    section.appendTo(location);           
+                   code_tab=$("<span>"+"Keywords"+"</span>");
+                   tabs.append(code_tab);
                }
+          code_tab.addClass("icd9typeselector");
+          code_tab.attr("result_type",type);
+          code_tab.on({click: showicd9tab});
        }
    var requestTime=parseInt(section.attr("requestTime"));
    var dataTime=parseInt(data.requestTime);
@@ -42,7 +88,31 @@ function displayicd9results(data)
             var children=topLevelRows.parent().children("[parent_code='"+codeNum+"']").show();
             
         }
-
+    if(type=="CODES")
+        {
+            if(section.find("tr").length==0)
+                {
+                    icd9tabsvisibility(location,"KEYWORD");
+                }
+                else
+                {
+                    var keywords=location.find("div[result_type='KEYWORD']");
+                    var kw_rt=parseInt(keywords.attr("requesttime"));
+                    if(dataTime>kw_rt)
+                        {
+                            icd9tabsvisibility(location,"CODES");
+                        }
+                    
+                }
+        }
+        else
+            {
+            if(section.find("tr").length==0)
+                {
+                    icd9tabsvisibility(location,"CODES");
+                }
+                
+            }
 }
 function add_problem(evt)
 {
@@ -154,15 +224,6 @@ function lookup_problem(problem,searchType)
                     requestTime: requestTime,
                     lookupType: "CODES",
                     searchType: searchType
-                },
-                icd9results,
-                "json"
-            );    
-            $.post(requestURL,
-                {
-                    searchString: "",
-                    requestTime: requestTime,
-                    lookupType: "KEYWORD"
                 },
                 icd9results,
                 "json"

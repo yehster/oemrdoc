@@ -10,6 +10,7 @@
     border: 1px solid grey;
     height: 95%;
     overflow-y: scroll;
+    width: 45em;
 }
 
 .icd9 tbody
@@ -25,6 +26,12 @@
 {
     border: 1px black solid;
 }
+
+.icd9 td.codeNum
+{
+    width: 4em;
+}
+
 .icd9 tr.priority
 {
     color: blue;
@@ -47,4 +54,33 @@
 
 .icd9 tr:hover{
     background-color: yellow;
+}
+
+
+.icd9controls
+{
+    position: relative;
+}
+.icd9_iconic
+{
+    font-family: iconic;
+    cursor: pointer;
+    margin: 0 0.1em 0 0.4em;
+    padding:0 0.1em;
+}
+
+.icd9_close
+{
+    float: right;
+}
+
+.icd9typeselector
+{
+    padding: 0 0.2em;
+    border: 1px black solid;
+}
+
+.icd9 .type_selected
+{
+    background-color: lightblue;
 }
