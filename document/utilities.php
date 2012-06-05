@@ -78,8 +78,12 @@ function createElement($DOM,$parent,$docEntry,$docItem,$depth)
                 $retVal=$content;
             break;
         case TYPE_NARRATIVE:
+                $wrapper=$DOM->createElement("section");
+                $wrapper->setAttribute("entrytype","Narrative");
+                $wrapper->setAttribute("entryuuid",$docEntry->getUUID());
                 $retVal=createTagElem($DOM,$docEntry,"textarea",$depth,$text);
-                $parent->appendChild($retVal);
+                $wrapper->appendChild($retVal);
+                $parent->appendChild($wrapper);
                 if(is_null($docEntry->getMetadata()))
                 {
                     $retVal->setAttribute("canDelete","true");

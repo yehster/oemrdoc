@@ -39,13 +39,15 @@ section[entrytype="Section"] > span.content
     display:block;
     max-width: fit-content;
 }
-
+section[entrytype='Narrative']
+{
+    padding: 0 0 0 3px;
+}
 textarea[entrytype='Narrative']{
-    display:block;
     width: 60em;
     max-width:95%;
-    margin: 3px 5px;
-    
+    margin: 0px 0px;
+    display: inline;
 }
 
 span.label
@@ -70,5 +72,7 @@ span.label
 
 .delete_button
 {
+    display: inline;
+    vertical-align: top;
     color: red;
 }

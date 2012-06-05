@@ -31,6 +31,7 @@ addStyle($DOM,$head,"display.css");
 addStyle($DOM,$head,"icd9/icd9problems.css");
 
 $body=$DOM->createElement("body");
+$body->setAttribute("documentUUID",$doc->getUUID());
 $html->appendChild($body);
 
 $docInfo=$DOM->createElement("section");
