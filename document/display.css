@@ -61,18 +61,25 @@ span.label
     font-weight:100;
 }
 
+.document_iconic + .document_iconic
+{
+    margin: 0.2em 0 0 0;    
+}
 .document_iconic
 {
     font-family: iconic;
+    margin: 0.2em 0 0 0.5em;
     cursor: pointer;
-    margin: 0 0.1em 0 0.4em;
-    padding:0 0.1em;
+    padding:0;
     border: 1px solid lightgray;
+    display: inline;
 }
 
+textarea + .document_iconic
+{
+    vertical-align: top;
+}
 .delete_button
 {
-    display: inline;
-    vertical-align: top;
     color: red;
 }

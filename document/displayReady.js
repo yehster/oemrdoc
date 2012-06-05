@@ -96,12 +96,35 @@ function setupDeleteControls(parent)
     
 }
 
+function addNarrative(evt)
+{
+    debugMessage($(this).attr("entryuuid")+":"+"Add Narrative Stub");
+}
+
+function addNarrativeControl(idx,elem)
+{
+    var control=$("<span>&#x270e</span>");
+    var di=new doctrineInfo(elem);
+    control.attr("entryUUID",di.uuid);
+    control.attr("func","addNarrative");
+    control.addClass("document_iconic");
+    $(elem).after(control);
+    control.on({click: addNarrative});
+
+}
+function setupAddNarrative(parent)
+{
+    var problems=parent.find("span.problemLabel");
+    problems.each(addNarrativeControl);
+}
+
 function setupDisplay(parent)
 {
     simplifyDisplay(parent);
     addVocabMappingControls(parent);
     setupProblems(parent);
     setupDeleteControls(parent);
+    setupAddNarrative(parent);
 }
 
 function refreshSection(data)
