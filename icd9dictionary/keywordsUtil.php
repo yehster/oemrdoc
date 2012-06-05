@@ -50,7 +50,8 @@ function findCodes($em,$kwArr,$toks)
 
     
     $qb->select("cd");
-    $qb->addOrderBy("cd.frequency","DESC");
+    $qb->addSelect("cd.frequency/cd.frequency as f");
+    $qb->addOrderBy("f","DESC");
     $hasKeywords=false;
     for($tokIdx=0;$tokIdx<$numTok;$tokIdx++)
     {
