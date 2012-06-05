@@ -33,7 +33,22 @@ addStyle($DOM,$head,"icd9/icd9problems.css");
 $body=$DOM->createElement("body");
 $html->appendChild($body);
 
-$docInfo=$DOM->createElement("section",$doc->getMetadata()->getLongDesc()." : ".$patient->displayName());
+$docInfo=$DOM->createElement("section");
+$docDescription=$DOM->createElement("section",$doc->getMetadata()->getLongDesc()." : ".$patient->displayName());
+$docInfo->appendChild($docDescription);
+
+$docDate=$DOM->createElement("div");
+$docDateLabel=$DOM->createElement("span","Date of Service:");
+$docDate->appendChild($docDateLabel);
+
+$docDateInput=$DOM->createElement("input");
+$DOSString=$doc->getDateofservice()->format("m/d/y");
+$docDateInput->setAttribute("value",$DOSString);
+$docDate->appendChild($docDateInput);
+
+
+$docInfo->appendChild($docDate);
+        
 $body->appendChild($docInfo);
 
 $MainSpan=$DOM->createElement("section");
