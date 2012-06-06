@@ -98,7 +98,14 @@ function setupDeleteControls(parent)
 
 function addNarrative(evt)
 {
-    debugMessage($(this).attr("entryuuid")+":"+"Add Narrative Stub");
+    entryUUID=$(this).attr("entryuuid");
+    $.post("/openemr/library/doctrine/interface/manageNarrative.php",
+        {parentUUID: ""+entryUUID+"",
+         task: "create",
+         refresh: "doc"},
+         refreshSection,
+         "json"
+    );
 }
 
 function addNarrativeControl(idx,elem)

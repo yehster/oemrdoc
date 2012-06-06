@@ -16,8 +16,7 @@ else
         $newItem=$parentEntry->getItem()->addEntry($newNarrative);
         $em->persist($newNarrative);
         $em->flush();
-
-        echo $newNarrative->getUUID();
+        $focusUUID= $newNarrative->getUUID();
 
     }
     if($task=="update")
