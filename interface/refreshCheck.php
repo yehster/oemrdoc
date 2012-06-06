@@ -18,6 +18,10 @@ if(isset($_REQUEST['refresh']))
         }
         $retVal['html']=refreshSection($parentEntry->getItem());
         $retVal['uuid']=$parentEntry->getUUID();
+        if(isset($focusUUID))
+        {
+            $retVal['focusUUID']=$focusUUID;
+        }
         echo json_encode($retVal);
         return;                
     }

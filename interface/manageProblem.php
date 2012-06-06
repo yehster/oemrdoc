@@ -45,6 +45,7 @@ switch ($task)
                     $newNarrative=new library\doctrine\Entities\Narrative(null, $pat, $user);
                     $newNarItem=$newItem->addEntry($newNarrative);
                     $em->persist($newNarrative);
+                    $focusUUID=$newNarrative->getUUID();
         }
         $em->persist($prob);
         $em->flush();

@@ -149,7 +149,11 @@ function refreshSection(data)
             var parent=$("[uuid='"+data.uuid+"']").parent();
             $("[uuid='"+data.uuid+"']").attr("requestTime",data.requestTime);
             setupDisplay(parent);
-            registerEvents(parent);            
+            registerEvents(parent);
+            if((typeof data.focusUUID)!="undefined")
+                {
+                    parent.find("[uuid='"+data.focusUUID+"']").focus();
+                }
         }
 }
 

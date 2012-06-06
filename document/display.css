@@ -75,7 +75,7 @@ span.label
     display: inline;
 }
 
-textarea + .document_iconic
+section[entrytype="Narrative"] > .document_iconic
 {
     vertical-align: top;
 }
