@@ -91,7 +91,7 @@ function setupDeletable(idx,elem)
 
 function setupDeleteControls(parent)
 {
-    var deletableSpan=parent.find("[candelete='true'] > span").each(setupDeletable);
+    var deletableSpan=parent.find("[candelete='true'] > span.label").each(setupDeletable);
     parent.find("textarea[candelete='true']").each(setupDeletable);
     
 }

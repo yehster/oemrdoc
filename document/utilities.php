@@ -91,13 +91,17 @@ function createElement($DOM,$parent,$docEntry,$docItem,$depth)
             break;
         
         case TYPE_PROBLEM:
-            $retVal=createTagElem($DOM,$docEntry,"span",$depth," ");
+            $container=createTagElem($DOM,$docEntry,"span",$depth," ");
             $label=$DOM->createElement("span",$text);
-            $label->setAttribute("class","problemLabel");
-            $retVal->appendChild($label);
-            $retVal->setAttribute("class","problem");
-            $retVal->setAttribute("canDelete","true");
-            $parent->appendChild($retVal);
+            $label->setAttribute("class","problemLabel label");
+            $container->appendChild($label);
+            $container->setAttribute("class","problem");
+            $container->setAttribute("canDelete","true");
+            $parent->appendChild($container);
+            $retVal=$DOM->createElement("span");
+            $retVal->setAttribute("class","content");
+            $container->appendChild($retVal);
+            
             break;
         case TYPE_MEDICATION_ENTRY:
         case TYPE_MED_SIG:

@@ -311,7 +311,7 @@ function setupProblems(parent)
             
         }
     });
-    // 
+    // put each problem in an ordered list 
     var content=problemsLabel.siblings("span.content");
     var list=$("<ol></ol>");
     content.children().each(function(idx,elem)
@@ -321,5 +321,5 @@ function setupProblems(parent)
         list.append(li);
     }
     );
-    content.append(list);
+    content.append(list);       
 }
