@@ -1,3 +1,8 @@
+function lookupMeds()
+{
+    debugMessage("lookupMeds:"+$(this).val());
+}
+
 function closeMed()
 {
     $(this).parents(".medication_chooser:first").hide();
@@ -9,6 +14,7 @@ function chooseMed(parent,uuid)
     if(display.length==0)
         {
             display=$("<div></div>");
+            display.attr("entryuuid",uuid);
             display.addClass("medication_chooser");
             parent.prepend(display);
             
@@ -17,6 +23,7 @@ function chooseMed(parent,uuid)
             display.append(controls);
 
             medInput=$("<input type='text'/>");
+            medInput.on({keyup: lookupMeds});
             controls.append(medInput);
 
 
@@ -24,6 +31,10 @@ function chooseMed(parent,uuid)
             close.addClass("document_iconic");
             close.on({click: closeMed });            
             controls.append(close);
+            
+            var results=$("<div></div>");
+            results.addClass("medResults");
+            display.append(results);
         }
     else
         {
