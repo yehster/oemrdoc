@@ -120,12 +120,18 @@ function addMed()
 }
 function addMedControlAfterLabel(idx,elem)
 {
-    var control=$("<span>&#xe01e</span>");
-    var di=new doctrineInfo(elem);
-    control.attr("entryUUID",di.uuid);    
-    control.addClass("document_iconic");
-    $(elem).after(control);
-    control.on({click: addMed});
+    var item=$(elem);
+    if(item.siblings("span[func='addMedication']").length==0)
+    {
+    
+        var control=$("<span>&#xe01e</span>");
+        var di=new doctrineInfo(elem);
+        control.attr("entryUUID",di.uuid);    
+        control.attr("func","addMedication");
+        control.addClass("document_iconic");
+        $(elem).after(control);
+        control.on({click: addMed});
+    }
 }
 function setupMedicationControls(parent)
 {

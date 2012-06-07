@@ -59,33 +59,38 @@ function addVocabMappingControls(parent)
 
 function setupDeletable(idx,elem)
 {
-                var button=$("<span>&#xe05a;</span>");
-                var di=new doctrineInfo(elem);
-                button.attr("entryUUID",di.uuid);
-                button.attr("func","delete");
-                button.addClass("document_iconic");
-                button.addClass("delete_button");
-                $(elem).after(button);
-                button.on(
+    var item=$(elem);
+    if(item.siblings("span[func='delete']").length==0)
+    {
+        var button=$("<span>&#xe05a;</span>");
+        var di=new doctrineInfo(elem);
+        button.attr("entryUUID",di.uuid);
+        button.attr("func","delete");
+        button.addClass("document_iconic");
+        button.addClass("delete_button");
+        $(elem).after(button);
+        button.on(
+        {
+            click: function()
                 {
-                    click: function()
+                    var requestTime=new Date().getTime();    
+                    var entryUUID=$(this).attr("entryUUID");
+                    $.post("/openemr/library/doctrine/interface/deleteEntry.php",
                         {
-                            var requestTime=new Date().getTime();    
-                            var entryUUID=$(this).attr("entryUUID");
-                            $.post("/openemr/library/doctrine/interface/deleteEntry.php",
-                                {
-                                    entryUUID: entryUUID,
-                                    refresh: "doc",
-                                    requestTime: requestTime                                        
-                                },
-                                function(data)
-                                {
-                                    refreshSection(data);
-                                },"json"
-                                );
+                            entryUUID: entryUUID,
+                            refresh: "doc",
+                            requestTime: requestTime                                        
+                        },
+                        function(data)
+                        {
+                            refreshSection(data);
+                        },"json"
+                        );
 
-                        }
-                });
+                }
+        });
+
+    }
     
 }
 
@@ -110,14 +115,17 @@ function addNarrative(evt)
 
 function addNarrativeControl(idx,elem)
 {
-    var control=$("<span>&#xe06d</span>");
-    var di=new doctrineInfo(elem);
-    control.attr("entryUUID",di.uuid);
-    control.attr("func","addNarrative");
-    control.addClass("document_iconic");
-    $(elem).after(control);
-    control.on({click: addNarrative});
-
+    var item=$(elem);
+    if(item.siblings("span[func='addNarrative']").length==0)
+    {
+        var control=$("<span>&#xe06d</span>");
+        var di=new doctrineInfo(elem);
+        control.attr("entryUUID",di.uuid);
+        control.attr("func","addNarrative");
+        control.addClass("document_iconic");
+        $(elem).after(control);
+        control.on({click: addNarrative});
+    }
 }
 function setupAddNarrative(parent)
 {
