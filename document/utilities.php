@@ -117,6 +117,10 @@ function createElement($DOM,$parent,$docEntry,$docItem,$depth)
             
             break;
         case TYPE_MED_SIG:
+            $retVal=createTagElem($DOM,$docEntry,"span",$depth,$text);
+            $retVal->setAttribute("class","medSIG");
+            $parent->appendChild($retVal);
+            break;
         case TYPE_DOC_LINK:
         case TYPE_IMAGE_ENTRY:
         case TYPE_OBSERVATION:

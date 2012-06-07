@@ -99,3 +99,8 @@ span.problem > span.content > *
 {
     display: block;
 }
+.medSIG
+{
+    display:block;
+    left: 1em;
+}
