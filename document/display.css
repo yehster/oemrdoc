@@ -84,7 +84,13 @@ section[entrytype="Narrative"] > .document_iconic
     color: red;
 }
 
-span[uuid]
+[uuid]
 {
     position: relative;
 }
+
+span.problem > span.content > *
+{
+    display:block;
+}
+
