@@ -94,3 +94,8 @@ span.problem > span.content > *
     display:block;
 }
 
+
+[entrytype="MedicationEntry"]
+{
+    display: block;
+}
