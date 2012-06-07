@@ -1,7 +1,7 @@
 <?php
 include_once("/var/www/openemr/library/doctrine/document/utilities.php");
 
-function refreshSection($item,$depth=1)
+function refreshSection($item)
 {
         $docEntryDOM =  new DOMDocument("1.0","utf-8");
         $span=$docEntryDOM->createElement("SPAN");
