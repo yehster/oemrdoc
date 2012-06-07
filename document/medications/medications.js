@@ -1,6 +1,73 @@
+function clickDrug()
+{
+    var rxcui=$(this).attr("rxcui");
+    var rxaui=$(this).attr("rxaui");
+    var tty=$(this).attr("tty");
+    var drugStr=$(this).text();
+    debugMessage(drugStr);
+    var parentUUID=$(this).parents(".medication_chooser").attr("entryuuid");
+    if((tty=="SCD") || (tty=="SBD"))
+    {
+        $.post("/openemr/library/doctrine/interface/manageMedication.php",
+            {
+                parentUUID: ""+ parentUUID + "",
+                text: ""+drugStr+"",
+                rxcui: ""+rxcui+"",
+                rxaui: ""+rxaui+"",
+                task: "create",
+                refresh: "doc"
+            },
+            function(data)
+            {
+                refreshSection(data);
+            },
+            "json"
+        );
+        
+    }
+    else
+    {
+        if((tty=="SCDF") || (tty=="SBDF"))
+        {
+
+        }
+        else
+        {
+            var results=$(this).parents(".medication_chooser:first").find(".medResults");
+            $.post("/openemr/library/doctrine/ui/Dictionary/lookupMedications.php",
+            {
+                rxcui: ""+rxcui+"",
+                rxaui: ""+rxaui+"",
+                task: "MEDSEMANTIC"
+            },
+            function(data)
+            {
+                results.html(data);
+                results.find("td").on({click: clickDrug});            
+            }
+
+            );            
+        }
+    }
+
+}
+
 function lookupMeds()
 {
     debugMessage("lookupMeds:"+$(this).val());
+    var results=$(this).parents(".medication_chooser:first").find(".medResults");
+    searchString=$(this).val();
+     $.post("/openemr/library/doctrine/ui/Dictionary/lookupMedications.php",
+        {
+            searchString: searchString,
+            task: "MEDSEARCH"
+        },
+        function(data)
+        {
+            results.html(data);
+            results.find("td").on({click: clickDrug});
+        }        
+    );
 }
 
 function closeMed()
