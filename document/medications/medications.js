@@ -129,6 +129,6 @@ function addMedControlAfterLabel(idx,elem)
 }
 function setupMedicationControls(parent)
 {
-    var problemLabels = parent.find("span.problem[uuid] > .problemLabel");
-    problemLabels.each(addMedControlAfterLabel);
+    var medItems = parent.find("span.problem[uuid] > .problemLabel").add(parent.find("section[uuid][code='52471-0'] >.label"));
+    medItems.each(addMedControlAfterLabel);
 }
