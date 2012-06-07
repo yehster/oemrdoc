@@ -110,7 +110,7 @@ function addNarrative(evt)
 
 function addNarrativeControl(idx,elem)
 {
-    var control=$("<span>&#x270e</span>");
+    var control=$("<span>&#xe06d</span>");
     var di=new doctrineInfo(elem);
     control.attr("entryUUID",di.uuid);
     control.attr("func","addNarrative");
@@ -132,6 +132,7 @@ function setupDisplay(parent)
     setupProblems(parent);
     setupDeleteControls(parent);
     setupAddNarrative(parent);
+    setupMedicationControls(parent);
 }
 
 function refreshSection(data)
