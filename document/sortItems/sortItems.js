@@ -25,11 +25,9 @@ function addMoveControlsToList(list,childSelector)
             {
                 var child=$(elem).find(childSelector);
                 var di=new doctrineInfo(child);
-                debugMessage("uuid:"+di.uuid)
                 if(idx>0)
                     {
                         // up
-                        debugMessage(child.length);
                         var up=$("<span>&#x2191</span>");
                         up.addClass("document_iconic");
                         up.attr("func","UP");
