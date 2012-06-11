@@ -84,5 +84,10 @@ if(isset($_REQUEST['refresh']))
             "html"=>refreshSection($parentItem)));
         return;
     }
+    if($request==="doc")
+    {
+        $parentEntry=$parentItem->getEntry();
+        require_once("refreshCheck.php");   
+    }
 }    
 ?>

@@ -141,6 +141,7 @@ function setupDisplay(parent)
     setupDeleteControls(parent);
     setupAddNarrative(parent);
     setupMedicationControls(parent);
+    addMoveControls(parent);
 }
 
 function refreshSection(data)

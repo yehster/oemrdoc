@@ -13,6 +13,21 @@
     width: 45em;
 }
 
+.icd9
+{
+    cursor: pointer;
+    position: relative;
+    top: 1.1em;
+    left: 0;
+    z-index: 500;
+    background: #F0F0F0;
+    max-width: 45%;
+    border: 1px solid grey;
+    height: 95%;
+    width: 45em;
+    display: block;
+}
+
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
     .icd9
     {

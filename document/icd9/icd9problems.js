@@ -317,6 +317,7 @@ function setupProblems(parent)
     content.children().each(function(idx,elem)
     {
         var li=$("<li></li>");
+        li.addClass("problem");
         li.append(elem);
         list.append(li);
     }
