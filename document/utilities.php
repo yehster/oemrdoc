@@ -97,11 +97,17 @@ function createElement($DOM,$parent,$docEntry,$docItem,$depth)
         
         case TYPE_PROBLEM:
             $container=createTagElem($DOM,$docEntry,"span",$depth," ");
-            $label=$DOM->createElement("span",$text);
-            $label->setAttribute("class","problemLabel label");
-            $container->appendChild($label);
             $container->setAttribute("class","problem");
             $container->setAttribute("canDelete","true");
+
+            $label=$DOM->createElement("span",$text);
+            $label->setAttribute("class","problemLabel label");        
+            $container->appendChild($label);
+
+            $controls=$DOM->createElement("span"," ");
+            $controls->setAttribute("class","controls");
+            $container->appendChild($controls);           
+           
             $parent->appendChild($container);
             $retVal=$DOM->createElement("span");
             $retVal->setAttribute("class","content");
