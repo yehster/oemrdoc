@@ -66,6 +66,11 @@ function createElement($DOM,$parent,$docEntry,$docItem,$depth)
                 $label=$DOM->createElement("span",$text);
                 $label->setAttribute("class","label");
                 $section->appendChild($label);
+
+                $controls=$DOM->createElement("span"," ");
+                $controls->setAttribute("class","controls");
+                $section->appendChild($controls);
+                
                 
                 $content=$DOM->createElement("span"," ");
                 $content->setAttribute("class","content");

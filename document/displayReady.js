@@ -42,17 +42,17 @@ function addVocabMappingControls(parent)
            {
                toAdd=$(elem);
            }
-            var control=toAdd.children(".vocab_control");
+            var control=toAdd.find(".controls > .vocab_control");
             if(control.length==0)
                 {
-                    var label=toAdd.children(".label:first");
+                    var controlsSection=toAdd.children(".controls");
                     control=$("<span>&#xe054</span>");
                     control.addClass("vocab_control");
                     control.addClass("document_iconic");
                     control.on({
                         click: show_vocab_form
                     })
-                    label.after(control);
+                    controlsSection.append(control);
                 }               
     });
 }

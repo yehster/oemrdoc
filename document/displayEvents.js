@@ -4,7 +4,7 @@ function doctrineInfo(elem)
     this.uuid=$(elem).attr("uuid");
     if(typeof(this.uuid)=='undefined')
         {
-            var parent=jq.parent("[uuid]");
+            var parent=jq.parents("[uuid]:first");
             this.uuid=parent.attr("uuid");
             jq=parent;
         }

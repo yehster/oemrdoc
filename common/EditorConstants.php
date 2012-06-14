@@ -10,6 +10,7 @@ define('TYPE_SHORT_NARRATIVE','ShortNarrative');
 define('TYPE_MED_SIG','MedicationSIG');
 define('TYPE_DOC_LINK','DocumentLink');
 define('TYPE_IMAGE_ENTRY','ImageEntry');
+define('TYPE_CONTEXT_ENTRY','ContextEntry');
 
 
 define('SECTION_CHIEF_COMPLAINT',"Chief Complaint");

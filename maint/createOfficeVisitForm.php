@@ -1,5 +1,5 @@
 <?php
-include('/var/www/openemr/library/doctrine/init-session.php');
+include('/var/www/openemr/library/doctrine/init-em.php');
 include('metadataMaint.php');
 
 $form = $em->getRepository('library\doctrine\Entities\DocumentType')->findOneBy(array('shortDesc' => 'HP'));
@@ -10,6 +10,12 @@ if($form == NULL)
     $em->persist($form);
     $em->flush();
 }
+
+$context=findOrCreateSection($em,'CONTEXT','Context');
+$context->setCode("A3114534","SNOMED");
+findOrCreateMDCI($em,$context,$form);
+
+
 
 $cc = findOrCreateSection($em,'CC','Chief Complaint');
 $ccnar = findOrCreateNarrativeMetadata($em,'CCNAR','Chief Complaint Narrative');
