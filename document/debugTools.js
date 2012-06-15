@@ -14,7 +14,7 @@ function debugMessage(text)
     message.attr("class","debugMessage");
     
     message.css("top",((others.length+1)*1.5)+"em");
-    message.css("left","1em");
+    message.css("right","1em");
     message.css("position","fixed");
     message.css("display","block");
     message.css("z-index","1000");
