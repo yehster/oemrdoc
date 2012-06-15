@@ -67,6 +67,7 @@ foreach($doc->getItems() as $docItem)
 addScript($DOM,$body,"debugTools.js");
 addScript($DOM,$body,"icd9/icd9problems.js");
 addScript($DOM,$body,"medications/medications.js");
+addScript($DOM,$body,"context/context.js");
 addScript($DOM,$body,"sortItems/sortItems.js");
 addScript($DOM,$body,"displayEvents.js");
 addScript($DOM,$body,"displayReady.js");
