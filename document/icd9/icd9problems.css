@@ -7,7 +7,6 @@
     z-index: 500;
     background: #F0F0F0;
     border: 1px solid grey;
-    overflow-y: scroll;
     width: 45em;
     opacity: 1;
 }
@@ -16,8 +15,8 @@
 {
     cursor: pointer;
     position: absolute;
-    top: 1.2em;
-    left: 0;
+    top: 1.3em;
+    left: 0.3em;
     z-index: 500;
     background: #F0F0F0;
     border: 1px solid grey;

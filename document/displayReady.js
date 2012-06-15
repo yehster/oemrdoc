@@ -60,7 +60,8 @@ function addVocabMappingControls(parent)
 function setupDeletable(idx,elem)
 {
     var item=$(elem);
-    if(item.siblings("span[func='delete']").length==0)
+    var controls=item.find(".controls");
+    if(controls.find("span[func='delete']").length==0)
     {
         var button=$("<span>&#xe05a;</span>");
         var di=new doctrineInfo(elem);
@@ -68,7 +69,7 @@ function setupDeletable(idx,elem)
         button.attr("func","delete");
         button.addClass("document_iconic");
         button.addClass("delete_button");
-        $(elem).after(button);
+        controls.append(button);
         button.on(
         {
             click: function()
@@ -96,7 +97,7 @@ function setupDeletable(idx,elem)
 
 function setupDeleteControls(parent)
 {
-    var deletableSpan=parent.find("[candelete='true'] > span.label").each(setupDeletable);
+    var deletableSpan=parent.find("[candelete='true']").each(setupDeletable);
     parent.find("textarea[candelete='true']").each(setupDeletable);
     
 }
@@ -116,20 +117,20 @@ function addNarrative(evt)
 function addNarrativeControl(idx,elem)
 {
     var item=$(elem);
-    if(item.siblings("span[func='addNarrative']").length==0)
+    if(item.find("span[func='addNarrative']").length==0)
     {
         var control=$("<span>&#xe06d</span>");
         var di=new doctrineInfo(elem);
         control.attr("entryUUID",di.uuid);
         control.attr("func","addNarrative");
         control.addClass("document_iconic");
-        $(elem).after(control);
+        item.append(control);
         control.on({click: addNarrative});
     }
 }
 function setupAddNarrative(parent)
 {
-    var problems=parent.find("span.problemLabel");
+    var problems=parent.find("span.problem >span.controls");
     problems.each(addNarrativeControl);
 }
 

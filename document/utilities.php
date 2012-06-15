@@ -83,12 +83,17 @@ function createElement($DOM,$parent,$docEntry,$docItem,$depth)
                 $retVal=$content;
             break;
         case TYPE_NARRATIVE:
-                $wrapper=$DOM->createElement("section");
-                $wrapper->setAttribute("entrytype","Narrative");
-                $wrapper->setAttribute("entryuuid",$docEntry->getUUID());
-                $retVal=createTagElem($DOM,$docEntry,"textarea",$depth,$text);
-                $wrapper->appendChild($retVal);
+                $wrapper=createTagElem($DOM,$docEntry,"section",$depth," ");
                 $parent->appendChild($wrapper);
+                
+                $retVal=$DOM->createElement("textarea",$text);
+                $retVal->setAttribute("entrytype",$docEntry->getType());
+                $wrapper->appendChild($retVal);
+
+                $controls=$DOM->createElement("span"," ");
+                $controls->setAttribute("class","controls");
+                $wrapper->appendChild($controls);           
+
                 if(is_null($docEntry->getMetadata()))
                 {
                     $retVal->setAttribute("canDelete","true");
@@ -121,6 +126,11 @@ function createElement($DOM,$parent,$docEntry,$docItem,$depth)
             $container->appendChild($label);
             $container->setAttribute("class","medication");
             $container->setAttribute("canDelete","true");
+
+            $controls=$DOM->createElement("span"," ");
+            $controls->setAttribute("class","controls");
+            $container->appendChild($controls);           
+            
             $parent->appendChild($container);
             $retVal=$DOM->createElement("span");
             $retVal->setAttribute("class","content");

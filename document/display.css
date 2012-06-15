@@ -89,6 +89,10 @@ section[entrytype="Narrative"] > .document_iconic
     position: relative;
 }
 
+span.controls
+{
+    position:relative;
+}
 span.problem > span.content > *
 {
     display:block;

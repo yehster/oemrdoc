@@ -1,0 +1,24 @@
+/* 
+    Document   : context
+    Created on : Jun 15, 2012, 4:52:05 PM
+    Author     : yehster
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+.context_display { 
+    top: 1.3em;
+    left: 0.3em;
+    position: absolute;
+    opacity: 1;
+    z-index: 500;
+    background: #F0F0F0;
+    border: 1px solid grey;
+    cursor: pointer;
+}
+
+
+.context_display .results
+{
+    clear: both;
+}

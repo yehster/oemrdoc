@@ -115,13 +115,13 @@ function chooseMed(parent,uuid)
 function addMed()
 {
     var entryuuid=$(this).attr("entryUUID");
-    var parent=$(this).parent("[uuid]");
+    var parent=$(this).parent(".controls");
     chooseMed(parent,entryuuid);
 }
-function addMedControlAfterLabel(idx,elem)
+function addMedControl(idx,elem)
 {
-    var item=$(elem);
-    if(item.siblings("span[func='addMedication']").length==0)
+    var controls=$(elem).children("span.controls");
+    if(controls.find("span[func='addMedication']").length==0)
     {
     
         var control=$("<span>&#xe01e</span>");
@@ -129,12 +129,12 @@ function addMedControlAfterLabel(idx,elem)
         control.attr("entryUUID",di.uuid);    
         control.attr("func","addMedication");
         control.addClass("document_iconic");
-        $(elem).after(control);
+        controls.append(control);
         control.on({click: addMed});
     }
 }
 function setupMedicationControls(parent)
 {
-    var medItems = parent.find("span.problem[uuid] > .problemLabel").add(parent.find("section[uuid][code='52471-0'] >.label"));
-    medItems.each(addMedControlAfterLabel);
+    var medItems = parent.find("span.problem[uuid]").add(parent.find("section[uuid][code='52471-0']"));
+    medItems.each(addMedControl);
 }

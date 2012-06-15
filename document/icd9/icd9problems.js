@@ -277,7 +277,8 @@ function setupProblems(parent)
         {
             return;
         }
-    var problemsInputSection=problemsLabel.siblings(".problemInput");
+    var problemControls=problemsLabel.siblings(".controls");
+    var problemsInputSection=problemControls.find(".problemInput");
     if(problemsInputSection.length>0)
         {
             return
@@ -287,7 +288,7 @@ function setupProblems(parent)
     problemsInputSection=$("<span></span>")
     problemsInputSection.addClass("problemInput");
     problemsInputSection.append(problemsInput);
-    problemsLabel.after(problemsInputSection);
+    problemControls.append(problemsInputSection);
     problemsInput.addClass("problems_input");
     problemsInput.on({
         keyup: process_problems,

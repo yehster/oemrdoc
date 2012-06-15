@@ -33,13 +33,13 @@ function addMoveControlsToList(list,childSelector)
                         up.attr("func","UP");
                         up.attr("entryuuid",di.uuid);
                         up.on({click: swapCall});
-                        child.after(up);
+                        child.append(up);
                     }
                 if(idx<(numItems-1))
                     {
                         //down
                         var down=$("<span>&#x2193</span>");
-                        child.after(down);
+                        child.append(down);
                         down.attr("func","DOWN");
                         down.attr("entryuuid",di.uuid);
                         down.on({click: swapCall});
@@ -52,7 +52,7 @@ function addMoveControlsToList(list,childSelector)
 function addMoveControls(parent)
 {
     var problems = parent.parent().find("li.problem");
-    problems.find("span.problem > [func='UP']").remove();
-    problems.find("span.problem > [func='DOWN']").remove();
-    addMoveControlsToList(problems,"span.problem > .document_iconic:last");
+    problems.find("span.problem  [func='UP']").remove();
+    problems.find("span.problem  [func='DOWN']").remove();
+    addMoveControlsToList(problems,"span.problem > span.controls");
 }
