@@ -60,8 +60,8 @@ function addVocabMappingControls(parent)
 function setupDeletable(idx,elem)
 {
     var item=$(elem);
-    var controls=item.find(".controls");
-    if(controls.find("span[func='delete']").length==0)
+    var controls=item.children(".controls");
+    if(controls.children("span[func='delete']").length==0)
     {
         var button=$("<span>&#xe05a;</span>");
         var di=new doctrineInfo(elem);
@@ -98,7 +98,6 @@ function setupDeletable(idx,elem)
 function setupDeleteControls(parent)
 {
     var deletableSpan=parent.find("[candelete='true']").each(setupDeletable);
-    parent.find("textarea[candelete='true']").each(setupDeletable);
     
 }
 

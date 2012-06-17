@@ -96,7 +96,7 @@ function createElement($DOM,$parent,$docEntry,$docItem,$depth)
 
                 if(is_null($docEntry->getMetadata()))
                 {
-                    $retVal->setAttribute("canDelete","true");
+                    $wrapper->setAttribute("canDelete","true");
                 }
             break;
         
