@@ -52,7 +52,7 @@ class ICD9Code {
     }
       /**
 	* @OneToMany(targetEntity="ICD9Code", mappedBy="parent", cascade={"persist","remove"})
-	* @OrderBy({"seq" = "ASC"})
+	* @OrderBy({"code" = "ASC"})
 	*/
 	protected $children;    
 
@@ -72,8 +72,13 @@ class ICD9Code {
 	*/
 	protected $keywords;    
         
-        public $type="unknown";
+        protected $type="unknown";
 
+        public function getType()
+        {
+            return $this->type;
+        }
+        
         /**
          * @Column(type="integer");
          */

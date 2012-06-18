@@ -148,7 +148,7 @@ function generate_table($codes)
         }
         $tdCodeID=$DOM->createElement("td",$code->getCode());
         $tdCodeID->setAttribute("class","codeNum");
-        $tr->setAttribute("type",$code->type);
+        $tr->setAttribute("type",$code->getType());
         
         $tr->appendChild($tdCodeDesc);
         $tr->appendChild($tdCodeID);

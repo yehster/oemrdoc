@@ -18,7 +18,7 @@
 }
 
 
-.context_display .results
+.context_display >.results
 {
     clear: both;
 }

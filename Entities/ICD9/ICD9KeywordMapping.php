@@ -34,7 +34,7 @@ class ICD9KeywordMapping {
     
     
     /**
-    * @ManyToOne(targetEntity="ICD9Code")
+    * @ManyToOne(targetEntity="ICD9Code", inversedBy="keywords")
     * @JoinColumn(name="code", referencedColumnName="code")
     */
     private $code;    

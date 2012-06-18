@@ -16,7 +16,8 @@ include_once("EntryStatusCodes.php");
    "medsig" = "MedicationSIG",
    "bill" = "BillingEntry",
    "link" = "DocumentLink",
-   "trans" = "TranscriptionInfo"})
+   "trans" = "TranscriptionInfo",
+   "context" = "ContextEntry"})
  */
  class DocumentEntry
  {
@@ -103,7 +104,8 @@ include_once("EntryStatusCodes.php");
         {
             return $this->patient;
         }
-	/**
+
+        /**
 	 * @Column(type="string") 
  	 */
 	protected $code;

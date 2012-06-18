@@ -11,7 +11,7 @@ class ICD9NSCode extends ICD9Code
     //put your code here
     
 
-        public $type="NS";    
+        protected $type="NS";    
 }
 
 ?>

@@ -8,7 +8,7 @@ include_once('ICD9Code.php');
 class ICD9SPCode extends ICD9Code 
 {
     //put your code here
-    public $type="SP";    
+    protected $type="SP";    
 }
 
 ?>

@@ -7,7 +7,7 @@ include_once('ICD9Code.php');
  */
 class ICD9Section extends ICD9Code 
 {
-    public $type="Section";    
+    protected $type="Section";    
 }
 
 ?>

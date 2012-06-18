@@ -92,7 +92,7 @@ class code_node
     
     public function codeType()
     {
-        return $this->code->type;
+        return $this->code->getType();
     }
     public function codeDesc()
     {
@@ -177,15 +177,15 @@ function generate_codes($codeList)
         {
             $top[$code->getCode()]=new code_node($code);
         }
-        elseif($code->type==ICD9_TYPE_SECTION)
+        elseif($code->getType()==ICD9_TYPE_SECTION)
         {
             $section[$code->getCode()]=new code_node($code);
         }
-        elseif($code->type==ICD9_TYPE_NON_SPECIFIC)
+        elseif($code->getType()==ICD9_TYPE_NON_SPECIFIC)
         {
             $ns[$code->getCode()]=new code_node($code);
         }
-        elseif($code->type==ICD9_TYPE_SPECIFIC)
+        elseif($code->getType()==ICD9_TYPE_SPECIFIC)
         {
             $sp[$code->getCode()]=new code_node($code);
         }

@@ -38,7 +38,7 @@ class SectionHeading extends DocumentMetadata
          {
             $this->code_type = $ct;
          }
-        public function makeEntry($pat,$auth)
+        public function makeEntry(Patient $pat,$auth)
         {
             $retVal = new Section($this,$pat,$auth);
             $retVal->setText($this->getlongDesc(),$auth);
