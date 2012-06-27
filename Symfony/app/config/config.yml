@@ -18,7 +18,27 @@ framework:
     session:
         auto_start:     false
         name:           OpenEMR
+        handler_id:        session.storage.pdo
+        
+parameters:
+    pdo.db_options:
+        db_table:    session
+        db_id_col:   session_ids
+        db_data_col: session_value
+        db_time_col: session_time
+        
+services:
+    pdo:
+        class: PDO
+        arguments:
+            dsn:      "mysql:host=brain;dbname=openemr"
+            user:     root
+            password: mydbpwd
 
+    session.storage.pdo:
+        class:     Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler
+        arguments: [@pdo, %pdo.db_options%, %session.storage.options%]
+        
 # Twig Configuration
 twig:
     debug:            %kernel.debug%
@@ -59,3 +79,4 @@ swiftmailer:
     username:  %mailer_user%
     password:  %mailer_password%
     spool:     { type: memory }
+
