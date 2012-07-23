@@ -61,6 +61,30 @@ class MatchQualityNode extends Doctrine\ORM\Query\AST\Functions\FunctionNode
 
 }
 
+class MatchAgainst extends \Doctrine\ORM\Query\AST\Functions\FunctionNode {
+    public $_ma_column = null;
+    public $_ma_value = null;
+
+    public function parse(\Doctrine\ORM\Query\Parser $parser)
+    {
+        $parser->match(\Doctrine\ORM\Query\Lexer::T_IDENTIFIER);
+        $parser->match(\Doctrine\ORM\Query\Lexer::T_OPEN_PARENTHESIS);
+        $this->_ma_column = $parser->StringPrimary();
+        $parser->match(\Doctrine\ORM\Query\Lexer::T_COMMA);
+        $this->_ma_value = $parser->StringPrimary();
+        $parser->match(\Doctrine\ORM\Query\Lexer::T_CLOSE_PARENTHESIS);
+    }
+
+    public function getSql(\Doctrine\ORM\Query\SqlWalker $sqlWalker)
+    {
+        return "MATCH(" .
+            $this->_ma_column->dispatch($sqlWalker) .
+            ") AGAINST ('" .
+            $this->_ma_value .
+            "' IN BOOLEAN MODE)";
+    }
+}
+
 $classLoader = new \Doctrine\Common\ClassLoader();
 $classLoader->register();
 
@@ -82,7 +106,7 @@ $config->setProxyNamespace('Proxies');
 $config->setAutoGenerateProxyClasses(true); 
 
 $config->addCustomNumericFunction("MATCHQUALITY", "MatchQualityNode");
-
+$config->addCustomStringFunction("MATCH_AGAINST","MatchAgainst");
 $host=$GLOBALS['sqlconf']["host"];
 $connectionParams = array(
     'dbname' => 'openemr',
