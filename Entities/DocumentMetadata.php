@@ -84,6 +84,10 @@ namespace library\doctrine\Entities;
          */
         protected $ci;
         
+        public function getCi()
+        {
+            return $this->ci;
+        }
 	public function addItem($obj)
 	{
 		$this->items->add($obj);

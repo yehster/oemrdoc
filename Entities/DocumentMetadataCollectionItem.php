@@ -40,6 +40,10 @@ namespace library\doctrine\Entities;
 	protected $seq;
 	// The order of the items
 
+        public function getSeq()
+        {
+            return $this->seq;
+        }
 	public function setSeq($val)
 	{
 		$this->seq=$val;
@@ -51,6 +55,11 @@ namespace library\doctrine\Entities;
 	  */
         protected $parent;
 
+        public function getParent()
+        {
+            return $this->parent;
+        }
+        
         public function setParent($obj)
         {
             $this->parent = $obj;
