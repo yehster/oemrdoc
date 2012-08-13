@@ -8,11 +8,15 @@ namespace library\doctrine\Entities\ContentMapping;
 class ContentGroup {
 
     
-    public function __construct($cb)
+    public function __construct($cb,$dc,$dct,$cc,$cct)
     {
 	$this->uuid=uuid_create();
         $this->ContentEntries = new \Doctrine\Common\Collections\ArrayCollection();
         $this->created_by=$cb;
+        $this->document_context_code=$dc;
+        $this->document_context_code_type=$dct;
+        $this->clinical_context_code=$cc;
+        $this->clinical_context_code_type=$cct;
     }    
     
 
@@ -22,7 +26,10 @@ class ContentGroup {
      */
     protected $uuid;
 
-    
+    public function getUUID()
+    {
+        return $this->uuid;
+    }
       /**
 	* @OneToMany(targetEntity="ContentEntry", mappedBy="ContentGroup", cascade={"persist","remove"})
 	* @OrderBy({"seq" = "ASC"})
