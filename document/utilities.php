@@ -1,23 +1,6 @@
 <?php
 include_once("$doctrineroot/common/EditorConstants.php");
-function addScript(DOMDocument $DOM,DOMElement $parent,$scriptName)
-{
-    $retval =$DOM->createElement("script");
-    $retval->setAttribute("src",$scriptName);
-    $parent->appendChild($retval);
-    return $retval;
-}
-
-function addStyle(DOMDocument $DOM, DOMElement $parent,$sheet)
-{
-    
-
-    $retval=$DOM->createElement("style","@import url('".$sheet."');");
-    $retval->setAttribute("type","text/css");
-    $retval->setAttribute("media","all");
-    $parent->appendChild($retval);
-}
-
+include_once("$doctrineroot/DOMUtilities/DOMUtilities.php");
 function populateEditorDOM(DOMDocument $DOM,DOMElement $parent,$docItem,$depth)
 {
     $docEntry = $docItem->getEntry();

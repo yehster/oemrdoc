@@ -1,6 +1,7 @@
 <?php
 include_once('/var/www/openemr/library/doctrine/init-session.php');
 require_once('utilities.php');
+
 session_write_close();
 if(isset($_REQUEST['docUUID']))
 {
@@ -26,11 +27,11 @@ $html->appendChild($head);
 $title=$DOM->createElement("title",$doc->getMetadata()->getLongDesc()." : ".$patient->displayName());
 $head->appendChild($title);
 
-addScript($DOM,$head,"/openemr/library/js/jquery-1.7.1.min.js");
-addStyle($DOM,$head,"display.css");
-addStyle($DOM,$head,"icd9/icd9problems.css");
-addStyle($DOM,$head,"medications/medications.css");
-addStyle($DOM,$head,"context/context.css");
+DOMUtilities\addScript($DOM,$head,"/openemr/library/js/jquery-1.7.1.min.js");
+DOMUtilities\addStyle($DOM,$head,"display.css");
+DOMUtilities\addStyle($DOM,$head,"icd9/icd9problems.css");
+DOMUtilities\addStyle($DOM,$head,"medications/medications.css");
+DOMUtilities\addStyle($DOM,$head,"context/context.css");
 
 $body=$DOM->createElement("body");
 $body->setAttribute("documentUUID",$doc->getUUID());
@@ -65,13 +66,13 @@ foreach($doc->getItems() as $docItem)
 
 
 
-addScript($DOM,$body,"debugTools.js");
-addScript($DOM,$body,"icd9/icd9problems.js");
-addScript($DOM,$body,"medications/medications.js");
-addScript($DOM,$body,"context/context.js");
-addScript($DOM,$body,"sortItems/sortItems.js");
-addScript($DOM,$body,"displayEvents.js");
-addScript($DOM,$body,"displayReady.js");
+DOMUtilities\addScript($DOM,$body,"debugTools.js");
+DOMUtilities\addScript($DOM,$body,"icd9/icd9problems.js");
+DOMUtilities\addScript($DOM,$body,"medications/medications.js");
+DOMUtilities\addScript($DOM,$body,"context/context.js");
+DOMUtilities\addScript($DOM,$body,"sortItems/sortItems.js");
+DOMUtilities\addScript($DOM,$body,"displayEvents.js");
+DOMUtilities\addScript($DOM,$body,"displayReady.js");
 ?>
 <!DOCTYPE html>
 <?php echo $DOM->saveHTML($html);?>
