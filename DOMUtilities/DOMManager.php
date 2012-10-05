@@ -88,6 +88,21 @@ class DOMManager {
             }
         }
     }
+    
+    public function addSelect(\DOMElement $parent, $choices, $attributes=null, $default=-1)
+    {
+        $retval=$this->addElement($parent,"SELECT",null,$attributes);
+        for($choiceIdx=0;$choiceIdx<count($choices);$choiceIdx++)
+        {
+            $option =$this->addElement($retval,"OPTION",$choices[$choiceIdx]);
+            if($default==$choiceIdx)
+            {
+                $option->setAttribute("selected","true");
+            }
+        }
+
+        return $retval;
+    }
     public function saveHTML(\DOMElement $element=NULL)
     {
         if($element=null)

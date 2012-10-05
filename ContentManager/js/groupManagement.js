@@ -1,0 +1,92 @@
+function updateGroupDescription(evt)
+{
+    var editor = $(this).parent("td");
+    editor.hide();
+    var row=editor.parent("tr");
+    var description = row.find(".groupDescription");
+    $.post("")
+    description.show();
+}
+
+function renameGroupStart(evt)
+{
+
+    var row=$(this).parent().parent("tr");
+    var description=$(row).find(".groupDescription");
+    description.hide();
+    var editor=row.find("td.editor");
+    var descriptionText=description.text();
+    var input;
+    if(editor.length==0)
+    {
+        editor=$("<td class='editor'></td>");
+        input=$("<input class='renameGroup' type='text'/>");
+        editor.append(input);
+        description.after(editor);
+    }
+    else
+    {
+        input=editor.find("input.renameGroup");
+    }
+    editor.show();
+    input.attr("value",descriptionText);
+    input.on({blur: updateGroupDescription});
+    input.focus();
+}
+
+
+function bindGroupControls(parent)
+{
+    parent.find("button.rename").on({click:renameGroupStart});
+}
+function showGroups(data,elem)
+{
+    elem.children().remove();
+    var table=$("<table></table>");
+    var tbody=$("<tbody></tbody>").appendTo(table);
+    elem.append(table);
+    for(idx=0;idx<data.uuids.length;idx++)
+    {
+        uuid=data.uuids[idx];
+        description=data.descriptions[idx];
+        var tr=$("<tr></tr>");
+        tr.attr("uuid",uuid);
+        var td=$("<td class='groupDescription'>"+description+"</td>");
+        tr.append(td);
+
+        var td_rename=$("<td><button class='rename'>rename</button></td>");
+        tr.append(td_rename);
+
+
+        var td_delete=$("<td><button class='delete'>delete</button></td>");
+        tr.append(td_delete);
+        
+        tbody.append(tr);
+    }
+    bindGroupControls(tbody);
+}
+
+function clickSectionDescription(evt)
+{
+    var code=$(this).attr("code");
+    var code_type=$(this).attr("code_type");
+    
+    $("#sectionChoice").text($(this).text());
+    $("#sectionChoice").attr("code",code);
+    $("#sectionChoice").attr("code_type",code_type);
+    
+    $.post("ajax/manageContentGroups.php",
+    {
+        task: "search",
+        document_code: code,
+        document_code_type: code_type
+    },
+    function(data)
+    {
+        $("#createGroup").removeAttr("disabled");
+        
+        showGroups(data,$("#groupResults"));
+    }
+    ,"json");
+}
+

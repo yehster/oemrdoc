@@ -8,15 +8,15 @@ namespace library\doctrine\Entities\ContentMapping;
 class ContentGroup {
 
     
-    public function __construct($cb,$dc,$dct,$cc,$cct)
+    public function __construct($cb,$dc,$dct,$desc)
     {
 	$this->uuid=uuid_create();
         $this->ContentEntries = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->ClinicalContexts = new \Doctrine\Common\Collections\ArrayCollection();
         $this->created_by=$cb;
         $this->document_context_code=$dc;
         $this->document_context_code_type=$dct;
-        $this->clinical_context_code=$cc;
-        $this->clinical_context_code_type=$cct;
+        $this->description=$desc;
     }    
     
 
@@ -30,11 +30,18 @@ class ContentGroup {
     {
         return $this->uuid;
     }
-      /**
-	* @OneToMany(targetEntity="ContentEntry", mappedBy="ContentGroup", cascade={"persist","remove"})
-	* @OrderBy({"seq" = "ASC"})
-	*/
+    /**
+      * @OneToMany(targetEntity="ContentEntry", mappedBy="ContentGroup", cascade={"persist","remove"})
+      * @OrderBy({"seq" = "ASC"})
+      */
     protected $ContentEntries;
+
+
+    /**
+      * @OneToMany(targetEntity="ClinicalContext", mappedBy="ContentGroup", cascade={"persist","remove"})
+      * @OrderBy({"seq" = "ASC"})
+      */
+    protected $ClinicalContexts;
     
    /**
     * @Column(type="string") 
@@ -49,22 +56,17 @@ class ContentGroup {
    /**
     * @Column(type="string") 
     */
-    protected $clinical_context_code;
-    
-   /**
-    * @Column(type="string") 
-    */
-    protected $clinical_context_code_type;
-
-   /**
-    * @Column(type="string") 
-    */
     protected $created_by;
     
    /**
     * @Column(type="string") 
     */
     protected $description;
+    
+    public function getDescription()
+    {
+        return $this->description;
+    }
     
 }
 

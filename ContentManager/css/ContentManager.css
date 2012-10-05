@@ -14,3 +14,12 @@
 .radioLabel
 {
 }
+table.entries
+{
+    cursor: pointer;
+}
+
+input.renameGroup
+{
+    width: 100%;
+}
