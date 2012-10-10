@@ -79,9 +79,10 @@ class MatchAgainst extends \Doctrine\ORM\Query\AST\Functions\FunctionNode {
     {
         return "MATCH(" .
             $this->_ma_column->dispatch($sqlWalker) .
-            ") AGAINST ('" .
-            $this->_ma_value .
-            "' IN BOOLEAN MODE)";
+            ") AGAINST (" .
+//                "diabetes".
+            $this->_ma_value->dispatch($sqlWalker) .
+            " IN BOOLEAN MODE)";
     }
 }
 

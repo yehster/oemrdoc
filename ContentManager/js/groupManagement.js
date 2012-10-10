@@ -1,13 +1,31 @@
-function updateGroupDescription(evt)
+function updateGroupDescription(control)
 {
-    var editor = $(this).parent("td");
-    editor.hide();
+    var editor = $(control).parent("td");
     var row=editor.parent("tr");
     var description = row.find(".groupDescription");
-    $.post("")
-    description.show();
+    var groupUUID=row.attr("uuid");
+    var value=$(control).val();
+    $.post("ajax/manageContentGroup.php",
+    {   task: "rename",
+        uuid: groupUUID,
+        newName: value
+    }
+    ,function(data){
+            description.text(data.newValue);
+            editor.hide();
+            description.show();
+            
+    }
+    ,"json");
 }
 
+function handleRenameReturn(evt)
+{
+    if(evt.keyCode==13)
+    {
+        updateGroupDescription(this);
+    }
+}
 function renameGroupStart(evt)
 {
 
@@ -21,6 +39,7 @@ function renameGroupStart(evt)
     {
         editor=$("<td class='editor'></td>");
         input=$("<input class='renameGroup' type='text'/>");
+        input.on({blur: function(evt){updateGroupDescription(this);}, keypress: handleRenameReturn});
         editor.append(input);
         description.after(editor);
     }
@@ -29,15 +48,41 @@ function renameGroupStart(evt)
         input=editor.find("input.renameGroup");
     }
     editor.show();
-    input.attr("value",descriptionText);
-    input.on({blur: updateGroupDescription});
     input.focus();
+    input.attr("value",descriptionText);
 }
 
+function displayGroupContent(uuid)
+{
+    $.post("ajax/manageContentGroup.php",
+    {   task: "get_content_entries",
+        uuid: uuid
+    }
+    ,function(data){
+            $("#contentResults").empty();
+            $("#contentResults").html("stub code");
+    }
+    ,"json");
+    
+}
+
+function chooseGroup()
+{
+    var row=$(this).parent("tr");
+    var uuid=row.attr("uuid");
+    var description=row.find("td:first").text();
+    $("#groupChoice").text(description).attr("uuid",uuid);
+    toggleGroupChooserVisibility();
+    displayGroupContent(uuid);
+    
+//    window.alert(description);
+//    window.alert(uuid);
+}
 
 function bindGroupControls(parent)
 {
     parent.find("button.rename").on({click:renameGroupStart});
+    parent.find("td.groupDescription").on({click:chooseGroup});
 }
 function showGroups(data,elem)
 {

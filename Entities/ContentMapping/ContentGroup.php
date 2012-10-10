@@ -68,6 +68,11 @@ class ContentGroup {
         return $this->description;
     }
     
+    public function setDescription($val)
+    {
+        $this->description=$val;
+    }
+    
 }
 
 ?>

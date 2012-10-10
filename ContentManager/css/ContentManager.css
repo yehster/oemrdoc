@@ -8,7 +8,8 @@
 
 .topDiv { 
     float: left;
-    width: 33%;
+    max-width: 33%;
+    min-width:25%;
 }
 
 .radioLabel
@@ -18,8 +19,21 @@ table.entries
 {
     cursor: pointer;
 }
+table.entries:hover
+{
+    background-color:yellow;
+}
 
 input.renameGroup
 {
     width: 100%;
+}
+.groupDescription
+{
+    cursor: pointer;
+}
+
+.groupDescription:hover
+{
+    background-color: yellow;
 }

@@ -26,7 +26,9 @@ $codeChoiceDisplay=$DOMManager->addElement($codeChoice,"span"," ",["id"=>"codeCh
 $sectionChoice=$DOMManager->addElement($DIVChoices,"div","Section:");
 $sectionChoiceDisplay=$DOMManager->addElement($sectionChoice,"span"," ",["id"=>"sectionChoice"]);
 
-$groupChoice=$DOMManager->addElement($DIVChoices,"div","Group:");
+$groupChoice=$DOMManager->addElement($DIVChoices,"div"," ");
+$groupLabel=$DOMManager->addElement($groupChoice,"span","Group:",["id"=>"groupLabel"]);
+
 $groupChoiceDisplay=$DOMManager->addElement($groupChoice,"span"," ",["id"=>"groupChoice"]);
 
 
@@ -47,6 +49,12 @@ $DIVGroups = $DOMManager->addElement($body,"div"," ", ["id"=>"groups","class"=>"
 $CreateGroup= $DOMManager->addElement($DIVGroups,"button","Create Group",["id"=>"createGroup","disabled"=>"true"]);
 $DIVgroupResults = $DOMManager->addElement($DIVGroups,"div"," ",["id"=>"groupResults","class"=>"results"]);
 
+$DIVContentEntries=$DOMManager->addElement($body,"div"," ", ["id"=>"content_entries","class"=>"topDiv"]);
+$DIVContentLabel=$DOMManager->addElement($DIVContentEntries,"div","Content Entries");
+$DIVContentResults = $DOMManager->addElement($DIVContentLabel,"div"," ",["id"=>"contentResults","class"=>"results"]);
+
+
+$DOMManager->addScript($head,"js/viewManagement.js");
 
 
 ?>

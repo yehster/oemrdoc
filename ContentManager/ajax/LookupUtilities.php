@@ -74,6 +74,8 @@ function findVocab($searchString,$vocab_type)
         $qb->setMaxResults(1000);
 
         $qry=$qb->getQuery();
+        error_log($qry->getDql());
+        error_log($qry->getSql());
         $res=$qry->getResult();
     foreach($res as $snResult)
     {

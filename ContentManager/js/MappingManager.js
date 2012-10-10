@@ -155,6 +155,7 @@ function setupControls()
     $("#sectionLookup").on({keyup: sectionLookupKUP});
     $("#sectionSelect").on({change: sectionSelectChange});
     $("#createGroup").on({click: createGroupClick});
+    $("#groupLabel").on({click: toggleGroupChooserVisibility});
     sectionSelectChange(null);
 }
 $(document).ready(setupControls);
