@@ -19,7 +19,7 @@ table.entries
 {
     cursor: pointer;
 }
-table.entries:hover
+table.entries >tbody > tr:hover
 {
     background-color:yellow;
 }
