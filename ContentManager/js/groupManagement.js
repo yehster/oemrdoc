@@ -68,8 +68,24 @@ function displayGroupContext(uuid)
 
 function handleGroupContentData(data)
 {
-            $("#contentResults").empty();
-            $("#contentResults").html(data.display_texts.length);
+        $("#contentResults").empty();
+        if(data.display_texts.length==0)
+        {
+            $("#contentResults").html("No Entries");     
+        }
+        else
+        {
+            var display_table=$("<table><tbody></tbody></table>");
+            var tbody=display_table.find("tbody");
+            for(idx=0;idx<data.display_texts.length;idx++)
+            {
+                var tr=$("<tr></tr>");
+                tbody.append(tr);
+                var td_display=$("<td>"+data.display_texts[idx]+"</td>");
+                tr.append(td_display);
+            }
+            $("#contentResults").append(display_table);
+        }
     
 }
 function displayGroupContent(uuid)
