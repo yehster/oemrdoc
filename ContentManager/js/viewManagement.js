@@ -2,13 +2,13 @@ function toggleGroupChooserVisibility()
 {
     if($("#sections:visible").length>0)
         {
-            $("#sections").slideUp();
-            $("#groups").slideUp();           
+            $("#sections").hide();
+            $("#groups").hide();           
         }
         else
         {
-            $("#sections").slideDown();
-            $("#groups").slideDown();           
+            $("#sections").show();
+            $("#groups").show();           
         }
 }
 

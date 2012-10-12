@@ -30,18 +30,38 @@ class ContentGroup {
     {
         return $this->uuid;
     }
+    
     /**
-      * @OneToMany(targetEntity="ContentEntry", mappedBy="ContentGroup", cascade={"persist","remove"})
+      * @OneToMany(targetEntity="ContentEntry", mappedBy="content_group", cascade={"persist","remove"})
       * @OrderBy({"seq" = "ASC"})
       */
-    protected $ContentEntries;
+    protected $content_entries;
 
-
+    public function getContent_entries()
+    {
+        return $this->content_entries;
+    }
+    
+    public function createContent_entry($code,$code_type,$code_display_text)
+    {
+        $num_entries=count($this->content_entries);
+        if($num_entries==0)
+        {
+            $seq=0;
+        }
+        else
+        {
+            $seq=$this->content_entries->last()->getSeq()+1;
+        }
+        $new_content_entry = new ContentEntry($this,$code,$code_type,$code_display_text,$seq);
+        $this->content_entries->add($new_content_entry);
+        return $new_content_entry;
+    }
     /**
-      * @OneToMany(targetEntity="ClinicalContext", mappedBy="ContentGroup", cascade={"persist","remove"})
+      * @OneToMany(targetEntity="ClinicalContext", mappedBy="content_group", cascade={"persist","remove"})
       * @OrderBy({"seq" = "ASC"})
       */
-    protected $ClinicalContexts;
+    protected $clinical_contexts;
     
    /**
     * @Column(type="string") 

@@ -15,4 +15,18 @@ function findContentGroups($code,$code_type)
     
     return $res;
 }
+
+function loadContentEntries($contentGroup,&$values)
+{
+    $values['display_texts']=[];
+    $values['codes']=[];
+    $values['code_types']=[];
+    $contentEntries=$contentGroup->getContent_entries();
+    foreach($contentEntries as $entry)
+    {
+        $values['display_texts'][]=$entry->getDisplay_text();
+        $values['codes'][]=$entry->getCode();
+        $values['code_types'][]=$entry->getCode_type();
+    }        
+}
 ?>

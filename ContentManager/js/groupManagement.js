@@ -52,16 +52,34 @@ function renameGroupStart(evt)
     input.attr("value",descriptionText);
 }
 
-function displayGroupContent(uuid)
+function displayGroupContext(uuid)
 {
     $.post("ajax/manageContentGroup.php",
-    {   task: "get_content_entries",
+    {   task: "get_context_entries",
         uuid: uuid
     }
     ,function(data){
-            $("#contentResults").empty();
-            $("#contentResults").html("stub code");
+            $("#contextResults").empty();
+            $("#contextResults").html("stub code context");
     }
+    ,"json");
+    
+}
+
+function handleGroupContentData(data)
+{
+            $("#contentResults").empty();
+            $("#contentResults").html(data.display_texts.length);
+    
+}
+function displayGroupContent(uuid)
+{
+    $.post("ajax/manageContentGroup.php",
+    {   
+        task: "get_content_entries",
+        uuid: uuid
+    }
+    ,handleGroupContentData
     ,"json");
     
 }
@@ -74,6 +92,7 @@ function chooseGroup()
     $("#groupChoice").text(description).attr("uuid",uuid);
     toggleGroupChooserVisibility();
     displayGroupContent(uuid);
+    displayGroupContext(uuid);
     
 //    window.alert(description);
 //    window.alert(uuid);

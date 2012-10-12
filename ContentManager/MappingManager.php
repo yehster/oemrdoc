@@ -17,6 +17,8 @@ $title=$DOMManager->addElement($head,"title","Content Mapping Tool");
 $DOMManager->addScript($head,"/openemr/library/js/jquery-1.7.1.min.js");
 $DOMManager->addScript($head,"js/MappingManager.js");
 $DOMManager->addScript($head,"js/groupManagement.js");
+$DOMManager->addScript($head,"js/codeOperations.js");
+$DOMManager->addScript($head,"js/testingFunctions.js");
 
 $body = $DOMManager->addElement($html,"body");
 $DIVChoices=$DOMManager->addElement($body,"div"," ",["id"=>"choices"]);
@@ -53,6 +55,9 @@ $DIVContentEntries=$DOMManager->addElement($body,"div"," ", ["id"=>"content_entr
 $DIVContentLabel=$DOMManager->addElement($DIVContentEntries,"div","Content Entries");
 $DIVContentResults = $DOMManager->addElement($DIVContentLabel,"div"," ",["id"=>"contentResults","class"=>"results"]);
 
+$DIVContextEntries=$DOMManager->addElement($body,"div"," ", ["id"=>"context_entries","class"=>"topDiv"]);
+$DIVContextLabel=$DOMManager->addElement($DIVContextEntries,"div","Context Entries");
+$DIVContextResults = $DOMManager->addElement($DIVContextLabel,"div"," ",["id"=>"contextResults","class"=>"results"]);
 
 $DOMManager->addScript($head,"js/viewManagement.js");
 

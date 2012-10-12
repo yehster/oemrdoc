@@ -54,10 +54,12 @@ function clickCodeDescription(evt)
 {
     var code=$(this).attr("code");
     var code_type=$(this).attr("code_type");
+    var description=$(this).text()
     
-    $("#codeChoice").text($(this).text());
+    $("#codeChoice").text(description);
     $("#codeChoice").attr("code",code);
     $("#codeChoice").attr("code_type",code_type);
+    dispatchCode(code,code_type,description);
 }
 function bind_code_table(table,event)
 {
@@ -157,5 +159,6 @@ function setupControls()
     $("#createGroup").on({click: createGroupClick});
     $("#groupLabel").on({click: toggleGroupChooserVisibility});
     sectionSelectChange(null);
+    testInitialization();
 }
 $(document).ready(setupControls);
