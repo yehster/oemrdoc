@@ -3,7 +3,7 @@ var mode_task_map=new  Array();
 var mode_task_callbacks=new Array();
 function afterContentCreate(data)
 {
-    handleGroupContentData(data);
+    handleGroupContentEntries(data);
 }
 mode_task_map['Content']='create_content_entry';
 mode_task_callbacks['Content']=afterContentCreate;

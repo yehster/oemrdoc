@@ -66,12 +66,12 @@ function displayGroupContext(uuid)
     
 }
 
-function handleGroupContentData(data)
+function handleGroupContentData(data,display)
 {
-        $("#contentResults").empty();
+        display.empty();
         if(data.display_texts.length==0)
         {
-            $("#contentResults").html("No Entries");     
+            display.html("No Entries");     
         }
         else
         {
@@ -82,11 +82,42 @@ function handleGroupContentData(data)
                 var tr=$("<tr></tr>");
                 tbody.append(tr);
                 var td_display=$("<td>"+data.display_texts[idx]+"</td>");
+                tr.attr("uuid",data.uuids[idx]);
+                tr.attr("code",data.codes[idx]);
+                tr.attr("code_type",data.code_types[idx]);
                 tr.append(td_display);
+                
+                var td_delete=$("<td><button class='delete'>del</button></td>");
+                tr.append(td_delete);
             }
-            $("#contentResults").append(display_table);
+            display.append(display_table);
         }
-    
+    return display_table;
+}
+function deleteContentEntryUUID(uuid)
+{
+    $.post("ajax/manageContentEntry.php",
+        {
+            task: "delete",
+            uuid: uuid
+        },
+        function(data)
+        {
+            window.alert("yo");
+        },
+        "json"
+    );
+}
+function deleteContentEntryEvent(evt)
+{
+    var uuid=$(this).parent().parent("tr").attr("uuid");
+    deleteContentEntryUUID(uuid);
+}
+
+function handleGroupContentEntries(data)
+{
+        var display =handleGroupContentData(data,$("#contentResults"));
+        display.find(".delete").on({click: deleteContentEntryEvent});
 }
 function displayGroupContent(uuid)
 {
@@ -95,7 +126,10 @@ function displayGroupContent(uuid)
         task: "get_content_entries",
         uuid: uuid
     }
-    ,handleGroupContentData
+    ,function(data)
+    {
+        handleGroupContentEntries(data);
+    }
     ,"json");
     
 }
