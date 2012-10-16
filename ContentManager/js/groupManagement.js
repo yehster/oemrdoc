@@ -71,7 +71,8 @@ function handleGroupContentData(data,display)
         display.empty();
         if(data.display_texts.length==0)
         {
-            display.html("No Entries");     
+            display.html("No Entries");   
+            return display;
         }
         else
         {
@@ -89,6 +90,10 @@ function handleGroupContentData(data,display)
                 
                 var td_delete=$("<td><button class='delete'>del</button></td>");
                 tr.append(td_delete);
+                var td_up=$("<td><button class='move'>up</button></td>");
+                var td_down=$("<td><button class='move'>down</button></td>");
+                tr.append(td_up);
+                tr.append(td_down);
             }
             display.append(display_table);
         }
@@ -103,7 +108,7 @@ function deleteContentEntryUUID(uuid)
         },
         function(data)
         {
-            window.alert("yo");
+            handleGroupContentEntries(data);        
         },
         "json"
     );
@@ -114,10 +119,37 @@ function deleteContentEntryEvent(evt)
     deleteContentEntryUUID(uuid);
 }
 
+
+function moveContentEntryUUID(uuid,direction)
+{
+    $.post("ajax/manageContentEntry.php",
+        {
+            task: "move",
+            uuid: uuid,
+            direction: direction
+        },
+        function(data)
+        {
+            handleGroupContentEntries(data);        
+        },
+        "json"
+    );
+}
+
+function moveContentEntryEvent(evt)
+{
+    var uuid=$(this).parent().parent("tr").attr("uuid");
+    var direction=$(this).text();
+    moveContentEntryUUID(uuid,direction);
+}
+
 function handleGroupContentEntries(data)
 {
         var display =handleGroupContentData(data,$("#contentResults"));
         display.find(".delete").on({click: deleteContentEntryEvent});
+        display.find("button.move").on({click: moveContentEntryEvent});
+        display.find("tr:first button.move:contains('up')").attr("disabled","disabled");
+        display.find("tr:last button.move:contains('down')").attr("disabled","disabled");
 }
 function displayGroupContent(uuid)
 {

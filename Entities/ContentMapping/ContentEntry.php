@@ -28,11 +28,15 @@ class ContentEntry {
         return $this->uuid;
     }
     /**
-     * @ManyToOne(targetEntity="ContentGroup", inversedBy="ContentEntries", cascade={"persist","remove"})
+     * @ManyToOne(targetEntity="ContentGroup", inversedBy="ContentEntries", cascade={"persist"})
      * @JoinColumn(name="content_group", referencedColumnName="uuid")
      */
     protected $content_group;
     
+    public function getContent_group()
+    {
+        return $this->content_group;
+    }
    /**
     * @Column(type="string") 
     */
@@ -71,6 +75,11 @@ class ContentEntry {
     public function getSeq()
     {
         return $this->seq;
+    }
+    
+    public function setSeq($val)
+    {
+        $this->seq=$val;
     }
 }
 
