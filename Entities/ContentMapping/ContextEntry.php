@@ -4,19 +4,21 @@ namespace library\doctrine\Entities\ContentMapping;
 
 /**
   * @Entity
-  * @Table(name="dct_clinical_contexts")
+  * @Table(name="dct_context_entries")
   */
-class ClinicalContext
+class ContextEntry implements \JsonSerializable
 {
 
+    use OrderedCodeEntry; 
+    
     /**
      * @Id 
      * @Column(type="string") 
      */
     protected $uuid;
-    
+
     /**
-     * @ManyToOne(targetEntity="ContentGroup", inversedBy="ClinicalContexts", cascade={"persist","remove"})
+     * @ManyToOne(targetEntity="ContentGroup", inversedBy="context_entries", cascade={"persist","remove"})
      * @JoinColumn(name="content_group", referencedColumnName="uuid")
      */
     protected $content_group;    
@@ -39,6 +41,11 @@ class ClinicalContext
     /**
      * @Column(type="integer") 
      */    
-    protected $seq;    
+    protected $seq;
+    
+    public function jsonSerialize()
+    {
+        return OrderedCodeEntry::jsonSerialize();
+    }
 }
 ?>

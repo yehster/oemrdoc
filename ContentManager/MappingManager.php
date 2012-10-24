@@ -44,7 +44,7 @@ $DIVCodeResults = $DOMManager->addElement($DIVcodeLookup,"div"," ",["id"=>"codes
 
 $DIVsectionLookup = $DOMManager->addElement($body,"div"," ", ["id"=>"sections","class"=>"topDiv"]);
 $INPUTsectionLookup = $DOMManager->addElement($DIVsectionLookup,"input"," ", ["id"=>"sectionLookup","type"=>"text"]);
-$SELECTsectionChoice = $DOMManager->addSelect($DIVsectionLookup,["Review of Systems","Physical Exam","Context","Family"],["id"=>"sectionSelect"],2);
+$SELECTsectionChoice = $DOMManager->addSelect($DIVsectionLookup,["Review of Systems","Physical Exam","Context","Family"],["id"=>"sectionSelect"],0);
 $DIVsectionResults = $DOMManager->addElement($DIVsectionLookup,"div"," ",["id"=>"sectionResults","class"=>"results"]);
 
 $DIVGroups = $DOMManager->addElement($body,"div"," ", ["id"=>"groups","class"=>"topDiv"]);

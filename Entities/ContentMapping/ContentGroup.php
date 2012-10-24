@@ -11,8 +11,8 @@ class ContentGroup {
     public function __construct($cb,$dc,$dct,$desc)
     {
 	$this->uuid=uuid_create();
-        $this->ContentEntries = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->ClinicalContexts = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->content_entries = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->context_entries = new \Doctrine\Common\Collections\ArrayCollection();
         $this->created_by=$cb;
         $this->document_context_code=$dc;
         $this->document_context_code_type=$dct;
@@ -30,6 +30,7 @@ class ContentGroup {
     {
         return $this->uuid;
     }
+
     
     /**
       * @OneToMany(targetEntity="ContentEntry", mappedBy="content_group", cascade={"persist","remove"})
@@ -58,11 +59,31 @@ class ContentGroup {
         return $new_content_entry;
     }
     /**
-      * @OneToMany(targetEntity="ClinicalContext", mappedBy="content_group", cascade={"persist","remove"})
+      * @OneToMany(targetEntity="ContextEntry", mappedBy="content_group", cascade={"persist","remove"})
       * @OrderBy({"seq" = "ASC"})
       */
-    protected $clinical_contexts;
+    protected $context_entries;
+
+    public function createContext_entry($code,$code_type,$code_display_text)
+    {
+        $num_entries=count($this->context_entries);
+        if($num_entries==0)
+        {
+            $seq=0;
+        }
+        else
+        {
+            $seq=$this->context_entries->last()->getSeq()+1;
+        }
+        $new_context_entry = new ContextEntry($this,$code,$code_type,$code_display_text,$seq);
+        $this->context_entries->add($new_context_entry);
+        return $new_context_entry;
+    }
     
+    public function getContext_entries()
+    {
+        return $this->context_entries;
+    }    
    /**
     * @Column(type="string") 
     */

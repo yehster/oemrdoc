@@ -6,37 +6,23 @@ namespace library\doctrine\Entities\ContentMapping;
   * @Entity
   * @Table(name="dct_content_entries")
   */
-class ContentEntry {
-    public function  __construct($parent,$code,$code_type,$display_text,$seq)
-    {
-        $this->uuid=uuid_create();
-        $this->content_group=$parent;
-        $this->code=$code;
-        $this->code_type=$code_type;
-        $this->display_text=$display_text;
-        $this->seq=$seq;
-    }
+class ContentEntry implements \JsonSerializable
+{
+    
+    use OrderedCodeEntry;
     
     /**
      * @Id 
      * @Column(type="string") 
      */
-    protected $uuid;
-    
-    public function getUUID()
-    {
-        return $this->uuid;
-    }
+    protected $uuid;  
+   
     /**
-     * @ManyToOne(targetEntity="ContentGroup", inversedBy="ContentEntries", cascade={"persist"})
+     * @ManyToOne(targetEntity="ContentGroup", inversedBy="content_entries", cascade={"persist"})
      * @JoinColumn(name="content_group", referencedColumnName="uuid")
      */
     protected $content_group;
     
-    public function getContent_group()
-    {
-        return $this->content_group;
-    }
    /**
     * @Column(type="string") 
     */
@@ -62,25 +48,24 @@ class ContentEntry {
     */
     protected $display_text;
     
-    public function getDisplay_text()
-    {
-        return $this->display_text;
-    }
-    
     /**
      * @Column(type="integer") 
      */    
-    protected $seq;
+    protected $seq;    
     
-    public function getSeq()
+   /**
+    * @Column(type="string") 
+    */
+    protected $classification;
+
+    public function jsonSerialize()
     {
-        return $this->seq;
+        $retVal=OrderedCodeEntry::jsonSerialize();
+        $retVal['classification']=$this->classification;
+        return $retVal;
     }
     
-    public function setSeq($val)
-    {
-        $this->seq=$val;
-    }
+            
 }
 
 ?>

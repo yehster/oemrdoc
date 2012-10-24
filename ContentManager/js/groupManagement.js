@@ -52,6 +52,10 @@ function renameGroupStart(evt)
     input.attr("value",descriptionText);
 }
 
+function handleGroupContextEntries(data)
+{
+        var display =handleGroupContentData(data,$("#contextResults"),"context_entries");
+}
 function displayGroupContext(uuid)
 {
     $.post("ajax/manageContentGroup.php",
@@ -59,17 +63,16 @@ function displayGroupContext(uuid)
         uuid: uuid
     }
     ,function(data){
-            $("#contextResults").empty();
-            $("#contextResults").html("stub code context");
+        handleGroupContextEntries(data);
     }
     ,"json");
     
 }
 
-function handleGroupContentData(data,display)
+function handleGroupContentData(data,display,type)
 {
         display.empty();
-        if(data.display_texts.length==0)
+        if(data[type].length==0)
         {
             display.html("No Entries");   
             return display;
@@ -78,14 +81,15 @@ function handleGroupContentData(data,display)
         {
             var display_table=$("<table><tbody></tbody></table>");
             var tbody=display_table.find("tbody");
-            for(idx=0;idx<data.display_texts.length;idx++)
+            for(idx=0;idx<data[type].length;idx++)
             {
+                var entry=data[type][idx];
                 var tr=$("<tr></tr>");
                 tbody.append(tr);
-                var td_display=$("<td>"+data.display_texts[idx]+"</td>");
-                tr.attr("uuid",data.uuids[idx]);
-                tr.attr("code",data.codes[idx]);
-                tr.attr("code_type",data.code_types[idx]);
+                var td_display=$("<td>"+entry.display_text+"</td>");
+                tr.attr("uuid",entry.uuid);
+                tr.attr("code",entry.code);
+                tr.attr("code_type",entry.code_type);
                 tr.append(td_display);
                 
                 var td_delete=$("<td><button class='delete'>del</button></td>");
@@ -145,7 +149,7 @@ function moveContentEntryEvent(evt)
 
 function handleGroupContentEntries(data)
 {
-        var display =handleGroupContentData(data,$("#contentResults"));
+        var display =handleGroupContentData(data,$("#contentResults"),"content_entries");
         display.find(".delete").on({click: deleteContentEntryEvent});
         display.find("button.move").on({click: moveContentEntryEvent});
         display.find("tr:first button.move:contains('up')").attr("disabled","disabled");

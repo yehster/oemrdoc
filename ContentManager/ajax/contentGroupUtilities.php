@@ -18,17 +18,21 @@ function findContentGroups($code,$code_type)
 
 function loadContentEntries($contentGroup,&$values)
 {
-    $values['display_texts']=[];
-    $values['codes']=[];
-    $values['code_types']=[];
-    $values['uuids']=[];
+    $values['content_entries']=[];
     $contentEntries=$contentGroup->getContent_entries();
     foreach($contentEntries as $entry)
     {
-        $values['display_texts'][]=$entry->getDisplay_text();
-        $values['codes'][]=$entry->getCode();
-        $values['code_types'][]=$entry->getCode_type();
-        $values['uuids'][]=$entry->getUUID();
-    }        
+        $values['content_entries'][]=$entry;
+    }
 }
+function loadContextEntries($contentGroup,&$values)
+{
+    $values['context_entries']=[];
+    $contextEntries=$contentGroup->getContext_entries();
+    foreach($contextEntries as $entry)
+    {
+        $values['context_entries'][]=$entry;
+    }
+}
+
 ?>

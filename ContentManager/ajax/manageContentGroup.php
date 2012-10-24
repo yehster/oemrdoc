@@ -40,43 +40,58 @@ if($task=='get_content_entries')
     loadContentEntries($contentGroup,$retval);
 }
 
-if($task=='create_content_entry')
+if($task=='get_context_entries')
 {
-    if(isset($_REQUEST['content_code']))
+    loadContextEntries($contentGroup,$retval);
+}
+
+if(($task=='create_context_entry') || ($task=='create_content_entry'))
+{
+    if($task=='create_content_entry')
     {
-        $content_code=$_REQUEST['content_code'];
+        $createFunction="createContent_entry";
+        $displayFunction="loadContentEntries";
+    }
+    else
+    {
+        $createFunction="createContext_entry";
+        $displayFunction="loadContextEntries";
+    }
+    if(isset($_REQUEST['code']))
+    {
+        $code=$_REQUEST['code'];
     }
     else
     {
         header("HTTP/1.0 403 Forbidden");    
-        echo "No content code specified".$uuid;
+        echo "No code specified".$uuid;
         return;               
     }
-    if(isset($_REQUEST['content_code_type']))
+    if(isset($_REQUEST['code_type']))
     {
-        $content_code_type=$_REQUEST['content_code_type'];
+        $code_type=$_REQUEST['code_type'];
     }
     else
     {
         header("HTTP/1.0 403 Forbidden");    
-        echo "No content code type specified".$uuid;
+        echo "No code type specified".$uuid;
         return;               
     }
 
-    if(isset($_REQUEST['content_display_text']))
+    if(isset($_REQUEST['display_text']))
     {
-        $content_display_text=$_REQUEST['content_display_text'];
+        $display_text=$_REQUEST['display_text'];
     }
     else
     {
         header("HTTP/1.0 403 Forbidden");    
-        echo "No content display text specified".$uuid;
+        echo "No display text specified".$uuid;
         return;               
     }
-    $new_content_entry=$contentGroup->createContent_entry($content_code,$content_code_type,$content_display_text);
+    $new_entry=$contentGroup->$createFunction($code,$code_type,$display_text);
     $em->flush();
-    loadContentEntries($contentGroup,$retval);
-    $retval['contentEntryUUID']=$new_content_entry->getUUID();;
+    $displayFunction($contentGroup,$retval);
+    $retval['newEntryUUID']=$new_entry->getUUID();;
 }
 
 echo json_encode($retval);
