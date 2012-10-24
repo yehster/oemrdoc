@@ -4,6 +4,7 @@
 </style>
 <html>
     <head>
+        <meta charset="utf-8">
         <title>My Documents</title>
     </head>
     <body>        
