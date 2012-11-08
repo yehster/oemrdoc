@@ -45,3 +45,10 @@ div[mode_choice='true'].mode_option
 {
     background-color: activecaption;
 }
+
+#contentResults tr[classification='NORMAL']     {background-color: greenyellow;}
+#contentResults tr[classification='ABNORMAL']   { background-color: red;}
+#contentResults tr[classification='TRAIT']      {background-color: lightblue;}
+#contentResults tr[classification='MEASUREMENT']{background-color: gold;}
+
+

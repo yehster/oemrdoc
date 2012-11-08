@@ -58,6 +58,11 @@ class ContentEntry implements \JsonSerializable
     */
     protected $classification;
 
+    public function setClassification($val)
+    {
+        $this->classification=$val;
+    }
+    
     public function jsonSerialize()
     {
         $retVal=OrderedCodeEntry::jsonSerialize();

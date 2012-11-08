@@ -56,9 +56,10 @@ function handleGroupContentData(data,display,type)
                 var tr=$("<tr></tr>");
                 tbody.append(tr);
                 var td_display=$("<td>"+entry.display_text+"</td>");
-                tr.attr("uuid",entry.uuid);
-                tr.attr("code",entry.code);
-                tr.attr("code_type",entry.code_type);
+                for(key in entry)
+                {
+                    tr.attr(key,entry[key]);
+                }
                 tr.append(td_display);
                 
                 var td_delete=$("<td><button class='delete'>del</button></td>");

@@ -80,6 +80,22 @@ if($task=="move")
         
 }
 
+if($task=="set_classification")
+{
+    if(isset($_REQUEST['classification']))
+    {
+        $classification=$_REQUEST['classification'];
+    }
+    else
+    {
+        header("HTTP/1.0 403 Forbidden");    
+        echo "No classification specified";
+        return;                      
+    }
+    $contentEntry->setClassification($classification);
+    $em->flush();
+}
+
 loadContentEntries($contentGroup,$retval);
 
 echo json_encode($retval);
