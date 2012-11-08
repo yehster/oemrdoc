@@ -17,8 +17,10 @@ $title=$DOMManager->addElement($head,"title","Content Mapping Tool");
 $DOMManager->addScript($head,"/openemr/library/js/jquery-1.7.1.min.js");
 $DOMManager->addScript($head,"js/MappingManager.js");
 $DOMManager->addScript($head,"js/codeOperations.js");
-$DOMManager->addScript($head,"js/contentEntries.js");
 $DOMManager->addScript($head,"js/groupManagement.js");
+
+$DOMManager->addScript($head,"js/contentEntries.js");
+$DOMManager->addScript($head,"js/contextEntries.js");
 
 $DOMManager->addScript($head,"js/testingFunctions.js");
 
@@ -55,12 +57,12 @@ $CreateGroup= $DOMManager->addElement($DIVGroups,"button","Create Group",["id"=>
 $DIVgroupResults = $DOMManager->addElement($DIVGroups,"div"," ",["id"=>"groupResults","class"=>"results"]);
 
 $DIVContentEntries=$DOMManager->addElement($body,"div"," ", ["id"=>"content_entries","class"=>"topDiv"]);
-$DIVContentLabel=$DOMManager->addElement($DIVContentEntries,"div","Content Entries");
-$DIVContentResults = $DOMManager->addElement($DIVContentLabel,"div"," ",["id"=>"contentResults","class"=>"results"]);
+$DIVContentLabel=$DOMManager->addElement($DIVContentEntries,"div","Content Entries",["class"=>"mode_option","mode"=>"Content","mode_choice"=>"true"]);
+$DIVContentResults = $DOMManager->addElement($DIVContentEntries,"div"," ",["id"=>"contentResults","class"=>"results"]);
 
 $DIVContextEntries=$DOMManager->addElement($body,"div"," ", ["id"=>"context_entries","class"=>"topDiv"]);
-$DIVContextLabel=$DOMManager->addElement($DIVContextEntries,"div","Context Entries");
-$DIVContextResults = $DOMManager->addElement($DIVContextLabel,"div"," ",["id"=>"contextResults","class"=>"results"]);
+$DIVContextLabel=$DOMManager->addElement($DIVContextEntries,"div","Context Entries",["class"=>"mode_option","mode"=>"Context","mode_choice"=>"false"]);
+$DIVContextResults = $DOMManager->addElement($DIVContextEntries,"div"," ",["id"=>"contextResults","class"=>"results"]);
 
 $DOMManager->addScript($head,"js/viewManagement.js");
 

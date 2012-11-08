@@ -15,8 +15,8 @@ if(isset($_REQUEST['task']))
 if(isset($_REQUEST['uuid']))
 {
    $uuid= $_REQUEST['uuid'];
-   $contextEntry =$em->getRepository('library\doctrine\Entities\ContextMapping\ContextEntry')->find($uuid);
-   $contextGroup=$contextEntry->getContext_group();
+   $contextEntry =$em->getRepository('library\doctrine\Entities\ContentMapping\ContextEntry')->find($uuid);
+   $contentGroup=$contextEntry->getContent_group();
 }
 if(empty($contextEntry))
 {
@@ -43,7 +43,7 @@ if($task=="move")
         echo "No direction specified:".$uuid;
         return;               
     }
-    $contextEntries=$contextGroup->getContext_entries();
+    $contextEntries=$contentGroup->getContext_entries();
     $entry_index=$contextEntries->indexOf($contextEntry);
     $num_entries=count($contextEntries);
     if($entry_index===false)
@@ -75,12 +75,12 @@ if($task=="move")
         $otherEntry->setSeq($contextEntry->getSeq());
         $contextEntry->setSeq($swapSeq);
         $em->flush();
-        $em->refresh($contextGroup);
+        $em->refresh($contentGroup);
     }
         
 }
 
-loadContextEntries($contextGroup,$retval);
+loadContextEntries($contentGroup,$retval);
 
 echo json_encode($retval);
 ?>

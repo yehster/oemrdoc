@@ -18,7 +18,7 @@ class ContextEntry implements \JsonSerializable
     protected $uuid;
 
     /**
-     * @ManyToOne(targetEntity="ContentGroup", inversedBy="context_entries", cascade={"persist","remove"})
+     * @ManyToOne(targetEntity="ContentGroup", inversedBy="context_entries", cascade={"persist"})
      * @JoinColumn(name="content_group", referencedColumnName="uuid")
      */
     protected $content_group;    

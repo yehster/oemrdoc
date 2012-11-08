@@ -10,7 +10,7 @@ mode_task_callbacks['Content']=afterContentCreate;
 
 function afterContextCreate(data)
 {
-    window.alert("Context Created!");
+    handleGroupContextEntries(data);
 }
 mode_task_map['Context']='create_context_entry';
 mode_task_callbacks['Context']=afterContextCreate;
@@ -19,7 +19,7 @@ function dispatchCode(code,code_type,desc)
 {
     // Create a Content or a Context Entry depending on selections.
     var group_uuid=$("#groupChoice").attr("uuid");
-    var mode="Content"; // Hard coding this for now.
+    var mode=$("div[mode_choice='true'].mode_option").attr("mode");
     var task=mode_task_map[mode];
     var callBack=mode_task_callbacks[mode];
     $.post
@@ -71,4 +71,14 @@ function handleGroupContentData(data,display,type)
             display.append(display_table);
         }
     return display_table;
+}
+
+function chooseMode(evt)
+{
+    $(".mode_option").attr("mode_choice","false");
+    $(this).attr("mode_choice","true");
+}
+function bindCodeOperations()
+{
+    $(".mode_option").on({click: chooseMode});
 }

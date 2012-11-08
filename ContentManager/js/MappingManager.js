@@ -159,6 +159,7 @@ function setupControls()
     $("#createGroup").on({click: createGroupClick});
     $("#groupLabel").on({click: toggleGroupChooserVisibility});
     sectionSelectChange(null);
+    bindCodeOperations();
     testInitialization();
 }
 $(document).ready(setupControls);

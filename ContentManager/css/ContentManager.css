@@ -37,3 +37,11 @@ input.renameGroup
 {
     background-color: yellow;
 }
+.mode_option
+{
+    cursor: pointer;
+}
+div[mode_choice='true'].mode_option
+{
+    background-color: activecaption;
+}

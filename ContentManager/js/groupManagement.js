@@ -52,10 +52,7 @@ function renameGroupStart(evt)
     input.attr("value",descriptionText);
 }
 
-function handleGroupContextEntries(data)
-{
-        var display =handleGroupContentData(data,$("#contextResults"),"context_entries");
-}
+
 function displayGroupContext(uuid)
 {
     $.post("ajax/manageContentGroup.php",
