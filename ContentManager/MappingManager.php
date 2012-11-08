@@ -16,9 +16,12 @@ $title=$DOMManager->addElement($head,"title","Content Mapping Tool");
 
 $DOMManager->addScript($head,"/openemr/library/js/jquery-1.7.1.min.js");
 $DOMManager->addScript($head,"js/MappingManager.js");
-$DOMManager->addScript($head,"js/groupManagement.js");
 $DOMManager->addScript($head,"js/codeOperations.js");
+$DOMManager->addScript($head,"js/contentEntries.js");
+$DOMManager->addScript($head,"js/groupManagement.js");
+
 $DOMManager->addScript($head,"js/testingFunctions.js");
+
 
 $body = $DOMManager->addElement($html,"body");
 $DIVChoices=$DOMManager->addElement($body,"div"," ",["id"=>"choices"]);
