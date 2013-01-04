@@ -50,7 +50,7 @@ var content_entry_classification_html="<select>"
     +"<option value='NORMAL'>Normal</option>"
     +"<option value='ABNORMAL'>Abnormal</option>"
     +"<option value='TRAIT'>Trait</option>"
-    +"<option value='MEASUREMENT'>Measurement</option>"
+    +"<option value='QUANTITATIVE'>Quantitative</option>"
 
     +"</select>";
 function addClassificationControls(display)

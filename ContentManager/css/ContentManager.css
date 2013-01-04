@@ -49,6 +49,6 @@ div[mode_choice='true'].mode_option
 #contentResults tr[classification='NORMAL']     {background-color: greenyellow;}
 #contentResults tr[classification='ABNORMAL']   { background-color: red;}
 #contentResults tr[classification='TRAIT']      {background-color: lightblue;}
-#contentResults tr[classification='MEASUREMENT']{background-color: gold;}
+#contentResults tr[classification='QUANTITATIVE']{background-color: gold;}
 
 
