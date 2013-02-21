@@ -27,7 +27,7 @@ $html->appendChild($head);
 $title=$DOM->createElement("title",$doc->getMetadata()->getLongDesc()." : ".$patient->displayName());
 $head->appendChild($title);
 
-DOMUtilities\addScript($DOM,$head,"/openemr/library/js/jquery-1.7.1.min.js");
+DOMUtilities\addScript($DOM,$head,"/openemr/library/js/jquery-1.9.1.min.js");
 DOMUtilities\addStyle($DOM,$head,"display.css");
 DOMUtilities\addStyle($DOM,$head,"icd9/icd9problems.css");
 DOMUtilities\addStyle($DOM,$head,"medications/medications.css");

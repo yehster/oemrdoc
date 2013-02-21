@@ -14,7 +14,7 @@ $DOMManager->addStyle($head,"css/ContentManager.css");
 $title=$DOMManager->addElement($head,"title","Content Mapping Tool");
 
 
-$DOMManager->addScript($head,"/openemr/library/js/jquery-1.7.1.min.js");
+$DOMManager->addScript($head,"/openemr/library/js/jquery-1.9.1.min.js");
 $DOMManager->addScript($head,"js/MappingManager.js");
 $DOMManager->addScript($head,"js/codeOperations.js");
 $DOMManager->addScript($head,"js/groupManagement.js");
